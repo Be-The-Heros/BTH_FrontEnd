@@ -1,0 +1,18 @@
+HTTP/2 200
+Content-Type: application/json; charset=utf-8
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS, HEAD
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Credentials: true
+
+[
+	{
+		"id": 208,
+		"bankId": 2,
+		"bankName": "Голомт банк",
+		"accountName": "Ууганбаяр Отгонбаяр",
+		"accountNumber": "3312345678",
+		"createdAt": "2022-01-20T07:41:27.000Z",
+		"updatedAt": "2022-01-20T07:41:27.000Z"
+	}
+]
