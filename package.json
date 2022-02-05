@@ -33,6 +33,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "lint": "prettier --check ./src",
+    "format": "prettier --write ./src",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "mockAPI": "node mocks/mockAPI.js",
@@ -58,5 +60,17 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && git add -A ."
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
 }
