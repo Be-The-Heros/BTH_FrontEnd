@@ -1,10 +1,10 @@
-import React from "react";
-import { Header } from "../components/Header";
+import React from 'react';
 
-export const Layout: React.FC = ({ children }) => {
-  return (
-    <div className="layout">
-      <Header />
-    </div>
-  );
+interface LayoutProps {
+  SideBarLeft?: React.FC;
+  SideBarRight?: React.FC;
+}
+export const Layout = (props: LayoutProps) => {
+  const { SideBarLeft, SideBarRight } = props;
+  return <div className='layout'>{SideBarRight && <SideBarRight />}</div>;
 };

@@ -1,10 +1,17 @@
 body {
   margin: 0;
-  font-family: "Roboto";
+  font-family: 'Poppins' !important;
   padding: 0;
+  font-size: 16px !important;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.btn {
+  border-radius: 10em;
+}
+.btn :hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  color: #ffff;
+  transition: -webkit-transform 0.25s linear;
+  transition: transform 0.25s linear;
+  transition: transform 0.25s linear, -webkit-transform 0.25s linear;
 }

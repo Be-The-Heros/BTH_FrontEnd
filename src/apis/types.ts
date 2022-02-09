@@ -1,13 +1,14 @@
-import { AxiosRequestHeaders } from "axios";
+import { AxiosRequestHeaders } from 'axios';
 
 export interface Config {
   api: {
     kycUrl: string;
+    useUrl: string;
   };
 }
 
 export interface RequestOptions {
-  apiVersion: "kyc";
+  apiVersion: 'kyc';
   headers?: AxiosRequestHeaders;
   widthHeader?: boolean;
 }
@@ -25,5 +26,5 @@ declare global {
 export interface RequestPayload {
   body?: JsonBody | FormData;
   params?: Object;
-  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 }
