@@ -6,6 +6,7 @@ import {
   BrowserRouter as Router,
   Routes,
 } from 'react-router-dom';
+import { SignInPage } from './SignIn';
 
 const Home = React.lazy(() => import('./home'));
 export const AppViews = () => {
@@ -13,6 +14,7 @@ export const AppViews = () => {
     <Router>
       <Suspense fallback={<Loading cover='content' />}>
         <Routes>
+          <Route path='/login' element={<SignInPage />} />
           <Route path='/' element={<Home />} />
           <Route path='*' element={<Navigate to='/' />} />
         </Routes>

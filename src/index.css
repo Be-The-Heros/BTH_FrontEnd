@@ -1,11 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+html {
+  font-size: 16px;
+}
 body {
   margin: 0;
-  font-family: 'Poppins' !important;
+  font-family: 'Poppins', sans-serif;
   padding: 0;
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
-.btn {
-  border-radius: 10em;
+/* .btn {
+  border-radius: 2em;
 }
 .btn :hover {
   -webkit-transform: scale(1.1);
@@ -14,4 +18,4 @@ body {
   transition: -webkit-transform 0.25s linear;
   transition: transform 0.25s linear;
   transition: transform 0.25s linear, -webkit-transform 0.25s linear;
-}
+} */
