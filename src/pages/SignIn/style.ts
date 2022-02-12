@@ -33,6 +33,15 @@ export default styled.div`
           color: var(--primary-light);
         }
       }
+      &--sign-up-link {
+        color: var(--label);
+        &:hover {
+          color: var(--dark);
+        }
+        a {
+          color: var(--primary-light);
+        }
+      }
     }
 
     &__content {
@@ -43,7 +52,7 @@ export default styled.div`
         input {
           border-radius: 0.5em;
           outline: none;
-          border: 1px solid #adadad;
+          border: 1px solid var(--border);
           width: 100%;
           padding: 0.5em 1em;
           box-sizing: border-box;
@@ -68,6 +77,28 @@ export default styled.div`
         border-radius: 0.75em;
         padding: 0.5em;
       }
+    }
+  }
+  .plugin {
+    padding-top: 2em;
+    &-google,
+    &-facebook {
+      background-color: var(--bg-plugin);
+      padding: 0.5em 1em;
+      border-radius: 0.35em;
+      box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      &:hover {
+        background-color: var(--primary-light);
+        color: var(--white);
+      }
+    }
+    &-facebook {
+      background-color: var(--background-light);
+    }
+    &-icon {
+      width: 1.25em;
+      margin-right: 0.5em;
     }
   }
 `;
