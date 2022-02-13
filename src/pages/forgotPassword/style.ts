@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 export default styled.div`
-  .form-sign-in {
+  .form-forgot-password {
     box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
     border-radius: 2em;
     background-color: #ffff;
@@ -77,7 +77,7 @@ export default styled.div`
           color: var(--primary);
         }
       }
-      .btn--sign-in {
+      .btn--forgot-password {
         background-color: var(--primary-light) !important;
         color: #ffff !important;
         border-radius: 0.75em;
