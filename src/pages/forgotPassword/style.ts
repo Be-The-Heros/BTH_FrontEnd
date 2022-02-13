@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-
 export default styled.div`
-  .form-sign-up {
+  .form-sign-in {
     box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
     border-radius: 2em;
     background-color: #ffff;
     min-height: 500px;
+    padding: 3em 1em;
     width: 450px;
-    padding: 2.5em 1em;
     &__header {
       &--welcome {
         font-size: 0.95em;
@@ -19,7 +18,9 @@ export default styled.div`
       &--type {
         font-size: 2.5em;
         font-weight: bold;
-        line-height: 82px;
+        line-height: 1.5em;
+        padding-top: 0.5em;
+        font-weight: bold;
       }
 
       &--sign-up {
@@ -44,9 +45,8 @@ export default styled.div`
     &__content {
       &--form-input {
         position: relative;
-        margin: 1em 0;
         label {
-          margin: 0.5em 0;
+          margin: 1em 0;
         }
         input {
           border-radius: 0.5em;
@@ -77,12 +77,11 @@ export default styled.div`
           color: var(--primary);
         }
       }
-      .btn--sign-up {
+      .btn--sign-in {
         background-color: var(--primary-light) !important;
         color: #ffff !important;
         border-radius: 0.75em;
         padding: 0.5em;
-        margin: 1.5em 0;
         box-shadow: 0px 4px 19px rgba(119, 147, 65, 0.3);
       }
     }

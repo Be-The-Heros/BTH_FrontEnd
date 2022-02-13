@@ -6,6 +6,7 @@ import {
   BrowserRouter as Router,
   Routes,
 } from 'react-router-dom';
+import { ForgotPasswordPage } from './forgotPassword';
 import { SignInPage } from './SignIn';
 import { SignUpPage } from './SignUp';
 
@@ -17,7 +18,7 @@ export const AppViews = () => {
         <Routes>
           <Route path='/sign-in' element={<SignInPage />} />
           <Route path='/sign-up' element={<SignUpPage />} />
-
+          <Route path='/forgot-password' element={<ForgotPasswordPage />} />
           <Route path='/' element={<Home />} />
           <Route path='*' element={<Navigate to='/' />} />
         </Routes>
