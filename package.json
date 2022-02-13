@@ -39,7 +39,7 @@
     "start": "react-scripts start",
     "lint": "prettier --check ./src",
     "format": "prettier --write ./src",
-    "build": "react-scripts build",
+    "build": "CI=false react-scripts build GENERATE_SOURCEMAP=false",
     "test": "react-scripts test",
     "mockAPI": "node mocks/mockAPI.js",
     "mockWS": "node mocks/mockWS.js",
