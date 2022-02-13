@@ -1,21 +1,17 @@
-import React from 'react';
-import Style from './style';
-import saly1 from 'assets/images/saly1.svg';
-import saly2 from 'assets/images/saly2.svg';
-import icon_gg from 'assets/images/icon_gg.svg';
 import icon_fb from 'assets/images/icon_fb.svg';
+import icon_gg from 'assets/images/icon_gg.svg';
+import React from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { LayoutAuth } from 'templates/LayoutAuth';
+import Style from './style';
 
 export const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = React.useState(true);
 
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
   return (
-    <Style className='d-flex justify-content-around align-items-center flex-wrap'>
-      <div className='col-md-3'>
-        <img src={saly1} alt={'img'}></img>
-      </div>
-      <div className='content'>
+    <LayoutAuth>
+      <Style>
         <div className='form-sign-in'>
           <div className='form-sign-in__header d-flex flex-wrap'>
             <div className='col-6'>
@@ -73,10 +69,7 @@ export const SignInPage = () => {
             <img src={icon_fb} alt={'icon-fb'} className='plugin-icon'></img>
           </div>
         </div>
-      </div>
-      <div className='col-md-3'>
-        <img src={saly2} alt={'img'}></img>
-      </div>
-    </Style>
+      </Style>
+    </LayoutAuth>
   );
 };
