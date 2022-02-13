@@ -43,7 +43,7 @@ export const ForgotPasswordPage = () => {
             >
               Go to Sign In?
             </div>
-            <button className='btn btn--sign-in w-100'>Send email</button>
+            <button className='btn btn--sign-in w-100'>Send OTP</button>
           </div>
         </div>
         <div className='plugin w-100 d-flex flex-wrap justify-content-center'>
