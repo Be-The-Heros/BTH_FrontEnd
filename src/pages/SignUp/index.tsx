@@ -4,7 +4,7 @@ import { LayoutAuth } from 'templates/LayoutAuth';
 import icon_fb from 'assets/images/icon_fb.svg';
 import icon_gg from 'assets/images/icon_gg.svg';
 import Style from './style';
-export const SignUpPage = () => {
+export default function SignUpPage() {
   const navigate = useNavigate();
   return (
     <LayoutAuth>
@@ -85,4 +85,4 @@ export const SignUpPage = () => {
       </Style>
     </LayoutAuth>
   );
-};
+}

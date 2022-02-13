@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import { LayoutAuth } from 'templates/LayoutAuth';
 import Style from './style';
 
-export const SignInPage = () => {
+const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = React.useState(true);
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
   const [info, setInfo] = React.useState({
@@ -100,3 +100,5 @@ export const SignInPage = () => {
     </LayoutAuth>
   );
 };
+
+export default SignInPage;

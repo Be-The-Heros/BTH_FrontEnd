@@ -6,7 +6,7 @@ import icon_gg from 'assets/images/icon_gg.svg';
 import Style from './style';
 import { isEmptyValue } from 'helpers';
 import { CheckingOTP } from './components/CheckingOTP';
-export const ForgotPasswordPage = () => {
+export default function ForgotPasswordPage() {
   const navigate = useNavigate();
   const [emailValue, setEmailValue] = useState('');
   const [isOpenOTP, setIsOpenOTP] = useState(false);
@@ -92,4 +92,4 @@ export const ForgotPasswordPage = () => {
       </Style>
     </LayoutAuth>
   );
-};
+}

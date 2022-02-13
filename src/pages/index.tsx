@@ -6,11 +6,11 @@ import {
   BrowserRouter as Router,
   Routes,
 } from 'react-router-dom';
-import { ForgotPasswordPage } from './forgotPassword';
-import { SignInPage } from './SignIn';
-import { SignUpPage } from './SignUp';
 
 const Home = React.lazy(() => import('./home'));
+const SignInPage = React.lazy(() => import('./SignIn'));
+const SignUpPage = React.lazy(() => import('./SignUp'));
+const ForgotPasswordPage = React.lazy(() => import('./forgotPassword'));
 export const AppViews = () => {
   return (
     <Router>
@@ -20,7 +20,7 @@ export const AppViews = () => {
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/forgot-password' element={<ForgotPasswordPage />} />
           <Route path='/' element={<Home />} />
-          <Route path='*' element={<Navigate to='/' />} />
+          <Route path='*' element={<Navigate to='/sign-in' />} />
         </Routes>
       </Suspense>
     </Router>
