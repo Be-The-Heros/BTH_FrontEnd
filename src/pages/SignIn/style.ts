@@ -46,6 +46,7 @@ export default styled.div`
 
     &__content {
       &--form-input {
+        position: relative;
         label {
           margin: 1em 0;
         }
@@ -59,6 +60,13 @@ export default styled.div`
           &:focus {
             border-color: var(--primary);
           }
+        }
+        svg {
+          position: absolute;
+          right: 1em;
+          bottom: 0.6em;
+          font-size: 1.25em;
+          cursor: pointer;
         }
       }
     }
@@ -76,6 +84,7 @@ export default styled.div`
         color: #ffff !important;
         border-radius: 0.75em;
         padding: 0.5em;
+        box-shadow: 0px 4px 19px rgba(119, 147, 65, 0.3);
       }
     }
   }
@@ -86,7 +95,7 @@ export default styled.div`
       background-color: var(--bg-plugin);
       padding: 0.5em 1em;
       border-radius: 0.35em;
-      box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
+      box-shadow: 0px 4px 19px rgba(119, 147, 65, 0.3);
       cursor: pointer;
       &:hover {
         background-color: var(--primary-light);
@@ -94,7 +103,10 @@ export default styled.div`
       }
     }
     &-facebook {
-      background-color: var(--background-light);
+      background-color: var(--background-dark);
+      img {
+        margin: 0 !important;
+      }
     }
     &-icon {
       width: 1.25em;

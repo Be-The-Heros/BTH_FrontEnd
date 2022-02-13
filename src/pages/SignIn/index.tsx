@@ -4,7 +4,12 @@ import saly1 from 'assets/images/saly1.svg';
 import saly2 from 'assets/images/saly2.svg';
 import icon_gg from 'assets/images/icon_gg.svg';
 import icon_fb from 'assets/images/icon_fb.svg';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+
 export const SignInPage = () => {
+  const [isShowPassword, setIsShowPassword] = React.useState(true);
+
+  const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
   return (
     <Style className='d-flex justify-content-around align-items-center flex-wrap'>
       <div className='col-md-3'>
@@ -35,7 +40,15 @@ export const SignInPage = () => {
             </div>
             <div className='form-sign-in__content--form-input'>
               <label className='w-100'>Enter your password</label>
-              <input type='text' placeholder='Password' />
+              <input
+                type={isShowPassword ? 'password' : 'text'}
+                placeholder='Password'
+              />
+              {isShowPassword ? (
+                <AiOutlineEyeInvisible onClick={() => toggleShowPassword()} />
+              ) : (
+                <AiOutlineEye onClick={() => toggleShowPassword()} />
+              )}
             </div>
           </div>
 
