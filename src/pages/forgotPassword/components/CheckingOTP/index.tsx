@@ -14,7 +14,7 @@ export const CheckingOTP = (props: CheckingOTPProps) => {
           <label className='w-100'>Enter OTP value</label>
           <input
             type='number'
-            placeholder='567900'
+            placeholder='example: 567900'
             value={otpValue}
             onChange={(e) => setOtpValue(e.target.value)}
           />
@@ -30,7 +30,12 @@ export const CheckingOTP = (props: CheckingOTPProps) => {
         >
           Go Back?
         </div>
-        <button className='btn btn--forgot-password w-100'>Check OTP</button>
+        <button
+          className='btn btn--forgot-password w-100'
+          disabled={otpValue.length !== LENGTH_OTP}
+        >
+          Check OTP
+        </button>
       </div>
     </React.Fragment>
   );
