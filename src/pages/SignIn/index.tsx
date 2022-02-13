@@ -1,14 +1,21 @@
 import icon_fb from 'assets/images/icon_fb.svg';
 import icon_gg from 'assets/images/icon_gg.svg';
+import { isEmptyValue } from 'helpers';
 import React from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { useNavigate } from 'react-router';
 import { LayoutAuth } from 'templates/LayoutAuth';
 import Style from './style';
 
 export const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = React.useState(true);
-
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
+  const [info, setInfo] = React.useState({
+    email: '',
+    password: '',
+  });
+  const navigate = useNavigate();
+
   return (
     <LayoutAuth>
       <Style>
@@ -24,21 +31,33 @@ export const SignInPage = () => {
               <div className='form-sign-in__header--sign-up text-right'>
                 Don't have an account?
               </div>
-              <div className='form-sign-in__header--sign-up-link text-right'>
-                <a href='/sign-up'>Sign up</a>
+              <div
+                className='form-sign-in__header--sign-up-link text-right'
+                onClick={() => navigate('/sign-up')}
+              >
+                Sign up
               </div>
             </div>
           </div>
           <div className='form-sign-in__content col-12'>
             <div className='form-sign-in__content--form-input'>
               <label className='w-100'>Enter username or email address</label>
-              <input type='text' placeholder='Username or email address' />
+              <input
+                type='text'
+                placeholder='Username or email address'
+                onChange={(event) => {
+                  setInfo({ ...info, email: event.target.value });
+                }}
+              />
             </div>
             <div className='form-sign-in__content--form-input'>
               <label className='w-100'>Enter your password</label>
               <input
                 type={isShowPassword ? 'password' : 'text'}
                 placeholder='Password'
+                onChange={(event) => {
+                  setInfo({ ...info, password: event.target.value });
+                }}
               />
               {isShowPassword ? (
                 <AiOutlineEyeInvisible onClick={() => toggleShowPassword()} />
@@ -52,7 +71,12 @@ export const SignInPage = () => {
             <div className='form-sign-in__footer-fg text-right'>
               Forgot Password?
             </div>
-            <button className='btn btn--sign-in w-100'>Sign in</button>
+            <button
+              className='btn btn--sign-in w-100'
+              disabled={isEmptyValue(info)}
+            >
+              Sign in
+            </button>
           </div>
         </div>
         <div className='plugin w-100 d-flex flex-wrap justify-content-center'>

@@ -7,6 +7,7 @@ import {
   Routes,
 } from 'react-router-dom';
 import { SignInPage } from './SignIn';
+import { SignUpPage } from './SignUp';
 
 const Home = React.lazy(() => import('./home'));
 export const AppViews = () => {
@@ -14,7 +15,9 @@ export const AppViews = () => {
     <Router>
       <Suspense fallback={<Loading cover='content' />}>
         <Routes>
-          <Route path='/login' element={<SignInPage />} />
+          <Route path='/sign-in' element={<SignInPage />} />
+          <Route path='/sign-up' element={<SignUpPage />} />
+
           <Route path='/' element={<Home />} />
           <Route path='*' element={<Navigate to='/' />} />
         </Routes>

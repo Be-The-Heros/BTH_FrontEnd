@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 export default styled.div`
-  .form-sign-in {
+  .form-sign-up {
     box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
     border-radius: 2em;
     background-color: #ffff;
     min-height: 500px;
-    padding: 3em 1em;
     width: 450px;
+    padding: 3em 1em;
     &__header {
       &--welcome {
         font-size: 0.95em;
@@ -44,8 +44,9 @@ export default styled.div`
     &__content {
       &--form-input {
         position: relative;
+        margin: 1em 0;
         label {
-          margin: 1em 0;
+          margin: 0.5em 0;
         }
         input {
           border-radius: 0.5em;
@@ -76,11 +77,12 @@ export default styled.div`
           color: var(--primary);
         }
       }
-      .btn--sign-in {
+      .btn--sign-up {
         background-color: var(--primary-light) !important;
         color: #ffff !important;
         border-radius: 0.75em;
         padding: 0.5em;
+        margin: 1.5em 0;
         box-shadow: 0px 4px 19px rgba(119, 147, 65, 0.3);
       }
     }
