@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 export default styled.div`
-  background-color: var(--white);
+  background-color: #ffff;
   padding: 0.5em 7em;
   .header {
     &__logo {
-      width: 3em;
+      width: 4em;
       img {
         border-radius: 15px;
         border: 2px solid #ffff;
@@ -32,8 +32,11 @@ export default styled.div`
         cursor: pointer;
       }
     }
-    .btn-create-post {
-      background-color: var(--primary) !important;
+    &__create-post {
+      button {
+        background-color: var(--primary);
+        color: #ffff;
+      }
     }
   }
 `;

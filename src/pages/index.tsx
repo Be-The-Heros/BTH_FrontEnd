@@ -12,6 +12,7 @@ import { userState } from 'recoil/users/state';
 
 const Home = React.lazy(() => import('./home'));
 const LayoutAuth = React.lazy(() => import('templates/LayoutAuth'));
+const LayoutMain = React.lazy(() => import('templates/LayoutMain'));
 const SignInPage = React.lazy(() => import('./SignIn'));
 const SignUpPage = React.lazy(() => import('./SignUp'));
 const ForgotPasswordPage = React.lazy(() => import('./forgotPassword'));
@@ -39,10 +40,12 @@ export const AppViews = () => {
     return (
       <React.Fragment>
         <Header />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='*' element={<Navigate to='/' />} />
-        </Routes>
+        <LayoutMain>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='*' element={<Navigate to='/' />} />
+          </Routes>
+        </LayoutMain>
       </React.Fragment>
     );
   };

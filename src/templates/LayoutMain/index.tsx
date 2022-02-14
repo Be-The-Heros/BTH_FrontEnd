@@ -1,5 +1,8 @@
 import React from 'react';
+import Style from './style';
 
-export const LayoutMain = () => {
-  return <div>LayoutMain</div>;
+const LayoutMain: React.FC = ({ children }) => {
+  return <Style>{children}</Style>;
 };
+
+export default LayoutMain;

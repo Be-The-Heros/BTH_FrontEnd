@@ -25,7 +25,7 @@ export default styled.div`
       cursor: pointer;
       &:hover {
         background-color: var(--primary-light);
-        color: var(--white);
+        color: #ffff;
       }
     }
     &-facebook {
