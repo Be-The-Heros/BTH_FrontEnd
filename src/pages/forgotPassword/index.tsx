@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { LayoutAuth } from 'templates/LayoutAuth';
 import icon_fb from 'assets/images/icon_fb.svg';
 import icon_gg from 'assets/images/icon_gg.svg';
-import Style from './style';
 import { isEmptyValue } from 'helpers';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { CheckingOTP } from './components/CheckingOTP';
+import Style from './style';
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
   const [emailValue, setEmailValue] = useState('');
@@ -45,51 +44,49 @@ export default function ForgotPasswordPage() {
     );
   };
   return (
-    <LayoutAuth>
-      <Style>
-        <div className='form-forgot-password'>
-          <div className='form-forgot-password__header d-flex flex-wrap'>
-            <div className='col-6'>
-              <div className='form-forgot-password__header--welcome'>
-                Welcome to <span>Be The Heroes</span>
-              </div>
-              <div className='form-forgot-password__header--type'>
-                {`${isOpenOTP ? 'Check OTP' : 'Forgot Password'}`}
-              </div>
+    <Style>
+      <div className='form-forgot-password'>
+        <div className='form-forgot-password__header d-flex flex-wrap'>
+          <div className='col-6'>
+            <div className='form-forgot-password__header--welcome'>
+              Welcome to <span>Be The Heroes</span>
             </div>
-            <div className='col-6'>
-              <div className='form-forgot-password__header--sign-up text-right'>
-                Don't have an account?
-              </div>
-              <div
-                className='form-forgot-password__header--sign-up-link text-right'
-                onClick={() => navigate('/sign-up')}
-              >
-                Sign up
-              </div>
+            <div className='form-forgot-password__header--type'>
+              {`${isOpenOTP ? 'Check OTP' : 'Forgot Password'}`}
             </div>
           </div>
-          {isOpenOTP ? (
-            <CheckingOTP goBack={() => setIsOpenOTP(false)} />
-          ) : (
-            renderInputEmail()
-          )}
-        </div>
-        <div className='plugin w-100 d-flex flex-wrap justify-content-center'>
-          <div className='plugin-google'>
-            <img src={icon_gg} alt={'icon-gg'} className='plugin-icon'></img>
-            Sign In with Google
-          </div>
-          <div
-            className='plugin-facebook'
-            style={{
-              marginLeft: '1rem',
-            }}
-          >
-            <img src={icon_fb} alt={'icon-fb'} className='plugin-icon'></img>
+          <div className='col-6'>
+            <div className='form-forgot-password__header--sign-up text-right'>
+              Don't have an account?
+            </div>
+            <div
+              className='form-forgot-password__header--sign-up-link text-right'
+              onClick={() => navigate('/sign-up')}
+            >
+              Sign up
+            </div>
           </div>
         </div>
-      </Style>
-    </LayoutAuth>
+        {isOpenOTP ? (
+          <CheckingOTP goBack={() => setIsOpenOTP(false)} />
+        ) : (
+          renderInputEmail()
+        )}
+      </div>
+      <div className='plugin w-100 d-flex flex-wrap justify-content-center'>
+        <div className='plugin-google'>
+          <img src={icon_gg} alt={'icon-gg'} className='plugin-icon'></img>
+          Sign In with Google
+        </div>
+        <div
+          className='plugin-facebook'
+          style={{
+            marginLeft: '1rem',
+          }}
+        >
+          <img src={icon_fb} alt={'icon-fb'} className='plugin-icon'></img>
+        </div>
+      </div>
+    </Style>
   );
 }

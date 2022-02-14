@@ -2,7 +2,7 @@ import React from 'react';
 import Style from './style';
 import saly1 from 'assets/images/saly1.svg';
 import saly2 from 'assets/images/saly2.svg';
-export const LayoutAuth: React.FC = ({ children }) => {
+const LayoutAuth: React.FC = ({ children }) => {
   return (
     <Style className='d-flex justify-content-around align-items-center flex-wrap'>
       <div className='col-md-3'>
@@ -15,3 +15,5 @@ export const LayoutAuth: React.FC = ({ children }) => {
     </Style>
   );
 };
+
+export default LayoutAuth;

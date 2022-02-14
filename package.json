@@ -43,6 +43,7 @@
     "winBuild": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "test": "react-scripts test",
     "deploy": "winBuild & netlify deploy --prod",
+    "deploy-netlify": "netlify deploy --prod",
     "mockAPI": "node mocks/mockAPI.js",
     "mockWS": "node mocks/mockWS.js",
     "mock": "npm-run-all -p mockAPI mockWS start",

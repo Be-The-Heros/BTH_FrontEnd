@@ -1,10 +1,18 @@
 import React from 'react';
 import Style from './style';
 import logo from 'assets/images/logo.svg';
-import { Space } from 'antd';
+import { Button, Space } from 'antd';
 import Search from 'antd/lib/transfer/search';
-import { ButtonCustom } from 'components/Button';
+import { IoIosNotificationsOutline } from 'react-icons/io';
+import { userState } from 'recoil/users/state';
+import { useRecoilState } from 'recoil';
+import { MdOutlineArrowDropDown } from 'react-icons/md';
 export const Header = () => {
+  const [isOpenNotification, setIsOpenNotification] = React.useState(false);
+  const [user] = useRecoilState(userState);
+  const renderDropdownNotification = () => {
+    return <div className='header__notification'></div>;
+  };
   return (
     <Style className='header d-flex justify-content-center'>
       <div className='col-6 d-flex  align-items-center'>
@@ -24,9 +32,17 @@ export const Header = () => {
       </div>
       <div className='col-6 d-flex justify-content-end align-items-center'>
         <div className='header__create-post'>
-          <ButtonCustom variant='primary' className='btn btn--primary'>
-            Create Post
-          </ButtonCustom>
+          <Button>Create Post</Button>
+        </div>
+        <div className='header__notification'>
+          <IoIosNotificationsOutline
+            onClick={() => setIsOpenNotification(!isOpenNotification)}
+          />
+          {isOpenNotification && renderDropdownNotification()}
+        </div>
+        <div className='header__avatar'>
+          <img src={user.avatar} alt={'user-avatar'}></img>
+          <MdOutlineArrowDropDown />
         </div>
       </div>
     </Style>

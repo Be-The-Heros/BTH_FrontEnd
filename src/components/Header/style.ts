@@ -13,12 +13,22 @@ export default styled.div`
       margin-left: 2em;
       width: 60%;
     }
-    &__create-post {
-      .btn--white {
-        background-color: #fff;
-        color: var(--dark);
-        font-weight: 500;
-        border-radius: 30px;
+    &__notification {
+      svg {
+        font-size: 1.75em;
+        margin: 0 0.45em;
+        cursor: pointer;
+      }
+    }
+    &__avatar {
+      img {
+        width: 2.75em;
+        border-radius: 50%;
+        border: 1px solid #ffff;
+      }
+      svg {
+        font-size: 1.75em;
+        cursor: pointer;
       }
     }
   }
