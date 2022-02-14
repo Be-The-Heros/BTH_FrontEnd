@@ -3,7 +3,17 @@ import styled from 'styled-components';
 export default styled.div`
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(to left, #ffff 50%, var(--primary) 50%);
+  background: linear-gradient(to left, var(--primary) 50%, #ffff 50%);
+  .logo {
+    position: absolute;
+    top: 1em;
+    left: 0;
+    width: 15em;
+    img {
+      min-width: 100%;
+      min-height: 100%;
+    }
+  }
   .plugin {
     padding-top: 2em;
     &-google,

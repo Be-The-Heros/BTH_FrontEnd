@@ -1,6 +1,6 @@
 import React from 'react';
 import Style from './style';
-import logo from 'assets/images/logo.svg';
+import logo from 'assets/images/logo_white.svg';
 import { Button, Space } from 'antd';
 import Search from 'antd/lib/transfer/search';
 import { IoIosNotificationsOutline } from 'react-icons/io';
@@ -32,7 +32,7 @@ export const Header = () => {
       </div>
       <div className='col-6 d-flex justify-content-end align-items-center'>
         <div className='header__create-post'>
-          <Button>Create Post</Button>
+          <Button className='btn-create-post'>Create Post</Button>
         </div>
         <div className='header__notification'>
           <IoIosNotificationsOutline

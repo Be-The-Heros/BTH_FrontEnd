@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 export default styled.div`
-  background-color: var(--primary);
+  background-color: var(--white);
   padding: 0.5em 7em;
   .header {
     &__logo {
       width: 3em;
       img {
         border-radius: 15px;
+        border: 2px solid #ffff;
       }
     }
     &__search {
@@ -30,6 +31,9 @@ export default styled.div`
         font-size: 1.75em;
         cursor: pointer;
       }
+    }
+    .btn-create-post {
+      background-color: var(--primary) !important;
     }
   }
 `;
