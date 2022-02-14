@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 export default styled.div`
   background-color: var(--primary);
   padding: 0.5em 7em;
