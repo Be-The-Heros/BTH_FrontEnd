@@ -1,8 +1,24 @@
 import React from 'react';
 import Style from './style';
 
-const LayoutMain: React.FC = ({ children }) => {
-  return <Style>{children}</Style>;
+interface LayoutMainProps {
+  sidebarLeft?: React.ReactNode;
+  sidebarRight?: React.ReactNode;
+  children?: React.ReactNode;
+}
+
+const LayoutMain: React.FC<LayoutMainProps> = ({
+  sidebarLeft,
+  sidebarRight,
+  children,
+}) => {
+  return (
+    <Style>
+      {sidebarLeft && <div className='sidebar-left'>{sidebarLeft}</div>}
+      <div className='main-content'>{children}</div>
+      {sidebarRight && <div className='sidebar-right'>{sidebarRight}</div>}
+    </Style>
+  );
 };
 
 export default LayoutMain;

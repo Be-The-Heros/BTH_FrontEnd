@@ -51,7 +51,7 @@ export const Header = () => {
               width: '100%',
             }}
           >
-            <Search placeholder='Search' />
+            <Search placeholder='Search in be the heroes' />
           </Space>
         </div>
       </div>
