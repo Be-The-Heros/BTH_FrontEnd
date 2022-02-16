@@ -31,7 +31,6 @@ export const Header = () => {
           }}
           onClick={() => {
             setUser({ ...user, isLoggedIn: false });
-            navigate('/auth/sign-in');
           }}
         >
           <div>Logout</div>
@@ -40,7 +39,48 @@ export const Header = () => {
       </Menu.Item>
     </Menu>
   );
-
+  const renderNav = () => {
+    if (user.isLoggedIn) {
+      return (
+        <div className='w-50 d-flex justify-content-end align-items-center'>
+          <div className='header__create-post'>
+            <Button onClick={() => navigate('/create-post')}>
+              Create Post
+            </Button>
+          </div>
+          <div className='header__notification'>
+            <IoIosNotificationsOutline
+              onClick={() => setIsOpenNotification(!isOpenNotification)}
+            />
+            {isOpenNotification && renderDropdownNotification()}
+          </div>
+          <Dropdown overlay={menu} placement='bottomRight'>
+            <div className='header__avatar'>
+              <img src={user.avatar} alt={'user-avatar'}></img>
+              <MdOutlineArrowDropDown />
+            </div>
+          </Dropdown>
+        </div>
+      );
+    }
+    return (
+      <div className='w-50 d-flex justify-content-end align-items-center'>
+        <div className='header__btn-login'>
+          <Button onClick={() => navigate('/auth/sign-in')}>Login</Button>
+        </div>
+        <div
+          className='header__btn-register'
+          style={{
+            marginLeft: '1.5em',
+          }}
+        >
+          <Button onClick={() => navigate('/auth/sign-up')}>
+            Create account
+          </Button>
+        </div>
+      </div>
+    );
+  };
   return (
     <Style className='header d-flex justify-content-center'>
       <div className='w-50 d-flex  align-items-center'>
@@ -64,23 +104,7 @@ export const Header = () => {
           </Space>
         </div>
       </div>
-      <div className='w-50 d-flex justify-content-end align-items-center'>
-        <div className='header__create-post'>
-          <Button onClick={() => navigate('/create-post')}>Create Post</Button>
-        </div>
-        <div className='header__notification'>
-          <IoIosNotificationsOutline
-            onClick={() => setIsOpenNotification(!isOpenNotification)}
-          />
-          {isOpenNotification && renderDropdownNotification()}
-        </div>
-        <Dropdown overlay={menu} placement='bottomRight'>
-          <div className='header__avatar'>
-            <img src={user.avatar} alt={'user-avatar'}></img>
-            <MdOutlineArrowDropDown />
-          </div>
-        </Dropdown>
-      </div>
+      {renderNav()}
     </Style>
   );
 };

@@ -1,14 +1,17 @@
 import icon_fb from 'assets/images/icon_fb.svg';
 import icon_gg from 'assets/images/icon_gg.svg';
 import { isEmptyValue } from 'helpers';
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
+import { userState } from 'recoil/users/state';
 import Style from './style';
 
 const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = React.useState(true);
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
+  const [user, setUser] = useRecoilState(userState);
   const [info, setInfo] = React.useState({
     email: '',
     password: '',
@@ -75,7 +78,10 @@ const SignInPage = () => {
           <button
             className='btn btn--sign-in w-100'
             disabled={isEmptyValue(info)}
-            onClick={() => navigate('/')}
+            onClick={() => {
+              setUser({ ...user, isLoggedIn: true });
+              navigate('/');
+            }}
           >
             Sign in
           </button>

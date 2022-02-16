@@ -33,10 +33,16 @@ export default styled.div`
         cursor: pointer;
       }
     }
-    &__create-post {
+    &__create-post,
+    &__btn-login {
       button {
         background-color: var(--primary);
         color: #ffff;
+      }
+    }
+    &__btn-register {
+      button {
+        background-color: var(--bg-main);
       }
     }
   }

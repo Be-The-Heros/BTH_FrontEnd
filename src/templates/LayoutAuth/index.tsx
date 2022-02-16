@@ -9,6 +9,7 @@ import Style from './style';
 const LayoutAuth: React.FC = () => {
   const [user] = useRecoilState(userState);
   const { isLoggedIn } = user;
+
   return isLoggedIn ? (
     <Navigate to='/' />
   ) : (
