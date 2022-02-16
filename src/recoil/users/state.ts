@@ -10,6 +10,6 @@ export const userState = atom<UserInfo>({
     email: '',
     avatar: 'https://picsum.photos/200',
     bio: '',
-    isLoggedIn: true,
+    isLoggedIn: false,
   }, // default value (aka initial value)
 });

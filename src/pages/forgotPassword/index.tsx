@@ -28,7 +28,7 @@ export default function ForgotPasswordPage() {
         <div className='form-forgot-password__footer col-12'>
           <div
             className='form-forgot-password__footer-fg text-right'
-            onClick={() => navigate('/sign-in')}
+            onClick={() => navigate('/auth/sign-in')}
           >
             Go to Sign In?
           </div>
@@ -61,7 +61,7 @@ export default function ForgotPasswordPage() {
             </div>
             <div
               className='form-forgot-password__header--sign-up-link text-right'
-              onClick={() => navigate('/sign-up')}
+              onClick={() => navigate('/auth/sign-up')}
             >
               Sign up
             </div>

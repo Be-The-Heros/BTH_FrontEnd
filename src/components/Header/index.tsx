@@ -14,7 +14,8 @@ import { useNavigate } from 'react-router';
 export const Header = () => {
   const [isOpenNotification, setIsOpenNotification] = React.useState(false);
   const navigate = useNavigate();
-  const [user] = useRecoilState(userState);
+  const [user, setUser] = useRecoilState(userState);
+
   const renderDropdownNotification = () => {
     return <div className='header__notification'></div>;
   };
@@ -28,7 +29,10 @@ export const Header = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
-          onClick={() => navigate('/sign-in')}
+          onClick={() => {
+            setUser({ ...user, isLoggedIn: false });
+            navigate('/auth/sign-in');
+          }}
         >
           <div>Logout</div>
           <BiLogOutCircle />
@@ -39,8 +43,14 @@ export const Header = () => {
 
   return (
     <Style className='header d-flex justify-content-center'>
-      <div className='col-6 d-flex  align-items-center'>
-        <div className='header__logo'>
+      <div className='w-50 d-flex  align-items-center'>
+        <div
+          className='header__logo'
+          onClick={() => navigate('/')}
+          style={{
+            cursor: 'pointer',
+          }}
+        >
           <img src={logo} alt='logo' />
         </div>
         <div className='header__search'>
@@ -54,9 +64,9 @@ export const Header = () => {
           </Space>
         </div>
       </div>
-      <div className='col-6 d-flex justify-content-end align-items-center'>
+      <div className='w-50 d-flex justify-content-end align-items-center'>
         <div className='header__create-post'>
-          <Button>Create Post</Button>
+          <Button onClick={() => navigate('/create-post')}>Create Post</Button>
         </div>
         <div className='header__notification'>
           <IoIosNotificationsOutline

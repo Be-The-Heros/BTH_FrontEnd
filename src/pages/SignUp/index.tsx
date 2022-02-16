@@ -21,7 +21,7 @@ export default function SignUpPage() {
             </div>
             <div
               className='form-sign-up__header--sign-up-link text-right'
-              onClick={() => navigate('/sign-in')}
+              onClick={() => navigate('/auth/sign-in')}
             >
               Sign In
             </div>

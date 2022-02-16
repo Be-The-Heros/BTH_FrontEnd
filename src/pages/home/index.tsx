@@ -1,11 +1,13 @@
-import { ListPost } from './components';
+import React from 'react';
+import { LayoutApp } from 'templates/LayoutApp';
+import { SidebarLeft } from 'pages/Home/components/SidebarLeft';
+import { SidebarRight } from './components/SidebarRight';
 
-const Home = () => {
+const Homepage = () => {
   return (
-    <div>
-      <ListPost />
-    </div>
+    <LayoutApp sidebarLeft={<SidebarLeft />} sidebarRight={<SidebarRight />}>
+      Homepage
+    </LayoutApp>
   );
 };
-
-export default Home;
+export default Homepage;

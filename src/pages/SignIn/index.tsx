@@ -31,7 +31,7 @@ const SignInPage = () => {
             </div>
             <div
               className='form-sign-in__header--sign-up-link text-right'
-              onClick={() => navigate('/sign-up')}
+              onClick={() => navigate('/auth/sign-up')}
             >
               Sign up
             </div>
@@ -68,13 +68,14 @@ const SignInPage = () => {
         <div className='form-sign-in__footer col-12'>
           <div
             className='form-sign-in__footer-fg text-right'
-            onClick={() => navigate('/forgot-password')}
+            onClick={() => navigate('/auth/forgot-password')}
           >
             Forgot Password?
           </div>
           <button
             className='btn btn--sign-in w-100'
             disabled={isEmptyValue(info)}
+            onClick={() => navigate('/')}
           >
             Sign in
           </button>
