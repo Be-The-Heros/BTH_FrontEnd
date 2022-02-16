@@ -9,11 +9,12 @@ import { MdOutlineArrowDropDown } from 'react-icons/md';
 import { BiLogOutCircle } from 'react-icons/bi';
 
 import { Menu, Dropdown, Button, Space } from 'antd';
+import { useNavigate } from 'react-router';
 
 export const Header = () => {
   const [isOpenNotification, setIsOpenNotification] = React.useState(false);
-  const [user, setUser] = useRecoilState(userState);
-
+  const navigate = useNavigate();
+  const [user] = useRecoilState(userState);
   const renderDropdownNotification = () => {
     return <div className='header__notification'></div>;
   };
@@ -27,9 +28,7 @@ export const Header = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
-          onClick={() => {
-            setUser({ ...user, isLoggedIn: false });
-          }}
+          onClick={() => navigate('/sign-in')}
         >
           <div>Logout</div>
           <BiLogOutCircle />

@@ -1,3 +1,4 @@
+import { Header } from 'components/Header';
 import React from 'react';
 import Style from './style';
 
@@ -13,11 +14,15 @@ const LayoutMain: React.FC<LayoutMainProps> = ({
   children,
 }) => {
   return (
-    <Style>
-      {sidebarLeft && <div className='sidebar-left'>{sidebarLeft}</div>}
-      <div className='main-content'>{children}</div>
-      {sidebarRight && <div className='sidebar-right'>{sidebarRight}</div>}
-    </Style>
+    <React.Fragment>
+      <Header />
+
+      <Style>
+        {sidebarLeft && <div className='sidebar-left'>{sidebarLeft}</div>}
+        <div className='main-content'>{children}</div>
+        {sidebarRight && <div className='sidebar-right'>{sidebarRight}</div>}
+      </Style>
+    </React.Fragment>
   );
 };
 

@@ -1,59 +1,36 @@
-import { Header } from 'components';
 import Loading from 'components/Loading';
 import React, { Suspense } from 'react';
-import {
-  Navigate,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { userState } from 'recoil/users/state';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LayoutAuth from 'templates/LayoutAuth';
+import LayoutMain from 'templates/LayoutMain';
+import ForgotPasswordPage from './forgotPassword';
+import SignInPage from './SignIn';
+import SignUpPage from './SignUp';
 
 const Home = React.lazy(() => import('./home'));
-const LayoutAuth = React.lazy(() => import('templates/LayoutAuth'));
-const LayoutMain = React.lazy(() => import('templates/LayoutMain'));
-const SignInPage = React.lazy(() => import('./SignIn'));
-const SignUpPage = React.lazy(() => import('./SignUp'));
-const ForgotPasswordPage = React.lazy(() => import('./forgotPassword'));
 
 export const AppViews = () => {
-  const [user] = useRecoilState(userState);
-  const { isLoggedIn } = user;
-
-  const renderAuth = () => {
-    return (
-      <LayoutAuth>
-        <Suspense fallback={<Loading cover='content' />}>
-          <Routes>
-            <Route path='/sign-in' element={<SignInPage />} />
-            <Route path='/sign-up' element={<SignUpPage />} />
-            <Route path='/forgot-password' element={<ForgotPasswordPage />} />
-            <Route path='*' element={<Navigate to='/sign-in' />} />
-          </Routes>
-        </Suspense>
-      </LayoutAuth>
-    );
-  };
-
-  const renderPage = () => {
-    return (
-      <React.Fragment>
-        <Header />
-        <LayoutMain>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='*' element={<Navigate to='/' />} />
-          </Routes>
-        </LayoutMain>
-      </React.Fragment>
-    );
-  };
   return (
     <Router>
-      <Suspense fallback={<Loading cover='content' />}>
-        {!isLoggedIn ? renderAuth() : renderPage()}
-      </Suspense>
+      <Routes>
+        <Route path='/' element={<LayoutMain />}>
+          <Route
+            path='/'
+            element={
+              <Suspense fallback={<Loading cover='content' />}>
+                <Home />
+              </Suspense>
+            }
+          />
+        </Route>
+      </Routes>
+      <Routes>
+        <Route path='/' element={<LayoutAuth />}>
+          <Route path='/sign-in' element={<SignInPage />} />
+          <Route path='/forgot-password' element={<ForgotPasswordPage />} />
+          <Route path='/sign-up' element={<SignUpPage />} />
+        </Route>
+      </Routes>
     </Router>
   );
 };
