@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export default styled.div`
   background-color: var(--bg-main);
-  min-height: 45em;
+  min-height: 50em;
   display: flex;
   justify-content: space-between;
   padding: 2% 5em;
-
+  padding-top: 100px;
   .sidebar-left,
   .sidebar-right {
     background-color: var(--white);
