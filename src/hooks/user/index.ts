@@ -1,6 +1,7 @@
 import React from "react";
 import { useMutation } from "react-query";
 import axios from "axios";
+import { baseUrlUser } from "constants/devices";
 
 export interface UseRegisterUserByGoogle {
   thirdPartyTokens: string;
@@ -31,7 +32,7 @@ export interface UseChangePasswordByOtp {
 export const useRegisterUserByGoogle = () => {
   return useMutation((data: UseRegisterUserByGoogle) =>
     axios
-      .post("http://localhost:5000/api/user/create-account-by-third-party", {
+      .post(baseUrlUser + "create-account-by-third-party", {
         type: "google",
         ...data,
       })
@@ -42,7 +43,7 @@ export const useRegisterUserByGoogle = () => {
 export const useRegisterUserByEmail = () => {
   return useMutation((data: UseRegisterUserByEmail) =>
     axios
-      .post("http://localhost:5000/api/user/create-account", {
+      .post(baseUrlUser + "create-account", {
         ...data,
       })
       .then((res) => res.data)
@@ -52,7 +53,7 @@ export const useRegisterUserByEmail = () => {
 export const useLoginByEmail = () => {
   return useMutation((data: UseLoginByEmail) =>
     axios
-      .post("http://localhost:5000/api/user/login", {
+      .post(baseUrlUser + "login", {
         ...data,
       })
       .then((res) => res.data)
@@ -62,7 +63,7 @@ export const useLoginByEmail = () => {
 export const useRequestForgotPassword = () => {
   return useMutation((email: string) =>
     axios
-      .post("http://localhost:5000/api/user/request-forgot-password", {
+      .post(baseUrlUser + "request-forgot-password", {
         email,
       })
       .then((res) => res.data)
@@ -72,7 +73,7 @@ export const useRequestForgotPassword = () => {
 export const useChangePasswordByOtp = () => {
   return useMutation((data: UseChangePasswordByOtp) => {
     return axios
-      .post("http://localhost:5000/api/user/change-password-by-otp", {
+      .post(baseUrlUser + "change-password-by-otp", {
         ...data,
       })
       .then((res) => res.data);
