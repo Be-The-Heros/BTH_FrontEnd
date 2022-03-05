@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export default styled.div`
   .form-sign-up {
@@ -84,6 +84,12 @@ export default styled.div`
         padding: 0.5em;
         margin: 1.5em 0;
         box-shadow: 0px 4px 19px rgba(119, 147, 65, 0.3);
+
+        &:disabled {
+          background-color: var(--primary-light) !important;
+          opacity: 0.3;
+          cursor: disabled;
+        }
       }
     }
   }
