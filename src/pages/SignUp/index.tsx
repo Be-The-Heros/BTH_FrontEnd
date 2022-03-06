@@ -46,6 +46,9 @@ export default function SignUpPage() {
         };
       });
       navigate("/");
+
+      const token = mutationUserByGoogle.data as any;
+      localStorage.setItem("token", token.token);
     }
     if (!!mutationUserByGoogle.isError) {
       toast.error("Something went wrong mutationUserByGoogle");

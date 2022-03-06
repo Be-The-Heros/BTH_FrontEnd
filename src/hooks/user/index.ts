@@ -108,3 +108,17 @@ export const useChangePasswordByOtp = () => {
     )
   );
 };
+
+export const useInfoUser = () => {
+  return useMutation((token: string) =>
+    apis.get(
+      {
+        apiVersion: ApiVersion.user,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      },
+      "info-user"
+    )
+  );
+};

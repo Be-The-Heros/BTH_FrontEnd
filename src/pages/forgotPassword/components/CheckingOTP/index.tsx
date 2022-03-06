@@ -43,7 +43,8 @@ export const CheckingOTP = (props: CheckingOTPProps) => {
           isLoggedIn: true,
         };
       });
-      navigate("/");
+
+      navigate("/auth/sign-in");
     }
     if (useChangePassword.isError) {
       console.log(useChangePassword.error);

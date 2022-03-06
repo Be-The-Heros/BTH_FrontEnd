@@ -39,6 +39,8 @@ const SignInPage = () => {
   useEffect(() => {
     if (mutationLoginByGoogle.data) {
       console.log(mutationLoginByGoogle.data);
+      const token = mutationLoginByGoogle.data as any;
+      localStorage.setItem("token", token.token);
 
       toast.success("Login by google success", {
         icon: "🚀",
@@ -60,6 +62,8 @@ const SignInPage = () => {
   useEffect(() => {
     if (mutationLoginByEmail.data) {
       console.log(mutationLoginByEmail.data);
+      const token = mutationLoginByEmail.data as any;
+      localStorage.setItem("token", token.token);
       toast.success("Login by email success", {
         icon: "🚀",
       });
