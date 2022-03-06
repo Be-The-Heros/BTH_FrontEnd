@@ -1,32 +1,11 @@
-import React from "react";
-import { useMutation } from "react-query";
-import apis, { ApiVersion } from "apis";
-
-export interface UseRegisterUserByGoogle {
-  thirdPartyTokens: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  avatar: string;
-}
-
-export interface UseRegisterUserByEmail {
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
-export interface UseLoginByEmail {
-  email: string;
-  password: string;
-}
-
-export interface UseChangePasswordByOtp {
-  email: string;
-  newPassword: string;
-  otp: number;
-}
+import apis, { ApiVersion } from 'apis';
+import { useMutation } from 'react-query';
+import {
+  FormLoginAttributes,
+  RequestForgotPassword,
+  UseRegisterUserByEmail,
+  UseRegisterUserByGoogle,
+} from './types';
 
 export const useRegisterUserByGoogle = () => {
   return useMutation(async (data: UseRegisterUserByGoogle) => {
@@ -34,10 +13,10 @@ export const useRegisterUserByGoogle = () => {
       {
         apiVersion: ApiVersion.user,
       },
-      "create-account-by-third-party",
+      'create-account-by-third-party',
       {
         body: {
-          type: "google",
+          type: 'google',
           ...data,
         },
       }
@@ -51,7 +30,7 @@ export const useRegisterUserByEmail = () => {
       {
         apiVersion: ApiVersion.user,
       },
-      "create-account",
+      'create-account',
       {
         body: {
           ...data,
@@ -62,17 +41,13 @@ export const useRegisterUserByEmail = () => {
 };
 
 export const useLoginByEmail = () => {
-  return useMutation((data: UseLoginByEmail) =>
+  return useMutation((body: FormLoginAttributes) =>
     apis.post(
       {
         apiVersion: ApiVersion.user,
       },
-      "login",
-      {
-        body: {
-          ...data,
-        },
-      }
+      'login',
+      { body }
     )
   );
 };
@@ -83,7 +58,7 @@ export const useRequestForgotPassword = () => {
       {
         apiVersion: ApiVersion.user,
       },
-      "request-forgot-password",
+      'request-forgot-password',
       {
         body: {
           email,
@@ -94,17 +69,13 @@ export const useRequestForgotPassword = () => {
 };
 
 export const useChangePasswordByOtp = () => {
-  return useMutation((data: UseChangePasswordByOtp) =>
+  return useMutation((body: RequestForgotPassword) =>
     apis.post(
       {
         apiVersion: ApiVersion.user,
       },
-      "change-password-by-otp",
-      {
-        body: {
-          ...data,
-        },
-      }
+      'change-password-by-otp',
+      { body }
     )
   );
 };
@@ -118,7 +89,7 @@ export const useInfoUser = () => {
           authorization: `Bearer ${token}`,
         },
       },
-      "info-user"
+      'info-user'
     )
   );
 };

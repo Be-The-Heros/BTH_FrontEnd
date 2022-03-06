@@ -6,10 +6,10 @@ const Homepage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log(token);
     if (token) {
       infoUser.mutate(token);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -20,6 +20,7 @@ const Homepage = () => {
     if (infoUser.error) {
       console.log(infoUser.error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoUser.data, infoUser.error]);
 
   return (
