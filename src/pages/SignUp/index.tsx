@@ -36,7 +36,7 @@ export default function SignUpPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!mutationUserByGoogle.isError && mutationUserByGoogle.data) {
+    if (mutationUserByGoogle.data) {
       console.log(mutationUserByGoogle.data);
       toast.success("Sign up by google success");
       setLoginUser((state) => {
@@ -46,22 +46,21 @@ export default function SignUpPage() {
         };
       });
       navigate("/");
-    } else {
-      console.log(mutationUserByGoogle.error);
-      toast.error("Something went wrong");
     }
-  }, [mutationUserByGoogle.data]);
+    if (!!mutationUserByGoogle.isError) {
+      toast.error("Something went wrong mutationUserByGoogle");
+    }
+  }, [mutationUserByGoogle.data, mutationUserByGoogle.error]);
 
   useEffect(() => {
-    if (!mutationUserByEmail.isError && mutationUserByEmail.data) {
+    if (mutationUserByEmail.data) {
       console.log(mutationUserByEmail.data);
       toast.success("Sign up by google success");
-    } else {
-      console.log(mutationUserByEmail.error);
-
-      toast.error("Something went wrong");
     }
-  }, [mutationUserByEmail.data]);
+    if (!!mutationUserByEmail.isError) {
+      toast.error("Something went wrong mutationUserByEmail");
+    }
+  }, [mutationUserByEmail.data, mutationUserByGoogle.error]);
 
   const responseGoogle = (response) => {
     console.log(response, response.accessToken);

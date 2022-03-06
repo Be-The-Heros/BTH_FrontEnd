@@ -33,7 +33,7 @@ export const CheckingOTP = (props: CheckingOTPProps) => {
   const useChangePassword = useChangePasswordByOtp();
 
   useEffect(() => {
-    if (!useChangePassword.isError && useChangePassword.data) {
+    if (useChangePassword.data) {
       console.log(useChangePassword.data);
 
       toast.success("Change password success");
@@ -44,11 +44,12 @@ export const CheckingOTP = (props: CheckingOTPProps) => {
         };
       });
       navigate("/");
-    } else {
+    }
+    if (useChangePassword.isError) {
       console.log(useChangePassword.error);
       toast.error("Otp is invalid");
     }
-  }, [useChangePassword.data]);
+  }, [useChangePassword.data, useChangePassword.error]);
 
   const onSubmit: SubmitHandler<InputsChangePassword> = (data) => {
     const dataForm: UseChangePasswordByOtp = {

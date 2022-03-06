@@ -1,67 +1,35 @@
 import icon_fb from "assets/images/icon_fb.svg";
 import icon_gg from "assets/images/icon_gg.svg";
-import { isEmptyValue } from "helpers";
 import { useRequestForgotPassword } from "hooks/user";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { CheckingOTP } from "./components/CheckingOTP";
 import Style from "./style";
 import { toast } from "react-toastify";
+import { BoxEmail } from "./components/BoxEmail";
+
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
-  const [emailValue, setEmailValue] = useState("");
   const [isOpenOTP, setIsOpenOTP] = useState(false);
-
+  const [email, setEmail] = useState("");
   const useRequestOtp = useRequestForgotPassword();
 
   useEffect(() => {
-    if (!useRequestOtp.isError && useRequestOtp.data) {
-      setIsOpenOTP(true);
-      toast.error("let's check your email");
+    if (useRequestOtp.data) {
+      toast.success("let's check your email");
       console.log("useRequestOtp.data", useRequestOtp.data);
-    } else {
+      setIsOpenOTP(true);
+    }
+    if (useRequestOtp.isError) {
       toast.error("your email is invalid");
       console.log(useRequestOtp.error);
     }
-  }, [useRequestOtp.data]);
+  }, [useRequestOtp.data, useRequestOtp.error]);
 
   const sendOtp = () => {
-    useRequestOtp.mutate(emailValue);
+    useRequestOtp.mutate(email);
   };
 
-  const renderInputEmail = () => {
-    return (
-      <React.Fragment>
-        <div className="form-forgot-password__content col-12">
-          <div className="form-forgot-password__content--form-input">
-            <label className="w-100">Enter email address</label>
-            <input
-              type="text"
-              placeholder="example@example"
-              value={emailValue}
-              onChange={(e) => setEmailValue(e.target.value)}
-            />
-          </div>
-        </div>
-
-        <div className="form-forgot-password__footer col-12">
-          <div
-            className="form-forgot-password__footer-fg text-right"
-            onClick={() => navigate("/auth/sign-in")}
-          >
-            Go to Sign In?
-          </div>
-          <button
-            className="btn btn--forgot-password w-100"
-            disabled={isEmptyValue(emailValue)}
-            onClick={sendOtp}
-          >
-            Send OTP
-          </button>
-        </div>
-      </React.Fragment>
-    );
-  };
   return (
     <Style>
       <div className="form-forgot-password">
@@ -87,9 +55,9 @@ export default function ForgotPasswordPage() {
           </div>
         </div>
         {isOpenOTP ? (
-          <CheckingOTP goBack={() => setIsOpenOTP(false)} email={emailValue} />
+          <CheckingOTP goBack={() => setIsOpenOTP(false)} email={email} />
         ) : (
-          renderInputEmail()
+          <BoxEmail sendOtp={sendOtp} setEmail={setEmail} />
         )}
       </div>
       <div className="plugin w-100 d-flex flex-wrap justify-content-center">

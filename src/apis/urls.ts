@@ -1,7 +1,8 @@
 export const devUrl = {
-  kyc: 'http://localhost:4000/api/kyc',
-  user: '"http://localhost:4000/api/user',
+  kyc: "http://localhost:4000/api/kyc",
+  user: "https://betheheros.tk/api/v2/nckh/user",
 };
 export const productionUrl = {
-  kyc: 'https://kyc-api.herokuapp.com/api/kyc',
+  kyc: "https://kyc-api.herokuapp.com/api/kyc",
+  user: "https://betheheros.tk/api/v2/nckh/user",
 };

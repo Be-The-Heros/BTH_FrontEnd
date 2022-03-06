@@ -37,7 +37,7 @@ const SignInPage = () => {
   const mutationLoginByEmail = useLoginByEmail();
 
   useEffect(() => {
-    if (!mutationLoginByGoogle.isError && mutationLoginByGoogle.data) {
+    if (mutationLoginByGoogle.data) {
       console.log(mutationLoginByGoogle.data);
 
       toast.success("Login by google success", {
@@ -51,13 +51,14 @@ const SignInPage = () => {
         };
       });
       navigate("/");
-    } else {
+    }
+    if (mutationLoginByGoogle.isError) {
       toast.error("Something went wrong");
     }
-  }, [mutationLoginByGoogle.data]);
+  }, [mutationLoginByGoogle.data, mutationLoginByGoogle.error]);
 
   useEffect(() => {
-    if (!mutationLoginByEmail.isError && mutationLoginByEmail.data) {
+    if (mutationLoginByEmail.data) {
       console.log(mutationLoginByEmail.data);
       toast.success("Login by email success", {
         icon: "🚀",
@@ -69,10 +70,11 @@ const SignInPage = () => {
         };
       });
       navigate("/");
-    } else {
+    }
+    if (mutationLoginByEmail.isError) {
       toast.error("your email or password is wrong");
     }
-  }, [mutationLoginByEmail.data]);
+  }, [mutationLoginByEmail.data, mutationLoginByEmail.error]);
 
   const responseGoogle = (response) => {
     console.log(response, response.accessToken);
