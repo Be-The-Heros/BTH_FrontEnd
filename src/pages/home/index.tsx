@@ -1,14 +1,12 @@
-import { useInfoUser } from "hooks/user";
-import React, { useEffect } from "react";
+import { useInfoUser } from 'hooks/user';
+import React, { useEffect } from 'react';
 
 const Homepage = () => {
   const infoUser = useInfoUser();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
+    const token = localStorage.getItem('token');
     console.log(token);
-
     if (token) {
       infoUser.mutate(token);
     }
