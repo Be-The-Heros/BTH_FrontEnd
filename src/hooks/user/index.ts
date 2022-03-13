@@ -1,11 +1,11 @@
-import apis, { ApiVersion } from 'apis';
-import { useMutation } from 'react-query';
+import apis, { ApiVersion } from "apis";
+import { useMutation } from "react-query";
 import {
   FormLoginAttributes,
   RequestForgotPassword,
   UseRegisterUserByEmail,
   UseRegisterUserByGoogle,
-} from './types';
+} from "./types";
 
 export const useRegisterUserByGoogle = () => {
   return useMutation(async (data: UseRegisterUserByGoogle) => {
@@ -13,10 +13,10 @@ export const useRegisterUserByGoogle = () => {
       {
         apiVersion: ApiVersion.user,
       },
-      'create-account-by-third-party',
+      "create-account-by-third-party",
       {
         body: {
-          type: 'google',
+          type: "google",
           ...data,
         },
       }
@@ -30,7 +30,7 @@ export const useRegisterUserByEmail = () => {
       {
         apiVersion: ApiVersion.user,
       },
-      'create-account',
+      "create-account",
       {
         body: {
           ...data,
@@ -46,7 +46,7 @@ export const useLoginByEmail = () => {
       {
         apiVersion: ApiVersion.user,
       },
-      'login',
+      "login",
       { body }
     )
   );
@@ -58,7 +58,7 @@ export const useRequestForgotPassword = () => {
       {
         apiVersion: ApiVersion.user,
       },
-      'request-forgot-password',
+      "request-forgot-password",
       {
         body: {
           email,
@@ -74,7 +74,7 @@ export const useChangePasswordByOtp = () => {
       {
         apiVersion: ApiVersion.user,
       },
-      'change-password-by-otp',
+      "change-password-by-otp",
       { body }
     )
   );
@@ -89,7 +89,7 @@ export const useInfoUser = () => {
           authorization: `Bearer ${token}`,
         },
       },
-      'info-user'
+      "info-user"
     )
   );
 };

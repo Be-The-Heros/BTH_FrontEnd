@@ -1,6 +1,6 @@
-import { Header } from 'components/Header';
-import React from 'react';
-import { Outlet } from 'react-router';
+import { Header } from "components/Header";
+import React from "react";
+import { Outlet } from "react-router";
 
 interface LayoutMainProps {
   sidebarLeft?: React.ReactNode;
@@ -10,7 +10,7 @@ interface LayoutMainProps {
 
 const LayoutMain: React.FC<LayoutMainProps> = () => {
   return (
-    <div className='main'>
+    <div className="main">
       <Header />
       <Outlet />
     </div>

@@ -1,4 +1,4 @@
-import { AxiosRequestHeaders } from 'axios';
+import { AxiosRequestHeaders } from "axios";
 
 export interface Config {
   api: {
@@ -8,8 +8,8 @@ export interface Config {
 }
 
 export enum ApiVersion {
-  kyc = 'kyc',
-  user = 'user',
+  kyc = "kyc",
+  user = "user",
 }
 
 export interface RequestOptions {
@@ -31,5 +31,5 @@ declare global {
 export interface RequestPayload {
   body?: JsonBody | FormData;
   params?: Object;
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 }

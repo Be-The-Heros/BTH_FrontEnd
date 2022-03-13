@@ -1,11 +1,11 @@
-import { useInfoUser } from 'hooks/user';
-import React, { useEffect } from 'react';
-import { SidebarLeft } from './components';
+import { useInfoUser } from "hooks/user";
+import React, { useEffect } from "react";
+import { SidebarLeft } from "./components";
 const Homepage = () => {
   const infoUser = useInfoUser();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       infoUser.mutate(token);
     }
