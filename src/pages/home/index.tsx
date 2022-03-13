@@ -1,6 +1,6 @@
 import { useInfoUser } from 'hooks/user';
 import React, { useEffect } from 'react';
-
+import { SidebarLeft } from './components';
 const Homepage = () => {
   const infoUser = useInfoUser();
 

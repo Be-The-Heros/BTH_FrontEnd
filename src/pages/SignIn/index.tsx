@@ -10,7 +10,11 @@ import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import { useSetRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
-import Style from './style';
+import {
+  signInWithFacebookAuth,
+  signInWithGoogleAuth,
+} from 'services/firebase';
+import StyleSignIn from './style';
 
 const CLIENT_GG_ID =
   '966248665452-u9mhhvcofgfr7b0h7nnhf03j6krt8gv7.apps.googleusercontent.com';
@@ -48,12 +52,8 @@ const SignInPage = () => {
     if (mutationLoginByGoogle.isError) {
       toast.error('Something went wrong');
     }
-  }, [
-    mutationLoginByGoogle.data,
-    mutationLoginByGoogle.isError,
-    navigate,
-    setUser,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mutationLoginByGoogle.data, mutationLoginByGoogle.isError]);
 
   useEffect(() => {
     if (mutationLoginByEmail.data) {
@@ -74,12 +74,8 @@ const SignInPage = () => {
     if (mutationLoginByEmail.isError) {
       toast.error('your email or password is wrong');
     }
-  }, [
-    mutationLoginByEmail.data,
-    mutationLoginByEmail.isError,
-    navigate,
-    setUser,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mutationLoginByEmail.data, mutationLoginByEmail.isError]);
 
   const handleResponseGoogle = (response: GoogleLoginResponse) => {
     const { email, imageUrl, familyName, givenName } = response.profileObj;
@@ -99,7 +95,7 @@ const SignInPage = () => {
   };
 
   return (
-    <Style>
+    <StyleSignIn>
       <div className='form-sign-in'>
         <div className='form-sign-in__header d-flex flex-wrap'>
           <div className='col-6'>
@@ -147,7 +143,7 @@ const SignInPage = () => {
         <div className='form-sign-in__footer col-12'>
           <div className='d-flex justify-content-end'>
             <span
-              className='  form-sign-in__footer-fg'
+              className=' form-sign-in__footer-fg'
               onClick={() => navigate('/auth/forgot-password')}
             >
               Forgot Password?
@@ -183,6 +179,26 @@ const SignInPage = () => {
           onFailure={handleResponseGoogle}
           cookiePolicy={'single_host_origin'}
         />
+
+        <button
+          onClick={() =>
+            signInWithGoogleAuth().then((response) => {
+              console.log(response);
+            })
+          }
+        >
+          Login gg
+        </button>
+
+        <button
+          onClick={() =>
+            signInWithFacebookAuth().then((response) => {
+              console.log(response);
+            })
+          }
+        >
+          Login fb
+        </button>
         <div
           className='plugin-facebook'
           style={{
@@ -192,7 +208,7 @@ const SignInPage = () => {
           <img src={icon_fb} alt={'icon-fb'} className='plugin-icon'></img>
         </div>
       </div>
-    </Style>
+    </StyleSignIn>
   );
 };
 

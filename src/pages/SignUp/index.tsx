@@ -48,12 +48,7 @@ export default function SignUpPage() {
     if (!!mutationUserByGoogle.isError) {
       toast.error('Something went wrong mutationUserByGoogle');
     }
-  }, [
-    mutationUserByGoogle.data,
-    mutationUserByGoogle.isError,
-    navigate,
-    setLoginUser,
-  ]);
+  }, [mutationUserByGoogle.data, mutationUserByGoogle.isError]);
 
   useEffect(() => {
     if (mutationUserByEmail.data) {
@@ -126,7 +121,7 @@ export default function SignUpPage() {
                 paddingRight: '1em',
               }}
             >
-              <label className='w-100'>Enter first name</label>
+              <label className='w-100'>Enter Username</label>
               <input
                 placeholder='First name'
                 {...register('firstName', { required: true })}
@@ -138,7 +133,7 @@ export default function SignUpPage() {
                 paddingLeft: '1em',
               }}
             >
-              <label className='w-100'>Enter last name</label>
+              <label className='w-100'>Enter Phone</label>
               <input
                 placeholder='Last name'
                 {...register('lastName', {
