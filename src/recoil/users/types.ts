@@ -6,3 +6,14 @@ export interface UserInfo {
   bio: string;
   isLoggedIn: boolean;
 }
+export interface Post {
+  id_post: string;
+  uid : string;
+  create_at: string;
+  photos : Array<string>;
+  residential_address: string;
+  district : string;
+  ward: string;
+  province: string;
+
+}

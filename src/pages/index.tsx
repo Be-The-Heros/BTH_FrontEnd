@@ -14,7 +14,7 @@ import SignUpPage from './SignUp';
 import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
 
-const Homepage = React.lazy(() => import('./Home'));
+const Homepage = React.lazy(() => import('./home'));
 const CreatePostPage = React.lazy(() => import('./CreatePost'));
 
 interface CustomRouteProps {
