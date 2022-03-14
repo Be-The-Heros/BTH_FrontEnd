@@ -1,55 +1,36 @@
-import icon_fb from "assets/images/icon_fb.svg";
-import icon_gg from "assets/images/icon_gg.svg";
-import { useRequestForgotPassword } from "hooks/user";
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-import { CheckingOTP } from "./components/CheckingOTP";
-import Style from "./style";
-import { toast } from "react-toastify";
-import { BoxEmail } from "./components/BoxEmail";
+import icon_fb from 'assets/images/icon_fb.svg';
+import icon_gg from 'assets/images/icon_gg.svg';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { CheckingOTP } from './components/CheckingOTP';
+import Style from './style';
+import { toast } from 'react-toastify';
+import { BoxEmail } from './components/BoxEmail';
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
   const [isOpenOTP, setIsOpenOTP] = useState(true);
-  const [email, setEmail] = useState("");
-  const useRequestOtp = useRequestForgotPassword();
-
-  useEffect(() => {
-    if (useRequestOtp.data) {
-      toast.success("let's check your email");
-      console.log("useRequestOtp.data", useRequestOtp.data);
-      setIsOpenOTP(true);
-    }
-    if (useRequestOtp.isError) {
-      toast.error("your email is invalid");
-      console.log(useRequestOtp.error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [useRequestOtp.data, useRequestOtp.isError]);
-
-  const sendOtp = () => {
-    useRequestOtp.mutate(email);
-  };
+  const [email, setEmail] = useState('');
 
   return (
     <Style>
-      <div className="form-forgot-password">
-        <div className="form-forgot-password__header d-flex flex-wrap">
-          <div className="col-6">
-            <div className="form-forgot-password__header--welcome">
+      <div className='form-forgot-password'>
+        <div className='form-forgot-password__header d-flex flex-wrap'>
+          <div className='col-6'>
+            <div className='form-forgot-password__header--welcome'>
               Welcome to <span>Be The Heroes</span>
             </div>
-            <div className="form-forgot-password__header--type">
-              {`${isOpenOTP ? "Change password" : "Forgot Password"}`}
+            <div className='form-forgot-password__header--type'>
+              {`${isOpenOTP ? 'Change password' : 'Forgot Password'}`}
             </div>
           </div>
-          <div className="col-6">
-            <div className="form-forgot-password__header--sign-up text-right">
+          <div className='col-6'>
+            <div className='form-forgot-password__header--sign-up text-right'>
               Don't have an account?
             </div>
             <div
-              className="form-forgot-password__header--sign-up-link text-right"
-              onClick={() => navigate("/auth/sign-up")}
+              className='form-forgot-password__header--sign-up-link text-right'
+              onClick={() => navigate('/auth/sign-up')}
             >
               Sign up
             </div>
@@ -58,21 +39,21 @@ export default function ForgotPasswordPage() {
         {isOpenOTP ? (
           <CheckingOTP goBack={() => setIsOpenOTP(false)} email={email} />
         ) : (
-          <BoxEmail sendOtp={sendOtp} setEmail={setEmail} />
+          <BoxEmail sendOtp={() => {}} setEmail={setEmail} />
         )}
       </div>
-      <div className="plugin w-100 d-flex flex-wrap justify-content-center">
-        <div className="plugin-google">
-          <img src={icon_gg} alt={"icon-gg"} className="plugin-icon"></img>
+      <div className='plugin w-100 d-flex flex-wrap justify-content-center'>
+        <div className='plugin-google'>
+          <img src={icon_gg} alt={'icon-gg'} className='plugin-icon'></img>
           Sign In with Google
         </div>
         <div
-          className="plugin-facebook"
+          className='plugin-facebook'
           style={{
-            marginLeft: "1rem",
+            marginLeft: '1rem',
           }}
         >
-          <img src={icon_fb} alt={"icon-fb"} className="plugin-icon"></img>
+          <img src={icon_fb} alt={'icon-fb'} className='plugin-icon'></img>
         </div>
       </div>
     </Style>
