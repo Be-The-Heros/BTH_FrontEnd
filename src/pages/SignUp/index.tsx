@@ -12,6 +12,7 @@ import { lowerCase } from 'lodash';
 import icon_gg from 'assets/images/icon_gg.svg';
 import Loading from 'components/Loading';
 import { toast } from 'react-toastify';
+import { setLocalStorage } from 'helpers/setTitleDocument';
 
 const MIN_SAFE_DATE = '1900-01-01';
 const MAX_SAFE_DATE = '2010-01-01';
@@ -41,7 +42,8 @@ export default function SignUpPage() {
         ...mutation.data.data,
         isLoggedIn: true,
       }) &&
-      navigate('/home');
+      navigate('/home') &&
+      setLocalStorage('user', JSON.stringify(mutation.data.data));
   }, [mutation.isSuccess]);
   const handleSignUpGoogle = (data: User) => {
     const splitName = data.displayName?.trim().split(' ') || [];
@@ -141,7 +143,6 @@ export default function SignUpPage() {
                   <div className='form-sign-up__content--form-input'>
                     <label className='w-100'>Enter date of birth</label>
                     <input
-                      placeholder='Date Of Birth'
                       min={MIN_SAFE_DATE}
                       max={MAX_SAFE_DATE}
                       type='date'

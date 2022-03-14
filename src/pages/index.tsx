@@ -6,19 +6,20 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
-import LayoutAuth from 'templates/LayoutAuth';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userState } from 'recoil/users/state';
 import LayoutMain from 'templates/Layout';
+import LayoutAuth from 'templates/LayoutAuth';
 import ForgotPasswordPage from './ForgotPassword';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
-import { useRecoilState } from 'recoil';
-import { userState } from 'recoil/users/state';
+
 // import CreatePostPage from './CreatePost';
 // import Homepage from './Home';
 
 const Homepage = React.lazy(() => import('./Home'));
 const CreatePostPage = React.lazy(() => import('./CreatePost'));
-
+const ProfileSettingsPage = React.lazy(() => import('./ProfileSettings'));
 interface CustomRouteProps {
   element?: React.LazyExoticComponent<() => JSX.Element> | JSX.Element;
   children?: React.LazyExoticComponent<() => JSX.Element> | JSX.Element;
@@ -46,6 +47,14 @@ const PublicRoute: React.FC<CustomRouteProps> = (
   );
 };
 export const AppViews = () => {
+  const user = useRecoilValue(userState);
+
+  React.useEffect(() => {
+    if (user.isLoggedIn) {
+      window.location.href = '/';
+    }
+  }, [user.isLoggedIn]);
+
   return (
     <Router>
       <Routes>
@@ -55,6 +64,10 @@ export const AppViews = () => {
             path='/create-post'
             element={<PrivateRoute element={<CreatePostPage />} />}
           />
+          <Route
+            path='/profile/settings'
+            element={<PrivateRoute element={<ProfileSettingsPage />} />}
+          ></Route>
         </Route>
         <Route path='/auth' element={<LayoutAuth />}>
           <Route path='sign-in' element={<SignInPage />} />

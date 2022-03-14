@@ -4,6 +4,7 @@ import { USER_INFO_KEY } from './constants';
 export const userState = atom<UserInfo>({
   key: USER_INFO_KEY, // unique ID (with respect to other atoms/selectors)
   default: {
+    token: '',
     uid: '',
     name: '',
     email: '',
