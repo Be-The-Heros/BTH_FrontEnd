@@ -4,12 +4,14 @@ export interface Config {
   api: {
     kycUrl: string;
     useUrl: string;
+    authUrl: string;
   };
 }
 
 export enum ApiVersion {
   kyc = 'kyc',
   user = 'user',
+  auth = 'auth',
 }
 
 export interface RequestOptions {

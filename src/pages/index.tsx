@@ -39,7 +39,6 @@ const PublicRoute: React.FC<CustomRouteProps> = (
   props
 ): React.ReactElement | null => {
   const { children, element } = props;
-
   return (
     <Suspense fallback={<Loading cover='content' />}>
       {element || children}
