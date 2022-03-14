@@ -53,7 +53,8 @@ export const AppViews = () => {
     if (user.isLoggedIn) {
       window.location.href = '/';
     }
-  }, [user.isLoggedIn]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Router>
