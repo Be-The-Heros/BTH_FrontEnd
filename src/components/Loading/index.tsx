@@ -4,13 +4,22 @@ import { LoadingOutlined } from '@ant-design/icons';
 // import { ListPost } from "";
 const Icon = <LoadingOutlined style={{ fontSize: 35 }} spin />;
 
-interface LoadingProps {
+interface LoadingProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   align?: string;
   cover?: string;
 }
-const Loading = ({ align = 'center', cover = 'inline' }: LoadingProps) => {
+
+const Loading = ({
+  align = 'center',
+  cover = 'inline',
+  style,
+}: LoadingProps) => {
   return (
-    <div className={`loading text-${align} cover-${cover}`}>
+    <div style={style} className={`loading text-${align} cover-${cover}`}>
       <Spin indicator={Icon} />
     </div>
   );

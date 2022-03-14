@@ -1,11 +1,9 @@
-import { useChangePasswordByOtp } from 'hooks/user';
 import React, { useState, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
-import { RequestForgotPassword } from 'hooks/user/types';
 
 // const LENGTH_OTP = 6;
 interface CheckingOTPProps {
@@ -30,35 +28,8 @@ export const CheckingOTP = (props: CheckingOTPProps) => {
   } = useForm<InputsChangePassword>();
   const setLoginUser = useSetRecoilState(userState);
   const navigate = useNavigate();
-  const useChangePassword = useChangePasswordByOtp();
 
-  useEffect(() => {
-    if (useChangePassword.data) {
-      console.log(useChangePassword.data);
-      toast.success('Change password success');
-      setLoginUser((state) => {
-        return {
-          ...state,
-          isLoggedIn: true,
-        };
-      });
-      navigate('/auth/sign-in');
-    }
-    if (useChangePassword.isError) {
-      console.log(useChangePassword.error);
-      toast.error('Otp is invalid');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [useChangePassword.data, useChangePassword.isError]);
-
-  const onSubmit: SubmitHandler<InputsChangePassword> = (data) => {
-    const dataForm: RequestForgotPassword = {
-      email: props.email,
-      otp: data.otp,
-      newPassword: data.password,
-    };
-    useChangePassword.mutate(dataForm);
-  };
+  const onSubmit: SubmitHandler<InputsChangePassword> = (data) => {};
 
   return (
     <React.Fragment>

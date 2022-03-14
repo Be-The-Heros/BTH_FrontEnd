@@ -1,6 +1,5 @@
 import icon_fb from 'assets/images/icon_fb.svg';
 import icon_gg from 'assets/images/icon_gg.svg';
-import { useRequestForgotPassword } from 'hooks/user';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { CheckingOTP } from './components/CheckingOTP';
@@ -12,24 +11,6 @@ export default function ForgotPasswordPage() {
   const navigate = useNavigate();
   const [isOpenOTP, setIsOpenOTP] = useState(true);
   const [email, setEmail] = useState('');
-  const useRequestOtp = useRequestForgotPassword();
-
-  useEffect(() => {
-    if (useRequestOtp.data) {
-      toast.success("let's check your email");
-      console.log('useRequestOtp.data', useRequestOtp.data);
-      setIsOpenOTP(true);
-    }
-    if (useRequestOtp.isError) {
-      toast.error('your email is invalid');
-      console.log(useRequestOtp.error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [useRequestOtp.data, useRequestOtp.isError]);
-
-  const sendOtp = () => {
-    useRequestOtp.mutate(email);
-  };
 
   return (
     <Style>
@@ -58,7 +39,7 @@ export default function ForgotPasswordPage() {
         {isOpenOTP ? (
           <CheckingOTP goBack={() => setIsOpenOTP(false)} email={email} />
         ) : (
-          <BoxEmail sendOtp={sendOtp} setEmail={setEmail} />
+          <BoxEmail sendOtp={() => {}} setEmail={setEmail} />
         )}
       </div>
       <div className='plugin w-100 d-flex flex-wrap justify-content-center'>

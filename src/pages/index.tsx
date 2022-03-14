@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import LayoutAuth from 'templates/LayoutAuth';
 import LayoutMain from 'templates/Layout';
-import ForgotPasswordPage from './forgotPassword';
+import ForgotPasswordPage from './ForgotPassword';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
 import { useRecoilState } from 'recoil';
@@ -16,7 +16,7 @@ import { userState } from 'recoil/users/state';
 // import CreatePostPage from './CreatePost';
 // import Homepage from './Home';
 
-const Homepage = React.lazy(() => import('./home'));
+const Homepage = React.lazy(() => import('./Home'));
 const CreatePostPage = React.lazy(() => import('./CreatePost'));
 
 interface CustomRouteProps {
@@ -39,7 +39,6 @@ const PublicRoute: React.FC<CustomRouteProps> = (
   props
 ): React.ReactElement | null => {
   const { children, element } = props;
-
   return (
     <Suspense fallback={<Loading cover='content' />}>
       {element || children}

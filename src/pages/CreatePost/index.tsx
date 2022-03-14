@@ -1,7 +1,6 @@
-import PopupLogin from 'components/PopupSuggestLogin';
-import React from 'react';
-import { LayoutApp } from 'templates/LayoutApp';
-
+import PopupLogin from "components/PopupSuggestLogin";
+import React from "react";
+import { LayoutApp } from "templates/LayoutApp";
 const CreatePostPage = () => {
   const [isOpenPopup, setIsOpenPopup] = React.useState(true);
   return (
