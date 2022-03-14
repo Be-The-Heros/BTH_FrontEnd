@@ -3,19 +3,25 @@ export default styled.div`
     .sidebar_top{
         display: flex ;
         justify-content: space-between ;
+        font-size:1rem ;
     }
     .sidebar_group{
-        position: relative;
-        margin-top:1rem ;
-        &_icon{
-            position: absolute;
-            z-index:2 ;
-            margin-left: 10px ;
+        display: flex;
+        justify-content: space-between ;
+        margin-top:2rem ;
+        
+        &_detail{
+            display: flex ;
+            margin-left:-8px ;
+            &_name{
+                margin-left: 5px ;
+            }
         }
-        &_bg{
-             position: absolute ;
-             top: -12px;
-             z-index: 1 ;
-         }
+        
+        &_rate{
+            display: flex ;
+            flex-direction: column ;
+            margin-right:-10px ;
+        }
     }
 `

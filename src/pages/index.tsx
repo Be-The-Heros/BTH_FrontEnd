@@ -13,6 +13,8 @@ import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
 import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
+// import CreatePostPage from './CreatePost';
+// import Homepage from './Home';
 
 const Homepage = React.lazy(() => import('./home'));
 const CreatePostPage = React.lazy(() => import('./CreatePost'));

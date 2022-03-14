@@ -5,6 +5,7 @@ import { SidebarRight } from 'pages/home/components/SidebarRight';
 import {NewFeed}  from 'pages/home/components/NewFeed';
 
 import {Post} from 'recoil/users/types';
+import Style from './style';
 
 const post: Post = { 
   id_post: '001',
@@ -18,14 +19,17 @@ const post: Post = {
 
 } ;
 const Homepage = () => {
+
   return (
     <LayoutApp sidebarLeft={<SidebarLeft />} sidebarRight={<SidebarRight />}>
-      <div className='header' >
-          <a href='#'>Newest</a>
-          <a href='#'>Nearest</a>
-          <a href='#'>More joined</a>
-      </div>
-      <NewFeed {...post }/>
+      <Style>
+        <div className='header' >
+            <a href='#'>Newest</a>
+            <a href='#'>Nearest</a>
+            <a href='#'>More joined</a>
+        </div>
+        <NewFeed {...post }/>
+      </Style>
     </LayoutApp>
   );
 };

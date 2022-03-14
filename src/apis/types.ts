@@ -7,8 +7,13 @@ export interface Config {
   };
 }
 
+export enum ApiVersion {
+  kyc = 'kyc',
+  user = 'user',
+}
+
 export interface RequestOptions {
-  apiVersion: 'kyc';
+  apiVersion: ApiVersion;
   headers?: AxiosRequestHeaders;
   widthHeader?: boolean;
 }

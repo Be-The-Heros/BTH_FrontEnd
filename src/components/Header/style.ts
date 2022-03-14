@@ -2,7 +2,11 @@ import styled from 'styled-components';
 export default styled.div`
   background-color: #ffff;
   padding: 0.5em 5em;
-  box-shadow: 0px 4px 19px rgba(119, 147, 65, 0.3);
+  box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
+  border-bottom: 1px solid #f2f2f2;
+  position: fixed;
+  width: 100%;
+
   .header {
     &__logo {
       width: 4em;

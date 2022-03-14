@@ -25,11 +25,8 @@ export default styled.div`
                &_locate{
                    display: flex;
                    margin-top: 5px;
-                   
-                   div{
-                       
-                       margin-left: 6px;
-                   }
+                   margin-left:-4px ;
+                  
                }
             }
         }
@@ -38,11 +35,13 @@ export default styled.div`
             Button{
                 background-color: var(--primary);
                 color: #ffff;
+                margin-bottom: 1em ;
             }
         }
 
     }
     .Newfeed_body{
+        margin-left: 1rem ;
         a{
             text-decoration: none;
         }
@@ -58,10 +57,17 @@ export default styled.div`
             }
             p{
                 text-align: center;
-                margin-left: 15px;
+                margin-left: 10px;
                 color: var(--dark);
-                
+                font-size: 1.2rem ;
             }
+        }
+        &_content{
+            font-size: 1rem;
+
+        }
+        &_photos{
+            margin-top:1rem ;
         }
     }
     .Newfeed_footer{

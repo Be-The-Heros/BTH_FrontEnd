@@ -1,4 +1,7 @@
 {
-  "presets": ["es2015", "react"],
-  "compact": true
+  "env": {
+    "development": {
+      "compact": false
+    }
+  }
 }
