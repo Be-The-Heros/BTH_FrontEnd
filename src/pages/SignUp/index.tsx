@@ -8,7 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
 import { signInWithGoogleAuth } from 'services/firebase';
 import Style from './style';
-import _lowerCase from 'lodash/lowerCase';
+import { lowerCase } from 'lodash';
 import icon_gg from 'assets/images/icon_gg.svg';
 import Loading from 'components/Loading';
 import { toast } from 'react-toastify';
@@ -50,7 +50,7 @@ export default function SignUpPage() {
       email: data.email,
       uid_gg: data.uid,
       emailVerified: data.emailVerified,
-      username: _lowerCase(
+      username: lowerCase(
         data.displayName
           ?.split('')
           .map((item) => item.trim())
