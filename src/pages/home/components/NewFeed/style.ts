@@ -2,6 +2,9 @@
 import styled from 'styled-components';
 
 export default styled.div`
+    background-color: var(--background-light) ;
+    padding: 1rem 0rem ;
+    margin-bottom:2rem ;
     .Newfeed_head{
         display: flex;
         justify-content: space-between;

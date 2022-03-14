@@ -4,7 +4,7 @@ export default styled.div`
         display: flex ;
         justify-content:space-evenly ;
         font-size:1.5em ;
-        
-        margin-bottom: 2.5em ;
+        margin-bottom: 1.5em ;
+        background-color: var(--background-light) ;
     }
 `

@@ -13,8 +13,8 @@ import { FcBookmark, FcContacts, FcVoicePresentation } from 'react-icons/fc';
 
 export const NewFeed = (prop : Post)=>{
     const [user, setUser] = useRecoilState(userState);
-    console.log(prop.photos);
     
+    let n = prop.photos.length;
     return(
         <Style>
             <div className='Newfeed_head'>
@@ -50,8 +50,12 @@ export const NewFeed = (prop : Post)=>{
                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam explicabo, dolorem sed autem deleniti temporibus laborum, neque officia suscipit reprehenderit possimus fugit aperiam, quis sequi nemo. Inventore enim debitis non.
                 </div>
                 <div className='Newfeed_body_photos'>
-                    {prop.photos.map((photo,index)=>
-                        <img src= {photo} alt='photo' key={index}/>
+                    
+                    {prop.photos.map((photo,index)=>{
+                        let w= (100 / n ) ;
+                        return <img src= {photo} alt='photo' key={index} style={{width:`${w}%`, height:'100%'}}/>
+                    }
+                        
                     )}
                     
                     
@@ -71,4 +75,8 @@ export const NewFeed = (prop : Post)=>{
             </div>
         </Style>
     )
+}
+
+function calc(arg0: number): import("csstype").Property.Width<string | number> | undefined {
+    throw new Error('Function not implemented.');
 }
