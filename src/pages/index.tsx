@@ -17,7 +17,7 @@ import SignUpPage from './SignUp';
 // import CreatePostPage from './CreatePost';
 // import Homepage from './Home';
 
-const Homepage = React.lazy(() => import('./HomePage'));
+const Homepage = React.lazy(() => import('./Homepage'));
 const CreatePostPage = React.lazy(() => import('./CreatePost'));
 const ProfileSettingsPage = React.lazy(() => import('./ProfileSettings'));
 interface CustomRouteProps {
