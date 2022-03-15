@@ -13,7 +13,8 @@ export default styled.div`
 
     &_info {
       display: flex;
-
+      text-decoration: none ;
+      color: var(--black);
       img {
         align-content: center;
         width: 4.75em;

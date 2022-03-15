@@ -8,15 +8,17 @@ import {
 } from 'react-router-dom';
 import LayoutAuth from 'templates/LayoutAuth';
 import LayoutMain from 'templates/Layout';
-import ForgotPasswordPage from './ForgotPassword';
+import ForgotPasswordPage from './forgotPassword';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
 import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
+import Post from './Post';
+import Profile from './Profile';
 // import CreatePostPage from './CreatePost';
 // import Homepage from './Home';
 
-const Homepage = React.lazy(() => import('./Home'));
+const Homepage = React.lazy(() => import('./home'));
 const CreatePostPage = React.lazy(() => import('./CreatePost'));
 
 interface CustomRouteProps {
@@ -55,7 +57,14 @@ export const AppViews = () => {
             path='/create-post'
             element={<PrivateRoute element={<CreatePostPage />} />}
           />
+          <Route
+          path='/post'
+          element={<PublicRoute element={<Post />} />}/>
         </Route>
+        <Route
+          path={`/profile`}
+          element={<PublicRoute element={<Profile />} />}
+        />
         <Route path='/auth' element={<LayoutAuth />}>
           <Route path='sign-in' element={<SignInPage />} />
           <Route path='forgot-password' element={<ForgotPasswordPage />} />

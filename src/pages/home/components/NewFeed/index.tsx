@@ -7,6 +7,7 @@ import { VscLocation } from 'react-icons/vsc';
 import { MdOutlineStickyNote2 } from 'react-icons/md';
 import { Button } from 'antd';
 import { FcBookmark, FcContacts, FcVoicePresentation } from 'react-icons/fc';
+import { Link } from 'react-router-dom';
 
 export const NewFeed = (props: PostInfo) => {
   const [user, setUser] = useRecoilState(userState);
@@ -15,7 +16,7 @@ export const NewFeed = (props: PostInfo) => {
   return (
     <Style>
       <div className='Newfeed_head'>
-        <div className='Newfeed_head_info'>
+        <Link to={`/profile/${user.uid}` }className='Newfeed_head_info'>
           <img src={user.avatar} alt='avatar'></img>
           <div className='Newfeed_head_info_detail'>
             <h6>{user.name ? user.name : 'Ho Thanh'}</h6>
@@ -25,7 +26,7 @@ export const NewFeed = (props: PostInfo) => {
               <div>{props.residential_address}</div>
             </div>
           </div>
-        </div>
+        </Link>
         <div className='Newfeed_head_join'>
           <Button className='Newfeed_head_join_button' type='ghost'>
             Join
@@ -34,9 +35,9 @@ export const NewFeed = (props: PostInfo) => {
         </div>
       </div>
       <div className='Newfeed_body'>
-        <a href='#'>
+        <Link to='/post'>
           <h3>Hỗ Trợ Trẻ Em Thiện Nguyện</h3>
-        </a>
+        </Link>
         <div className='Newfeed_body_title'>
           <FcVoicePresentation
             style={{ fontSize: '2.5rem' }}
