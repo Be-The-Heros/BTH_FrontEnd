@@ -1,4 +1,5 @@
 interface UserInfo {
+  token: string;
   uid: string;
   name: string;
   email: string;

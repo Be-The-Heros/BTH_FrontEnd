@@ -1,6 +1,8 @@
 import icon_fb from 'assets/images/icon_fb.svg';
 import icon_gg from 'assets/images/icon_gg.svg';
+import Loading from 'components/Loading';
 import { User } from 'firebase/auth';
+import { setLocalStorage } from 'helpers/setTitleDocument';
 import { useSignIn } from 'hooks/auth/signIn';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,6 +13,10 @@ import { userState } from 'recoil/users/state';
 import { signInWithGoogleAuth } from 'services/firebase';
 import StyleSignIn from './style';
 
+interface InputGroup {
+  email: string;
+  password: string;
+}
 const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = React.useState(true);
   const setUser = useSetRecoilState(userState);
@@ -18,7 +24,7 @@ const SignInPage = () => {
     register,
     handleSubmit,
     // formState: { errors },
-  } = useForm();
+  } = useForm<InputGroup>();
   const mutation = useSignIn();
   const navigate = useNavigate();
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
@@ -30,10 +36,29 @@ const SignInPage = () => {
       type: 'google',
     });
   };
-
+  const handleSignInManual = (data: InputGroup) => {
+    mutation.mutate({
+      email: data.email,
+      password: data.password,
+      type: 'manual',
+    });
+  };
+  React.useEffect(() => {
+    if (mutation.isSuccess) {
+      setUser({
+        ...mutation.data.data,
+        isLoggedIn: true,
+      });
+      setLocalStorage('user', JSON.stringify(mutation.data.data));
+      navigate('/home');
+    }
+  }, [mutation.isSuccess]);
   return (
     <StyleSignIn>
-      <div className='form-sign-in'>
+      <form
+        className='form-sign-in'
+        onSubmit={handleSubmit(handleSignInManual)}
+      >
         <div className='form-sign-in__header d-flex flex-wrap'>
           <div className='col-6'>
             <div className='form-sign-in__header--welcome'>
@@ -53,43 +78,48 @@ const SignInPage = () => {
             </div>
           </div>
         </div>
-        <div className='form-sign-in__content col-12'>
-          <div className='form-sign-in__content--form-input'>
-            <label className='w-100'>Enter username or email address</label>
-            <input
-              type='email'
-              placeholder='Username or email address'
-              {...register('email', { required: true })}
-            />
-          </div>
-          <div className='form-sign-in__content--form-input'>
-            <label className='w-100'>Enter your password</label>
-            <input
-              type={isShowPassword ? 'password' : 'text'}
-              placeholder='Password'
-              {...register('password', { required: true })}
-            />
-            {isShowPassword ? (
-              <AiOutlineEyeInvisible onClick={() => toggleShowPassword()} />
-            ) : (
-              <AiOutlineEye onClick={() => toggleShowPassword()} />
-            )}
-          </div>
-        </div>
+        {mutation.isLoading && <Loading cover='content' />}
+        {!mutation.isLoading && (
+          <React.Fragment>
+            <div className='form-sign-in__content col-12'>
+              <div className='form-sign-in__content--form-input'>
+                <label className='w-100'>Enter username or email address</label>
+                <input
+                  type='email'
+                  placeholder='Username or email address'
+                  {...register('email', { required: true })}
+                />
+              </div>
+              <div className='form-sign-in__content--form-input'>
+                <label className='w-100'>Enter your password</label>
+                <input
+                  type={isShowPassword ? 'password' : 'text'}
+                  placeholder='Password'
+                  {...register('password', { required: true })}
+                />
+                {isShowPassword ? (
+                  <AiOutlineEyeInvisible onClick={() => toggleShowPassword()} />
+                ) : (
+                  <AiOutlineEye onClick={() => toggleShowPassword()} />
+                )}
+              </div>
+            </div>
 
-        <div className='form-sign-in__footer col-12'>
-          <div className='d-flex justify-content-end'>
-            <span
-              className=' form-sign-in__footer-fg'
-              onClick={() => navigate('/auth/forgot-password')}
-            >
-              Forgot Password?
-            </span>
-          </div>
+            <div className='form-sign-in__footer col-12'>
+              <div className='d-flex justify-content-end'>
+                <span
+                  className=' form-sign-in__footer-fg'
+                  onClick={() => navigate('/auth/forgot-password')}
+                >
+                  Forgot Password?
+                </span>
+              </div>
 
-          <button className='btn btn--sign-in w-100'>Sign in</button>
-        </div>
-      </div>
+              <button className='btn btn--sign-in w-100'>Sign in</button>
+            </div>
+          </React.Fragment>
+        )}
+      </form>
       <div className='plugin w-100 d-flex flex-wrap justify-content-center'>
         <div
           className='plugin-google'
