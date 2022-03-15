@@ -7,6 +7,8 @@ export const postState = atom<PostInfo[]>({
     {
       id_post: '001',
       uid: '001',
+      name: 'Ho Thanh',
+      avatar:'',
       created_at: '18/2/2022',
       photos: [
         'https://iweb.tatthanh.com.vn/pic/8/news/images/cac-hoat-dong-thien-nguyen-chao-xuan-moi-ky-hoi.jpg',
@@ -21,6 +23,8 @@ export const postState = atom<PostInfo[]>({
     {
       id_post: '002',
       uid: '001',
+      name: 'Ho Thanh',
+      avatar:'',
       created_at: '5/3/2022',
       photos: [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVSyQhfx02B9aUZTLopIRSSecenoBvv0Xr2Q&usqp=CAU',
@@ -37,6 +41,8 @@ export const postState = atom<PostInfo[]>({
       id_post: '003',
       uid: '001',
       created_at: '11/3/2022',
+      name: 'Ho Thanh',
+      avatar:'',
       photos: [
         'https://iweb.tatthanh.com.vn/pic/8/news/images/cac-hoat-dong-thien-nguyen-chao-xuan-moi-ky-hoi.jpg',
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu-EZaKsFo06Gye5ZCgp-KnU1DuQT0_4cR-g&usqp=CAU',
@@ -52,6 +58,8 @@ export const postState = atom<PostInfo[]>({
     {
       id_post: '004',
       uid: '001',
+      name: 'Ho Thanh',
+      avatar:'',
       created_at: '10/3/2022',
       photos: [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNjjbrjamby2xfFV_y5jD1BMg8iC85J_9wvQ&usqp=CAU',

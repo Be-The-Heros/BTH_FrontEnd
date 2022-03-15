@@ -1,6 +1,8 @@
 interface PostInfo {
   id_post: string;
   uid: string;
+  name: string;
+  avatar?: string;
   created_at: string;
   photos: string[];
   residential_address: string;

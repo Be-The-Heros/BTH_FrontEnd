@@ -21,10 +21,10 @@ export const NewFeed = (props: PostInfo) => {
           <div className='Newfeed_head_info_detail'>
             <h6>{user.name ? user.name : 'Ho Thanh'}</h6>
             <p>{props.created_at}</p>
-            <div className='Newfeed_head_info_detail_locate'>
+            {/* <div className='Newfeed_head_info_detail_locate'>
               <VscLocation style={{ fontSize: '1.25rem' }} />
               <div>{props.residential_address}</div>
-            </div>
+            </div> */}
           </div>
         </Link>
         <div className='Newfeed_head_join'>
@@ -38,12 +38,7 @@ export const NewFeed = (props: PostInfo) => {
         <Link to='/post'>
           <h3>Hỗ Trợ Trẻ Em Thiện Nguyện</h3>
         </Link>
-        <div className='Newfeed_body_title'>
-          <FcVoicePresentation
-            style={{ fontSize: '2.5rem' }}
-          ></FcVoicePresentation>
-          <p className='name'>Tên: </p>
-        </div>
+        
         <div className='Newfeed_body_title'>
           <FcBookmark style={{ fontSize: '2.25rem' }} />
           <p>Địa Chỉ: </p>

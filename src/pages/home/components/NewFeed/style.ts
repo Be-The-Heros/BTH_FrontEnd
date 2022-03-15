@@ -24,9 +24,7 @@ export default styled.div`
       }
       &_detail {
         margin-left: 1rem;
-        p {
-          margin: 0;
-        }
+        margin-top:0.75rem ;
         &_locate {
           display: flex;
           margin-top: 5px;
@@ -40,11 +38,16 @@ export default styled.div`
         background-color: var(--primary);
         color: #ffff;
         margin-bottom: 1em;
+        margin-left:1rem ;
+      }
+      p{
+        text-align: center ;
+        margin-left:0.5rem ;
       }
     }
   }
   .Newfeed_body {
-    margin-left: 1rem;
+    
     a {
       text-decoration: none;
     }
