@@ -38,11 +38,11 @@ export default styled.div`
         background-color: var(--primary);
         color: #ffff;
         margin-bottom: 1em;
-        margin-left:1rem ;
+        width: 100% ;
       }
       p{
         text-align: center ;
-        margin-left:0.5rem ;
+        
       }
     }
   }
