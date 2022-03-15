@@ -6,7 +6,6 @@ export default styled.div`
   display: flex;
   justify-content: space-between;
   padding: 2% 5em;
-  padding-top: 100px;
   .sidebar-left,
   .sidebar-right {
     background-color: var(--white);

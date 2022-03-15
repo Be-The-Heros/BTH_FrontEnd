@@ -23,7 +23,6 @@ function App() {
         : resetUserState();
     }
   }, [setUser, resetUserState]);
-
   return (
     <div className='app'>
       <ToastContainer />
