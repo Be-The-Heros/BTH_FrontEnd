@@ -16,7 +16,6 @@ if (ENV === 'development') {
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools initialIsOpen /> */}
       <RecoilRoot>
         <App />
       </RecoilRoot>
