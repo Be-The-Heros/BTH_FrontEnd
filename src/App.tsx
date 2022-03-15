@@ -18,14 +18,15 @@ function App() {
         ? setUser({
             ...user,
             isLoggedIn: true,
+            level: user.level,
           })
         : resetUserState();
     }
   }, [setUser, resetUserState]);
+
   return (
     <div className='app'>
       <ToastContainer />
-
       <AppViews />
     </div>
   );

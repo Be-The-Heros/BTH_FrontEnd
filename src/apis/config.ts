@@ -19,7 +19,7 @@ axiosClient.interceptors.response.use(
   (error: AxiosError) => {
     toast.error(error.response?.data.message);
     if (error.response?.data.code === 401) {
-      window.location.href = '/login';
+        window.location.href = '/login';
       localStorage.clear();
     }
     throw new Error(error.response?.data.message || error.message);

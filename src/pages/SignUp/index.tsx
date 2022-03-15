@@ -1,19 +1,18 @@
 import icon_fb from 'assets/images/icon_fb.svg';
-import { User } from 'firebase/auth';
-import { useSignUp } from 'hooks/auth/signUp/useSignUp';
-import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
-import { useSetRecoilState } from 'recoil';
-import { userState } from 'recoil/users/state';
-import { signInWithGoogleAuth } from 'services/firebase';
-import Style from './style';
-import { lowerCase } from 'lodash';
 import icon_gg from 'assets/images/icon_gg.svg';
 import Loading from 'components/Loading';
-import { toast } from 'react-toastify';
+import { User } from 'firebase/auth';
 import { setLocalStorage } from 'helpers/setTitleDocument';
-
+import { useSignUp } from 'hooks/auth/signUp/useSignUp';
+import { lowerCase } from 'lodash';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
+import { userState } from 'recoil/users/state';
+import { signInWithGoogleAuth } from 'services/firebase';
+import { CheckingOTP } from './CheckOTP';
+import Style from './style';
 const MIN_SAFE_DATE = '1900-01-01';
 const MAX_SAFE_DATE = '2010-01-01';
 type InputsSignUp = {
@@ -23,10 +22,12 @@ type InputsSignUp = {
   fist_name: string;
   last_name: string;
   date: Date;
+  otp: number;
 };
 
 export default function SignUpPage() {
-  const setUserState = useSetRecoilState(userState);
+  const [user, setUserState] = useRecoilState(userState);
+  const [isOpenOTP, setIsOpenOTP] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -34,20 +35,21 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm<InputsSignUp>();
   const navigate = useNavigate();
-  const mutation = useSignUp();
+  const mutationSignUp = useSignUp();
 
   React.useEffect(() => {
-    mutation.isSuccess &&
+    if (mutationSignUp.isSuccess) {
+      setLocalStorage('user', JSON.stringify(mutationSignUp.data.data));
       setUserState({
-        ...mutation.data.data,
-        isLoggedIn: true,
-      }) &&
-      navigate('/home') &&
-      setLocalStorage('user', JSON.stringify(mutation.data.data));
-  }, [mutation.isSuccess]);
+        ...mutationSignUp.data.data,
+        isLoggedIn: user.level > 1,
+      });
+    }
+  }, [mutationSignUp.isSuccess]);
+
   const handleSignUpGoogle = (data: User) => {
     const splitName = data.displayName?.trim().split(' ') || [];
-    mutation.mutate({
+    mutationSignUp.mutate({
       photo_url: data.photoURL,
       email: data.email,
       uid_gg: data.uid,
@@ -64,29 +66,105 @@ export default function SignUpPage() {
     });
   };
 
-  const handleSignUpManual = (data: InputsSignUp) => {
-    mutation.mutate({
-      email: data.email,
-      emailVerified: false,
-      first_name: data.fist_name,
-      last_name: data.last_name,
-      password: data.password,
-      username: data.username,
+  const handleSignUpManual = () => {
+    mutationSignUp.mutate({
+      email: watch('email'),
+      first_name: watch('last_name'),
+      last_name: watch('last_name'),
+      password: watch('password'),
+      username: watch('username'),
+      type: 'manual',
+      date_of_birth: watch('date'),
     });
+  };
+
+  const renderForm = () => {
+    if (mutationSignUp.isLoading) {
+      return <Loading cover='content' />;
+    }
+    if (user.level == 1) {
+      return <CheckingOTP />;
+    }
+    return (
+      <div>
+        <div className='form-sign-up__content col-12'>
+          <div className='form-sign-up__content--form-input'>
+            <label className='w-100'>Enter email address</label>
+            <input
+              type='email'
+              placeholder='example@example.com'
+              {...register('email', { required: true })}
+            />
+          </div>
+
+          <div className='form-sign-up__content--form-input d-flex'>
+            <div
+              className='w-50'
+              style={{
+                paddingRight: '0.5rem',
+              }}
+            >
+              <label className='w-100'>Enter First Name</label>
+              <input
+                placeholder='Please enter First Name'
+                {...register('fist_name', { required: true })}
+              />
+            </div>
+            <div
+              className='w-50'
+              style={{
+                paddingLeft: '0.5rem',
+              }}
+            >
+              <label className='w-100'>Enter Last Name</label>
+              <input
+                placeholder='Please enter First Name'
+                {...register('last_name', { required: true })}
+              />
+            </div>
+          </div>
+          <div className='form-sign-up__content--form-input'>
+            <label className='w-100'>Enter date of birth</label>
+            <input
+              min={MIN_SAFE_DATE}
+              max={MAX_SAFE_DATE}
+              type='date'
+              {...register('date', { required: true })}
+            />
+          </div>
+          <div className='form-sign-up__content--form-input'>
+            <label className='w-100'>Enter password</label>
+            <input
+              placeholder='Password'
+              type='password'
+              {...register('password', { required: true })}
+            />
+          </div>
+        </div>
+
+        <div className='form-sign-up__footer col-12'>
+          <button
+            className='btn btn--sign-up w-100'
+            onClick={() => handleSignUpManual()}
+          >
+            Sign Up
+          </button>
+        </div>
+      </div>
+    );
   };
   return (
     <Style>
       <React.Fragment>
-        <form
-          className='form-sign-up'
-          onSubmit={handleSubmit(handleSignUpManual)}
-        >
+        <div className='form-sign-up'>
           <div className='form-sign-up__header d-flex flex-wrap'>
             <div className='col-6'>
               <div className='form-sign-up__header--welcome'>
                 Welcome to <span>Be The Heroes</span>
               </div>
-              <div className='form-sign-up__header--type'>Sign Up</div>
+              <div className='form-sign-up__header--type'>
+                {user.level === 1 ? 'Check OTP' : 'Sign Up'}
+              </div>
             </div>
             <div className='col-6'>
               <div className='form-sign-up__header--sign-up text-right'>
@@ -100,72 +178,8 @@ export default function SignUpPage() {
               </div>
             </div>
           </div>
-          {mutation.isLoading && <Loading cover='content' />}
-          {!mutation.isLoading && (
-            <React.Fragment>
-              <div className='form-sign-up__content col-12'>
-                <React.Fragment>
-                  <div className='form-sign-up__content--form-input'>
-                    <label className='w-100'>Enter email address</label>
-                    <input
-                      type='email'
-                      placeholder='example@example.com'
-                      {...register('email', { required: true })}
-                    />
-                  </div>
-
-                  <div className='form-sign-up__content--form-input d-flex'>
-                    <div
-                      className='w-50'
-                      style={{
-                        paddingRight: '0.5rem',
-                      }}
-                    >
-                      <label className='w-100'>Enter First Name</label>
-                      <input
-                        placeholder='Please enter First Name'
-                        {...register('fist_name', { required: true })}
-                      />
-                    </div>
-                    <div
-                      className='w-50'
-                      style={{
-                        paddingLeft: '0.5rem',
-                      }}
-                    >
-                      <label className='w-100'>Enter Last Name</label>
-                      <input
-                        placeholder='Please enter First Name'
-                        {...register('last_name', { required: true })}
-                      />
-                    </div>
-                  </div>
-                  <div className='form-sign-up__content--form-input'>
-                    <label className='w-100'>Enter date of birth</label>
-                    <input
-                      min={MIN_SAFE_DATE}
-                      max={MAX_SAFE_DATE}
-                      type='date'
-                      {...register('date', { required: true })}
-                    />
-                  </div>
-                  <div className='form-sign-up__content--form-input'>
-                    <label className='w-100'>Enter password</label>
-                    <input
-                      placeholder='Password'
-                      type='password'
-                      {...register('password', { required: true })}
-                    />
-                  </div>
-                </React.Fragment>
-              </div>
-
-              <div className='form-sign-up__footer col-12'>
-                <button className='btn btn--sign-up w-100'>Sign Up</button>
-              </div>
-            </React.Fragment>
-          )}
-        </form>
+          {renderForm()}
+        </div>
         <div className='plugin w-100 d-flex flex-wrap justify-content-center'>
           <div
             className='plugin-google'

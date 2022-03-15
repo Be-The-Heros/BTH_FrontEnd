@@ -10,14 +10,14 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
 import LayoutMain from 'templates/Layout';
 import LayoutAuth from 'templates/LayoutAuth';
-import ForgotPasswordPage from './ForgotPassword';
+import ForgotPasswordPage from './ForgotPasswordPage';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
 
 // import CreatePostPage from './CreatePost';
 // import Homepage from './Home';
 
-const Homepage = React.lazy(() => import('./Home'));
+const Homepage = React.lazy(() => import('./HomePage'));
 const CreatePostPage = React.lazy(() => import('./CreatePost'));
 const ProfileSettingsPage = React.lazy(() => import('./ProfileSettings'));
 interface CustomRouteProps {
@@ -50,7 +50,7 @@ export const AppViews = () => {
   const user = useRecoilValue(userState);
 
   React.useEffect(() => {
-    if (user.isLoggedIn) {
+    if (user.isLoggedIn && user.level > 1) {
       window.location.href = '/';
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
