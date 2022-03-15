@@ -5,6 +5,7 @@ export interface Config {
     kycUrl: string;
     useUrl: string;
     authUrl: string;
+    otpUrl: string;
   };
 }
 
@@ -12,6 +13,7 @@ export enum ApiVersion {
   kyc = 'kyc',
   user = 'user',
   auth = 'auth',
+  otp = 'otp',
 }
 
 export interface RequestOptions {

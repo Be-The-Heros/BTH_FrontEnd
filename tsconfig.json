@@ -5,11 +5,9 @@
     "rootDir": "src",
     "baseUrl": "src",
     "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,

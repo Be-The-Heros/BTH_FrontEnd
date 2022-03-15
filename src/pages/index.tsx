@@ -6,21 +6,21 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
-import LayoutAuth from 'templates/LayoutAuth';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userState } from 'recoil/users/state';
 import LayoutMain from 'templates/Layout';
-import ForgotPasswordPage from './forgotPassword';
+import LayoutAuth from 'templates/LayoutAuth';
+import ForgotPasswordPage from './ForgotPasswordPage';
+import Profile from './Profile';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
-import { useRecoilState } from 'recoil';
-import { userState } from 'recoil/users/state';
-import Post from './Post';
-import Profile from './Profile';
+
 // import CreatePostPage from './CreatePost';
 // import Homepage from './Home';
 
-const Homepage = React.lazy(() => import('./home'));
+const Homepage = React.lazy(() => import('./Homepage'));
 const CreatePostPage = React.lazy(() => import('./CreatePost'));
-
+const ProfileSettingsPage = React.lazy(() => import('./ProfileSettings'));
 interface CustomRouteProps {
   element?: React.LazyExoticComponent<() => JSX.Element> | JSX.Element;
   children?: React.LazyExoticComponent<() => JSX.Element> | JSX.Element;
@@ -48,6 +48,15 @@ const PublicRoute: React.FC<CustomRouteProps> = (
   );
 };
 export const AppViews = () => {
+  const user = useRecoilValue(userState);
+
+  React.useEffect(() => {
+    if (user.isLoggedIn && user.level > 1) {
+      window.location.href = '/';
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Router>
       <Routes>
@@ -58,8 +67,9 @@ export const AppViews = () => {
             element={<PrivateRoute element={<CreatePostPage />} />}
           />
           <Route
-          path='/post'
-          element={<PublicRoute element={<Post />} />}/>
+            path='/profile/settings'
+            element={<PrivateRoute element={<ProfileSettingsPage />} />}
+          ></Route>
         </Route>
         <Route
           path={`/profile`}
