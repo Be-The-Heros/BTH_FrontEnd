@@ -25,5 +25,6 @@ img {
 }
 
 .td-layout {
-  padding-top: 100px;
+  padding-top: 4.5rem;
+  background-color: var(--bg-main);
 }
