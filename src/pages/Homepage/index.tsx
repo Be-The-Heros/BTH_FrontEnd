@@ -7,7 +7,6 @@ import { LayoutApp } from 'templates/LayoutApp';
 import { SidebarRight } from './components';
 import { NewFeed } from './components/NewFeed';
 import { SidebarLeft } from './components/SidebarLeft';
-
 import Style from './style';
 
 const Homepage = () => {
