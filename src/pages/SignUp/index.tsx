@@ -1,32 +1,33 @@
-import icon_fb from "assets/images/icon_fb.svg";
-import icon_gg from "assets/images/icon_gg.svg";
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router";
-import { GoogleLogin } from "react-google-login";
-import {
-  UseRegisterUserByEmail,
-  useRegisterUserByEmail,
-  useRegisterUserByGoogle,
-  UseRegisterUserByGoogle,
-} from "hooks/user";
-import { useForm, SubmitHandler } from "react-hook-form";
-import Style from "./style";
-import { useSetRecoilState } from "recoil";
-import { userState } from "recoil/users/state";
-import { toast } from "react-toastify";
-
+import icon_fb from 'assets/images/icon_fb.svg';
+import icon_gg from 'assets/images/icon_gg.svg';
+import Loading from 'components/Loading';
+import { User } from 'firebase/auth';
+import { setLocalStorage } from 'helpers/setTitleDocument';
+import { useSignUp } from 'hooks/auth/signUp/useSignUp';
+import { lowerCase } from 'lodash';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
+import { userState } from 'recoil/users/state';
+import { signInWithGoogleAuth } from 'services/firebase';
+import { CheckingOTP } from './CheckOTP';
+import Style from './style';
+const MIN_SAFE_DATE = '1900-01-01';
+const MAX_SAFE_DATE = '2010-01-01';
 type InputsSignUp = {
   email: string;
   password: string;
-  confirmPassword: string;
-  firstName: string;
-  lastName: string;
+  username: string;
+  fist_name: string;
+  last_name: string;
+  date: Date;
+  otp: number;
 };
 
 export default function SignUpPage() {
-  const mutationUserByGoogle = useRegisterUserByGoogle();
-  const mutationUserByEmail = useRegisterUserByEmail();
-  const setLoginUser = useSetRecoilState(userState);
+  const [user, setUserState] = useRecoilState(userState);
+  const [isOpenOTP, setIsOpenOTP] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -34,183 +35,171 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm<InputsSignUp>();
   const navigate = useNavigate();
+  const mutationSignUp = useSignUp();
 
-  useEffect(() => {
-    if (mutationUserByGoogle.data) {
-      console.log(mutationUserByGoogle.data);
-      toast.success("Sign up by google success");
-      setLoginUser((state) => {
-        return {
-          ...state,
-          isLoggedIn: true,
-        };
+  React.useEffect(() => {
+    if (mutationSignUp.isSuccess) {
+      setLocalStorage('user', JSON.stringify(mutationSignUp.data.data));
+      setUserState({
+        ...mutationSignUp.data.data,
+        isLoggedIn: user.level > 1,
       });
-      navigate("/");
-
-      const token = mutationUserByGoogle.data as any;
-      localStorage.setItem("token", token.token);
     }
-    if (!!mutationUserByGoogle.isError) {
-      toast.error("Something went wrong mutationUserByGoogle");
-    }
-  }, [mutationUserByGoogle.data, mutationUserByGoogle.error]);
+  }, [mutationSignUp.isSuccess]);
 
-  useEffect(() => {
-    if (mutationUserByEmail.data) {
-      console.log(mutationUserByEmail.data);
-      toast.success("Sign up by google success");
-    }
-    if (!!mutationUserByEmail.isError) {
-      toast.error("Something went wrong mutationUserByEmail");
-    }
-  }, [mutationUserByEmail.data, mutationUserByGoogle.error]);
-
-  const responseGoogle = (response) => {
-    console.log(response, response.accessToken);
-    const { email, imageUrl, familyName, givenName } = response.profileObj;
-    const data: UseRegisterUserByGoogle = {
-      email,
-      firstName: familyName,
-      lastName: givenName,
-      avatar: imageUrl,
-      thirdPartyTokens: response.accessToken,
-    };
-    mutationUserByGoogle.mutate(data);
-  };
-
-  const onSubmit: SubmitHandler<InputsSignUp> = (data) => {
-    console.log(data);
-
-    const dataForm: UseRegisterUserByEmail = {
+  const handleSignUpGoogle = (data: User) => {
+    const splitName = data.displayName?.trim().split(' ') || [];
+    mutationSignUp.mutate({
+      photo_url: data.photoURL,
       email: data.email,
-      password: data.password,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      username: data.firstName + " " + data.lastName,
-    };
-    mutationUserByEmail.mutate(dataForm);
+      uid_gg: data.uid,
+      emailVerified: data.emailVerified,
+      username: lowerCase(
+        data.displayName
+          ?.split('')
+          .map((item) => item.trim())
+          .join('')
+      ),
+      first_name: splitName?.slice(0, splitName.length - 1).join(' '),
+      last_name: splitName[splitName.length - 1],
+      type: 'google',
+    });
   };
 
-  return (
-    <Style>
-      <div className="form-sign-up">
-        <div className="form-sign-up__header d-flex flex-wrap">
-          <div className="col-6">
-            <div className="form-sign-up__header--welcome">
-              Welcome to <span>Be The Heroes</span>
-            </div>
-            <div className="form-sign-up__header--type">Sign Up</div>
-          </div>
-          <div className="col-6">
-            <div className="form-sign-up__header--sign-up text-right">
-              Already have an account?
-            </div>
-            <div
-              className="form-sign-up__header--sign-up-link text-right"
-              onClick={() => navigate("/auth/sign-in")}
-            >
-              Sign In
-            </div>
-          </div>
-        </div>
-        <div className="form-sign-up__content col-12">
-          <div className="form-sign-up__content--form-input">
-            <label className="w-100">Enter email address</label>
+  const handleSignUpManual = () => {
+    mutationSignUp.mutate({
+      email: watch('email'),
+      first_name: watch('last_name'),
+      last_name: watch('last_name'),
+      password: watch('password'),
+      username: watch('username'),
+      type: 'manual',
+      date_of_birth: watch('date'),
+    });
+  };
+
+  const renderForm = () => {
+    if (mutationSignUp.isLoading) {
+      return <Loading cover='content' />;
+    }
+    if (user.level == 1) {
+      return <CheckingOTP />;
+    }
+    return (
+      <div>
+        <div className='form-sign-up__content col-12'>
+          <div className='form-sign-up__content--form-input'>
+            <label className='w-100'>Enter email address</label>
             <input
-              type="email"
-              placeholder="example@example.com"
-              {...register("email", { required: true })}
+              type='email'
+              placeholder='example@example.com'
+              {...register('email', { required: true })}
             />
           </div>
-          <div className="form-sign-up__content--form-input d-flex">
+
+          <div className='form-sign-up__content--form-input d-flex'>
             <div
-              className="w-50"
+              className='w-50'
               style={{
-                paddingRight: "1em",
+                paddingRight: '0.5rem',
               }}
             >
-              <label className="w-100">Enter first name</label>
+              <label className='w-100'>Enter First Name</label>
               <input
-                placeholder="First name"
-                {...register("firstName", { required: true })}
+                placeholder='Please enter First Name'
+                {...register('fist_name', { required: true })}
               />
             </div>
             <div
-              className="w-50"
+              className='w-50'
               style={{
-                paddingLeft: "1em",
+                paddingLeft: '0.5rem',
               }}
             >
-              <label className="w-100">Enter last name</label>
+              <label className='w-100'>Enter Last Name</label>
               <input
-                placeholder="Last name"
-                {...register("lastName", {
-                  required: true,
-                })}
+                placeholder='Please enter First Name'
+                {...register('last_name', { required: true })}
               />
             </div>
           </div>
-          <div className="form-sign-up__content--form-input">
-            <label className="w-100">Enter password</label>
+          <div className='form-sign-up__content--form-input'>
+            <label className='w-100'>Enter date of birth</label>
             <input
-              placeholder="Password"
-              type="password"
-              {...register("password", { required: true })}
+              min={MIN_SAFE_DATE}
+              max={MAX_SAFE_DATE}
+              type='date'
+              {...register('date', { required: true })}
             />
           </div>
-          <div className="form-sign-up__content--form-input">
-            <label className="w-100">Enter confirm password</label>
+          <div className='form-sign-up__content--form-input'>
+            <label className='w-100'>Enter password</label>
             <input
-              placeholder="Confirm Password"
-              type="password"
-              {...register("confirmPassword", {
-                required: true,
-                validate: (value) => {
-                  return (
-                    value === watch("password") || "Passwords do not match"
-                  );
-                },
-              })}
+              placeholder='Password'
+              type='password'
+              {...register('password', { required: true })}
             />
-            <div className="text-danger ">
-              {errors.confirmPassword && errors.confirmPassword.message}
-            </div>
           </div>
         </div>
 
-        <div className="form-sign-up__footer col-12">
+        <div className='form-sign-up__footer col-12'>
           <button
-            className="btn btn--sign-up w-100  "
-            onClick={handleSubmit(onSubmit)}
+            className='btn btn--sign-up w-100'
+            onClick={() => handleSignUpManual()}
           >
             Sign Up
           </button>
         </div>
       </div>
-      <div className="plugin w-100 d-flex flex-wrap justify-content-center">
-        <GoogleLogin
-          clientId="966248665452-u9mhhvcofgfr7b0h7nnhf03j6krt8gv7.apps.googleusercontent.com"
-          render={(renderProps) => (
-            <div className="plugin-google" onClick={renderProps.onClick}>
-              <img src={icon_gg} alt={"icon-gg"} className="plugin-icon"></img>
-              Sign Up with Google
+    );
+  };
+  return (
+    <Style>
+      <React.Fragment>
+        <div className='form-sign-up'>
+          <div className='form-sign-up__header d-flex flex-wrap'>
+            <div className='col-6'>
+              <div className='form-sign-up__header--welcome'>
+                Welcome to <span>Be The Heroes</span>
+              </div>
+              <div className='form-sign-up__header--type'>
+                {user.level === 1 ? 'Check OTP' : 'Sign Up'}
+              </div>
             </div>
-          )}
-          buttonText="Login"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={"single_host_origin"}
-        />
-
-        <div
-          className="plugin-facebook"
-          style={{
-            marginLeft: "1rem",
-          }}
-        >
-          <img src={icon_fb} alt={"icon-fb"} className="plugin-icon"></img>
+            <div className='col-6'>
+              <div className='form-sign-up__header--sign-up text-right'>
+                Already have an account?
+              </div>
+              <div
+                className='form-sign-up__header--sign-up-link text-right'
+                onClick={() => navigate('/auth/sign-in')}
+              >
+                Sign In
+              </div>
+            </div>
+          </div>
+          {renderForm()}
         </div>
-      </div>
+        <div className='plugin w-100 d-flex flex-wrap justify-content-center'>
+          <div
+            className='plugin-google'
+            onClick={() =>
+              signInWithGoogleAuth().then((res) => handleSignUpGoogle(res.user))
+            }
+          >
+            Sign Up With Google
+            <img src={icon_gg} alt={'icon-gg'} className='plugin-icon'></img>
+          </div>
+          <div
+            className='plugin-facebook'
+            style={{
+              marginLeft: '1rem',
+            }}
+          >
+            <img src={icon_fb} alt={'icon-fb'} className='plugin-icon'></img>
+          </div>
+        </div>
+      </React.Fragment>
     </Style>
   );
 }

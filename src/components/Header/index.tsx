@@ -1,21 +1,20 @@
-import React from 'react';
-import Style from './style';
-import logo from 'assets/images/logo_white.svg';
+import { Button, Dropdown, Menu, Space } from 'antd';
 import Search from 'antd/lib/transfer/search';
-import { IoIosNotificationsOutline } from 'react-icons/io';
-import { userState } from 'recoil/users/state';
-import { useRecoilState } from 'recoil';
-import { MdOutlineArrowDropDown } from 'react-icons/md';
+import logo from 'assets/images/logo_white.svg';
+import React from 'react';
 import { BiLogOutCircle } from 'react-icons/bi';
-
-import { Menu, Dropdown, Button, Space } from 'antd';
+import { IoIosNotificationsOutline } from 'react-icons/io';
+import { MdOutlineArrowDropDown } from 'react-icons/md';
 import { useNavigate } from 'react-router';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { userState } from 'recoil/users/state';
+import Style from './style';
 
 export const Header = () => {
   const [isOpenNotification, setIsOpenNotification] = React.useState(false);
   const navigate = useNavigate();
-  const [user, setUser] = useRecoilState(userState);
-
+  const resetUser = useResetRecoilState(userState);
+  const user = useRecoilValue(userState);
   const renderDropdownNotification = () => {
     return <div className='header__notification'></div>;
   };
@@ -30,7 +29,8 @@ export const Header = () => {
             alignItems: 'center',
           }}
           onClick={() => {
-            setUser({ ...user, isLoggedIn: false });
+            resetUser();
+            localStorage.clear();
           }}
         >
           <div>Logout</div>

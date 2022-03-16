@@ -12,7 +12,9 @@ const LayoutMain: React.FC<LayoutMainProps> = () => {
   return (
     <div className='main'>
       <Header />
-      <Outlet />
+      <div className='td-layout'>
+        <Outlet />
+      </div>
     </div>
   );
 };

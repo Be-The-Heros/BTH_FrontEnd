@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 export default styled.div`
   .form-forgot-password {
     box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);

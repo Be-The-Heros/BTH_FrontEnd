@@ -1,8 +1,8 @@
 import { useInfoUser } from "hooks/user";
+import { SidebarLeft } from "pages/Homepage/components";
 import React, { useEffect } from "react";
 import { LayoutApp } from "templates/LayoutApp";
-import { SidebarLeft } from "./components/SidebarLeft";
-import { SidebarRight } from "./components/SidebarRight";
+import { SidebarRight } from "pages/Homepage/components";
 
 const Homepage = () => {
   const infoUser = useInfoUser();
