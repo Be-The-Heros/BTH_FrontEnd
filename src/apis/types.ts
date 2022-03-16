@@ -9,13 +9,6 @@ export interface Config {
   };
 }
 
-export enum ApiVersion {
-  kyc = 'kyc',
-  user = 'user',
-  auth = 'auth',
-  otp = 'otp',
-}
-
 export interface RequestOptions {
   apiVersion: ApiVersion;
   headers?: AxiosRequestHeaders;
@@ -29,6 +22,12 @@ export interface JsonBody {
 declare global {
   interface Window {
     url: Config;
+  }
+  enum ApiVersion {
+    kyc = 'kyc',
+    user = 'user',
+    auth = 'auth',
+    otp = 'otp',
   }
 }
 
