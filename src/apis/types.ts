@@ -9,6 +9,13 @@ export interface Config {
   };
 }
 
+export enum ApiVersion {
+  kyc = 'kyc',
+  user = 'user',
+  auth = 'auth',
+  otp = 'otp',
+}
+
 export interface RequestOptions {
   apiVersion: ApiVersion;
   headers?: AxiosRequestHeaders;

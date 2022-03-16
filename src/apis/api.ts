@@ -21,10 +21,13 @@ export const makeRequest = async (
   const baseUrl = getUrl(apiVersion);
   const storage = getLocalStorage('user');
   let token = '';
-  if (storage.trim()) {
+  try {
     const user = JSON.parse(storage) as UserInfo;
     token = user.token;
+  } catch (error) {
+    token = '';
   }
+
   const contentType =
     body instanceof FormData ? 'multipart/form-data' : 'application/json';
   const defaultHeaders = {

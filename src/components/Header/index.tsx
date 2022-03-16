@@ -15,6 +15,8 @@ export const Header = () => {
   const navigate = useNavigate();
   const resetUser = useResetRecoilState(userState);
   const user = useRecoilValue(userState);
+  console.log(user);
+
   const renderDropdownNotification = () => {
     return <div className='header__notification'></div>;
   };

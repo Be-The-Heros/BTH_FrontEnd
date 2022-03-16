@@ -1,0 +1,24 @@
+HTTP/2 201
+Content-Type: application/json; charset=utf-8
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS, HEAD
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: content-type, x-csrf-token
+
+{
+   "data":{
+      "avatar":"https://picsum.photos/200",
+      "date_of_birth":"2022-03-15",
+      "email":"ripker1805@gmail.com",
+      "first_name":"Thành Huy",
+      "is_reported":false,
+      "last_name":"Trương",
+      "level":2,
+      "role":0,
+      "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3MCwidWlkIjoiYzVkMThhNDAtYTQ0Ny0xMWVjLWIxZDktZDkwNzMwODgxMzY5IiwibGV2ZWwiOjIsInVzZXJuYW1lIjoidGhhbmggaHV5IHRyxrDGoW5nIiwiaXNfcmVwb3J0ZWQiOmZhbHNlLCJpc19sb2NrZWQiOmZhbHNlLCJyb2xlIjowLCJpc19vdHAiOmZhbHNlLCJwYXNzd29yZCI6IiQyYiQxMCRzWVFVTWZWVU1SOENnT2cuMjJjcTJPNzRnM2ZpdS45N0MvT1BUZ0RiNjVLMUI5clN1MVlvSyIsImVtYWlsIjoicmlwa2VyMTgwNUBnbWFpbC5jb20iLCJzdGF0dXMiOnRydWUsInVpZF9nZyI6IjBLYlc3OGJNcVBSdjRxYUprVk9DczVsVlJzdjEiLCJ1aWRfZmIiOm51bGwsInVwZGF0ZWRfYXQiOiIyMDIyLTAzLTE1VDEwOjA3OjUxLjAwMFoiLCJjcmVhdGVkX2F0IjoiMjAyMi0wMy0xNVQxMDowNzo1MS4wMDBaIiwicHJvZmlsZSI6eyJmaXJzdF9uYW1lIjoiVGjDoG5oIEh1eSIsImxhc3RfbmFtZSI6IlRyxrDGoW5nIiwibWlkZGxlX25hbWUiOm51bGwsImRhdGVfb2ZfYmlydGgiOiIyMDIyLTAzLTE1IiwicGhvbmUiOm51bGwsInN0YXR1cyI6InB1YmxpYyIsImF2YXRhciI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdqc2tCTUJQbzJXTGF0MG9WeTkxaDRRVkNZZFdvS1dyRUxlYWpHcTB3PXM5Ni1jIiwiY292ZXJfaW1hZ2UiOm51bGwsInVzZXJfaWQiOjcwfSwiaWF0IjoxNjQ3NDExMTU2LCJleHAiOjE2NDc0OTc1NTZ9.2EDdN5JIyNsC3ZF-mNHWcLSGB0JcL2rqalK1a6XC_3g",
+      "uid":"c5d18a40-a447-11ec-b1d9-d90730881369",
+      "user_id":70
+   },
+   "message":"Login successfully"
+}
