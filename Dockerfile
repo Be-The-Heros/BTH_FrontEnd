@@ -1,10 +1,39 @@
-FROM node:lts-alpine
-ENV NODE_ENV=production
-WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install  --production --silent && mv node_modules ../
-COPY . .
+# 1. For build React app
+FROM node:12-alpine AS development
+
+# Set working directory
+WORKDIR /app
+
+# 
+COPY package.json /app/package.json
+
+# Same as npm install
+RUN npm i
+
+COPY . /app
+
+ENV CI=true
+ENV PORT=3000
+
+CMD [ "npm", "start" ]
+
+FROM development AS build
+
+RUN npm run build
+
+# 2. For Nginx setup
+FROM nginx:latest
+
+# Copy config nginx
+COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+WORKDIR /usr/share/nginx/html
+
+# Remove default nginx static assets
+RUN rm -rf ./*
+
+# Copy static assets from builder stage
+COPY --from=build /app/build .
+
+# Containers run nginx with global directives and daemon off
 EXPOSE 3000
-RUN chown -R node /usr/src/app
-USER node
-CMD ["npm", "start"]
