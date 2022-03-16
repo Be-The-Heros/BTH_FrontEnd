@@ -1,5 +1,8 @@
 import { useInfoUser } from "hooks/user";
 import React, { useEffect } from "react";
+import { LayoutApp } from "templates/LayoutApp";
+import { SidebarLeft } from "./components/SidebarLeft";
+import { SidebarRight } from "./components/SidebarRight";
 
 const Homepage = () => {
   const infoUser = useInfoUser();
@@ -25,9 +28,11 @@ const Homepage = () => {
   }, [infoUser.data, infoUser.error]);
 
   return (
-    <>Homepage</>
-    // <LayoutApp sidebarLeft={<SidebarLeft />} sidebarRight={<SidebarRight />}>
-    // </LayoutApp>
+    // <>Homepage</>
+    <LayoutApp
+      sidebarLeft={<SidebarLeft />}
+      sidebarRight={<SidebarRight />}
+    ></LayoutApp>
   );
 };
 export default Homepage;
