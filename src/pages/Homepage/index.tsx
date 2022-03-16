@@ -1,3 +1,4 @@
+import { useQueryListPost } from 'hooks/post/list';
 import Post from 'pages/Post';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -11,6 +12,9 @@ import Style from './style';
 
 const Homepage = () => {
   const [postsState, setPosts] = useRecoilState(postState);
+
+  const postQuery = useQueryListPost();
+  console.log('postQuery', postQuery.data);
 
   const fetchMoreData = () => {
     setTimeout(() => {

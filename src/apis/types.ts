@@ -6,6 +6,7 @@ export interface Config {
     useUrl: string;
     authUrl: string;
     otpUrl: string;
+    postUrl: string;
   };
 }
 
@@ -14,6 +15,7 @@ export enum ApiVersion {
   user = 'user',
   auth = 'auth',
   otp = 'otp',
+  post = 'post',
 }
 
 export interface RequestOptions {
