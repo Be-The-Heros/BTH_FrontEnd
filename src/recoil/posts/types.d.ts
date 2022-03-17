@@ -11,4 +11,7 @@ interface PostInfo {
   ward: string;
   updated_at: string;
   district: string;
+  title: string;
+  content: string;
+  joined: number;
 }

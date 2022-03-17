@@ -10,16 +10,17 @@ import { FcBookmark, FcContacts, FcVoicePresentation } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 
 export const NewFeed = (props: PostInfo) => {
-  const [user, setUser] = useRecoilState(userState);
+  console.log(props);
+  
 
   const photo_length = props.photos.length;
   return (
     <Style>
       <div className='Newfeed_head'>
-        <Link to={`/profile/${user.uid}` }className='Newfeed_head_info'>
-          <img src={user.avatar} alt='avatar'></img>
+        <Link to={`/profile/${props.uid}` }className='Newfeed_head_info'>
+          <img src={props.avatar} alt='avatar'></img>
           <div className='Newfeed_head_info_detail'>
-            <h6>{user.name ? user.name : 'Ho Thanh'}</h6>
+            <h6>{props.name ? props.name : 'Ho Thanh'}</h6>
             <p>{props.created_at}</p>
             {/* <div className='Newfeed_head_info_detail_locate'>
               <VscLocation style={{ fontSize: '1.25rem' }} />
@@ -31,23 +32,20 @@ export const NewFeed = (props: PostInfo) => {
           <Button className='Newfeed_head_join_button' type='ghost'>
             Join
           </Button>
-          <p>120 people</p>
+          <p>{props.joined} people</p>
         </div>
       </div>
-      <div className='Newfeed_body'>
-        <Link to='/post'>
-          <h3>Hỗ Trợ Trẻ Em Thiện Nguyện</h3>
-        </Link>
+      <Link to='/post' className='Newfeed_body'>
+        
+          <h3>{props.title}</h3>
+        
         
         <div className='Newfeed_body_title'>
           <FcBookmark style={{ fontSize: '2.25rem' }} />
-          <p>Địa Chỉ: </p>
+          <p>Địa Chỉ: {props.residential_address}, {props.ward},{props.district}, {props.city} </p>
         </div>
         <div className='Newfeed_body_content'>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam
-          explicabo, dolorem sed autem deleniti temporibus laborum, neque
-          officia suscipit reprehenderit possimus fugit aperiam, quis sequi
-          nemo. Inventore enim debitis non.
+          {props.content}
         </div>
         <div className='Newfeed_body_photos'>
           {props.photos.map((photo, index) => {
@@ -62,7 +60,7 @@ export const NewFeed = (props: PostInfo) => {
             );
           })}
         </div>
-      </div>
+      </Link>
       <div className='Newfeed_footer'>
         <Button type='link'>
           <IoMdShareAlt style={{ fontSize: '200%' }} /> Share

@@ -6,7 +6,7 @@ export default styled.div`
   margin-bottom: 2rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0.75rem;
-
+  
   .Newfeed_head {
     display: flex;
     justify-content: space-between;
@@ -36,7 +36,7 @@ export default styled.div`
     &_join {
       Button {
         background-color: var(--primary);
-        color: #ffff;
+        color: var(--black);
         margin-bottom: 1em;
         width: 100% ;
       }
@@ -48,16 +48,16 @@ export default styled.div`
   }
   .Newfeed_body {
     
-    a {
-      text-decoration: none;
-    }
+    
+    text-decoration: none;
+    color: var(--black) ;
     margin-bottom: 3rem;
     h3 {
       text-align: center;
     }
     &_title {
       display: flex;
-      margin-bottom: 1em;
+      margin: 1em 0;
       .name {
         margin-top: 5px;
       }
@@ -73,10 +73,11 @@ export default styled.div`
     }
     &_photos {
       margin-top: 1rem;
+      
     }
   }
   .Newfeed_footer {
-    margin-bottom: 1.5rem;
+    margin: 1.5rem 0;
     display: flex;
     justify-content: space-around;
   }
