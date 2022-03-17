@@ -15,6 +15,7 @@ export const Header = () => {
   const navigate = useNavigate();
   const resetUser = useResetRecoilState(userState);
   const user = useRecoilValue(userState);
+
   const renderDropdownNotification = () => {
     return <div className='header__notification'></div>;
   };
@@ -104,6 +105,7 @@ export const Header = () => {
           </Space>
         </div>
       </div>
+      <div></div>
       {renderNav()}
     </Style>
   );

@@ -1,9 +1,0 @@
-HTTP/2 201
-Content-Type: application/json; charset=utf-8
-Access-Control-Allow-Origin: *
-Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS, HEAD
-Access-Control-Max-Age: 3600
-Access-Control-Allow-Credentials: true
-Access-Control-Allow-Headers: content-type, x-csrf-token
-
-[{"status":"upcoming","id":3,"host_uid":null,"image_link":"https://i.ibb.co/dBdgbkB/LOGO.png","description":"Meta Mango Coin presale","currency_id":"mmc","currency_available":["mnt"],"total_ieo":"20000000000.000000000000000000","remains":"20000000000.000000000000000000","price":"0.000140000000000000","min_buy":"10000.000000000000000000","start_date":"2022-01-27T04:00:00.000Z","end_date":"2022-02-17T04:00:00.000Z","bonus":null,"social":"https://www.facebook.com/MetaMangoOfficial","uniswap_link":null,"type":"upcoming","progress":100},{"status":"upcoming","id":2,"host_uid":null,"image_link":"https://i.imgur.com/lCV1Vg3.png","description":"Miracle Token presale","currency_id":"mrl","currency_available":["mnt","btx"],"total_ieo":"1000000000.000000000000000000","remains":"1000000000.000000000000000000","price":"0.000120000000000000","min_buy":"150000.000000000000000000","start_date":"2022-02-25T13:00:00.000Z","end_date":"2022-03-10T13:00:00.000Z","bonus":null,"social":"-","uniswap_link":null,"type":"upcoming","progress":100},{"status":"upcoming","id":1,"host_uid":"ID9612E39753","image_link":"https://i.imgur.com/dqrBq4K.png","description":"EZOOS Token presale","currency_id":"ezoos","currency_available":["mnt","btx","usdt"],"total_ieo":"300000000.000000000000000000","remains":"300000000.000000000000000000","price":"0.000350000000000000","min_buy":"50000.000000000000000000","start_date":"2022-02-15T13:00:00.000Z","end_date":"2022-02-25T13:00:00.000Z","bonus":"","social":"-","uniswap_link":null,"type":"upcoming","progress":100}]

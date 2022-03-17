@@ -1,3 +1,4 @@
+import { useQueryListPost } from 'hooks/post/list';
 import Post from 'pages/Post';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
