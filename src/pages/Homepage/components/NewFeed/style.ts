@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import styled from 'styled-components';
 
 export default styled.div`
@@ -80,5 +81,8 @@ export default styled.div`
     margin: 1.5rem 0;
     display: flex;
     justify-content: space-around;
+    Button{
+      color: var(--black) ;
+    }
   }
 `;

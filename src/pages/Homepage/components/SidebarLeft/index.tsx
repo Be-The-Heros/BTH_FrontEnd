@@ -7,36 +7,37 @@ import {
   FcOrganization,
   FcViewDetails,
 } from 'react-icons/fc';
+import { Link } from 'react-router-dom';
 export const SidebarLeft = () => {
   return (
     <Style>
       <div>
-        <a href='#' className='home'>
+        <Link to='/' className='home'>
           <FcHome
             style={{ fontSize: '2rem', marginTop: '-5px', marginRight: '10px' }}
           ></FcHome>
           Home
-        </a>
-        <a href='#'>
+        </Link>
+        <Link to='/'>
           <FcOrganization
             style={{ fontSize: '2rem', marginTop: '-5px', marginRight: '10px' }}
           />
           Orgnization
-        </a>
-        <a href='#'>
+        </Link>
+        <Link to='/'>
           <FcAbout style={{ fontSize: '2rem', marginRight: '10px' }} /> About
-        </a>
+        </Link>
       </div>
       <div>
         <h4>Orther</h4>
-        <a>
+        <Link to=''>
           <FcViewDetails style={{ fontSize: '2rem', marginRight: '10px' }} />{' '}
           Privacy policy
-        </a>
-        <a href='#'>
+        </Link>
+        <Link to='/'>
           <FcDocument style={{ fontSize: '2rem', marginRight: '10px' }} /> Term
           of use
-        </a>
+        </Link>
       </div>
     </Style>
   );
