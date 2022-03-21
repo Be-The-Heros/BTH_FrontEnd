@@ -41,7 +41,7 @@ export default styled.div`
     &__btn-login {
       button {
         background-color: var(--primary);
-        color: #ffff;
+        color: var(--black);
       }
     }
     &__btn-register {

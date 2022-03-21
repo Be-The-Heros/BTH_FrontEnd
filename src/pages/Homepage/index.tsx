@@ -5,9 +5,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { postState } from 'recoil/posts/state';
 import { LayoutApp } from 'templates/LayoutApp';
-import { SidebarRight } from './components';
 import { NewFeed } from './components/NewFeed';
 import { SidebarLeft } from './components/SidebarLeft';
+import { SidebarRight } from './components/SidebarRight';
 import Style from './style';
 
 const Homepage = () => {

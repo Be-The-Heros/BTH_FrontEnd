@@ -1,6 +1,8 @@
 interface PostInfo {
   id_post: string;
   uid: string;
+  name: string;
+  avatar?: string;
   created_at: string;
   photos: string[];
   residential_address: string;
@@ -9,4 +11,7 @@ interface PostInfo {
   ward: string;
   updated_at: string;
   district: string;
+  title: string;
+  content: string;
+  joined: number;
 }
