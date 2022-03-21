@@ -11,6 +11,7 @@ import { userState } from 'recoil/users/state';
 import LayoutMain from 'templates/Layout';
 import LayoutAuth from 'templates/LayoutAuth';
 import ForgotPasswordPage from './ForgotPasswordPage';
+import Profile from './Profile';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
 
@@ -70,6 +71,10 @@ export const AppViews = () => {
             element={<PrivateRoute element={<ProfileSettingsPage />} />}
           ></Route>
         </Route>
+        <Route
+          path={`/profile`}
+          element={<PublicRoute element={<Profile />} />}
+        />
         <Route path='/auth' element={<LayoutAuth />}>
           <Route path='sign-in' element={<SignInPage />} />
           <Route path='forgot-password' element={<ForgotPasswordPage />} />
