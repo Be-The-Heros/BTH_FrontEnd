@@ -1,9 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Typography } from '@mui/material';
-import { Button, Avatar, Image } from 'antd';
-
-import { Profile, ContentBody } from './components';
+import styled from "styled-components";
+import { ContentBody, Profile } from "./components";
 
 const Container = styled.div`
   width: 100%;
@@ -15,7 +11,7 @@ const ProfilePage = () => {
   return (
     <Container>
       <Profile />
-      <hr className='solid'></hr>
+      <hr className="solid"></hr>
       <ContentBody />
     </Container>
   );

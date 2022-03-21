@@ -64,7 +64,7 @@ export const SocialDataItem = styled.div`
 `;
 
 export const ReviewsContainer = styled(ReuseStyle)`
-  padding: 0 1em;
+  padding: 1em 1em;
 
   .review-container__header {
     display: flex;
@@ -90,8 +90,23 @@ export const ReviewsContainer = styled(ReuseStyle)`
   }
 
   .review-container__review-list {
-    overflow-y: scroll;
-    height: 600px;
+    max-height: 550px;
+    overflow-y: auto;
+  }
+  .review-container__review-list::-webkit-scrollbar {
+    width: 20px;
+  }
+
+  .review-container__review-list::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+  }
+
+  .review-container__review-list::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    border: 5px solid transparent;
+    background-clip: content-box;
+    background-color: #8070d4;
   }
 `;
 
@@ -102,12 +117,14 @@ export const Review = styled.div`
   margin-right: 1em;
   border-radius: 10px;
   background: #ffffff;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 
   .review__header__stars {
     position: absolute;
-    top: -25px;
-    right: 5px;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 
   .review__comment {
@@ -117,7 +134,7 @@ export const Review = styled.div`
 `;
 
 export const OrganizationsContainer = styled(ReuseStyle)`
-  padding: 0 1em;
+  padding: 1em 1em;
   padding-bottom: 0.5em;
 
   .organization-container__header {
@@ -147,10 +164,8 @@ export const Organization = styled.div`
   position: relative;
   border: 0.2px solid rgba(0, 0, 0, 0.3);
   margin-bottom: 2em;
-  margin-right: 1em;
   border-radius: 10px;
   background: #ffffff;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 
   .organization__role {
     position: absolute;

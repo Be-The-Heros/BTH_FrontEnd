@@ -60,7 +60,16 @@ const ContentBody = () => {
             subheader="Jan 30"
           />
           <div className="review__header__stars">
-            <img src={StarsIcon} style={{ width: 100, height: 100 }} />
+            <Typography variant="body1">4.5</Typography>
+            <img
+              src={StarIcon}
+              style={{
+                width: 25,
+                height: 25,
+                marginBottom: 4,
+                paddingLeft: 3,
+              }}
+            />
           </div>
           <Typography variant="body1" className="review__comment">
             Great person!
@@ -131,9 +140,10 @@ const ContentBody = () => {
               src={StarIcon}
               alt="star-icon"
               style={{
-                width: 35,
-                height: 35,
-                marginBottom: 2,
+                width: 30,
+                height: 30,
+                paddingLeft: 2,
+                paddingBottom: 5,
               }}
             />
           }
