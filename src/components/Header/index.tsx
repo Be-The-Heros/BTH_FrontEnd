@@ -5,16 +5,21 @@ import React from 'react';
 import { BiLogOutCircle } from 'react-icons/bi';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { MdOutlineArrowDropDown } from 'react-icons/md';
-import { useNavigate } from 'react-router';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useLocation, useNavigate } from 'react-router';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
 import Style from './style';
-
+interface StateLocation {
+  state?: {
+    isPageVerify?: boolean;
+  };
+}
 export const Header = () => {
   const [isOpenNotification, setIsOpenNotification] = React.useState(false);
   const navigate = useNavigate();
-  const resetUser = useResetRecoilState(userState);
-  const user = useRecoilValue(userState);
+  const [user, setRecoilUser] = useRecoilState(userState);
+  const { state } = useLocation() as StateLocation;
+
   const renderDropdownNotification = () => {
     return <div className='header__notification'></div>;
   };
@@ -29,7 +34,7 @@ export const Header = () => {
             alignItems: 'center',
           }}
           onClick={() => {
-            resetUser();
+            setRecoilUser((curr) => ({ ...curr, isLoggedIn: false }));
             localStorage.clear();
           }}
         >
@@ -82,29 +87,52 @@ export const Header = () => {
     );
   };
   return (
-    <Style className='header d-flex justify-content-center'>
-      <div className='w-50 d-flex  align-items-center'>
-        <div
-          className='header__logo'
-          onClick={() => navigate('/')}
-          style={{
-            cursor: 'pointer',
-          }}
-        >
-          <img src={logo} alt='logo' />
-        </div>
-        <div className='header__search'>
-          <Space
-            direction='vertical'
+    <Style>
+      {!state?.isPageVerify && user.level === 1 && (
+        <div className='text-center mt-1'>
+          You dont' have verify email, please verify email{' '}
+          <a
+            className='text-primary'
             style={{
-              width: '100%',
+              cursor: 'pointer',
+            }}
+            onClick={() =>
+              navigate('/verify/email', {
+                state: {
+                  isPageVerify: true,
+                },
+              })
+            }
+          >
+            here
+          </a>
+        </div>
+      )}
+      <div className='header d-flex justify-content-center'>
+        <div className='w-50 d-flex  align-items-center'>
+          <div
+            className='header__logo'
+            onClick={() => navigate('/')}
+            style={{
+              cursor: 'pointer',
             }}
           >
-            <Search placeholder='Search in be the heroes' />
-          </Space>
+            <img src={logo} alt='logo' />
+          </div>
+          <div className='header__search'>
+            <Space
+              direction='vertical'
+              style={{
+                width: '100%',
+              }}
+            >
+              <Search placeholder='Search in be the heroes' />
+            </Space>
+          </div>
         </div>
+        <div></div>
+        {renderNav()}
       </div>
-      {renderNav()}
     </Style>
   );
 };

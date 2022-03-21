@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import styled from 'styled-components';
 
 export default styled.div`
@@ -6,14 +7,15 @@ export default styled.div`
   margin-bottom: 2rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0.75rem;
-
+  
   .Newfeed_head {
     display: flex;
     justify-content: space-between;
 
     &_info {
       display: flex;
-
+      text-decoration: none ;
+      color: var(--black);
       img {
         align-content: center;
         width: 4.75em;
@@ -23,9 +25,7 @@ export default styled.div`
       }
       &_detail {
         margin-left: 1rem;
-        p {
-          margin: 0;
-        }
+        margin-top:0.75rem ;
         &_locate {
           display: flex;
           margin-top: 5px;
@@ -37,23 +37,28 @@ export default styled.div`
     &_join {
       Button {
         background-color: var(--primary);
-        color: #ffff;
+        color: var(--black);
         margin-bottom: 1em;
+        width: 100% ;
+      }
+      p{
+        text-align: center ;
+        
       }
     }
   }
   .Newfeed_body {
-    margin-left: 1rem;
-    a {
-      text-decoration: none;
-    }
+    
+    
+    text-decoration: none;
+    color: var(--black) ;
     margin-bottom: 3rem;
     h3 {
       text-align: center;
     }
     &_title {
       display: flex;
-      margin-bottom: 1em;
+      margin: 1em 0;
       .name {
         margin-top: 5px;
       }
@@ -69,11 +74,15 @@ export default styled.div`
     }
     &_photos {
       margin-top: 1rem;
+      
     }
   }
   .Newfeed_footer {
-    margin-bottom: 1.5rem;
+    margin: 1.5rem 0;
     display: flex;
     justify-content: space-around;
+    Button{
+      color: var(--black) ;
+    }
   }
 `;

@@ -1,21 +1,16 @@
 import { Header } from 'components/Header';
 import React from 'react';
 import { Outlet } from 'react-router';
+import Style from './style';
 
-interface LayoutMainProps {
-  sidebarLeft?: React.ReactNode;
-  sidebarRight?: React.ReactNode;
-  children?: React.ReactNode;
-}
-
-const LayoutMain: React.FC<LayoutMainProps> = () => {
+const LayoutMain = () => {
   return (
-    <div className='main'>
+    <Style className='main'>
       <Header />
       <div className='td-layout'>
         <Outlet />
       </div>
-    </div>
+    </Style>
   );
 };
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import icon_fb from "assets/images/icon_fb.svg";
 import icon_gg from "assets/images/icon_gg.svg";
 import Loading from "components/Loading";
@@ -12,6 +13,25 @@ import { useSetRecoilState } from "recoil";
 import { userState } from "recoil/users/state";
 import { signInWithGoogleAuth } from "services/firebase";
 import StyleSignIn from "./style";
+=======
+import icon_fb from 'assets/images/icon_fb.svg';
+import icon_gg from 'assets/images/icon_gg.svg';
+import Loading from 'components/Loading';
+import { User } from 'firebase/auth';
+import { setLocalStorage } from 'helpers/setTitleDocument';
+import { useSignIn } from 'hooks/auth/signIn';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { useNavigate } from 'react-router';
+import { useSetRecoilState } from 'recoil';
+import { userState } from 'recoil/users/state';
+import {
+  signInWithFacebookAuth,
+  signInWithGoogleAuth,
+} from 'services/firebase';
+import StyleSignIn from './style';
+>>>>>>> 6e4a08676c3e918669ad1915ea5149bd84e1a5c6
 
 interface InputGroup {
   email: string;
@@ -27,13 +47,20 @@ const SignInPage = () => {
   } = useForm<InputGroup>();
   const mutation = useSignIn();
   const navigate = useNavigate();
-  const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
-  const handleLoginGoogle = (payload: User) => {
+  const toggleShowPassword = () => {
+    setIsShowPassword(!isShowPassword);
+  };
+  const handleLoginGoogle = (payload: User, accessToken: string) => {
     mutation.mutate({
       email: payload.email,
       uid_gg: payload.uid,
       photo_url: payload.photoURL,
+<<<<<<< HEAD
       type: "google",
+=======
+      type: 'google',
+      accessToken,
+>>>>>>> 6e4a08676c3e918669ad1915ea5149bd84e1a5c6
     });
   };
   const handleSignInManual = (data: InputGroup) => {
@@ -49,10 +76,16 @@ const SignInPage = () => {
         ...mutation.data.data,
         isLoggedIn: true,
       });
+<<<<<<< HEAD
       setLocalStorage("user", JSON.stringify(mutation.data.data));
       navigate("/home");
+=======
+      setLocalStorage('token', mutation.data.data.token);
+      navigate('/home');
+>>>>>>> 6e4a08676c3e918669ad1915ea5149bd84e1a5c6
     }
   }, [mutation.isSuccess]);
+
   return (
     <StyleSignIn>
       <form
@@ -127,7 +160,10 @@ const SignInPage = () => {
             marginLeft: "1rem",
           }}
           onClick={() =>
-            signInWithGoogleAuth().then((res) => handleLoginGoogle(res.user))
+            signInWithGoogleAuth().then(async (res) => {
+              const token = await res.user.getIdToken();
+              handleLoginGoogle(res.user, token);
+            })
           }
         >
           Sign In with Google{" "}
@@ -138,6 +174,11 @@ const SignInPage = () => {
           style={{
             marginLeft: "1rem",
           }}
+          onClick={() =>
+            signInWithFacebookAuth().then((res) => {
+              console.log(res.user);
+            })
+          }
         >
           <img src={icon_fb} alt={"icon-fb"} className="plugin-icon" />
         </div>
