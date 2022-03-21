@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export default styled.div`
   background-color: #ffff;
   padding: 0.5em 5em;
@@ -6,7 +6,7 @@ export default styled.div`
   border-bottom: 1px solid #f2f2f2;
   position: fixed;
   width: 100%;
-
+  z-index: 999;
   .header {
     &__logo {
       width: 4em;
