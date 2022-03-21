@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useResetPassword } from 'hooks/auth/resetPassword/useRestPassword';
+import { useGenerateOtp } from 'hooks/otp/generate/useGenerateOtp';
+import React, { useState } from 'react';
+import Countdown from 'react-countdown';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useSetRecoilState } from 'recoil';
-import { userState } from 'recoil/users/state';
 import { useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
 
 // const LENGTH_OTP = 6;
 interface CheckingOTPProps {
@@ -16,9 +16,9 @@ interface InputsChangePassword {
   password: string;
   confirmPassword: string;
 }
-
-export const CheckingOTP = (props: CheckingOTPProps) => {
-  const { goBack } = props;
+const TIME_COUNT = 30;
+export const FormResetPassword = (props: CheckingOTPProps) => {
+  const { goBack, email } = props;
   const [countDownResendMail] = useState(60);
   const {
     register,
@@ -26,10 +26,50 @@ export const CheckingOTP = (props: CheckingOTPProps) => {
     watch,
     formState: { errors },
   } = useForm<InputsChangePassword>();
-  const setLoginUser = useSetRecoilState(userState);
   const navigate = useNavigate();
-
-  const onSubmit: SubmitHandler<InputsChangePassword> = (data) => {};
+  const resetPassword = useResetPassword();
+  const generateOtp = useGenerateOtp();
+  const [resetCountDown, setResetCountdown] = useState(Date.now());
+  const renderer = ({
+    hours = 0,
+    minutes = 0,
+    seconds = 0,
+    completed = false,
+  }) => {
+    if (completed) {
+      // Render a completed state
+      return (
+        <div
+          className='d-flex align-items-center'
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            generateOtp.mutate(email);
+            setResetCountdown(new Date().getTime());
+          }}
+        >
+          Resend Email
+        </div>
+      );
+    } else {
+      // Render a countdown
+      return (
+        <div className='d-flex align-items-center'>
+          {`Send email in ${seconds} s`}
+        </div>
+      );
+    }
+  };
+  React.useEffect(() => {
+    if (resetPassword.isSuccess) {
+      return navigate('/auth/sign-in');
+    }
+  }, [resetPassword.isSuccess]);
+  const onSubmit: SubmitHandler<InputsChangePassword> = (data) => {
+    resetPassword.mutate({
+      newPassword: data.password,
+      otp: data.otp,
+    });
+  };
 
   return (
     <React.Fragment>
@@ -68,7 +108,11 @@ export const CheckingOTP = (props: CheckingOTPProps) => {
       </div>
       <div className='form-forgot-password__footer col-12 d-flex flex-wrap'>
         <div className='form-forgot-password__footer-fg w-50'>
-          Resend email {countDownResendMail}s
+          <Countdown
+            renderer={renderer}
+            key={resetCountDown}
+            date={Date.now() + 1000 * TIME_COUNT}
+          />
         </div>
         <div
           className='form-forgot-password__footer-fg w-50 text-right'
@@ -79,8 +123,9 @@ export const CheckingOTP = (props: CheckingOTPProps) => {
         <button
           className='btn btn--forgot-password w-100'
           onClick={handleSubmit(onSubmit)}
+          disabled={Object.keys(errors).length > 0 || resetPassword.isLoading}
         >
-          Change password
+          {resetPassword.isLoading ? 'Loading...' : 'Submit'}
         </button>
       </div>
     </React.Fragment>

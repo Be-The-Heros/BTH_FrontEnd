@@ -2,16 +2,31 @@ import icon_fb from 'assets/images/icon_fb.svg';
 import icon_gg from 'assets/images/icon_gg.svg';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { CheckingOTP } from './components/CheckingOTP';
+import { FormResetPassword } from './components/FormResetPassword';
 import Style from './style';
 import { toast } from 'react-toastify';
-import { BoxEmail } from './components/BoxEmail';
+import { FormCheckEmail } from './components/FormCheckEmail';
+import { REGEX_EMAIL } from 'constants/regex';
+import { useGenerateOtp } from 'hooks/otp/generate/useGenerateOtp';
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
-  const [isOpenOTP, setIsOpenOTP] = useState(true);
-  const [email, setEmail] = useState('');
+  const generateOtp = useGenerateOtp();
+  const [isOpenFormRest, setIsFormReset] = useState(false);
+  const [emailValue, setEmail] = useState('');
 
+  React.useEffect(() => {
+    toast.dismiss();
+    if (generateOtp.isLoading) {
+      toast.loading('Checking Your Email ...');
+      return;
+    }
+    if (generateOtp.isSuccess) {
+      toast.success('Please check OTP in your email address...');
+      setIsFormReset(true);
+      return;
+    }
+  }, [generateOtp.isLoading, generateOtp.isSuccess]);
   return (
     <Style>
       <div className='form-forgot-password'>
@@ -21,7 +36,7 @@ export default function ForgotPasswordPage() {
               Welcome to <span>Be The Heroes</span>
             </div>
             <div className='form-forgot-password__header--type'>
-              {`${isOpenOTP ? 'Change password' : 'Forgot Password'}`}
+              {`${isOpenFormRest ? 'Reset Password' : 'Confirm Your Email'}`}
             </div>
           </div>
           <div className='col-6'>
@@ -36,10 +51,17 @@ export default function ForgotPasswordPage() {
             </div>
           </div>
         </div>
-        {isOpenOTP ? (
-          <CheckingOTP goBack={() => setIsOpenOTP(false)} email={email} />
+        {isOpenFormRest ? (
+          <FormResetPassword
+            goBack={() => setIsFormReset(false)}
+            email={emailValue}
+          />
         ) : (
-          <BoxEmail sendOtp={() => {}} setEmail={setEmail} />
+          <FormCheckEmail
+            sendOtp={() => generateOtp.mutate(emailValue)}
+            setEmail={setEmail}
+            btnDisabled={!REGEX_EMAIL.test(emailValue) || generateOtp.isLoading}
+          />
         )}
       </div>
       <div className='plugin w-100 d-flex flex-wrap justify-content-center'>

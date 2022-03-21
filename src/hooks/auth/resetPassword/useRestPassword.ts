@@ -1,17 +1,20 @@
 import apis from 'apis';
 import { useMutation } from 'react-query';
 import { API_AUTH } from '../config';
+interface ResetPasswordPayload {
+  newPassword: string;
+  otp: string | number;
+}
 
-export const useCheckOtp = () => {
+export const useResetPassword = () => {
   return useMutation(
-    async (requestPayload: { otp: number }) => {
+    async (payload: ResetPasswordPayload) => {
       return await apis.post<ResponseCustom<UserInfo>>(
         API_AUTH,
-        '/register/otp',
+        '/reset-password',
         {
-          params: {
-            otp: requestPayload.otp,
-          },
+          body: { ...payload },
+          params: { otp: payload.otp },
         }
       );
     },

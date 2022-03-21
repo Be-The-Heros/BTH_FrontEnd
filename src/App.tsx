@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
 import { useQuerySessions } from 'hooks/auth/sessions';
-import { setLocalStorage } from 'helpers/setTitleDocument';
 function App() {
   const setUser = useSetRecoilState(userState);
   const resetUserState = useResetRecoilState(userState);
@@ -19,11 +18,18 @@ function App() {
         ...sessions.data.data,
         isLoggedIn: true,
       });
-      setLocalStorage('user', JSON.stringify(sessions.data.data));
       return;
     }
-    resetUserState();
-  }, [sessions]);
+    if (sessions.isError) {
+      resetUserState();
+      setUser((curr) => {
+        return {
+          ...curr,
+          isLoggedIn: false,
+        };
+      });
+    }
+  }, [sessions.isSuccess, sessions.isError]);
 
   return (
     <div className='app'>
