@@ -1,25 +1,26 @@
-import Loading from 'components/Loading';
-import React, { Suspense } from 'react';
+import Loading from "components/Loading";
+import React, { Suspense } from "react";
 import {
   BrowserRouter as Router,
   Navigate,
   Route,
   Routes,
-} from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState } from 'recoil/users/state';
-import LayoutMain from 'templates/Layout';
-import LayoutAuth from 'templates/LayoutAuth';
-import ForgotPasswordPage from './ForgotPasswordPage';
-import SignInPage from './SignIn';
-import SignUpPage from './SignUp';
+} from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userState } from "recoil/users/state";
+import LayoutMain from "templates/Layout";
+import LayoutAuth from "templates/LayoutAuth";
+import ForgotPasswordPage from "./ForgotPasswordPage";
+import ProfilePage from "./ProfilePage";
+import SignInPage from "./SignIn";
+import SignUpPage from "./SignUp";
 
 // import CreatePostPage from './CreatePost';
 // import Homepage from './Home';
 
-const Homepage = React.lazy(() => import('./Homepage'));
-const CreatePostPage = React.lazy(() => import('./CreatePost'));
-const ProfileSettingsPage = React.lazy(() => import('./ProfileSettings'));
+const Homepage = React.lazy(() => import("./Homepage"));
+const CreatePostPage = React.lazy(() => import("./CreatePost"));
+const ProfileSettingsPage = React.lazy(() => import("./ProfileSettings"));
 interface CustomRouteProps {
   element?: React.LazyExoticComponent<() => JSX.Element> | JSX.Element;
   children?: React.LazyExoticComponent<() => JSX.Element> | JSX.Element;
@@ -29,11 +30,11 @@ const PrivateRoute: React.FC<CustomRouteProps> = (props) => {
   const [user] = useRecoilState(userState);
   const { isLoggedIn } = user;
   return isLoggedIn ? (
-    <Suspense fallback={<Loading cover='content' />}>
+    <Suspense fallback={<Loading cover="content" />}>
       {element || children}
     </Suspense>
   ) : (
-    <Navigate to='/auth/sign-in' />
+    <Navigate to="/auth/sign-in" />
   );
 };
 const PublicRoute: React.FC<CustomRouteProps> = (
@@ -41,7 +42,7 @@ const PublicRoute: React.FC<CustomRouteProps> = (
 ): React.ReactElement | null => {
   const { children, element } = props;
   return (
-    <Suspense fallback={<Loading cover='content' />}>
+    <Suspense fallback={<Loading cover="content" />}>
       {element || children}
     </Suspense>
   );
@@ -51,7 +52,7 @@ export const AppViews = () => {
 
   React.useEffect(() => {
     if (user.isLoggedIn && user.level > 1) {
-      window.location.href = '/';
+      window.location.href = "/";
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -59,23 +60,23 @@ export const AppViews = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<LayoutMain />}>
-          <Route path='/' element={<PublicRoute element={<Homepage />} />} />
+        <Route path="/" element={<LayoutMain />}>
+          <Route path="/" element={<PublicRoute element={<ProfilePage />} />} />
           <Route
-            path='/create-post'
+            path="/create-post"
             element={<PrivateRoute element={<CreatePostPage />} />}
           />
           <Route
-            path='/profile/settings'
+            path="/profile/settings"
             element={<PrivateRoute element={<ProfileSettingsPage />} />}
           ></Route>
         </Route>
-        <Route path='/auth' element={<LayoutAuth />}>
-          <Route path='sign-in' element={<SignInPage />} />
-          <Route path='forgot-password' element={<ForgotPasswordPage />} />
-          <Route path='sign-up' element={<SignUpPage />} />
+        <Route path="/auth" element={<LayoutAuth />}>
+          <Route path="sign-in" element={<SignInPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="sign-up" element={<SignUpPage />} />
         </Route>
-        <Route path='*' element={<Navigate to='/' />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );
