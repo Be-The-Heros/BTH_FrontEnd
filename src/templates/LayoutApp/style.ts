@@ -18,7 +18,7 @@ export default styled.div`
 
   .main-content {
     /* background-color: var(--white); */
-    padding: 1% 2%;
+    padding: 0 2%;
     border-radius: 1em;
     width: 50em;
     /* min-height: 20vh; */

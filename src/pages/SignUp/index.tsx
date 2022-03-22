@@ -2,6 +2,7 @@ import icon_fb from 'assets/images/icon_fb.svg';
 import icon_gg from 'assets/images/icon_gg.svg';
 import Loading from 'components/Loading';
 import { User } from 'firebase/auth';
+import { isEmptyValue } from 'helpers';
 import { setLocalStorage } from 'helpers/setTitleDocument';
 import { useSignUp } from 'hooks/auth/signUp/useSignUp';
 import { lowerCase } from 'lodash';
@@ -11,7 +12,6 @@ import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
 import { signInWithGoogleAuth } from 'services/firebase';
-import { CheckingOTP } from './CheckOTP';
 import Style from './style';
 const MIN_SAFE_DATE = '1900-01-01';
 const MAX_SAFE_DATE = '2010-01-01';
@@ -27,13 +27,7 @@ type InputsSignUp = {
 
 export default function SignUpPage() {
   const [user, setUserState] = useRecoilState(userState);
-  const [isOpenOTP, setIsOpenOTP] = React.useState(false);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<InputsSignUp>();
+  const { register, handleSubmit } = useForm<InputsSignUp>();
   const navigate = useNavigate();
   const mutationSignUp = useSignUp();
 
@@ -42,12 +36,12 @@ export default function SignUpPage() {
       setLocalStorage('user', JSON.stringify(mutationSignUp.data.data));
       setUserState({
         ...mutationSignUp.data.data,
-        isLoggedIn: user.level > 1,
+        isLoggedIn: true,
       });
     }
   }, [mutationSignUp.isSuccess]);
 
-  const handleSignUpGoogle = (data: User) => {
+  const handleSignUpGoogle = (data: User, token: string) => {
     const splitName = data.displayName?.trim().split(' ') || [];
     mutationSignUp.mutate({
       photo_url: data.photoURL,
@@ -63,18 +57,19 @@ export default function SignUpPage() {
       first_name: splitName?.slice(0, splitName.length - 1).join(' '),
       last_name: splitName[splitName.length - 1],
       type: 'google',
+      accessToken: token,
     });
   };
 
-  const handleSignUpManual = () => {
+  const handleSignUpManual = (data: InputsSignUp) => {
     mutationSignUp.mutate({
-      email: watch('email'),
-      first_name: watch('last_name'),
-      last_name: watch('last_name'),
-      password: watch('password'),
-      username: watch('username'),
+      email: data.email,
+      first_name: data.fist_name,
+      last_name: data.last_name,
+      password: data.password,
+      username: data.username,
       type: 'manual',
-      date_of_birth: watch('date'),
+      date_of_birth: data.date,
     });
   };
 
@@ -82,11 +77,8 @@ export default function SignUpPage() {
     if (mutationSignUp.isLoading) {
       return <Loading cover='content' />;
     }
-    if (user.level == 1) {
-      return <CheckingOTP />;
-    }
     return (
-      <div>
+      <form onSubmit={handleSubmit(handleSignUpManual)}>
         <div className='form-sign-up__content col-12'>
           <div className='form-sign-up__content--form-input'>
             <label className='w-100'>Enter email address</label>
@@ -143,14 +135,9 @@ export default function SignUpPage() {
         </div>
 
         <div className='form-sign-up__footer col-12'>
-          <button
-            className='btn btn--sign-up w-100'
-            onClick={() => handleSignUpManual()}
-          >
-            Sign Up
-          </button>
+          <button className='btn btn--sign-up w-100'>Sign Up</button>
         </div>
-      </div>
+      </form>
     );
   };
   return (
@@ -162,9 +149,7 @@ export default function SignUpPage() {
               <div className='form-sign-up__header--welcome'>
                 Welcome to <span>Be The Heroes</span>
               </div>
-              <div className='form-sign-up__header--type'>
-                {user.level === 1 ? 'Check OTP' : 'Sign Up'}
-              </div>
+              <div className='form-sign-up__header--type'>Sign Up</div>
             </div>
             <div className='col-6'>
               <div className='form-sign-up__header--sign-up text-right'>
@@ -184,7 +169,10 @@ export default function SignUpPage() {
           <div
             className='plugin-google'
             onClick={() =>
-              signInWithGoogleAuth().then((res) => handleSignUpGoogle(res.user))
+              signInWithGoogleAuth().then(async (res) => {
+                const token = await res.user.getIdToken();
+                handleSignUpGoogle(res.user, token);
+              })
             }
           >
             Sign Up With Google

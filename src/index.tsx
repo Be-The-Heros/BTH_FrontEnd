@@ -8,11 +8,11 @@ import { RecoilRoot } from 'recoil';
 import { setLocalStorage } from 'helpers/setTitleDocument';
 const queryClient = new QueryClient();
 
-const json = require('./data/user.json');
-const ENV = process.env.NODE_ENV;
-if (ENV === 'development') {
-  setLocalStorage('user', JSON.stringify(json));
-}
+// const json = require('./data/user.json');
+// const ENV = process.env.NODE_ENV;
+// if (ENV === 'development') {
+//   setLocalStorage('user', JSON.stringify(json));
+// }
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

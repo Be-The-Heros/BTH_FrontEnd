@@ -1,0 +1,2 @@
+
+export const ORGANIZATION_LIST = 'ORANIZATION_LIST'

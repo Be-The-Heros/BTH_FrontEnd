@@ -19,12 +19,7 @@ export const makeRequest = async (
   const { apiVersion, headers } = config;
   const { body, params, method } = payload;
   const baseUrl = getUrl(apiVersion);
-  const storage = getLocalStorage('user');
-  let token = '';
-  if (storage.trim()) {
-    const user = JSON.parse(storage) as UserInfo;
-    token = user.token;
-  }
+  const token = getLocalStorage('token');
   const contentType =
     body instanceof FormData ? 'multipart/form-data' : 'application/json';
   const defaultHeaders = {

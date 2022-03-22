@@ -9,19 +9,25 @@ export default styled.div`
         display: flex;
         justify-content: space-between ;
         margin-top:2rem ;
-        
+        text-decoration: none ;
+        color: var(--black) ;
         &_detail{
             display: flex ;
-            margin-left:-8px ;
+            margin-left:-1rem ;
+            color: var(--black) ;
+            text-decoration:none ;
             &_name{
                 margin-left: 5px ;
+                p{
+                    margin: 0 ;
+                }
             }
         }
         
         &_rate{
             display: flex ;
             flex-direction: column ;
-            margin-right:-10px ;
+            margin-right:-1.25rem ;
         }
     }
 `

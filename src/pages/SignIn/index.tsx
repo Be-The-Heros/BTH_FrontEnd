@@ -10,7 +10,10 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useNavigate } from 'react-router';
 import { useSetRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
-import { signInWithGoogleAuth } from 'services/firebase';
+import {
+  signInWithFacebookAuth,
+  signInWithGoogleAuth,
+} from 'services/firebase';
 import StyleSignIn from './style';
 
 interface InputGroup {
@@ -27,13 +30,16 @@ const SignInPage = () => {
   } = useForm<InputGroup>();
   const mutation = useSignIn();
   const navigate = useNavigate();
-  const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
-  const handleLoginGoogle = (payload: User) => {
+  const toggleShowPassword = () => {
+    setIsShowPassword(!isShowPassword);
+  };
+  const handleLoginGoogle = (payload: User, accessToken: string) => {
     mutation.mutate({
       email: payload.email,
       uid_gg: payload.uid,
       photo_url: payload.photoURL,
       type: 'google',
+      accessToken,
     });
   };
   const handleSignInManual = (data: InputGroup) => {
@@ -49,10 +55,11 @@ const SignInPage = () => {
         ...mutation.data.data,
         isLoggedIn: true,
       });
-      setLocalStorage('user', JSON.stringify(mutation.data.data));
+      setLocalStorage('token', mutation.data.data.token);
       navigate('/home');
     }
   }, [mutation.isSuccess]);
+
   return (
     <StyleSignIn>
       <form
@@ -127,7 +134,10 @@ const SignInPage = () => {
             marginLeft: '1rem',
           }}
           onClick={() =>
-            signInWithGoogleAuth().then((res) => handleLoginGoogle(res.user))
+            signInWithGoogleAuth().then(async (res) => {
+              const token = await res.user.getIdToken();
+              handleLoginGoogle(res.user, token);
+            })
           }
         >
           Sign In with Google{' '}
@@ -138,6 +148,11 @@ const SignInPage = () => {
           style={{
             marginLeft: '1rem',
           }}
+          onClick={() =>
+            signInWithFacebookAuth().then((res) => {
+              console.log(res.user);
+            })
+          }
         >
           <img src={icon_fb} alt={'icon-fb'} className='plugin-icon' />
         </div>

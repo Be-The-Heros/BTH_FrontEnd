@@ -6,6 +6,8 @@ export interface Config {
     useUrl: string;
     authUrl: string;
     otpUrl: string;
+    postUrl: string;
+    profileUrl: string;
   };
 }
 
@@ -14,6 +16,8 @@ export enum ApiVersion {
   user = 'user',
   auth = 'auth',
   otp = 'otp',
+  post = 'post',
+  profile = 'profile',
 }
 
 export interface RequestOptions {
@@ -29,6 +33,12 @@ export interface JsonBody {
 declare global {
   interface Window {
     url: Config;
+  }
+  enum ApiVersion {
+    kyc = 'kyc',
+    user = 'user',
+    auth = 'auth',
+    otp = 'otp',
   }
 }
 

@@ -6,7 +6,7 @@ export default styled.div`
   border-bottom: 1px solid #f2f2f2;
   position: fixed;
   width: 100%;
-
+  z-index: 999;
   .header {
     &__logo {
       width: 4em;
@@ -31,6 +31,7 @@ export default styled.div`
         width: 2.75em;
         border-radius: 50%;
         border: 1px solid #ffff;
+        cursor: pointer;
       }
       svg {
         font-size: 1.75em;
@@ -41,7 +42,7 @@ export default styled.div`
     &__btn-login {
       button {
         background-color: var(--primary);
-        color: #ffff;
+        color: var(--black);
       }
     }
     &__btn-register {
