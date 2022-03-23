@@ -11,6 +11,7 @@ import { PrivateRoute, PublicRoute } from 'routes';
 import LayoutMain from 'templates/Layout';
 import LayoutAuth from 'templates/LayoutAuth';
 import ForgotPasswordPage from './ForgotPasswordPage';
+import Post from './Post';
 import Profile from './Profile';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
@@ -38,6 +39,7 @@ export const AppViews = () => {
       <Routes>
         <Route path='/' element={<LayoutMain />}>
           <Route path='/' element={<PublicRoute element={<Homepage />} />} />
+          <Route path='/postdetail/:id' element={<PublicRoute element={<Post />} />} />
           <Route
             path='/create-post'
             element={<PrivateRoute element={<CreatePostPage />} />}
@@ -52,7 +54,7 @@ export const AppViews = () => {
           />
         </Route>
         <Route
-          path={`/profile`}
+          path={`/profile/:id`}
           element={<PublicRoute element={<Profile />} />}
         />
         <Route path='/auth' element={<LayoutAuth />}>

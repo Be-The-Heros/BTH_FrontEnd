@@ -3,7 +3,7 @@ export const devUrl = {
   user: 'http://localhost:5000/api/user',
   auth: 'http://localhost:5000/api/auth',
   otp: 'http://localhost:5000/api/otp',
-  post: 'http://localhost:5000/api/v1/post',
+  post: 'http://localhost:9002/api/v1/post',
   profile: 'http://localhost:5000/api/v1/profile',
 };
 export const productionUrl = {

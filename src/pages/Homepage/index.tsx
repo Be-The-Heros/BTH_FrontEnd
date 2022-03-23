@@ -12,7 +12,9 @@ import Style from './style';
 
 const Homepage = () => {
   const [postsState, setPosts] = useRecoilState(postState);
-
+  const queryPost = useQueryListPost();
+  console.log("data"+queryPost.data);
+  
   const fetchMoreData = () => {
     setTimeout(() => {
       setPosts([...postsState, ...postsState]);
