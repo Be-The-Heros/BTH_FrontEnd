@@ -1,4 +1,5 @@
 import { Header } from 'components/Header';
+import { Footer } from 'components/Footer';
 import React from 'react';
 import { Outlet } from 'react-router';
 
@@ -15,6 +16,7 @@ const LayoutMain: React.FC<LayoutMainProps> = () => {
       <div className='td-layout'>
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 };

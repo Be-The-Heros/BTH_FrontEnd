@@ -6,7 +6,7 @@ export default styled.div`
   border-bottom: 1px solid #f2f2f2;
   position: fixed;
   width: 100%;
-
+  justify-content: center;
   .header {
     &__logo {
       width: 4em;
