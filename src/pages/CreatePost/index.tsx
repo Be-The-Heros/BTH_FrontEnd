@@ -23,14 +23,15 @@ import { AiOutlineSafety } from 'react-icons/ai';
 import { validURL } from 'helpers/validate';
 import { useCreatePost } from 'hooks/post/create/useCreatePost';
 import upperFirst from 'lodash/upperFirst';
+import { toast } from 'react-toastify';
 const { Option } = Select;
 const TIME_CHANGE_TEXT = 3000;
 interface FieldCreatePost {
   title: string;
   content: string;
-  province: string;
-  ward: string;
-  district: string;
+  id_province: string;
+  id_ward: string;
+  id_district: string;
   residential_address: string;
   join_url: string;
 }
@@ -79,6 +80,19 @@ const CreatePostPage = () => {
     },
   });
 
+  //  TODO: Checking api
+  React.useEffect(() => {
+    toast.dismiss();
+    if (createPostMutation.isLoading) {
+      toast.loading('Creating post...');
+      return;
+    }
+    if (createPostMutation.isSuccess) {
+      files.forEach((file) => URL.revokeObjectURL(file.preview));
+      toast.success('Creating post success');
+      return;
+    }
+  }, [createPostMutation.isLoading, createPostMutation.isSuccess]);
   // TODO: change slogan
   React.useEffect(() => {
     refInterval.current = setInterval(() => {
@@ -139,9 +153,16 @@ const CreatePostPage = () => {
   }, []);
 
   const onSubmit = (data: FieldCreatePost) => {
-    console.log(data);
-
-    // files.forEach((file) => URL.revokeObjectURL(file.preview));
+    const province = getProvince(data.id_province);
+    const ward = getCommune(data.id_ward);
+    const district = getDistrict(data.id_district);
+    createPostMutation.mutate({
+      ...data,
+      province,
+      district,
+      ward,
+      photos: files,
+    });
   };
 
   return (
@@ -190,7 +211,7 @@ const CreatePostPage = () => {
             <div className='form-input'>
               <label className='w-100'>Residence</label>
               <Controller
-                name='province'
+                name='id_province'
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
@@ -219,7 +240,7 @@ const CreatePostPage = () => {
                 )}
               />
               <Controller
-                name='district'
+                name='id_district'
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
@@ -251,7 +272,7 @@ const CreatePostPage = () => {
                 )}
               />
               <Controller
-                name='ward'
+                name='id_ward'
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
@@ -277,13 +298,13 @@ const CreatePostPage = () => {
                   </Select>
                 )}
               />
-              {errors.province && (
+              {errors.id_province && (
                 <span className='waring-error'>Province is required</span>
               )}
-              {!errors.province && errors.district && (
+              {!errors.id_province && errors.id_district && (
                 <span className='waring-error'>District is required</span>
               )}
-              {!errors.province && !errors.district && errors.ward && (
+              {!errors.id_province && !errors.id_district && errors.id_ward && (
                 <span className='waring-error'>Ward is required</span>
               )}
             </div>
@@ -391,7 +412,11 @@ const CreatePostPage = () => {
                 marginTop: '1rem',
               }}
             >
-              <Button type='primary' htmlType='submit'>
+              <Button
+                type='primary'
+                htmlType='submit'
+                disabled={createPostMutation.isLoading}
+              >
                 Publish
               </Button>
               <Button type='default' onClick={() => setIsOpenPreview(true)}>

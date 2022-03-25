@@ -25,12 +25,12 @@ interface PostInfo {
   content: string;
 }
 interface RequestPost {
-  post_id: number;
   residential_address: string;
   ward: string;
   district: string;
   content: string;
   join_url: string;
   title: string;
-  photos: string[];
+  photos?: File[];
+  province: string;
 }
