@@ -12,8 +12,11 @@ import {
 import AddressIcon from "assets/icons/address.svg";
 import CalendarIcon from "assets/icons/calendar.svg";
 import CameraIcon from "assets/icons/camera.svg";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <img
@@ -65,7 +68,9 @@ const Profile = () => {
           </div>
         </div>
       </AvatarContainer>
-      <EditProfileButton>Edit Profile</EditProfileButton>
+      <EditProfileButton onClick={() => navigate("/profile/settings")}>
+        Edit Profile
+      </EditProfileButton>
     </Container>
   );
 };
