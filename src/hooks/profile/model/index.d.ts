@@ -1,0 +1,15 @@
+interface ProfileInfo {
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  middle_name: string;
+  date_of_birth: string;
+  phone: string;
+  status: ProfileInfoStatus;
+  avatar: string;
+  cover_image: string;
+}
+export enum ProfileInfoStatus {
+  public = "public",
+  private = "private",
+}

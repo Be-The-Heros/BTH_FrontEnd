@@ -12,8 +12,18 @@ import {
 import AddressIcon from "assets/icons/address.svg";
 import CalendarIcon from "assets/icons/calendar.svg";
 import CameraIcon from "assets/icons/camera.svg";
+import { ProfileInfo } from "hooks/profile/model";
 
-const Profile = () => {
+interface ProfileProps {
+  profileInfo: ProfileInfo;
+}
+
+const Profile = (props: ProfileProps) => {
+  const { profileInfo } = props;
+  const full_name = profileInfo.first_name + " " + profileInfo.last_name;
+
+  console.log(profileInfo);
+
   return (
     <Container>
       <img
@@ -28,7 +38,13 @@ const Profile = () => {
             shape="circle"
             size="large"
             src={
-              <img src="https://i.pinimg.com/originals/4d/e9/eb/4de9eba8c7266fc0e728c929790ba9ed.jpg" />
+              <img
+                src={
+                  profileInfo.avatar
+                    ? profileInfo.avatar
+                    : "https://thelifetank.com/wp-content/uploads/2018/08/avatar-default-icon.png"
+                }
+              />
             }
           />
           <IconButton className="user-avatar__camera">
@@ -44,7 +60,7 @@ const Profile = () => {
           </IconButton>
         </div>
         <div className="user-inform">
-          <UserName variant="h5">Trung Jamin</UserName>
+          <UserName variant="h5">{full_name}</UserName>
           <div className="user-inform__address">
             <div className="user-inform__address__detail">
               <img
