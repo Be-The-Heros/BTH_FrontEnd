@@ -7,5 +7,6 @@ export default styled.div`
     background-color: var(--bg-main);
     width: 100%;
     min-height: 100vh;
+    padding-bottom: ${DISTANCE_HEADER}rem;
   }
 `;

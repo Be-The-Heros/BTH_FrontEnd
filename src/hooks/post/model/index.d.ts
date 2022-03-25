@@ -1,12 +1,36 @@
 interface PostInfo {
-  id_post: string;
+  post_id: number;
   uid: string;
-  created_at: string;
-  photos: string[];
+  avatar: string;
+  name: string;
+  org_id?: number;
   residential_address: string;
-  city: string;
-  province: string;
+  status: string;
   ward: string;
-  updated_at: string;
   district: string;
+  long: number;
+  lat: number;
+  is_edited: number;
+  user_id?: number;
+  type?: 'share' | 'post';
+  end_date?: Date;
+  start_date?: Date;
+  updated_at: Date;
+  from_post?: number;
+  province: string;
+  content_share?: string;
+  photos?: string[];
+  title: string;
+  joined: number;
+  content: string;
+}
+interface RequestPost {
+  post_id: number;
+  residential_address: string;
+  ward: string;
+  district: string;
+  content: string;
+  join_url: string;
+  title: string;
+  photos: string[];
 }

@@ -1,9 +1,6 @@
-import { useQueryListPost } from 'hooks/post/list';
-import Post from 'pages/Post';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { postState } from 'recoil/posts/state';
+import { useRecoilState } from 'recoil';
 import { LayoutApp } from 'templates/LayoutApp';
 import { NewFeed } from './components/NewFeed';
 import { SidebarLeft } from './components/SidebarLeft';
@@ -11,17 +8,10 @@ import { SidebarRight } from './components/SidebarRight';
 import Style from './style';
 
 const Homepage = () => {
-  const [postsState, setPosts] = useRecoilState(postState);
-
-  const fetchMoreData = () => {
-    setTimeout(() => {
-      setPosts([...postsState, ...postsState]);
-    }, 1000);
-  };
   return (
     <LayoutApp sidebarLeft={<SidebarLeft />} sidebarRight={<SidebarRight />}>
       <Style>
-        <InfiniteScroll
+        {/* <InfiniteScroll
           loader={<h4>Loading...</h4>}
           next={fetchMoreData}
           hasMore={true}
@@ -30,7 +20,7 @@ const Homepage = () => {
           {postsState.map((post, index) => {
             return <NewFeed {...post} key={index} />;
           })}
-        </InfiniteScroll>
+        </InfiniteScroll> */}
       </Style>
     </LayoutApp>
   );
