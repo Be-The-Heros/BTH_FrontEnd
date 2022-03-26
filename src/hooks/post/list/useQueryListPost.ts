@@ -3,14 +3,18 @@ import { useQuery } from 'react-query';
 import { API_POST } from '../config';
 import { QUERY_LIST_POST } from './constants';
 
-export const useQueryListPost = () => {
+interface QueryPostParams {
+  page: number;
+  size: number;
+}
+export const useQueryListPost = (params: QueryPostParams) => {
+  const { page, size } = params;
   return useQuery(
-    QUERY_LIST_POST,
-    () => apis.get<ResponseCustom<PostInfo>>(API_POST, '/list'),
+    [QUERY_LIST_POST, page, size],
+    () => apis.get<ResponseCustom<ResponsePost>>(API_POST, '/list', { params }),
     {
-      retry: 0,
-      keepPreviousData: true,
-      refetchInterval: false,
+      retry: 1,
+      // keepPreviousData: true,
       retryOnMount: false,
       refetchOnWindowFocus: false,
     }

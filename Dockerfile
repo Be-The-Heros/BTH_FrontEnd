@@ -1,39 +1,31 @@
-# 1. For build React app
-FROM node:12-alpine AS development
+FROM node:14.18.2-alpine3.14 as BUILDER
 
 # Set working directory
 WORKDIR /app 
-
-# 
 COPY package.json /app/package.json
 
-# Same as npm install
-RUN npm i
 
-COPY . /app
+COPY package.json .
+COPY yarn.lock .
 
-ENV CI=true
-ENV PORT=3000
+RUN yarn install
 
-CMD [ "npm", "start" ]
+COPY . .
 
-FROM development AS build
+RUN yarn build:docker
 
-RUN npm run build
+FROM node:14.18.2-alpine3.14
 
-# 2. For Nginx setup
-FROM nginx:latest
+WORKDIR /app
 
-# Copy config nginx
-COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+ENV NODE_ENV=production
 
-WORKDIR /usr/share/nginx/html
+COPY --from=BUILDER /build/dist/package.json .
 
-# Remove default nginx static assets
-RUN rm -rf ./*
+RUN yarn install
+RUN yarn add class-transformer
+RUN yarn add class-validator
 
-# Copy static assets from builder stage
-COPY --from=build /app/build .
+COPY --from=BUILDER /build/dist .
 
-# Containers run nginx with global directives and daemon off
-EXPOSE 3000
+CMD ["yarn", "start:dev"]

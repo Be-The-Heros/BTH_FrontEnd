@@ -1,33 +1,59 @@
+import Loading from 'components/Loading';
 import { useQueryListPost } from 'hooks/post/list';
-import Post from 'pages/Post';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { postState } from 'recoil/posts/state';
 import { LayoutApp } from 'templates/LayoutApp';
 import { NewFeed } from './components/NewFeed';
 import { SidebarLeft } from './components/SidebarLeft';
 import { SidebarRight } from './components/SidebarRight';
+import _toNumber from 'lodash/toNumber';
 import Style from './style';
 
-const Homepage = () => {
-  const [postsState, setPosts] = useRecoilState(postState);
+const TIME_OUT_FETCH = 2000;
 
-  const fetchMoreData = () => {
-    setTimeout(() => {
-      setPosts([...postsState, ...postsState]);
-    }, 1000);
-  };
+const Homepage = () => {
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    size: 8,
+  });
+  console.log(pagination);
+
+  const [dataRender, setDataRender] = React.useState<PostInfo[]>([]);
+  const postQuery = useQueryListPost({ ...pagination });
+  const [isHasMore, setIsHasMore] = React.useState(true);
+
+  React.useEffect(() => {
+    if (postQuery && isHasMore) {
+      setDataRender([...dataRender, ...(postQuery.data?.data.list || [])]);
+    }
+    if (
+      postQuery.data &&
+      postQuery.data?.data.total <= pagination.page * pagination.size
+    ) {
+      setIsHasMore(false);
+      return;
+    }
+    setIsHasMore(true);
+  }, [pagination.page, postQuery.data?.data.list]);
+
   return (
     <LayoutApp sidebarLeft={<SidebarLeft />} sidebarRight={<SidebarRight />}>
       <Style>
         <InfiniteScroll
-          loader={<h4>Loading...</h4>}
-          next={fetchMoreData}
-          hasMore={true}
-          dataLength={postsState.length}
+          loader={<Loading />}
+          next={() =>
+            setTimeout(() => {
+              setPagination((pagination) => ({
+                ...pagination,
+                page: pagination.page + 1,
+              }));
+            }, TIME_OUT_FETCH)
+          }
+          hasMore={isHasMore}
+          refreshFunction={postQuery.refetch}
+          dataLength={dataRender.length}
         >
-          {postsState.map((post, index) => {
+          {dataRender.map((post, index) => {
             return <NewFeed {...post} key={index} />;
           })}
         </InfiniteScroll>
