@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, IconButton } from "@mui/material";
 
 import {
@@ -8,6 +8,7 @@ import {
   UserAvatar,
   UserName,
   EditProfileButton,
+  SaveChangesButton,
 } from "./style";
 import AddressIcon from "assets/icons/address.svg";
 import CalendarIcon from "assets/icons/calendar.svg";
@@ -22,16 +23,86 @@ const Profile = (props: ProfileProps) => {
   const { profileInfo } = props;
   const full_name = profileInfo.first_name + " " + profileInfo.last_name;
 
-  console.log(profileInfo);
+  // Get the instance of the FileReader
+  const reader = new FileReader();
+
+  const [selectedAvatarImage, setSelectedAvatarImage] = useState<
+    string | ArrayBuffer | null | undefined
+  >();
+
+  const [selectedBackgroundImage, setSelectedBackgroundImage] = useState<
+    string | ArrayBuffer | null | undefined
+  >();
+
+  const avatarInputFile = React.useRef<HTMLInputElement | null>(null);
+  const backgroundInputFile = React.useRef<HTMLInputElement | null>(null);
+
+  const [changingState, setChangingState] = useState(false);
+
+  const onAvatarButtonClick = () => {
+    // `current` points to the mounted file input element
+    avatarInputFile?.current?.click();
+  };
+
+  const onEditBackgroundButtonClick = () => {
+    backgroundInputFile?.current?.click();
+  };
+
+  const onChangeAvatarFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event?.target?.files?.item(0);
+    console.log(file);
+    // setSelectedAvatarImage(file) /// if you want to upload latter
+    reader.readAsDataURL(file as Blob);
+
+    // Once loaded, do something with the string
+    reader.addEventListener("load", (event) => {
+      setChangingState((state) => true);
+      setSelectedAvatarImage(event.target?.result);
+    });
+  };
+
+  const onChangeBackgroundFile = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event?.target?.files?.item(0);
+
+    // setSelectedAvatarImage(file) /// if you want to upload latter
+    reader.readAsDataURL(file as Blob);
+
+    // Once loaded, do something with the string
+    reader.addEventListener("load", (event) => {
+      setChangingState((state) => true);
+      setSelectedBackgroundImage(event.target?.result);
+    });
+  };
 
   return (
     <Container>
       <img
         className="background-img"
-        src="https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true"
+        src={
+          selectedBackgroundImage
+            ? (selectedBackgroundImage as string)
+            : profileInfo.cover_image
+            ? profileInfo.cover_image
+            : "https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true"
+        }
         alt="background-image"
       />
-      <EditCoverPhotoButton>Edit Cover Photo</EditCoverPhotoButton>
+      <EditCoverPhotoButton onClick={onEditBackgroundButtonClick}>
+        <input
+          type="file"
+          id="file-1"
+          ref={backgroundInputFile}
+          style={{ display: "none" }}
+          onChange={onChangeBackgroundFile}
+        />
+        Edit Cover Photo
+      </EditCoverPhotoButton>
       <AvatarContainer>
         <div className="user-avatar">
           <UserAvatar
@@ -40,14 +111,26 @@ const Profile = (props: ProfileProps) => {
             src={
               <img
                 src={
-                  profileInfo.avatar
+                  selectedAvatarImage
+                    ? (selectedAvatarImage as string)
+                    : profileInfo.avatar
                     ? profileInfo.avatar
                     : "https://thelifetank.com/wp-content/uploads/2018/08/avatar-default-icon.png"
                 }
               />
             }
           />
-          <IconButton className="user-avatar__camera">
+          <IconButton
+            className="user-avatar__camera"
+            onClick={onAvatarButtonClick}
+          >
+            <input
+              type="file"
+              id="file"
+              ref={avatarInputFile}
+              style={{ display: "none" }}
+              onChange={onChangeAvatarFile}
+            />
             <img
               src={CameraIcon}
               alt="camera-icon"
@@ -81,6 +164,7 @@ const Profile = (props: ProfileProps) => {
           </div>
         </div>
       </AvatarContainer>
+      {changingState && <SaveChangesButton>Save Changes</SaveChangesButton>}
       <EditProfileButton>Edit Profile</EditProfileButton>
     </Container>
   );
