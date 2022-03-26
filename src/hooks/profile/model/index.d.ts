@@ -13,3 +13,11 @@ export enum ProfileInfoStatus {
   public = "public",
   private = "private",
 }
+
+interface ChangingAvatarApiResponse {
+  avatar: string;
+}
+
+interface ChangingBackgroundPhotoApiResponse {
+  cover_image: string;
+}

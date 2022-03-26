@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetProfileInform } from "hooks/profile/getProfileInform/useGetProfileInform";
+import { useGetProfileInform } from "hooks/profile/GetProfileInform/useGetProfileInform";
 import styled from "styled-components";
 import { ContentBody, Profile } from "./components";
 import Loading from "components/Loading";
@@ -28,7 +28,7 @@ const ProfilePage = () => {
   }
   return (
     <Container>
-      <Profile profileInfo={mutation.data!} />
+      <Profile profileInfo={mutation.data} />
       <hr className="solid"></hr>
       <ContentBody />
     </Container>

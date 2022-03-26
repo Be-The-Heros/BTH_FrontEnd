@@ -14,12 +14,17 @@ import AddressIcon from "assets/icons/address.svg";
 import CalendarIcon from "assets/icons/calendar.svg";
 import CameraIcon from "assets/icons/camera.svg";
 import { ProfileInfo } from "hooks/profile/model";
+import { useChangeAvatar } from "hooks/profile/ChangeAvatar/useChangeAvatar";
+import { useChangeBackgroundPhoto } from "hooks/profile/ChangeBackgroundPhoto/useChangeBackgroundPhoto";
 
 interface ProfileProps {
   profileInfo: ProfileInfo;
 }
 
 const Profile = (props: ProfileProps) => {
+  const changeAvatarMutation = useChangeAvatar();
+  const changeBackgroundPhotoMutation = useChangeBackgroundPhoto();
+
   const { profileInfo } = props;
   const full_name = profileInfo.first_name + " " + profileInfo.last_name;
 
@@ -29,10 +34,14 @@ const Profile = (props: ProfileProps) => {
   const [selectedAvatarImage, setSelectedAvatarImage] = useState<
     string | ArrayBuffer | null | undefined
   >();
+  const [selectedAvatarImageFile, setSelectedAvatarImageFile] =
+    useState<File>();
 
   const [selectedBackgroundImage, setSelectedBackgroundImage] = useState<
     string | ArrayBuffer | null | undefined
   >();
+  const [selectedBackgroundImageFile, setSelectedBackgroundImageFile] =
+    useState<File>();
 
   const avatarInputFile = React.useRef<HTMLInputElement | null>(null);
   const backgroundInputFile = React.useRef<HTMLInputElement | null>(null);
@@ -55,6 +64,7 @@ const Profile = (props: ProfileProps) => {
     console.log(file);
 
     reader.readAsDataURL(file as Blob);
+    setSelectedAvatarImageFile(file!);
 
     // Once loaded, do something with the string
     reader.addEventListener("load", (event) => {
@@ -71,6 +81,7 @@ const Profile = (props: ProfileProps) => {
     var file = event?.target?.files?.item(0);
 
     reader.readAsDataURL(file as Blob);
+    setSelectedBackgroundImageFile(file!);
 
     // Once loaded, do something with the string
     reader.addEventListener("load", (event) => {
@@ -79,6 +90,16 @@ const Profile = (props: ProfileProps) => {
 
       setSelectedBackgroundImage(event.target?.result);
     });
+  };
+
+  const onSaveChanges = () => {
+    if (selectedAvatarImageFile) {
+      changeAvatarMutation.mutate(selectedAvatarImageFile!);
+    }
+    if (selectedBackgroundImageFile) {
+      changeBackgroundPhotoMutation.mutate(selectedBackgroundImageFile!);
+    }
+    setChangingState((state) => false);
   };
 
   return (
@@ -100,6 +121,7 @@ const Profile = (props: ProfileProps) => {
           id="file-1"
           ref={backgroundInputFile}
           style={{ display: "none" }}
+          accept="image/*"
           onChange={onChangeBackgroundFile}
         />
         Edit Cover Photo
@@ -130,6 +152,7 @@ const Profile = (props: ProfileProps) => {
               id="file"
               ref={avatarInputFile}
               style={{ display: "none" }}
+              accept="image/*"
               onChange={onChangeAvatarFile}
             />
             <img
@@ -165,7 +188,11 @@ const Profile = (props: ProfileProps) => {
           </div>
         </div>
       </AvatarContainer>
-      {changingState && <SaveChangesButton>Save Changes</SaveChangesButton>}
+      {changingState && (
+        <SaveChangesButton onClick={onSaveChanges}>
+          Save Changes
+        </SaveChangesButton>
+      )}
       <EditProfileButton>Edit Profile</EditProfileButton>
     </Container>
   );
