@@ -24,6 +24,7 @@ import { validURL } from 'helpers/validate';
 import { useCreatePost } from 'hooks/post/create/useCreatePost';
 import upperFirst from 'lodash/upperFirst';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 const { Option } = Select;
 const TIME_CHANGE_TEXT = 3000;
 interface FieldCreatePost {
@@ -38,10 +39,10 @@ interface FieldCreatePost {
 const CreatePostPage = () => {
   // init State
   const user = useRecoilValue(userState);
+  const navigate = useNavigate();
   const {
     handleSubmit,
     control,
-    reset,
     watch,
     formState: { errors },
   } = useForm<FieldCreatePost>();
@@ -90,6 +91,7 @@ const CreatePostPage = () => {
     if (createPostMutation.isSuccess) {
       files.forEach((file) => URL.revokeObjectURL(file.preview));
       toast.success('Creating post success');
+      navigate('/');
       return;
     }
   }, [createPostMutation.isLoading, createPostMutation.isSuccess]);
@@ -170,7 +172,7 @@ const CreatePostPage = () => {
       <PreviewPost
         content={watch('content')}
         avatar={user.avatar}
-        name={user.first_name + ' ' + user.last_name}
+        fullname={user.first_name + ' ' + user.last_name}
         joined={1000}
         title={watch('title')}
         visible={isOpenPreview}
@@ -318,15 +320,14 @@ const CreatePostPage = () => {
                   <Input
                     {...field}
                     placeholder='Enter resident address'
-                    onChange={(e) =>
-                      e.target.value &&
+                    onBlur={(e) => {
                       field.onChange(
                         e.target.value
                           .split(' ')
-                          .map((item) => upperFirst(item))
+                          .map((word) => upperFirst(word))
                           .join(' ')
-                      )
-                    }
+                      );
+                    }}
                   />
                 )}
               />
@@ -358,9 +359,11 @@ const CreatePostPage = () => {
               <Controller
                 name='join_url'
                 rules={{
-                  required: true,
+                  required: false,
                   validate: (value) => {
-                    return validURL(value);
+                    return (
+                      !value || validURL(value || '') || value?.trim() === ''
+                    );
                   },
                 }}
                 control={control}

@@ -11,7 +11,9 @@ export default styled.div`
   .Newfeed_head {
     display: flex;
     justify-content: space-between;
-
+    h3 {
+      font-size: 1.25rem;
+    }
     &_info {
       display: flex;
       text-decoration: none;
@@ -24,11 +26,11 @@ export default styled.div`
         border: 1px solid #ffff;
       }
       &_detail {
-        margin-left: 1rem;
-        margin-top: 0.75rem;
+        margin-left: 0.5rem;
+        margin-top: 0.25rem;
         &_locate {
           display: flex;
-          margin-top: 5px;
+          margin-top: 0;
           margin-left: -4px;
         }
       }
@@ -49,21 +51,20 @@ export default styled.div`
   .Newfeed_body {
     text-decoration: none;
     color: var(--black);
-    margin-bottom: 3rem;
+    padding: 1rem 0;
     h3 {
       text-align: center;
     }
     &_title {
       display: flex;
-      margin: 1em 0;
+      margin: 0.75em 0;
       .name {
         margin-top: 5px;
       }
-      p {
-        text-align: center;
-        margin-left: 10px;
+      .text {
+        text-align: left;
         color: var(--dark);
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
     }
     &_content {
@@ -78,9 +79,22 @@ export default styled.div`
   .Newfeed_footer {
     margin: 1.5rem 0;
     display: flex;
-    justify-content: space-around;
-    Button {
-      color: var(--black);
+    justify-content: space-between;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .menu-item {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    svg {
+      margin-right: 10px;
+    }
+  }
+  .ant-image {
+    height: 100%;
+    img {
+      height: 100%;
     }
   }
 `;

@@ -27,6 +27,7 @@ export const PreviewPost = React.memo((props: PreviewPostProps) => {
       return (
         <div
           className={hiddenClassName}
+          key={index}
           style={{
             border: '1px solid var(--border)',
           }}
@@ -71,7 +72,7 @@ export const PreviewPost = React.memo((props: PreviewPostProps) => {
           <div className='Newfeed_head_info'>
             <img src={props.avatar} alt='avatar'></img>
             <div className='Newfeed_head_info_detail'>
-              <h6>{props.name}</h6>
+              <h6>{props.fullname}</h6>
               <p
                 style={{
                   marginLeft: 0,

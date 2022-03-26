@@ -2,7 +2,7 @@ interface PostInfo {
   post_id: number;
   uid: string;
   avatar: string;
-  name: string;
+  fullname: string;
   org_id?: number;
   residential_address: string;
   status: string;
@@ -23,6 +23,7 @@ interface PostInfo {
   title: string;
   joined: number;
   content: string;
+  join_url?: string;
 }
 interface RequestPost {
   residential_address: string;
@@ -33,4 +34,9 @@ interface RequestPost {
   title: string;
   photos?: File[];
   province: string;
+}
+
+interface ResponsePost {
+  list: PostInfo[];
+  total: number;
 }

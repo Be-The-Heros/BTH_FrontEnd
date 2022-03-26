@@ -71,3 +71,20 @@ img {
 .ant-image-preview-operations {
   background: #f5f5f5 !important;
 }
+
+.ant-image-preview-switch-left,
+.ant-image-preview-switch-right {
+  color: #212529;
+  background: #699dff;
+}
+.menu-item-active {
+  background: #699dff;
+}
+.menu-item {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  svg {
+    margin-right: 10px;
+  }
+}
