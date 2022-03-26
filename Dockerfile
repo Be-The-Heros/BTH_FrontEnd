@@ -1,6 +1,9 @@
 FROM node:14.18.2-alpine3.14 as BUILDER
 
-WORKDIR /build
+# Set working directory
+WORKDIR /app 
+COPY package.json /app/package.json
+
 
 COPY package.json .
 COPY yarn.lock .
