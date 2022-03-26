@@ -12,7 +12,7 @@ export const Container = styled.div`
     position: absolute;
     width: 100%;
     height: 80%;
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 10px 10px 0 0;
   }
 `;

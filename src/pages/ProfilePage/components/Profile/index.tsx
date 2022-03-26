@@ -53,7 +53,7 @@ const Profile = (props: ProfileProps) => {
     event.preventDefault();
     var file = event?.target?.files?.item(0);
     console.log(file);
-    // setSelectedAvatarImage(file) /// if you want to upload latter
+
     reader.readAsDataURL(file as Blob);
 
     // Once loaded, do something with the string
@@ -70,12 +70,13 @@ const Profile = (props: ProfileProps) => {
     event.preventDefault();
     var file = event?.target?.files?.item(0);
 
-    // setSelectedAvatarImage(file) /// if you want to upload latter
     reader.readAsDataURL(file as Blob);
 
     // Once loaded, do something with the string
     reader.addEventListener("load", (event) => {
       setChangingState((state) => true);
+      console.log(event.target?.result);
+
       setSelectedBackgroundImage(event.target?.result);
     });
   };
