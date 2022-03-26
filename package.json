@@ -50,7 +50,7 @@
     "start": "react-scripts start",
     "lint": "prettier --check ./src",
     "format": "prettier --write ./src",
-    "build": "CI=false react-scripts build GENERATE_SOURCEMAP=false",
+    "build": "CI=false GENERATE_SOURCEMAP=false react-scripts build",
     "winBuild": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "test": "react-scripts test",
     "deploy": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build && netlify deploy --prod",
