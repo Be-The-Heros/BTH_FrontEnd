@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import styled from 'styled-components';
 
 export default styled.div`
@@ -10,10 +11,13 @@ export default styled.div`
   .Newfeed_head {
     display: flex;
     justify-content: space-between;
-
+    h3 {
+      font-size: 1.25rem;
+    }
     &_info {
       display: flex;
-
+      text-decoration: none;
+      color: var(--black);
       img {
         align-content: center;
         width: 4.75em;
@@ -22,13 +26,11 @@ export default styled.div`
         border: 1px solid #ffff;
       }
       &_detail {
-        margin-left: 1rem;
-        p {
-          margin: 0;
-        }
+        margin-left: 0.5rem;
+        margin-top: 0.25rem;
         &_locate {
           display: flex;
-          margin-top: 5px;
+          margin-top: 0;
           margin-left: -4px;
         }
       }
@@ -37,43 +39,83 @@ export default styled.div`
     &_join {
       Button {
         background-color: var(--primary);
-        color: #ffff;
+        color: var(--black);
         margin-bottom: 1em;
+        width: 100%;
+      }
+      p {
+        text-align: center;
       }
     }
   }
   .Newfeed_body {
-    margin-left: 1rem;
-    a {
-      text-decoration: none;
-    }
-    margin-bottom: 3rem;
+    text-decoration: none;
+    color: var(--black);
+    padding: 1rem 0;
     h3 {
       text-align: center;
     }
     &_title {
       display: flex;
-      margin-bottom: 1em;
+      margin: 0.75em 0;
       .name {
         margin-top: 5px;
       }
-      p {
-        text-align: center;
-        margin-left: 10px;
+      .text {
+        text-align: left;
         color: var(--dark);
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
     }
     &_content {
       font-size: 1rem;
+      &_comment{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 25px;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+      }
+      .none{
+        display: block;
+      }
+      
+      &_button{
+        border: none;
+        padding-left: 0;
+        background-color: var(--white) ;
+        color: var(--black) ;
+        font-weight: bold ;
+        
+      }
+      
     }
     &_photos {
-      margin-top: 1rem;
+      margin-top: 3rem;
+      display: flex;
+      flex-wrap: wrap;
     }
   }
   .Newfeed_footer {
-    margin-bottom: 1.5rem;
+    margin: 1.5rem 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .menu-item {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    svg {
+      margin-right: 10px;
+    }
+  }
+  .ant-image {
+    height: 100%;
+    img {
+      height: 100%;
+    }
   }
 `;

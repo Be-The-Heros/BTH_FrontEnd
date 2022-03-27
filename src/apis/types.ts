@@ -3,9 +3,12 @@ import { AxiosRequestHeaders } from 'axios';
 export interface Config {
   api: {
     kycUrl: string;
-    useUrl: string;
+    userUrl: string;
     authUrl: string;
     otpUrl: string;
+    postUrl: string;
+    profileUrl: string;
+    imageUrl: string;
   };
 }
 
@@ -14,6 +17,9 @@ export enum ApiVersion {
   user = 'user',
   auth = 'auth',
   otp = 'otp',
+  post = 'post',
+  profile = 'profile',
+  image = 'image',
 }
 
 export interface RequestOptions {
@@ -24,12 +30,6 @@ export interface RequestOptions {
 
 export interface JsonBody {
   [key: string]: any;
-}
-
-declare global {
-  interface Window {
-    url: Config;
-  }
 }
 
 export interface RequestPayload {

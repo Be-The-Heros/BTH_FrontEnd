@@ -1,83 +1,248 @@
+import { Button, Dropdown, Image, Menu } from 'antd';
+import clsx from 'clsx';
+import PopupLogin from 'components/PopupSuggestLogin';
+import { PHOTO_DISPLAY } from 'constants/devices';
+import React, { useState } from 'react';
+import { AiOutlineWarning } from 'react-icons/ai';
+import { BsLinkedin, BsTwitter } from 'react-icons/bs';
+import { FaFacebook } from 'react-icons/fa';
+import { FcShare } from 'react-icons/fc';
+import { MdOutlineStickyNote2 } from 'react-icons/md';
+import { VscLocation } from 'react-icons/vsc';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+} from 'react-share';
+import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
 import Style from './style';
-import { useRecoilState } from 'recoil';
-import { AiFillEnvironment, AiOutlineWarning } from 'react-icons/ai';
-import { IoMdShareAlt } from 'react-icons/io';
-import { VscLocation } from 'react-icons/vsc';
-import { MdOutlineStickyNote2 } from 'react-icons/md';
-import { Button } from 'antd';
-import { FcBookmark, FcContacts, FcVoicePresentation } from 'react-icons/fc';
 
 export const NewFeed = (props: PostInfo) => {
-  const [user, setUser] = useRecoilState(userState);
+  const user = useRecoilValue(userState);
+  const [isBtnJoinClick, setIsBtnJoinClick] = React.useState(false);
 
-  const photo_length = props.photos.length;
+  const url_detail = 'https://betheheros.tk/';
+  const dropDownShare = (
+    <Menu>
+      <Menu.Item
+        key='1'
+        icon={
+          <FaFacebook
+            color={'#3e79f7'}
+            style={{
+              marginRight: '0.25rem',
+            }}
+          />
+        }
+        className='d-flex align-items-center'
+      >
+        <FacebookShareButton
+          hashtag='#be_the_heroes'
+          quote={props.title}
+          url={url_detail}
+        >
+          Share with Facebook
+        </FacebookShareButton>
+      </Menu.Item>
+      <Menu.Item
+        key='2'
+        icon={
+          <BsLinkedin
+            color={'#3e79f7'}
+            style={{
+              marginRight: '0.25rem',
+            }}
+          />
+        }
+        className='d-flex  align-items-center'
+      >
+        <LinkedinShareButton url={url_detail}>
+          Share with Linkedin
+        </LinkedinShareButton>
+      </Menu.Item>
+      <Menu.Item
+        key='2'
+        icon={
+          <BsTwitter
+            color={'#3e79f7'}
+            style={{
+              marginRight: '0.25rem',
+            }}
+          />
+        }
+        className='d-flex  align-items-center'
+      >
+        <TwitterShareButton
+          url={url_detail}
+          hashtags={['be_the_heroes']}
+          title={props.title}
+        >
+          Share with Twitter
+        </TwitterShareButton>
+      </Menu.Item>
+    </Menu>
+  );
+
+  const { photos } = props;
+  const renderPhotos = () => {
+    if (!photos || photos.length === 0) return null;
+    return photos.map((photo, index) => {
+      const isFinalImage = index + 1 === PHOTO_DISPLAY;
+      const hiddenClassName = clsx([
+        { 'd-none': index + 1 > PHOTO_DISPLAY },
+        'w-50 position-relative',
+      ]);
+      return (
+        <div
+          className={hiddenClassName}
+          key={index}
+          // style={{
+          //   border: photos.length > 1 ? '1px solid var(--border)' : 'none',
+          // }}
+        >
+          <Image src={photo} alt='post' />
+          {PHOTO_DISPLAY != photos.length && isFinalImage && (
+            <div
+              className='position-absolute d-flex justify-content-center align-items-center'
+              style={{
+                top: '50%',
+                color: '#f5f5f5',
+                left: '50%',
+                fontSize: '2rem',
+                transform: 'translate(-50%, -50%)',
+                width: '100%',
+              }}
+            >
+              +{photos.length - PHOTO_DISPLAY}
+            </div>
+          )}
+        </div>
+      );
+    });
+  };
+
+  const [tagName, setTagName] = useState("");
+  const [view, setView] = useState("See more...");
+  const setViewPost = ()=>{
+    if(tagName === ""){
+      setTagName("none");
+      setView("See less...");
+    }else{
+      setTagName("");
+      setView("See more...");
+    }
+  }
   return (
-    <Style>
-      <div className='Newfeed_head'>
-        <div className='Newfeed_head_info'>
-          <img src={user.avatar} alt='avatar'></img>
-          <div className='Newfeed_head_info_detail'>
-            <h6>{user.name ? user.name : 'Ho Thanh'}</h6>
-            <p>{props.created_at}</p>
-            <div className='Newfeed_head_info_detail_locate'>
-              <VscLocation style={{ fontSize: '1.25rem' }} />
-              <div>{props.residential_address}</div>
+    <React.Fragment>
+      <PopupLogin
+        isOpen={isBtnJoinClick && !user.isLoggedIn}
+        onClose={() => setIsBtnJoinClick(false)}
+      />
+      <Style>
+        <div className='Newfeed_head'>
+          <div className='Newfeed_head_info'>
+            <img src={props.avatar} alt='avatar'></img>
+            <div className='Newfeed_head_info_detail'>
+              <h6
+                style={{
+                  fontWeight: 'bold',
+                }}
+              >
+                {props.fullname}
+              </h6>
+              <p
+                style={{
+                  marginBottom: '0.25rem',
+                }}
+              >
+                {new Date(props.updated_at).toDateString()}
+              </p>
+              <div className='Newfeed_head_info_detail_locate'>
+                <VscLocation style={{ fontSize: '1.25rem' }} color='red' />
+                <div>{props.residential_address}</div>
+              </div>
             </div>
           </div>
+          <div className='Newfeed_head_join'>
+            {props.join_url && (
+              <Button
+                className='Newfeed_head_join_button'
+                type='ghost'
+                onClick={() => {
+                  setIsBtnJoinClick(true);
+                  if (props.join_url) window.open(props.join_url, '_blank');
+                }}
+              >
+                Join
+              </Button>
+            )}
+
+            {/* <p>{props.joined} people</p> */}
+          </div>
         </div>
-        <div className='Newfeed_head_join'>
-          <Button className='Newfeed_head_join_button' type='ghost'>
-            Join
+        <div className='Newfeed_body'>
+          <h3>{props.title}</h3>
+
+          <div className='Newfeed_body_title d-flex justify-content-center'>
+            {/* <FcBookmark style={{ fontSize: '2.25rem' }} /> */}
+            <div className='text'>
+              Address:{' '}
+              {[
+                props.residential_address,
+                props.ward,
+                props.district,
+                props.province,
+              ]
+                .filter((value) => value?.trim() !== '' && value !== undefined)
+                .join(', ')}
+            </div>
+          </div>
+          <div className='Newfeed_body_content' >
+            
+            <span className={`Newfeed_body_content_comment ${tagName}`} >{props.content}</span>
+            {props.content.length < 46? '': <button className={`Newfeed_body_content_button`} 
+            onClick={setViewPost}>
+              {view}</button>}
+              
+          </div>
+          <div className='Newfeed_body_photos'>
+            {props.photos && props.photos.length > 0 && (
+              <Image.PreviewGroup> {renderPhotos()}</Image.PreviewGroup>
+            )}
+          </div>
+        </div>
+        <div className='Newfeed_footer'>
+          <Dropdown overlay={dropDownShare}>
+            <Button type='link'>
+              <FcShare
+                style={{ fontSize: '150%', margin: '0 0.5rem 0.2rem' }}
+              />{' '}
+              Share
+            </Button>
+          </Dropdown>
+
+          <Button
+            type='link'
+            style={{
+              color: '#673AB7',
+            }}
+          >
+            <MdOutlineStickyNote2
+              color={'#673AB7'}
+              style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }}
+            />{' '}
+            Comment
           </Button>
-          <p>120 people</p>
+          <Button type='link'>
+            <AiOutlineWarning
+              style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }}
+            />{' '}
+            Report
+          </Button>
         </div>
-      </div>
-      <div className='Newfeed_body'>
-        <a href='#'>
-          <h3>Hỗ Trợ Trẻ Em Thiện Nguyện</h3>
-        </a>
-        <div className='Newfeed_body_title'>
-          <FcVoicePresentation
-            style={{ fontSize: '2.5rem' }}
-          ></FcVoicePresentation>
-          <p className='name'>Tên: </p>
-        </div>
-        <div className='Newfeed_body_title'>
-          <FcBookmark style={{ fontSize: '2.25rem' }} />
-          <p>Địa Chỉ: </p>
-        </div>
-        <div className='Newfeed_body_content'>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam
-          explicabo, dolorem sed autem deleniti temporibus laborum, neque
-          officia suscipit reprehenderit possimus fugit aperiam, quis sequi
-          nemo. Inventore enim debitis non.
-        </div>
-        <div className='Newfeed_body_photos'>
-          {props.photos.map((photo, index) => {
-            const w = 100 / photo_length;
-            return (
-              <img
-                src={photo}
-                alt='photo'
-                key={index}
-                style={{ width: `${w}%`, height: '100%' }}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className='Newfeed_footer'>
-        <Button type='link'>
-          <IoMdShareAlt style={{ fontSize: '200%' }} /> Share
-        </Button>
-        <Button type='link'>
-          <MdOutlineStickyNote2 style={{ fontSize: '200%' }} /> Comment
-        </Button>
-        <Button type='link'>
-          <AiOutlineWarning style={{ fontSize: '200%' }} /> Report
-        </Button>
-      </div>
-    </Style>
+      </Style>
+    </React.Fragment>
   );
 };

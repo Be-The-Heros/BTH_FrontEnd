@@ -1,10 +1,14 @@
 import React from 'react';
+import { LayoutApp } from 'templates/LayoutApp';
 
 const Post = () => {
     return (
-        <div>
-            
+        <LayoutApp >
+            <div>
+            Post
         </div>
+        </LayoutApp>
+        
     );
 };
 
