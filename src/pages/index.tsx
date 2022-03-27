@@ -44,15 +44,15 @@ export const AppViews = () => {
             path='/profile'
             element={<PublicRoute element={<ProfilePage />} />}
           />
-
-          <Route
-            path='/create-post'
-            element={<PrivateRoute element={<CreatePostPage />} />}
-          />
           <Route
             path='/profile/settings'
             element={<PrivateRoute element={<ProfileSettingsPage />} />}
           />
+          <Route
+            path='/create-post'
+            element={<PrivateRoute element={<CreatePostPage />} />}
+          />
+
           <Route
             path='/verify/email'
             element={<PrivateRoute element={<VerifyEmailPage />} />}

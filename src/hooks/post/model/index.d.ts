@@ -1,5 +1,5 @@
 interface PostInfo {
-  post_id: number;
+  post_id: string;
   uid: string;
   avatar: string;
   fullname: string;
