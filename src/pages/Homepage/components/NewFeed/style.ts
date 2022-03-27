@@ -71,6 +71,14 @@ export default styled.div`
     }
     &_content {
       font-size: 1rem;
+     
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 25px;
+      -webkit-line-clamp: 3;
+      height: 75px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
     }
     &_photos {
       margin-top: 1rem;
@@ -83,6 +91,10 @@ export default styled.div`
     justify-content: space-around;
     Button{
       color: var(--black) ;
+      
+    }
+    &_more{
+      text-decoration: none ;
     }
   }
 `;

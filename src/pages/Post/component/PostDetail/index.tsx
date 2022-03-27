@@ -1,12 +1,12 @@
-import { Button } from 'antd';
+import { Button, Form, Input } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+import Comment from 'components/Comment';
 import PopupLogin from 'components/PopupSuggestLogin';
 import React from 'react'
-import { AiOutlineWarning } from 'react-icons/ai';
-import { FcBookmark } from 'react-icons/fc';
-import { IoMdShareAlt } from 'react-icons/io';
-import { MdOutlineStickyNote2 } from 'react-icons/md';
+import { FcBookmark, FcGallery } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { commentsState } from 'recoil/comments/state';
 import { userState } from 'recoil/users/state';
 import Style from './style'
 
@@ -15,12 +15,33 @@ import Style from './style'
 
 export const PostDetail = (props :PostInfo) => {
   const user = useRecoilValue(userState);
+  
+  const [listComment, setListComment] = useRecoilState(commentsState);
+  
   const [isBtnClick, setIsBtnClick] = React.useState(false);
+  const [isOpenCmt, setIsOpentCmt] = React.useState(false);
+  const addComment  = (comment: string)=>{
+       
+    setListComment(
+      [ ...listComment,
+        {
+          id_post: props.id_post,
+          id_comment:`00${listComment.length+1}` ,
+          id_user: user.uid,
+          avatar : user.avatar?user.avatar:'',
+          name: user.name,
+          content_comment:comment,
+          children:[]
+        }
+      ]);
+  }
+  const repComment= ()=>{
+    // setIsOpentCmt(true)
+  }
 
-  const photo_length = props.photos.length;
   return (
     <>
-    <  PopupLogin isOpen={isBtnClick } onClose={()=> setIsBtnClick(false)}/>
+    <  PopupLogin isOpen={(isBtnClick && user.isLoggedIn)} onClose={()=> setIsBtnClick(false)}/>
     <Style>
       <div className='postDetail_head'>
         <Link to={`/profile/${props.uid}`} className='postDetail_head_info'>
@@ -31,16 +52,9 @@ export const PostDetail = (props :PostInfo) => {
           
           </div>
         </Link>
-        {/* <div className='postDetail_head_join'>
-          <Button className='postDetail_head_join_button' 
-          type='ghost'
-          onClick={()=>setIsBtnClick(!isBtnClick)}>
-            Join
-          </Button>
-          <p>{props.joined} people</p>
-        </div> */}
+        
       </div>
-      <Link to={`/postdetail/${props.id_post}`} className='postDetail_body'>
+      <div className='postDetail_body'>
 
         <h3>{props.title}</h3>
 
@@ -64,19 +78,49 @@ export const PostDetail = (props :PostInfo) => {
             );
           })}
         </div>
-      </Link>
-      <div className='postDetail_footer'>
-        <Button type='link'>
-          <IoMdShareAlt style={{ fontSize: '150%', margin: '0 0.5rem 0.2rem' }} /> Share
-        </Button>
-        <Button type='link'>
-          <MdOutlineStickyNote2 style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }} /> Comment
-        </Button>
-        <Button type='link'>
-          <AiOutlineWarning style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }} /> Report
-        </Button>
       </div>
-      <div className='postDetail_comment'></div>
+      <hr/>
+      <div className='postDetail_comment'>
+        <h3>Comment</h3>
+        
+        <Comment isOpen = {true}  onclick={(addComment)}/>
+        
+        {listComment.map((comment, index)=>{
+          return (
+            <div className='postDetail_comment_display' key={index}>
+              <div className='postDetail_comment_display_detail'>
+                <img src={comment.avatar} alt='avatar'></img>
+                <div className='postDetail_comment_display_detail_content'>
+                  <p>{comment.name}</p>
+                  <span>{comment.content_comment}</span>
+                </div>
+              </div>
+              <div className='postDetail_comment_display_action'>
+                <button className='postDetail_comment_display_action_button' onClick={()=>{setIsOpentCmt(true)}}>Reply</button>
+              </div>
+              {comment.children?.map((child,index)=>{
+                return(
+                  <><div className='postDetail_comment_display_reply' key={index}>
+                    <img src={child.avatar} alt='avatar'></img>
+                    <div className='postDetail_comment_display_reply_content'>
+                      <p>{child.name}</p>
+                      <span>{child.content_comment}</span>
+                    </div>
+
+                  </div>
+                  <div className='postDetail_comment_display_reply'>
+                      { isOpenCmt ? <Comment isOpen={isOpenCmt} onclick={(repComment)} /> : '' }
+                      
+                    </div>
+                    </>
+                )
+              })}
+
+            </div>
+          )
+        })}
+        
+      </div>
     </Style>
   </>);
 }

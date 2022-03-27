@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { LayoutApp } from 'templates/LayoutApp';
-import { SidebarLeft, SidebarRight } from './component';
+import { SidebarLeft} from './component';
 import {PostDetail} from './component/PostDetail';
 
 const Post = () => {
@@ -27,8 +27,9 @@ const Post = () => {
         content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam explicabo, dolorem sed autem deleniti temporibus laborum, neque officia suscipit reprehenderit possimus fugit aperiam, quis sequi nemo. Inventore enim debitis non.'
       
       }
+      
     return (
-        <LayoutApp sidebarLeft={<SidebarLeft />} sidebarRight={<SidebarRight {...postdetail}/>}>
+        <LayoutApp sidebarLeft={<SidebarLeft {...postdetail}/>} >
             <PostDetail {...postdetail}/>
         </LayoutApp>
         

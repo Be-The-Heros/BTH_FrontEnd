@@ -5,7 +5,7 @@ import { AiFillEnvironment, AiOutlineWarning } from 'react-icons/ai';
 import { IoMdShareAlt } from 'react-icons/io';
 import { MdOutlineStickyNote2 } from 'react-icons/md';
 import { Button } from 'antd';
-import { FcBookmark, FcContacts, FcVoicePresentation } from 'react-icons/fc';
+import { FcBookmark, FcComments, FcContacts, FcNews, FcRedo, FcViewDetails, FcVoicePresentation } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 import PopupLogin from 'components/PopupSuggestLogin';
 import React from 'react';
@@ -40,7 +40,7 @@ export const NewFeed = (props: PostInfo) => {
           <p>{props.joined} people</p>
         </div>
       </div>
-      <Link to={`/postdetail/${props.id_post}`} className='Newfeed_body'>
+      <div  className='Newfeed_body'>
 
         <h3>{props.title}</h3>
 
@@ -64,16 +64,18 @@ export const NewFeed = (props: PostInfo) => {
             );
           })}
         </div>
-      </Link>
+      </div>
       <div className='Newfeed_footer'>
         <Button type='link'>
-          <IoMdShareAlt style={{ fontSize: '150%', margin: '0 0.5rem 0.2rem' }} /> Share
+          <FcRedo style={{ fontSize: '150%', margin: '0 0.5rem 0.2rem' }} /> Share
         </Button>
         <Button type='link'>
-          <MdOutlineStickyNote2 style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }} /> Comment
+          <FcComments style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }} /> Comment
         </Button>
-        <Button type='link'>
-          <AiOutlineWarning style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }} /> Report
+        <Button type='link' >
+          <Link to={`/postdetail/${props.id_post}`} className='Newfeed_footer_more'>
+            <FcViewDetails style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }} /> View Detail
+          </Link>
         </Button>
       </div>
     </Style></>

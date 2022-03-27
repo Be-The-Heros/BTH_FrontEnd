@@ -5,6 +5,7 @@ import {
   FcDocument,
   FcHome,
   FcOrganization,
+  FcRules,
   FcViewDetails,
 } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
@@ -31,7 +32,7 @@ export const SidebarLeft = () => {
       <div>
         <h4>Orther</h4>
         <Link to=''>
-          <FcViewDetails style={{ fontSize: '2rem', marginRight: '10px' }} />{' '}
+          <FcRules style={{ fontSize: '2rem', marginRight: '10px' }} />{' '}
           Privacy policy
         </Link>
         <Link to='/'>

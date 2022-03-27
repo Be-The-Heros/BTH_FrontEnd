@@ -77,12 +77,63 @@ export default styled.div`
       
     }
   }
-  .postDetail_footer {
+  .postDetail_comment {
     margin: 1.5rem 0;
-    display: flex;
-    justify-content: space-around;
-    Button{
-      color: var(--black) ;
+    
+    
+    &_display{
+      p{
+        margin: 0;
+        color: var(--black);
+        font-weight:bold ;
+      }
+      img {
+        align-content: center;
+        width: 3.75em;
+        height: 3.75em;
+        border-radius: 50%;
+        border: 1px solid #ffff;
+      }
+      &_detail{
+        display:flex ;
+        margin-top: 1.5rem ;
+        &_content{
+          margin: 0 0.3rem;
+          border-radius: 0.625rem;
+          background-color: #f0f2f5 ;
+          padding:0.3rem 0.5rem ;
+        }
+        
+      }
+      &_reply{
+        display: flex;
+        margin: 1.5rem 3.3rem;
+        &_content{
+          margin: 0 0.3rem;
+          border-radius: 0.625rem;
+          background-color: #f0f2f5 ;
+          padding:0.3rem 0.5rem ;
+        }
+      }
+      &_action{
+        margin-left:4rem ;
+        margin-top: 0.5rem;
+        button{
+          border: none;
+          font-size: 0.75rem;
+          margin:0 ;
+          padding: 0;
+          background-color:var(--white) ;
+          box-shadow:none;
+        }
+        
+        &_button :hover{
+          button{
+            background-color: var(--white) ;
+          }
+          
+        }
+      }
     }
   }
 `;
