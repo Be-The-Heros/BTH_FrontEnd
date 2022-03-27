@@ -14,6 +14,8 @@ import {
 import AddressIcon from "assets/icons/address.svg";
 import CalendarIcon from "assets/icons/calendar.svg";
 import CameraIcon from "assets/icons/camera.svg";
+import { useNavigate } from "react-router-dom";
+
 import { ProfileInfo } from "hooks/profile/model";
 import { useChangeAvatar } from "hooks/profile/ChangeAvatar/useChangeAvatar";
 import { useChangeBackgroundPhoto } from "hooks/profile/ChangeBackgroundPhoto/useChangeBackgroundPhoto";
@@ -51,6 +53,8 @@ const OverlayLoading = styled.div`
 `;
 
 const Profile = (props: ProfileProps) => {
+  const navigate = useNavigate();
+
   const changeAvatarMutation = useChangeAvatar();
   const changeBackgroundPhotoMutation = useChangeBackgroundPhoto();
 
@@ -233,7 +237,9 @@ const Profile = (props: ProfileProps) => {
             Save Changes
           </SaveChangesButton>
         )}
-        <EditProfileButton>Edit Profile</EditProfileButton>
+        <EditProfileButton onClick={() => navigate("/profile/settings")}>
+          Edit Profile
+        </EditProfileButton>
       </Container>
     </>
   );

@@ -1,7 +1,7 @@
 export const devUrl = {
   kyc: "http://localhost:4000/api/kyc",
   user: "http://localhost:5000/api/user",
-  auth: "http://localhost:5000/api/auth",
+  auth: "https://betheheros.tk/api/auth",
   otp: "http://localhost:5000/api/otp",
   post: " https://betheheros.tk/api/post",
   profile: "https://betheheros.tk/v2/api/profile",
