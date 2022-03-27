@@ -16,9 +16,9 @@ Access-Control-Allow-Headers: content-type, x-csrf-token
       "last_name":"Trương",
       "level":2,
       "role":0,
-      "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJjOTY3NGU0MC1hOGY0LTExZWMtYjliMy1jZmIwYWUxOTc3NjQiLCJlbWFpbCI6InJpcGtlcjE4MDVAZ21haWwuY29tIiwidXNlcl9pZCI6ODQsImlhdCI6MTY0Nzg1NTI0N30.1qENx38vHeUx3io8vsclFvLkFZzX7sFheu0B8rjAdKY",
+      "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJjOTY3NGU0MC1hOGY0LTExZWMtYjliMy1jZmIwYWUxOTc3NjQiLCJlbWFpbCI6InJpcGtlcjE4MDVAZ21haWwuY29tIiwidXNlcl9pZCI6ODUsImlhdCI6MTY0Nzg1NTI0N30.uHncy0GZvXnbYXlxN99ayvB_LKnRx8KSc2e9lM3mJoQ",
       "uid":"c5d18a40-a447-11ec-b1d9-d90730881369",
-      "user_id":70
+      "user_id":1
    },
    "message":"Login successfully"
 }

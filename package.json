@@ -91,6 +91,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-loading-overlay": "^1.0.1",
     "prettier": "^2.5.1"
   }
 }
