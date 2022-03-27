@@ -6,7 +6,7 @@ import { ChangingBackgroundPhotoApiResponse } from "../model";
 export const useChangeBackgroundPhoto = () => {
   return useMutation((photo: File) => {
     const formData = new FormData();
-    formData.append("file", photo);
+    formData.append("cover_image", photo);
 
     return apis.post<ChangingBackgroundPhotoApiResponse>(
       API_PROFILE,

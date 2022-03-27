@@ -6,7 +6,7 @@ import { ChangingAvatarApiResponse } from "../model";
 export const useChangeAvatar = () => {
   return useMutation((photo: File) => {
     const formData = new FormData();
-    formData.append("file", photo);
+    formData.append("avatar", photo);
 
     return apis.post<ChangingAvatarApiResponse>(
       API_PROFILE,
