@@ -83,6 +83,7 @@ export default styled.div`
       
       &_button{
         border: none;
+        padding-left: 0;
         background-color: var(--white) ;
         color: var(--black) ;
         font-weight: bold ;

@@ -199,9 +199,9 @@ export const NewFeed = (props: PostInfo) => {
           <div className='Newfeed_body_content' >
             
             <span className={`Newfeed_body_content_comment ${tagName}`} >{props.content}</span>
-            <button className={`Newfeed_body_content_button`} 
+            {props.content.length < 46? '': <button className={`Newfeed_body_content_button`} 
             onClick={setViewPost}>
-              {view}</button>
+              {view}</button>}
               
           </div>
           <div className='Newfeed_body_photos'>
