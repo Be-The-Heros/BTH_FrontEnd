@@ -8,6 +8,7 @@ import { SidebarLeft } from './components/SidebarLeft';
 import { SidebarRight } from './components/SidebarRight';
 import _toNumber from 'lodash/toNumber';
 import Style from './style';
+import { toString } from 'lodash';
 
 const TIME_OUT_FETCH = 2000;
 
@@ -16,14 +17,16 @@ const Homepage = () => {
     page: 1,
     size: 8,
   });
-  console.log(pagination);
 
   const [dataRender, setDataRender] = React.useState<PostInfo[]>([]);
   const postQuery = useQueryListPost({ ...pagination });
   const [isHasMore, setIsHasMore] = React.useState(true);
 
+  const handleDeletePost = (id: string) => {
+    setDataRender(dataRender.filter((item) => toString(item.post_id) !== id));
+  };
   React.useEffect(() => {
-    if (postQuery && isHasMore) {
+    if (postQuery.data && isHasMore) {
       setDataRender([...dataRender, ...(postQuery.data?.data.list || [])]);
     }
     if (
@@ -54,7 +57,13 @@ const Homepage = () => {
           dataLength={dataRender.length}
         >
           {dataRender.map((post, index) => {
-            return <NewFeed {...post} key={index} />;
+            return (
+              <NewFeed
+                {...post}
+                key={index}
+                handleDeletePost={handleDeletePost}
+              />
+            );
           })}
         </InfiniteScroll>
       </Style>

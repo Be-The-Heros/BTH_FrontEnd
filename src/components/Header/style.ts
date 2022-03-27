@@ -28,10 +28,11 @@ export default styled.div`
     }
     &__avatar {
       img {
-        width: 2.75em;
+        width: 3em;
         border-radius: 50%;
         border: 1px solid #ffff;
         cursor: pointer;
+        height: 3em;
       }
       svg {
         font-size: 1.75em;

@@ -2,8 +2,10 @@ import { Button, Dropdown, Image, Menu } from 'antd';
 import clsx from 'clsx';
 import PopupLogin from 'components/PopupSuggestLogin';
 import { PHOTO_DISPLAY } from 'constants/devices';
-import React, { useState } from 'react';
-import { AiOutlineWarning } from 'react-icons/ai';
+import { useDeletePost } from 'hooks/post/delete/useDeletePost';
+import _toString from 'lodash/toString';
+import React from 'react';
+import { BiGroup } from 'react-icons/bi';
 import { BsLinkedin, BsTwitter } from 'react-icons/bs';
 import { FaFacebook } from 'react-icons/fa';
 import { FcShare } from 'react-icons/fc';
@@ -12,19 +14,90 @@ import { VscLocation } from 'react-icons/vsc';
 import {
   FacebookShareButton,
   LinkedinShareButton,
-  TelegramShareButton,
   TwitterShareButton,
 } from 'react-share';
+import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
 import Style from './style';
 
-export const NewFeed = (props: PostInfo) => {
+interface NewFeedProps extends PostInfo {
+  handleDeletePost?: (id: string) => void;
+}
+export const NewFeed = (props: NewFeedProps) => {
   const user = useRecoilValue(userState);
+  const { handleDeletePost } = props;
   const [isBtnJoinClick, setIsBtnJoinClick] = React.useState(false);
-
+  const deletePost = useDeletePost();
   const url_detail = 'https://betheheros.tk/';
-  const dropDownShare = (
+
+  const handleClickDelete = () => {
+    deletePost.mutate({
+      post_id: props.post_id,
+    });
+  };
+  React.useEffect(() => {
+    toast.dismiss();
+    if (deletePost.isLoading) {
+      toast.loading('Deleting your post...');
+      return;
+    }
+    if (deletePost.isSuccess) {
+      handleDeletePost && handleDeletePost(_toString(props.post_id));
+      return;
+    }
+
+    if (deletePost.isError) {
+      toast.error('Something went wrong');
+      return;
+    }
+  }, [deletePost.isSuccess, deletePost.data]);
+  const isOwnerPost = user.uid === props.uid;
+  const dropdownMore = (
+    <Menu>
+      {isOwnerPost && (
+        <React.Fragment>
+          <Menu.Item>
+            <Button
+              className='w-100'
+              style={{
+                backgroundColor: 'var(--bs-success)',
+                color: 'var(--bs-white)',
+              }}
+            >
+              Edit{' '}
+            </Button>
+          </Menu.Item>
+          <Menu.Item>
+            <Button
+              disabled={deletePost.isLoading}
+              onClick={() => handleClickDelete()}
+              className='w-100'
+              style={{
+                backgroundColor: 'var(--bs-danger)',
+                color: 'var(--bs-white)',
+              }}
+            >
+              Delete
+            </Button>
+          </Menu.Item>
+        </React.Fragment>
+      )}
+
+      <Menu.Item>
+        <Button
+          className='w-100'
+          style={{
+            backgroundColor: 'var(--bs-warning)',
+            color: 'var(--bs-white)',
+          }}
+        >
+          View detail
+        </Button>
+      </Menu.Item>
+    </Menu>
+  );
+  const dropdownShare = (
     <Menu>
       <Menu.Item
         key='1'
@@ -123,17 +196,17 @@ export const NewFeed = (props: PostInfo) => {
     });
   };
 
-  const [tagName, setTagName] = useState("");
-  const [view, setView] = useState("See more...");
-  const setViewPost = ()=>{
-    if(tagName === ""){
-      setTagName("none");
-      setView("See less...");
-    }else{
-      setTagName("");
-      setView("See more...");
+  const [tagName, setTagName] = React.useState('');
+  const [view, setView] = React.useState('See more...');
+  const setViewPost = () => {
+    if (tagName === '') {
+      setTagName('none');
+      setView('See less...');
+    } else {
+      setTagName('');
+      setView('See more...');
     }
-  }
+  };
   return (
     <React.Fragment>
       <PopupLogin
@@ -199,13 +272,20 @@ export const NewFeed = (props: PostInfo) => {
                 .join(', ')}
             </div>
           </div>
-          <div className='Newfeed_body_content' >
-            
-            <span className={`Newfeed_body_content_comment ${tagName}`} >{props.content}</span>
-            {props.content.length < 46? '': <button className={`Newfeed_body_content_button`} 
-            onClick={setViewPost}>
-              {view}</button>}
-              
+          <div className='Newfeed_body_content'>
+            <span className={`Newfeed_body_content_comment ${tagName}`}>
+              {props.content}
+            </span>
+            {props.content.length < 46 ? (
+              ''
+            ) : (
+              <button
+                className={`Newfeed_body_content_button`}
+                onClick={setViewPost}
+              >
+                {view}
+              </button>
+            )}
           </div>
           <div className='Newfeed_body_photos'>
             {props.photos && props.photos.length > 0 && (
@@ -214,7 +294,7 @@ export const NewFeed = (props: PostInfo) => {
           </div>
         </div>
         <div className='Newfeed_footer'>
-          <Dropdown overlay={dropDownShare}>
+          <Dropdown overlay={dropdownShare}>
             <Button type='link'>
               <FcShare
                 style={{ fontSize: '150%', margin: '0 0.5rem 0.2rem' }}
@@ -235,12 +315,15 @@ export const NewFeed = (props: PostInfo) => {
             />{' '}
             Comment
           </Button>
-          <Button type='link'>
-            <AiOutlineWarning
-              style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }}
-            />{' '}
-            Report
-          </Button>
+          <Dropdown overlay={dropdownMore} placement='bottomLeft'>
+            <Button type='link'>
+              <BiGroup
+                color={'var(--bs-success)'}
+                style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }}
+              />
+              More
+            </Button>
+          </Dropdown>
         </div>
       </Style>
     </React.Fragment>
