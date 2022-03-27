@@ -59,7 +59,7 @@ export const AppViews = () => {
           />
         </Route>
         <Route
-          path={`/profile`}
+          path={`/profile/:id`}
           element={<PublicRoute element={<Profile />} />}
         />
         <Route path='/auth' element={<LayoutAuth />}>

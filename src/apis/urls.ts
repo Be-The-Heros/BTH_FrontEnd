@@ -3,7 +3,7 @@ export const devUrl = {
   user: "http://localhost:5000/api/user",
   auth: "http://localhost:5000/api/auth",
   otp: "http://localhost:5000/api/otp",
-  post: "http://localhost:5000/api/post",
+  post: " https://betheheros.tk/api/post",
   profile: "https://betheheros.tk/v2/api/profile",
   image: "https://betheheros.tk/api/image",
 };
