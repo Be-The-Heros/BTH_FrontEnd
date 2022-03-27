@@ -155,16 +155,19 @@ export const NewFeed = (props: PostInfo) => {
             </div>
           </div>
           <div className='Newfeed_head_join'>
-            <Button
-              className='Newfeed_head_join_button'
-              type='ghost'
-              onClick={() => {
-                setIsBtnJoinClick(true);
-                if (props.join_url) window.open(props.join_url, '_blank');
-              }}
-            >
-              Join
-            </Button>
+            {props.join_url && (
+              <Button
+                className='Newfeed_head_join_button'
+                type='ghost'
+                onClick={() => {
+                  setIsBtnJoinClick(true);
+                  if (props.join_url) window.open(props.join_url, '_blank');
+                }}
+              >
+                Join
+              </Button>
+            )}
+
             {/* <p>{props.joined} people</p> */}
           </div>
         </div>
