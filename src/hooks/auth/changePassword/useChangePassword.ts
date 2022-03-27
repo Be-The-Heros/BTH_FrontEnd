@@ -6,10 +6,10 @@ interface ChangePasswordPayload {
   oldPassword: string;
 }
 
-export const useResetPassword = () => {
+export const useChangePassword = () => {
   return useMutation(
     (body: ChangePasswordPayload) => {
-      return apis.post<{ message: string }>(API_AUTH, "/change-password", {
+      return apis.post(API_AUTH, "/change-password", {
         body,
       });
     },
