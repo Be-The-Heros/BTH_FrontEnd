@@ -57,3 +57,34 @@ img {
 .w-90 {
   width: 90% !important;
 }
+.w-100 {
+  width: 100% !important;
+}
+
+.pl-0 {
+  padding-left: 0 !important;
+}
+
+.pr-0 {
+  padding-right: 0 !important;
+}
+.ant-image-preview-operations {
+  background: #f5f5f5 !important;
+}
+
+.ant-image-preview-switch-left,
+.ant-image-preview-switch-right {
+  color: #212529;
+  background: #699dff;
+}
+.menu-item-active {
+  background: #699dff;
+}
+.menu-item {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  svg {
+    margin-right: 10px;
+  }
+}

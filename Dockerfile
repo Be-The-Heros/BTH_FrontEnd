@@ -1,8 +1,7 @@
-# 1. For build React app
 FROM node:12-alpine AS development
 
 # Set working directory
-WORKDIR /app 
+WORKDIR /app
 
 # 
 COPY package.json /app/package.json

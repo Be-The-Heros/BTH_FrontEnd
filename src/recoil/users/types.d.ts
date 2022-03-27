@@ -11,6 +11,6 @@ interface UserInfo {
   is_locked: boolean;
   is_otp: boolean;
   date_of_birth: string;
-  fist_name: string;
+  first_name: string;
   last_name: string;
 }

@@ -12,27 +12,14 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.ant-modal {
+  min-width: 520px !important;
+  max-width: 50em !important;
+  width: auto !important;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ant-image-preview-img {
+  max-width: 70% !important;
+  max-height: 70% !important;
+  height: auto !important;
+  width: auto !important;
 }
