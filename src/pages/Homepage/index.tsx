@@ -1,13 +1,13 @@
-import Loading from 'components/Loading';
-import { useQueryListPost } from 'hooks/post/list';
-import React from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { LayoutApp } from 'templates/LayoutApp';
-import { NewFeed } from './components/NewFeed';
-import { SidebarLeft } from './components/SidebarLeft';
-import { SidebarRight } from './components/SidebarRight';
-import _toNumber from 'lodash/toNumber';
-import Style from './style';
+import Loading from "components/Loading";
+import { useQueryListPost } from "hooks/post/list";
+import React from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { LayoutApp } from "templates/LayoutApp";
+import { NewFeed } from "./components/NewFeed";
+import { SidebarLeft } from "./components/SidebarLeft";
+import { SidebarRight } from "./components/SidebarRight";
+import _toNumber from "lodash/toNumber";
+import Style from "./style";
 
 const TIME_OUT_FETCH = 2000;
 
@@ -16,14 +16,15 @@ const Homepage = () => {
     page: 1,
     size: 8,
   });
-  console.log(pagination);
 
   const [dataRender, setDataRender] = React.useState<PostInfo[]>([]);
   const postQuery = useQueryListPost({ ...pagination });
   const [isHasMore, setIsHasMore] = React.useState(true);
 
   React.useEffect(() => {
-    if (postQuery && isHasMore) {
+    if (postQuery.data && isHasMore) {
+      console.log(postQuery.data);
+
       setDataRender([...dataRender, ...(postQuery.data?.data.list || [])]);
     }
     if (

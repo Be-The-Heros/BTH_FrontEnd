@@ -1,13 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Typography, CardHeader, Avatar } from '@mui/material';
+import React from "react";
+import styled from "styled-components";
+import { Typography, CardHeader, Avatar } from "@mui/material";
 
-import PostcardIcon from 'assets/icons/postcard.svg';
-import NoteIcon from 'assets/icons/note.svg';
-import ProjectsIcon from 'assets/icons/projects.svg';
-import StarIcon from 'assets/icons/star.svg';
-import StarsIcon from 'assets/icons/stars.svg';
-import LocationIcon from 'assets/icons/location.svg';
+import PostcardIcon from "assets/icons/postcard.svg";
+import NoteIcon from "assets/icons/note.svg";
+import ProjectsIcon from "assets/icons/projects.svg";
+import StarIcon from "assets/icons/star.svg";
+import LocationIcon from "assets/icons/location.svg";
 import {
   InformContainer,
   Organization,
@@ -17,7 +16,11 @@ import {
   ReviewsContainer,
   SocialDataContainer,
   SocialDataItem,
-} from './style';
+} from "./style";
+import { useGetUsersPosts } from "hooks/post/getUsersPosts/useGetUsersPosts";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { NewFeed } from "pages/Homepage/components/NewFeed";
+import Loading from "components/Loading";
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +30,35 @@ const Container = styled.div`
   margin-top: 3em;
 `;
 
-const ContentBody = () => {
+interface ContentBodyProps {
+  uid: string;
+}
+
+const ContentBody = (props: ContentBodyProps) => {
+  const [pagination, setPagination] = React.useState({
+    uid: props.uid,
+    page: 1,
+    size: 8,
+  });
+
+  const [dataRender, setDataRender] = React.useState<PostInfo[]>([]);
+  const postQuery = useGetUsersPosts({ ...pagination });
+  const [isHasMore, setIsHasMore] = React.useState(true);
+
+  React.useEffect(() => {
+    if (postQuery.data && isHasMore) {
+      setDataRender([...dataRender, ...(postQuery.data?.data.list || [])]);
+    }
+    if (
+      postQuery.data &&
+      postQuery.data?.data.total <= pagination.page * pagination.size
+    ) {
+      setIsHasMore(false);
+      return;
+    }
+    setIsHasMore(true);
+  }, [pagination.page, postQuery.data?.data.list]);
+
   const renderReviewList = () => {
     return Array(8)
       .fill(null)
@@ -36,19 +67,19 @@ const ContentBody = () => {
           <CardHeader
             avatar={
               <Avatar
-                alt='Remy Sharp'
-                src='https://1.bigdata-vn.com/wp-content/uploads/2021/11/1636289811_593_Tai-Ngay-505-Anh-Avatar-Anime-dep-de-thuong-nhat.jpg'
+                alt="Remy Sharp"
+                src="https://1.bigdata-vn.com/wp-content/uploads/2021/11/1636289811_593_Tai-Ngay-505-Anh-Avatar-Anime-dep-de-thuong-nhat.jpg"
               />
             }
             title={
-              <Typography variant='body1' style={{ fontWeight: 600 }}>
+              <Typography variant="body1" style={{ fontWeight: 600 }}>
                 Anna Scot
               </Typography>
             }
-            subheader='Jan 30'
+            subheader="Jan 30"
           />
-          <div className='review__header__stars'>
-            <Typography variant='body1'>4.5</Typography>
+          <div className="review__header__stars">
+            <Typography variant="body1">4.5</Typography>
             <img
               src={StarIcon}
               style={{
@@ -59,7 +90,7 @@ const ContentBody = () => {
               }}
             />
           </div>
-          <Typography variant='body1' className='review__comment'>
+          <Typography variant="body1" className="review__comment">
             Great person!
           </Typography>
         </Review>
@@ -74,29 +105,29 @@ const ContentBody = () => {
           <CardHeader
             avatar={
               <Avatar
-                alt='organization-image'
-                src='https://logos-world.net/wp-content/uploads/2020/10/UNICEF-Logo.png'
+                alt="organization-image"
+                src="https://logos-world.net/wp-content/uploads/2020/10/UNICEF-Logo.png"
               />
             }
             title={
-              <Typography variant='body1' style={{ fontWeight: 600 }}>
+              <Typography variant="body1" style={{ fontWeight: 600 }}>
                 UNICEF
               </Typography>
             }
             subheader={
-              <div className='organization__location'>
+              <div className="organization__location">
                 <img
                   src={LocationIcon}
-                  alt='location-icon'
-                  className='organization__location__icon'
+                  alt="location-icon"
+                  className="organization__location__icon"
                 />
-                <Typography className='organization__location__address'>
+                <Typography className="organization__location__address">
                   New York City, USA
                 </Typography>
               </div>
             }
           />
-          <Typography variant='body1' className='organization__role'>
+          <Typography variant="body1" className="organization__role">
             Admin
           </Typography>
         </Organization>
@@ -121,12 +152,12 @@ const ContentBody = () => {
           </SocialDataItem>
         </SocialDataContainer>
 
-        <Typography variant='h5' className='review-title'>
-          Reviews (4.5{' '}
+        <Typography variant="h5" className="review-title">
+          Reviews (4.5{" "}
           {
             <img
               src={StarIcon}
-              alt='star-icon'
+              alt="star-icon"
               style={{
                 width: 30,
                 height: 30,
@@ -139,41 +170,41 @@ const ContentBody = () => {
         </Typography>
 
         <ReviewsContainer>
-          <div className='review-container__header'>
+          <div className="review-container__header">
             <Typography
-              variant='body1'
-              className='review-container__header__reviews-number'
+              variant="body1"
+              className="review-container__header__reviews-number"
             >
               15 reviews
             </Typography>
             <Typography
-              variant='h6'
-              className='review-container__header__review-link'
+              variant="h6"
+              className="review-container__header__review-link"
             >
               Review
             </Typography>
           </div>
 
-          <div className='review-container__review-list'>
+          <div className="review-container__review-list">
             {renderReviewList()}
           </div>
         </ReviewsContainer>
 
-        <Typography variant='h5' className='organization-title'>
+        <Typography variant="h5" className="organization-title">
           Organizations
         </Typography>
 
         <OrganizationsContainer>
-          <div className='organization-container__header'>
+          <div className="organization-container__header">
             <Typography
-              variant='body1'
-              className='organization-container__header__organizations-number'
+              variant="body1"
+              className="organization-container__header__organizations-number"
             >
               3 organizations
             </Typography>
             <Typography
-              variant='h6'
-              className='organization-container__header__organizations-link'
+              variant="h6"
+              className="organization-container__header__organizations-link"
             >
               See all
             </Typography>
@@ -181,7 +212,26 @@ const ContentBody = () => {
           {renderOrganizationsList()}
         </OrganizationsContainer>
       </InformContainer>
-      <PostsContainer></PostsContainer>
+      <PostsContainer>
+        <InfiniteScroll
+          loader={<Loading />}
+          next={() =>
+            setTimeout(() => {
+              setPagination((pagination) => ({
+                ...pagination,
+                page: pagination.page + 1,
+              }));
+            }, 2000)
+          }
+          hasMore={isHasMore}
+          refreshFunction={postQuery.refetch}
+          dataLength={dataRender.length}
+        >
+          {dataRender.map((post, index) => {
+            return <NewFeed {...post} key={index} />;
+          })}
+        </InfiniteScroll>
+      </PostsContainer>
     </Container>
   );
 };
