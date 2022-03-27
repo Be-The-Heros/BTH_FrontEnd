@@ -12,7 +12,7 @@ export const Container = styled.div`
     position: absolute;
     width: 100%;
     height: 80%;
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 10px 10px 0 0;
   }
 `;
@@ -25,6 +25,7 @@ export const EditCoverPhotoButton = styled(Button)`
   border-radius: 10px;
   background-color: #fff;
 `;
+
 export const AvatarContainer = styled.div`
   position: absolute;
   bottom: 40px;
@@ -82,7 +83,18 @@ export const EditProfileButton = styled(Button)`
   width: 155px;
   border-radius: 10px;
   background-color: rgba(124, 223, 255, 1);
-  font-family: "Roboto";
   line-height: 28px;
-  color: #fff;
+  color: #000;
+`;
+
+export const SaveChangesButton = styled(Button)`
+  position: absolute;
+  bottom: 40px;
+  right: 200px;
+  height: 50px;
+  width: 155px;
+  border-radius: 10px;
+  background-color: rgba(124, 223, 255, 1);
+  line-height: 28px;
+  color: #000;
 `;

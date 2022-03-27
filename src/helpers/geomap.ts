@@ -19,9 +19,9 @@ export const getAllProvinces = () => {
   return DATA_COUNTRY.province;
 };
 
-export const getAllDistricts = (id_province: string) => {
+export const getAllDistricts = (id_district: string) => {
   return DATA_COUNTRY.district.filter(
-    (district) => district.idProvince === id_province
+    (district) => district.idProvince === id_district
   );
 };
 

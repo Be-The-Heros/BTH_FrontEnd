@@ -1,4 +1,3 @@
-# 1. For build React app
 FROM node:12-alpine AS development
 
 # Set working directory

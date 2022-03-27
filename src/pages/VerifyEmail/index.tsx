@@ -80,7 +80,7 @@ export const VerifyEmailPage = () => {
       return;
     }
     verifyMutation.isError && setOtpValue('');
-  }, []);
+  }, [verifyMutation.isSuccess]);
 
   return (
     <div
