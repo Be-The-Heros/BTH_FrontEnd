@@ -2,6 +2,8 @@ import { Button, Dropdown, Image, Menu } from 'antd';
 import clsx from 'clsx';
 import PopupLogin from 'components/PopupSuggestLogin';
 import { PHOTO_DISPLAY } from 'constants/devices';
+import { useDeletePost } from 'hooks/post/delete/useDeletePost';
+import _toString from 'lodash/toString';
 import React from 'react';
 import { BiGroup } from 'react-icons/bi';
 import { BsLinkedin, BsTwitter } from 'react-icons/bs';
@@ -9,18 +11,15 @@ import { FaFacebook } from 'react-icons/fa';
 import { FcShare } from 'react-icons/fc';
 import { MdOutlineStickyNote2 } from 'react-icons/md';
 import { VscLocation } from 'react-icons/vsc';
-import { Link } from 'react-router-dom';
-import _toString from 'lodash/toString';
 import {
   FacebookShareButton,
   LinkedinShareButton,
   TwitterShareButton,
 } from 'react-share';
+import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
 import Style from './style';
-import { useDeletePost } from 'hooks/post/delete/useDeletePost';
-import { toast } from 'react-toastify';
 
 interface NewFeedProps extends PostInfo {
   handleDeletePost?: (id: string) => void;
@@ -197,6 +196,17 @@ export const NewFeed = (props: NewFeedProps) => {
     });
   };
 
+  const [tagName, setTagName] = React.useState('');
+  const [view, setView] = React.useState('See more...');
+  const setViewPost = () => {
+    if (tagName === '') {
+      setTagName('none');
+      setView('See less...');
+    } else {
+      setTagName('');
+      setView('See more...');
+    }
+  };
   return (
     <React.Fragment>
       <PopupLogin
@@ -262,7 +272,21 @@ export const NewFeed = (props: NewFeedProps) => {
                 .join(', ')}
             </div>
           </div>
-          <div className='Newfeed_body_content'>{props.content}</div>
+          <div className='Newfeed_body_content'>
+            <span className={`Newfeed_body_content_comment ${tagName}`}>
+              {props.content}
+            </span>
+            {props.content.length < 46 ? (
+              ''
+            ) : (
+              <button
+                className={`Newfeed_body_content_button`}
+                onClick={setViewPost}
+              >
+                {view}
+              </button>
+            )}
+          </div>
           <div className='Newfeed_body_photos'>
             {props.photos && props.photos.length > 0 && (
               <Image.PreviewGroup> {renderPhotos()}</Image.PreviewGroup>
