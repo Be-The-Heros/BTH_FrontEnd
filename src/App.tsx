@@ -6,11 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
-<<<<<<< HEAD
-import { Button } from 'antd';
-=======
 import { useQuerySessions } from 'hooks/auth/sessions';
->>>>>>> ee4bad16762c5fa10692d94681a0eee6571e46fe
 function App() {
   const setUser = useSetRecoilState(userState);
   const resetUserState = useResetRecoilState(userState);

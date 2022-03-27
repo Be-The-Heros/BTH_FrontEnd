@@ -11,12 +11,8 @@ const LayoutMain = () => {
       <div className='td-layout'>
         <Outlet />
       </div>
-<<<<<<< HEAD
       <Footer />
-    </div>
-=======
     </Style>
->>>>>>> ee4bad16762c5fa10692d94681a0eee6571e46fe
   );
 };
 
