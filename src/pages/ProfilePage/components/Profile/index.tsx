@@ -18,6 +18,8 @@ import { ProfileInfo } from "hooks/profile/model";
 import { useChangeAvatar } from "hooks/profile/ChangeAvatar/useChangeAvatar";
 import { useChangeBackgroundPhoto } from "hooks/profile/ChangeBackgroundPhoto/useChangeBackgroundPhoto";
 import Loading from "components/Loading";
+import { getLocalStorage } from "helpers/setTitleDocument";
+import jwt_decode from "jwt-decode";
 
 interface ProfileProps {
   profileInfo: ProfileInfo;
@@ -51,6 +53,10 @@ const OverlayLoading = styled.div`
 `;
 
 const Profile = (props: ProfileProps) => {
+  const token = getLocalStorage("token");
+  var decoded = jwt_decode(token);
+  console.log("decoded: ", decoded);
+
   const changeAvatarMutation = useChangeAvatar();
   const changeBackgroundPhotoMutation = useChangeBackgroundPhoto();
 
@@ -90,7 +96,6 @@ const Profile = (props: ProfileProps) => {
     event.stopPropagation();
     event.preventDefault();
     var file = event?.target?.files?.item(0);
-    console.log(file);
 
     reader.readAsDataURL(file as Blob);
     setSelectedAvatarImageFile(file!);
