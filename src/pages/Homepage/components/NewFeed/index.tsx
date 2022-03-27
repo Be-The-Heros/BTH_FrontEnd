@@ -8,8 +8,7 @@ import React from 'react';
 import { BiGroup } from 'react-icons/bi';
 import { BsLinkedin, BsTwitter } from 'react-icons/bs';
 import { FaFacebook } from 'react-icons/fa';
-import { FcShare } from 'react-icons/fc';
-import { MdOutlineStickyNote2 } from 'react-icons/md';
+import { FcComments, FcShare } from 'react-icons/fc';
 import { VscLocation } from 'react-icons/vsc';
 import {
   FacebookShareButton,
@@ -258,7 +257,7 @@ export const NewFeed = (props: NewFeedProps) => {
         <div className='Newfeed_body'>
           <h3>{props.title}</h3>
 
-          <div className='Newfeed_body_title d-flex justify-content-center'>
+          <div className='Newfeed_body_title d-flex justify-content-start'>
             {/* <FcBookmark style={{ fontSize: '2.25rem' }} /> */}
             <div className='text'>
               Address:{' '}
@@ -276,7 +275,7 @@ export const NewFeed = (props: NewFeedProps) => {
             <span className={`Newfeed_body_content_comment ${tagName}`}>
               {props.content}
             </span>
-            {props.content.length < 46 ? (
+            {props.content.length < 203 ? (
               ''
             ) : (
               <button
@@ -309,7 +308,7 @@ export const NewFeed = (props: NewFeedProps) => {
               color: '#673AB7',
             }}
           >
-            <MdOutlineStickyNote2
+            <FcComments
               color={'#673AB7'}
               style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }}
             />{' '}

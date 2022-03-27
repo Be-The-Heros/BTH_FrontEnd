@@ -1,12 +1,11 @@
-import { Button, Modal } from 'antd';
+import { Button, Dropdown, Modal } from 'antd';
 import clsx from 'clsx';
 import { PHOTO_DISPLAY } from 'constants/devices';
 import Style from 'pages/Homepage/components/NewFeed/style';
 import React from 'react';
-import { AiOutlineWarning } from 'react-icons/ai';
-import { FcBookmark } from 'react-icons/fc';
+import { BiGroup } from 'react-icons/bi';
+import { FcBookmark, FcComments } from 'react-icons/fc';
 import { IoMdShareAlt } from 'react-icons/io';
-import { MdOutlineStickyNote2 } from 'react-icons/md';
 
 interface PreviewPostProps extends Partial<PostInfo> {
   visible: boolean;
@@ -116,17 +115,24 @@ export const PreviewPost = React.memo((props: PreviewPostProps) => {
             />{' '}
             Share
           </Button>
-          <Button type='link'>
-            <MdOutlineStickyNote2
+          <Button
+            type='link'
+            style={{
+              color: '#673AB7',
+            }}
+          >
+            <FcComments
+              color={'#673AB7'}
               style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }}
             />{' '}
             Comment
           </Button>
           <Button type='link'>
-            <AiOutlineWarning
+            <BiGroup
+              color={'var(--bs-success)'}
               style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }}
-            />{' '}
-            Report
+            />
+            More
           </Button>
         </div>
       </Style>
