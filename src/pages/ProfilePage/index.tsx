@@ -1,8 +1,8 @@
-import React from "react";
-import { useGetProfileInform } from "hooks/profile/GetProfileInform/useGetProfileInform";
-import styled from "styled-components";
-import { ContentBody, Profile } from "./components";
-import Loading from "components/Loading";
+import React from 'react';
+import styled from 'styled-components';
+import { ContentBody, Profile } from './components';
+import Loading from 'components/Loading';
+import { useGetProfileInform } from 'hooks/profile/getProfileInform/useGetProfileInform';
 
 const Container = styled.div`
   width: 100%;
@@ -17,19 +17,19 @@ const ProfilePage = () => {
     mutation.mutate();
 
     if (mutation.isSuccess) {
-      console.log("Data:", mutation);
+      console.log('Data:', mutation);
     } else {
-      console.log("Error: ", mutation.error);
+      console.log('Error: ', mutation.error);
     }
   }, []);
 
   if (mutation.data === undefined) {
-    return <Loading cover="content" />;
+    return <Loading cover='content' />;
   }
   return (
     <Container>
       <Profile profileInfo={mutation.data} />
-      <hr className="solid"></hr>
+      <hr className='solid'></hr>
       <ContentBody />
     </Container>
   );
