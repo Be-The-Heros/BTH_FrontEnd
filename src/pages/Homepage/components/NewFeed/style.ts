@@ -69,9 +69,29 @@ export default styled.div`
     }
     &_content {
       font-size: 1rem;
+      &_comment{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 25px;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+      }
+      .none{
+        display: block;
+      }
+      
+      &_button{
+        border: none;
+        background-color: var(--white) ;
+        color: var(--black) ;
+        font-weight: bold ;
+        
+      }
+      
     }
     &_photos {
-      margin-top: 1rem;
+      margin-top: 3rem;
       display: flex;
       flex-wrap: wrap;
     }

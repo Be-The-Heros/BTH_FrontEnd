@@ -2,7 +2,7 @@ import { Button, Dropdown, Image, Menu } from 'antd';
 import clsx from 'clsx';
 import PopupLogin from 'components/PopupSuggestLogin';
 import { PHOTO_DISPLAY } from 'constants/devices';
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineWarning } from 'react-icons/ai';
 import { BsLinkedin, BsTwitter } from 'react-icons/bs';
 import { FaFacebook } from 'react-icons/fa';
@@ -123,6 +123,17 @@ export const NewFeed = (props: PostInfo) => {
     });
   };
 
+  const [tagName, setTagName] = useState("");
+  const [view, setView] = useState("See more...");
+  const setViewPost = ()=>{
+    if(tagName === ""){
+      setTagName("none");
+      setView("See less...");
+    }else{
+      setTagName("");
+      setView("See more...");
+    }
+  }
   return (
     <React.Fragment>
       <PopupLogin
@@ -185,7 +196,14 @@ export const NewFeed = (props: PostInfo) => {
                 .join(', ')}
             </div>
           </div>
-          <div className='Newfeed_body_content'>{props.content}</div>
+          <div className='Newfeed_body_content' >
+            
+            <span className={`Newfeed_body_content_comment ${tagName}`} >{props.content}</span>
+            <button className={`Newfeed_body_content_button`} 
+            onClick={setViewPost}>
+              {view}</button>
+              
+          </div>
           <div className='Newfeed_body_photos'>
             {props.photos && props.photos.length > 0 && (
               <Image.PreviewGroup> {renderPhotos()}</Image.PreviewGroup>
