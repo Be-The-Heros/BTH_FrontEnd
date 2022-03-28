@@ -16,7 +16,6 @@ import {
 } from 'helpers';
 import { validURL } from 'helpers/validate';
 import { useGenerateURLImage } from 'hooks/image/useCreateImageURL';
-import { useCreatePost } from 'hooks/post/create/useCreatePost';
 import { useQueryPostDetail } from 'hooks/post/detail/useDetailPost';
 import { useEditPost } from 'hooks/post/edit/useEditPost';
 import { upperFirst } from 'lodash';

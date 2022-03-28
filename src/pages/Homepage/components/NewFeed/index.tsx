@@ -8,10 +8,9 @@ import React from 'react';
 import { BiGroup } from 'react-icons/bi';
 import { BsLinkedin, BsTwitter } from 'react-icons/bs';
 import { FaFacebook } from 'react-icons/fa';
-import { FcShare } from 'react-icons/fc';
-import { MdOutlineStickyNote2 } from 'react-icons/md';
+import { FcComments, FcShare } from 'react-icons/fc';
 import { VscLocation } from 'react-icons/vsc';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -32,7 +31,6 @@ export const NewFeed = (props: NewFeedProps) => {
   const [isBtnJoinClick, setIsBtnJoinClick] = React.useState(false);
   const deletePost = useDeletePost();
   const url_detail = 'https://betheheros.tk/';
-
   const handleClickDelete = () => {
     deletePost.mutate({
       post_id: props.post_id,
@@ -93,6 +91,7 @@ export const NewFeed = (props: NewFeedProps) => {
             backgroundColor: 'var(--bs-warning)',
             color: 'var(--bs-white)',
           }}
+          onClick={() => navigate(`/post/detail/${props.post_id}`)}
         >
           View detail
         </Button>
@@ -218,7 +217,12 @@ export const NewFeed = (props: NewFeedProps) => {
       <Style>
         <div className='Newfeed_head'>
           <div className='Newfeed_head_info'>
-            <img src={props.avatar} alt='avatar'></img>
+            <img
+              src={props.avatar}
+              alt='avatar'
+              onClick={() => navigate(`/profile/${props.uid}`)}
+              style={{ cursor: 'pointer' }}
+            ></img>
             <div className='Newfeed_head_info_detail'>
               <h6
                 style={{
@@ -260,7 +264,7 @@ export const NewFeed = (props: NewFeedProps) => {
         <div className='Newfeed_body'>
           <h3>{props.title}</h3>
 
-          <div className='Newfeed_body_title d-flex justify-content-center'>
+          <div className='Newfeed_body_title d-flex justify-content-start'>
             {/* <FcBookmark style={{ fontSize: '2.25rem' }} /> */}
             <div className='text'>
               Address:{' '}
@@ -278,7 +282,7 @@ export const NewFeed = (props: NewFeedProps) => {
             <span className={`Newfeed_body_content_comment ${tagName}`}>
               {props.content}
             </span>
-            {props.content.length < 46 ? (
+            {props.content.length < 203 ? (
               ''
             ) : (
               <button
@@ -311,7 +315,7 @@ export const NewFeed = (props: NewFeedProps) => {
               color: '#673AB7',
             }}
           >
-            <MdOutlineStickyNote2
+            <FcComments
               color={'#673AB7'}
               style={{ fontSize: '120%', margin: '0 0.5rem 0.2rem' }}
             />{' '}
