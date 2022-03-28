@@ -22,6 +22,7 @@ export const PreviewPost = React.memo((props: PreviewPostProps) => {
       const hiddenClassName = clsx([
         { 'd-none': index + 1 > PHOTO_DISPLAY },
         'w-50 position-relative',
+        { 'w-100': (photos.length === 3 && index == 2) || photos.length === 1 },
       ]);
       return (
         <div

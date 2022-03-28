@@ -164,9 +164,11 @@ export const NewFeed = (props: NewFeedProps) => {
     if (!photos || photos.length === 0) return null;
     return photos.map((photo, index) => {
       const isFinalImage = index + 1 === PHOTO_DISPLAY;
+
       const hiddenClassName = clsx([
         { 'd-none': index + 1 > PHOTO_DISPLAY },
         'w-50 position-relative',
+        { 'w-100': (photos.length === 3 && index == 2) || photos.length === 1 },
       ]);
       return (
         <div
@@ -221,7 +223,7 @@ export const NewFeed = (props: NewFeedProps) => {
               src={props.avatar}
               alt='avatar'
               onClick={() => navigate(`/profile/${props.uid}`)}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', objectFit: 'cover' }}
             ></img>
             <div className='Newfeed_head_info_detail'>
               <h6

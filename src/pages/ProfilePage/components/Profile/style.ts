@@ -1,6 +1,6 @@
-import { Typography } from "@mui/material";
-import { Button, Avatar } from "antd";
-import styled from "styled-components";
+import { Typography } from '@mui/material';
+import { Button, Avatar } from 'antd';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
@@ -12,7 +12,7 @@ export const Container = styled.div`
     position: absolute;
     width: 100%;
     height: 80%;
-    object-fit: fill;
+    object-fit: cover;
     border-radius: 10px 10px 0 0;
   }
 `;
