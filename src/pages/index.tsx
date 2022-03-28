@@ -5,16 +5,11 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { userState } from 'recoil/users/state';
 import { PrivateRoute, PublicRoute } from 'routes';
 import LayoutMain from 'templates/Layout';
 import LayoutAuth from 'templates/LayoutAuth';
-import CreatePostPage from './CreatePost';
 import { EditPostPage } from './EditPostPage';
 import ForgotPasswordPage from './ForgotPasswordPage';
-import { PostDetailPage } from './PostDetailPage';
-import Profile from './Profile';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
 import { VerifyEmailPage } from './VerifyEmail';
@@ -23,13 +18,12 @@ import { VerifyEmailPage } from './VerifyEmail';
 // import Homepage from './Home';
 
 const Homepage = React.lazy(() => import('./Homepage'));
-// const CreatePostPage = React.lazy(() => import("./CreatePost"));
+const CreatePostPage = React.lazy(() => import('./CreatePost'));
 const ProfileSettingsPage = React.lazy(() => import('./ProfileSettings'));
 const ProfilePage = React.lazy(() => import('./ProfilePage'));
+const PostDetailPage = React.lazy(() => import('./PostDetailPage'));
 
 export const AppViews = () => {
-  const user = useRecoilValue(userState);
-
   // React.useEffect(() => {
   //   if (user.isLoggedIn && user.level > 1) {
   //     window.location.href = '/';
@@ -43,6 +37,10 @@ export const AppViews = () => {
         <Route path='/' element={<LayoutMain />}>
           <Route path='/' element={<PublicRoute element={<Homepage />} />} />
           <Route
+            path='/post/detail/:post_id'
+            element={<PublicRoute element={<PostDetailPage />} />}
+          />
+          <Route
             path='/profile/:uid'
             element={<PublicRoute element={<ProfilePage />} />}
           />
@@ -50,11 +48,15 @@ export const AppViews = () => {
             path='/profile/settings'
             element={<PrivateRoute element={<ProfileSettingsPage />} />}
           />
+
           <Route
-            path='/post/detail/:post_id'
-            element={<PostDetailPage />}
+            path='/edit-post/:post_id'
+            element={
+              <PrivateRoute>
+                <EditPostPage />
+              </PrivateRoute>
+            }
           ></Route>
-          <Route path='/edit-post/:post_id' element={<EditPostPage />}></Route>
           <Route
             path='/create-post'
             element={<PrivateRoute element={<CreatePostPage />} />}

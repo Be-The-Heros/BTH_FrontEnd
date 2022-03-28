@@ -6,7 +6,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { LayoutApp } from 'templates/LayoutApp';
 
-export const PostDetailPage = () => {
+export default function PostDetailPage() {
   const { post_id } = useParams<{ post_id: string }>();
   const postData = useQueryPostDetail(post_id || '');
 
@@ -21,4 +21,4 @@ export const PostDetailPage = () => {
       )}
     </LayoutApp>
   );
-};
+}
