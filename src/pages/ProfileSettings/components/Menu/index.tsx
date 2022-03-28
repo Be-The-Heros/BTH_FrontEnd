@@ -6,6 +6,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
+import { useRecoilValue } from "recoil";
+import { userState } from "recoil/users/state";
+import { useGetProfileInformByUID } from "hooks/profile/getProfileInform/useGetProfileInform";
+import { ProfileInfo } from "hooks/profile/model";
 
 const Container = styled.div`
   width: 40%;
@@ -14,14 +18,17 @@ const Container = styled.div`
 interface MenuProps {
   currentTab: string;
   handleSetTabState: (state: string) => void;
+  userInform: ProfileInfo;
 }
 const Menu = (props: MenuProps) => {
-  const { currentTab, handleSetTabState } = props;
+  const { currentTab, handleSetTabState, userInform } = props;
+
+  const full_name = userInform.first_name + " " + userInform.last_name;
 
   return (
     <Container>
       <Typography variant="h4" style={{ marginBottom: 40 }}>
-        Settings for TrungJamin
+        Settings for {full_name}
       </Typography>
       <MenuItem
         title="Profile"

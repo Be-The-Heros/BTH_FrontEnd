@@ -16,6 +16,8 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { useChangePassword } from "hooks/auth/changePassword/useChangePassword";
 import { toast } from "react-toastify";
+import { useRecoilValue } from "recoil";
+import { userState } from "recoil/users/state";
 
 export interface AccountFormsProps {
   active: boolean;
@@ -35,6 +37,7 @@ export interface ChangePasswordField {
 const AccountForms = (props: AccountFormsProps) => {
   const { active } = props;
   const changePasswordMutation = useChangePassword();
+  const user = useRecoilValue(userState);
 
   const {
     handleSubmit,
@@ -134,7 +137,7 @@ const AccountForms = (props: AccountFormsProps) => {
               Email
             </Typography>
             <Typography variant="body1" style={{ fontWeight: 300 }}>
-              trungjaminle@gmail.com
+              {user.email}
             </Typography>
           </div>
         </AccountEmailContainer>
