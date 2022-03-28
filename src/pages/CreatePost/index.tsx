@@ -186,11 +186,11 @@ const CreatePostPage = () => {
         residential_address={watch('residential_address')}
         photos={files.map((file) => file.preview)}
       />
-      <form className='container-fluid' onSubmit={handleSubmit(onSubmit)}>
-        <div className='container header'>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className='header'>
           <div className='slide-right'>{SLOGANS[randomSlogan]}</div>
         </div>
-        <div className='container d-flex'>
+        <div className='d-flex'>
           <div className='content w-70'>
             <div className='form-input'>
               <label>Title</label>

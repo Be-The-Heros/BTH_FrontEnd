@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export default styled.div`
+  padding: 2% 5em;
   .header {
-    padding: 1.25rem;
     font-size: 1rem;
     font-weight: bold;
     --distance: -2rem;

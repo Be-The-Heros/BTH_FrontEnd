@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Typography } from "@mui/material";
-import { Menu } from "./components";
-import { Main } from "./containers";
-import { useGetProfileInformByUID } from "hooks/profile/getProfileInform/useGetProfileInform";
-import { userState } from "recoil/users/state";
-import { useRecoilValue } from "recoil";
-import Loading from "components/Loading";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Typography } from '@mui/material';
+import { Menu } from './components';
+import { Main } from './containers';
+import { useGetProfileInformByUID } from 'hooks/profile/getProfileInform/useGetProfileInform';
+import { userState } from 'recoil/users/state';
+import { useRecoilValue } from 'recoil';
+import Loading from 'components/Loading';
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  padding: 5em 10em;
+  padding: 2% 5em;
 `;
 
 const ProfileSettingsPage = () => {
-  const [tabState, setTabState] = useState("profile");
+  const [tabState, setTabState] = useState('profile');
 
   const handleSetTabState = (state: string) => {
     setTabState(state);
@@ -30,9 +30,9 @@ const ProfileSettingsPage = () => {
     mutation.mutate({ uid: user.uid! });
 
     if (mutation.isSuccess) {
-      console.log("Data:", mutation);
+      console.log('Data:', mutation);
     } else {
-      console.log("Error: ", mutation.error);
+      console.log('Error: ', mutation.error);
     }
   }, []);
 
