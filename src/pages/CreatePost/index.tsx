@@ -1,7 +1,7 @@
 import { Button, Image, Input, Select } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import clsx from 'clsx';
-import { SLOGANS } from 'constants/slogan';
+import { LIMIT_FILE, SLOGANS } from 'constants/slogan';
 import {
   getAllCommunes,
   getAllDistricts,
@@ -76,7 +76,10 @@ const CreatePostPage = () => {
           preview: URL.createObjectURL(file),
         })
       );
-
+      if (newFiles.length + files.length > LIMIT_FILE) {
+        toast.warning('You can only upload 10 images');
+        return;
+      }
       setFiles([...files, ...newFiles]);
     },
   });

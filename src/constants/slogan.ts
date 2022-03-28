@@ -17,3 +17,4 @@ export const SLOGANS = [
   'Actions speak louder than words! Give today.',
   'An effort made for the happiness of others lifes us above ourselves.  ',
 ];
+export const LIMIT_FILE = 10;

@@ -11,6 +11,7 @@ import { FaFacebook } from 'react-icons/fa';
 import { FcShare } from 'react-icons/fc';
 import { MdOutlineStickyNote2 } from 'react-icons/md';
 import { VscLocation } from 'react-icons/vsc';
+import { useNavigate } from 'react-router';
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -26,6 +27,7 @@ interface NewFeedProps extends PostInfo {
 }
 export const NewFeed = (props: NewFeedProps) => {
   const user = useRecoilValue(userState);
+  const navigate = useNavigate();
   const { handleDeletePost } = props;
   const [isBtnJoinClick, setIsBtnJoinClick] = React.useState(false);
   const deletePost = useDeletePost();
@@ -37,7 +39,6 @@ export const NewFeed = (props: NewFeedProps) => {
     });
   };
   React.useEffect(() => {
-    toast.dismiss();
     if (deletePost.isLoading) {
       toast.loading('Deleting your post...');
       return;
@@ -64,6 +65,7 @@ export const NewFeed = (props: NewFeedProps) => {
                 backgroundColor: 'var(--bs-success)',
                 color: 'var(--bs-white)',
               }}
+              onClick={() => navigate(`/edit-post/${props.post_id}`)}
             >
               Edit{' '}
             </Button>

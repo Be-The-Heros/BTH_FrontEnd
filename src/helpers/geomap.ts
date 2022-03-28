@@ -50,3 +50,19 @@ export const getCommune = (id_commune: string) => {
     ''
   );
 };
+export const getIDProvinceByName = (name: string) => {
+  return (
+    DATA_COUNTRY.province.find((item) => item.name === name)?.idProvince || ''
+  );
+};
+export const getIDDistrictByName = (name: string) => {
+  return (
+    DATA_COUNTRY.district.find((item) => item.name === name)?.idDistrict || ''
+  );
+};
+
+export const getIDWardByName = (name: string) => {
+  return (
+    DATA_COUNTRY.commune.find((item) => item.name === name)?.idCommune || ''
+  );
+};

@@ -11,6 +11,7 @@ import { PrivateRoute, PublicRoute } from 'routes';
 import LayoutMain from 'templates/Layout';
 import LayoutAuth from 'templates/LayoutAuth';
 import CreatePostPage from './CreatePost';
+import { EditPostPage } from './EditPostPage';
 import ForgotPasswordPage from './ForgotPasswordPage';
 import Profile from './Profile';
 import SignInPage from './SignIn';
@@ -48,6 +49,7 @@ export const AppViews = () => {
             path='/profile/settings'
             element={<PrivateRoute element={<ProfileSettingsPage />} />}
           />
+          <Route path='/edit-post/:post_id' element={<EditPostPage />}></Route>
           <Route
             path='/create-post'
             element={<PrivateRoute element={<CreatePostPage />} />}
