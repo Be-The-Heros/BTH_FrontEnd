@@ -50,7 +50,6 @@ const AccountForms = (props: AccountFormsProps) => {
     });
   };
   React.useEffect(() => {
-    toast.dismiss();
     if (changePasswordMutation.isLoading) {
       toast.loading("Changing password...");
       return;
