@@ -25,6 +25,10 @@ const Homepage = () => {
   const handleDeletePost = (id: string) => {
     setDataRender(dataRender.filter((item) => toString(item.post_id) !== id));
   };
+
+  // React.useEffect(() => {
+  //   postQuery.refetch();
+  // }, []);
   React.useEffect(() => {
     if (postQuery.data && isHasMore) {
       setDataRender([...dataRender, ...(postQuery.data?.data.list || [])]);
@@ -53,6 +57,7 @@ const Homepage = () => {
             }, TIME_OUT_FETCH)
           }
           hasMore={isHasMore}
+          pullDownToRefresh={true}
           refreshFunction={postQuery.refetch}
           dataLength={dataRender.length}
         >

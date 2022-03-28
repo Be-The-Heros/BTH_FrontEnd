@@ -20,6 +20,9 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
+    if (error.response?.status === 404) {
+      toast.error('Not found api');
+    }
     if (error.response?.status === 401) {
       // window.location.href = '/';
       localStorage.clear();

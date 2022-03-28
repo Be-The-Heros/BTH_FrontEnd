@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Countdown from 'react-countdown';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 // const LENGTH_OTP = 6;
 interface CheckingOTPProps {
@@ -19,7 +20,6 @@ interface InputsChangePassword {
 const TIME_COUNT = 30;
 export const FormResetPassword = (props: CheckingOTPProps) => {
   const { goBack, email } = props;
-  const [countDownResendMail] = useState(60);
   const {
     register,
     handleSubmit,
@@ -30,6 +30,7 @@ export const FormResetPassword = (props: CheckingOTPProps) => {
   const resetPassword = useResetPassword();
   const generateOtp = useGenerateOtp();
   const [resetCountDown, setResetCountdown] = useState(Date.now());
+
   const renderer = ({
     hours = 0,
     minutes = 0,
@@ -60,7 +61,11 @@ export const FormResetPassword = (props: CheckingOTPProps) => {
     }
   };
   React.useEffect(() => {
+    if (resetPassword.isLoading) {
+      toast.loading('Reset password...');
+    }
     if (resetPassword.isSuccess) {
+      toast.success('Reset password success');
       return navigate('/auth/sign-in');
     }
   }, [resetPassword.isSuccess]);

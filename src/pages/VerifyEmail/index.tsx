@@ -7,13 +7,13 @@ import React from 'react';
 import Countdown from 'react-countdown';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
 
 const TIME_COUNT = 30;
 
 export const VerifyEmailPage = () => {
-  const user = useRecoilValue(userState);
+  const [user, setUser] = useRecoilState(userState);
   const generateOtp = useGenerateOtp();
   const verifyMutation = useVerifyEmail();
   const navigate = useNavigate();
@@ -76,6 +76,7 @@ export const VerifyEmailPage = () => {
   React.useEffect(() => {
     if (verifyMutation.isSuccess) {
       toast.success('Email verified');
+      setUser({ ...user, level: 2 });
       navigate('/');
       return;
     }
