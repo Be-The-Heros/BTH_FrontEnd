@@ -34,7 +34,7 @@ export const Header = () => {
             alignItems: 'center',
           }}
           onClick={() => {
-            setRecoilUser((curr) => ({ ...curr, isLoggedIn: false }));
+            setRecoilUser((curr) => ({ ...curr, uid: '', isLoggedIn: false }));
             localStorage.clear();
           }}
         >

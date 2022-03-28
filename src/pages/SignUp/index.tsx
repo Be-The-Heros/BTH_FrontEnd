@@ -99,7 +99,10 @@ export default function SignUpPage() {
               <label className='w-100'>Enter First Name</label>
               <input
                 placeholder='Please enter First Name'
-                {...register('fist_name', { required: true })}
+                {...register('fist_name', {
+                  required: true,
+                  pattern: /^([^0-9]*)$/,
+                })}
               />
             </div>
             <div
@@ -111,7 +114,10 @@ export default function SignUpPage() {
               <label className='w-100'>Enter Last Name</label>
               <input
                 placeholder='Please enter First Name'
-                {...register('last_name', { required: true })}
+                {...register('last_name', {
+                  required: true,
+                  pattern: /^([^0-9]*)$/,
+                })}
               />
             </div>
           </div>
