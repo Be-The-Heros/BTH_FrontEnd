@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { Typography } from "@mui/material";
 import { Menu } from "./components";
 import { Main } from "./containers";
+import { useGetProfileInformByUID } from "hooks/profile/getProfileInform/useGetProfileInform";
+import { userState } from "recoil/users/state";
+import { useRecoilValue } from "recoil";
+import Loading from "components/Loading";
 
 const Container = styled.div`
   display: flex;
@@ -18,10 +22,32 @@ const ProfileSettingsPage = () => {
     setTabState(state);
   };
 
+  let user = useRecoilValue(userState);
+
+  const mutation = useGetProfileInformByUID();
+
+  React.useEffect(() => {
+    mutation.mutate({ uid: user.uid! });
+
+    if (mutation.isSuccess) {
+      console.log("Data:", mutation);
+    } else {
+      console.log("Error: ", mutation.error);
+    }
+  }, []);
+
+  if (mutation.isLoading || mutation.data === undefined) {
+    return <Loading />;
+  }
+
   return (
     <Container>
-      <Menu currentTab={tabState} handleSetTabState={handleSetTabState} />
-      <Main currentTab={tabState} />
+      <Menu
+        currentTab={tabState}
+        handleSetTabState={handleSetTabState}
+        userInform={mutation.data!}
+      />
+      <Main userInform={mutation.data!} currentTab={tabState} />
     </Container>
   );
 };

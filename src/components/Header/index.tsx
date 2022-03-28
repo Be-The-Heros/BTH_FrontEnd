@@ -62,7 +62,7 @@ export const Header = () => {
           <Dropdown overlay={menu} placement="bottomRight">
             <div className="header__avatar">
               <img
-                onClick={() => navigate("/profile")}
+                onClick={() => navigate(`/profile/${user.uid}`)}
                 src={user.avatar}
                 alt={"user-avatar"}
               ></img>

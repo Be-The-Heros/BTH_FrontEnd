@@ -4,91 +4,152 @@ import { Typography } from "@mui/material";
 import { Button } from "antd";
 
 import { NewCustomInput } from "../";
+import { useRecoilValue } from "recoil";
+import { userState } from "recoil/users/state";
+import {
+  Container,
+  SaveProfileInformationButton,
+  Title,
+  UserInformContainer,
+  WorkInformContainer,
+} from "./style";
+import { Controller, useForm } from "react-hook-form";
+import { useEditUsersInform } from "hooks/profile/editUsersInform/useEditUsersInform";
+import { toast } from "react-toastify";
+import { useGetProfileInformByUID } from "hooks/profile/getProfileInform/useGetProfileInform";
+import { ProfileInfo } from "hooks/profile/model";
 
 export interface ProfileFormsProps {
   active: boolean;
+  userInform?: ProfileInfo;
 }
 
-const Container = styled.div<ProfileFormsProps>`
-  width: 100%;
-  display: ${(props) => !props.active && "none"};
+export interface PersonalInformField {
+  first_name: string;
+  last_name: string;
+}
 
-  .save-profile-information {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 2em 3em;
-  }
-
-  input {
-    margin-bottom: 2em;
-  }
-`;
-
-const Title = styled(Typography)`
-  && {
-    font-weight: 700;
-    line-height: 42px;
-    letter-spacing: 0em;
-    padding-bottom: 1em;
-  }
-`;
-
-const UserInformContainer = styled.div`
-  width: 100%;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 2em 3em;
-  margin: 5.6em 0 3em;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-`;
-
-const WorkInformContainer = styled.div`
-  width: 100%;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 2em 3em;
-  margin-bottom: 3em;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-`;
-
-const SaveProfileInformationButton = styled(Button)`
-  width: 100%;
-  background-color: #7cdfff;
-  font-weight: 600;
+const Error = styled.span`
+  margin-top: -15px;
+  margin-bottom: 10px;
+  color: red;
+  display: block;
 `;
 
 const ProfileForms = (props: ProfileFormsProps) => {
-  const { active } = props;
+  const { active, userInform } = props;
+  const editUsersInformMutation = useEditUsersInform();
+
+  const user = useRecoilValue(userState);
+
+  const {
+    handleSubmit,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm<PersonalInformField>();
+
+  const onSubmit = (data: PersonalInformField) => {
+    // This is just used only for editing firstName and LastName of user
+    const date = Date();
+
+    editUsersInformMutation.mutate({
+      ...data,
+      middle_name: "",
+      date_of_birth: date,
+      phone: "",
+    });
+  };
+
+  React.useEffect(() => {
+    toast.dismiss();
+    if (editUsersInformMutation.isLoading) {
+      toast.loading("Updating user's information...");
+      return;
+    }
+    if (editUsersInformMutation.isSuccess) {
+      toast.success("Update user's information successfully");
+      return;
+    }
+  }, [editUsersInformMutation.isLoading, editUsersInformMutation.data]);
 
   return (
-    <Container active={active}>
-      <UserInformContainer>
-        <Title variant="h4">User</Title>
-        <NewCustomInput label="Name" placeholder="TrungJamin" />
-        <NewCustomInput label="Country" placeholder="Viet Nam" />
-        <NewCustomInput label="City" placeholder="Da Nang" />
-        <NewCustomInput label="Address" placeholder="K02/30 Nguyen The Loc" />
-        <NewCustomInput label="Bio" placeholder="YOLO" />
-        <NewCustomInput label="Email" placeholder="trungjaminle@gmail.com" />
-      </UserInformContainer>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Container active={active}>
+        <UserInformContainer>
+          <Title variant="h4">User</Title>
+          <Controller
+            name="first_name"
+            control={control}
+            rules={{ required: true }}
+            defaultValue={userInform?.first_name}
+            render={({ field }) => (
+              <NewCustomInput
+                field={field}
+                label="First name"
+                placeholder="Ex: Trung"
+                value={userInform?.first_name}
+              />
+            )}
+          />
+          {errors.first_name && <Error>First name required</Error>}
+          <Controller
+            name="last_name"
+            control={control}
+            rules={{ required: true }}
+            defaultValue={userInform?.last_name}
+            render={({ field }) => (
+              <NewCustomInput
+                field={field}
+                label="Last name"
+                placeholder="Ex: Jamin"
+                value={userInform?.last_name}
+              />
+            )}
+          />
+          {errors.last_name && <Error>Last name required</Error>}
 
-      <WorkInformContainer>
-        <Title variant="h4">Work</Title>
-        <NewCustomInput label="Work" placeholder="Student" />
-        <NewCustomInput label="Education" placeholder="Student" />
-      </WorkInformContainer>
+          <NewCustomInput
+            label="Country"
+            placeholder="Ex: Viet Nam"
+            value={"Viet Nam"}
+          />
+          <NewCustomInput
+            label="City"
+            placeholder="Ex: Da Nang"
+            value={"Da Nang"}
+          />
+          <NewCustomInput
+            label="Address"
+            placeholder="Ex: K02/30 Nguyen The Loc"
+            value={"K02/30 Nguyen The Loc"}
+          />
+          <NewCustomInput label="Bio" placeholder="Ex: YOLO" />
+          <NewCustomInput
+            label="Email"
+            placeholder="Ex: trungjaminle@gmail.com"
+            disabled={true}
+            value={user.email}
+          />
+        </UserInformContainer>
 
-      <div className="save-profile-information">
-        <SaveProfileInformationButton>
-          Save Profile Information
-        </SaveProfileInformationButton>
-      </div>
-    </Container>
+        <WorkInformContainer>
+          <Title variant="h4">Work</Title>
+          <NewCustomInput label="Work" placeholder="Ex: Student" disabled />
+          <NewCustomInput
+            label="Education"
+            placeholder="Ex: Student"
+            disabled
+          />
+        </WorkInformContainer>
+
+        <div className="save-profile-information">
+          <SaveProfileInformationButton htmlType="submit">
+            Save Profile Information
+          </SaveProfileInformationButton>
+        </div>
+      </Container>
+    </form>
   );
 };
 

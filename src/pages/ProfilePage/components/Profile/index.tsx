@@ -23,6 +23,7 @@ import Loading from "components/Loading";
 
 interface ProfileProps {
   profileInfo: ProfileInfo;
+  isCurrentUser: boolean;
 }
 
 interface OverlayProps {
@@ -58,7 +59,7 @@ const Profile = (props: ProfileProps) => {
   const changeAvatarMutation = useChangeAvatar();
   const changeBackgroundPhotoMutation = useChangeBackgroundPhoto();
 
-  const { profileInfo } = props;
+  const { profileInfo, isCurrentUser } = props;
   const full_name = profileInfo.first_name + " " + profileInfo.last_name;
 
   // Get the instance of the FileReader
@@ -159,17 +160,19 @@ const Profile = (props: ProfileProps) => {
           }
           alt="background-image"
         />
-        <EditCoverPhotoButton onClick={onEditBackgroundButtonClick}>
-          <input
-            type="file"
-            id="file-1"
-            ref={backgroundInputFile}
-            style={{ display: "none" }}
-            accept="image/*"
-            onChange={onChangeBackgroundFile}
-          />
-          Edit Cover Photo
-        </EditCoverPhotoButton>
+        {isCurrentUser && (
+          <EditCoverPhotoButton onClick={onEditBackgroundButtonClick}>
+            <input
+              type="file"
+              id="file-1"
+              ref={backgroundInputFile}
+              style={{ display: "none" }}
+              accept="image/*"
+              onChange={onChangeBackgroundFile}
+            />
+            Edit Cover Photo
+          </EditCoverPhotoButton>
+        )}
         <AvatarContainer>
           <div className="user-avatar">
             <UserAvatar
@@ -187,28 +190,30 @@ const Profile = (props: ProfileProps) => {
                 />
               }
             />
-            <IconButton
-              className="user-avatar__camera"
-              onClick={onAvatarButtonClick}
-            >
-              <input
-                type="file"
-                id="file"
-                ref={avatarInputFile}
-                style={{ display: "none" }}
-                accept="image/*"
-                onChange={onChangeAvatarFile}
-              />
-              <img
-                src={CameraIcon}
-                alt="camera-icon"
-                style={{
-                  width: 25,
-                  height: 25,
-                  color: "#fff",
-                }}
-              />
-            </IconButton>
+            {isCurrentUser && (
+              <IconButton
+                className="user-avatar__camera"
+                onClick={onAvatarButtonClick}
+              >
+                <input
+                  type="file"
+                  id="file"
+                  ref={avatarInputFile}
+                  style={{ display: "none" }}
+                  accept="image/*"
+                  onChange={onChangeAvatarFile}
+                />
+                <img
+                  src={CameraIcon}
+                  alt="camera-icon"
+                  style={{
+                    width: 25,
+                    height: 25,
+                    color: "#fff",
+                  }}
+                />
+              </IconButton>
+            )}
           </div>
           <div className="user-inform">
             <UserName variant="h5">{full_name}</UserName>
@@ -232,14 +237,16 @@ const Profile = (props: ProfileProps) => {
             </div>
           </div>
         </AvatarContainer>
-        {changingState && (
+        {isCurrentUser && changingState && (
           <SaveChangesButton onClick={onSaveChanges}>
             Save Changes
           </SaveChangesButton>
         )}
-        <EditProfileButton onClick={() => navigate("/profile/settings")}>
-          Edit Profile
-        </EditProfileButton>
+        {isCurrentUser && (
+          <EditProfileButton onClick={() => navigate("/profile/settings")}>
+            Edit Profile
+          </EditProfileButton>
+        )}
       </Container>
     </>
   );

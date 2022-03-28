@@ -1,3 +1,4 @@
+import { ProfileInfo } from "hooks/profile/model";
 import React from "react";
 import styled from "styled-components";
 import {
@@ -13,14 +14,15 @@ const Container = styled.div`
 
 interface MainProps {
   currentTab: string;
+  userInform: ProfileInfo;
 }
 
 const Main = (props: MainProps) => {
-  const { currentTab } = props;
+  const { currentTab, userInform } = props;
 
   return (
     <Container>
-      <ProfileForms active={currentTab === "profile"} />
+      <ProfileForms userInform={userInform} active={currentTab === "profile"} />
       <NotificationForms active={currentTab === "notifications"} />
       <AccountForms active={currentTab === "accounts"} />
       <OrganizationForms active={currentTab === "organizations"} />
