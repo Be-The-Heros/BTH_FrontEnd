@@ -37,20 +37,25 @@ export const NewFeed = (props: NewFeedProps) => {
     });
   };
   React.useEffect(() => {
-    if (deletePost.isLoading) {
-      toast.loading('Deleting your post...');
-      return;
-    }
+    toast.dismiss();
     if (deletePost.isSuccess) {
       handleDeletePost && handleDeletePost(_toString(props.post_id));
       return;
     }
-
     if (deletePost.isError) {
       toast.error('Something went wrong');
       return;
     }
-  }, [deletePost.isSuccess, deletePost.data]);
+    if (deletePost.isLoading) {
+      toast.loading('Deleting your post...');
+      return;
+    }
+  }, [
+    deletePost.isLoading,
+    deletePost.isSuccess,
+    deletePost.data,
+    deletePost.isError,
+  ]);
   const isOwnerPost = user.uid === props.uid;
   const dropdownMore = (
     <Menu>

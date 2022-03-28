@@ -9,6 +9,7 @@ import { SidebarRight } from './components/SidebarRight';
 import _toNumber from 'lodash/toNumber';
 import Style from './style';
 import { toString } from 'lodash';
+import { toast } from 'react-toastify';
 
 const TIME_OUT_FETCH = 2000;
 
@@ -30,6 +31,7 @@ const Homepage = () => {
   //   postQuery.refetch();
   // }, []);
   React.useEffect(() => {
+    toast.dismiss();
     if (postQuery.data && isHasMore) {
       setDataRender([...dataRender, ...(postQuery.data?.data.list || [])]);
     }
