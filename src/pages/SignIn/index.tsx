@@ -143,7 +143,7 @@ const SignInPage = () => {
           Sign In with Google{' '}
           <img src={icon_gg} alt={'icon-fb'} className='plugin-icon' />
         </div>
-        <div
+        {/* <div
           className='plugin-facebook'
           style={{
             marginLeft: '1rem',
@@ -155,7 +155,7 @@ const SignInPage = () => {
           }
         >
           <img src={icon_fb} alt={'icon-fb'} className='plugin-icon' />
-        </div>
+        </div> */}
       </div>
     </StyleSignIn>
   );

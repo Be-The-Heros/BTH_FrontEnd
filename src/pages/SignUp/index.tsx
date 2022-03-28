@@ -184,14 +184,14 @@ export default function SignUpPage() {
             Sign Up With Google
             <img src={icon_gg} alt={'icon-gg'} className='plugin-icon'></img>
           </div>
-          <div
+          {/* <div
             className='plugin-facebook'
             style={{
               marginLeft: '1rem',
             }}
           >
             <img src={icon_fb} alt={'icon-fb'} className='plugin-icon'></img>
-          </div>
+          </div> */}
         </div>
       </React.Fragment>
     </Style>
