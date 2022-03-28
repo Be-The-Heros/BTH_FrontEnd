@@ -30,7 +30,7 @@ export const NewFeed = (props: NewFeedProps) => {
   const { handleDeletePost } = props;
   const [isBtnJoinClick, setIsBtnJoinClick] = React.useState(false);
   const deletePost = useDeletePost();
-  const url_detail = 'https://betheheros.tk/';
+  const url_detail = `https://betheheros.tk/post/detail/${props.post_id}`;
   const handleClickDelete = () => {
     deletePost.mutate({
       post_id: props.post_id,
