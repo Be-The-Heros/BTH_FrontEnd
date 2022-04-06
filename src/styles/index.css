@@ -1,1 +1,9 @@
 @import url("./color.css");
+
+.ant-comment-inner{
+    padding: 5px 0 !important;
+}
+
+.ant-comment-actions{
+    margin-top: 2px;
+}

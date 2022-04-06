@@ -10,6 +10,7 @@ import _toNumber from 'lodash/toNumber';
 import Style from './style';
 import { toString } from 'lodash';
 import { toast } from 'react-toastify';
+import { AvatarCustom } from 'components/Avatar';
 
 const TIME_OUT_FETCH = 2000;
 
@@ -72,6 +73,7 @@ const Homepage = () => {
               />
             );
           })}
+         
         </InfiniteScroll>
       </Style>
     </LayoutApp>

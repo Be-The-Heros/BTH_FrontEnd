@@ -98,7 +98,8 @@ export default styled.div`
     }
   }
   .Newfeed_footer {
-    margin: 1.5rem 0;
+    margin: 1rem 0;
+    margin-bottom: 0rem;
     display: flex;
     justify-content: space-between;
     border-top: 1px solid #eeeeee;
