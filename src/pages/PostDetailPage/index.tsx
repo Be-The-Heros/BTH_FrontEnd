@@ -5,7 +5,6 @@ import { NewFeed } from 'pages/Homepage/components/NewFeed';
 import React from 'react';
 import { useParams } from 'react-router';
 import { LayoutApp } from 'templates/LayoutApp';
-import DocumentMeta, { DocumentMetaProps } from 'react-document-meta';
 
 // ts-ignore
 
@@ -13,14 +12,9 @@ export default function PostDetailPage() {
   const { post_id } = useParams<{ post_id: string }>();
   const postData = useQueryPostDetail(post_id || '');
   document.title = 'Truơng Thành Huy - Post Detail';
-  const meta: DocumentMetaProps = {
-    title: 'Some Meta Title',
-    description: 'I am a description, and I can create multiple tags',
-    canonical: 'http://example.com/path/to/page',
-  };
+
   return (
     <LayoutApp sidebarLeft={<SidebarLeft />} sidebarRight={<SidebarRight />}>
-      <DocumentMeta {...meta} />
       {postData.isLoading ? (
         <Loading />
       ) : (
