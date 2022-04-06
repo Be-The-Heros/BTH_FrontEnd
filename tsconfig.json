@@ -5,7 +5,6 @@
     "rootDir": "src",
     "baseUrl": "src",
     "allowJs": true,
-    "forceConsistentCasingInFileNames": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "module": "esnext",

@@ -20,6 +20,7 @@ export enum ApiVersion {
   post = 'post',
   profile = 'profile',
   image = 'image',
+  comment='comment'
 }
 
 export interface RequestOptions {
