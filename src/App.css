@@ -23,3 +23,7 @@
   height: auto !important;
   width: auto !important;
 }
+
+.ant-comment-content-author-name{
+  width: 100%;
+}

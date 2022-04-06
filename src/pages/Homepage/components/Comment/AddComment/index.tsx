@@ -12,15 +12,15 @@ export const AddComment = (props: Omit<createCmtProps,'content'>) => {
   const { post_id: postId, rep } = props;
   const infoUser = useRecoilValue(userState);
   const [content, setContent] = useState("");
-  const subState = useRecoilValue(cmtPushSubState);
+  const subComment = useRecoilValue(cmtPushSubState);
 
   const { mutate, isLoading } = useCreateComment();
 
   useEffect(() => {
-    if (subState.uid) {
+    if (subComment.uid) {
       setContent("");
     }
-  }, [subState]);
+  }, [subComment]);
 
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement> ) => {
     if (e.target.value.length > 0) {

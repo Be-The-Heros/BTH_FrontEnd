@@ -16,26 +16,59 @@ export const useLoadComment = (postId: number) => {
   );
 };
 
-
-
-const createCommentApi =  (body: createCmtProps) => {
-  return  apis.post<CommentResponse>(
-    API_COMMENT,
-    "/create-comment-in-post",
-    {
-      body
-    }
-  );
-
+const createCommentApi = (body: createCmtProps) => {
+  return apis.post<CommentResponse>(API_COMMENT, "/create-comment-in-post", {
+    body,
+  });
 };
 
 export const useCreateComment = () => {
-  const setComments = useSetRecoilState(cmtPushSubState);
+  const onPushCmt = useSetRecoilState(cmtPushSubState);
   const infoUser = useRecoilValue(userState);
 
   return useMutation(createCommentApi, {
     onSuccess: (data) => {
-      setComments({
+      onPushCmt({
+        type: "add",
+        content: data.content || "",
+        postId: data.post_id,
+        rep: data?.rep,
+        uid: data.uid,
+        comment_id: data.comment_id,
+        profile: {
+          avatar: infoUser.avatar || "",
+          uid: infoUser.uid,
+          first_name: infoUser.first_name,
+          last_name: infoUser.last_name,
+        },
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+};
+
+export const useDeleteComment = () => {
+  const onPushCmt = useSetRecoilState(cmtPushSubState);
+  const infoUser = useRecoilValue(userState);
+
+  const deleteCommentApi = (body: deleteComment) => {
+    return apis.delete<CommentResponse>(
+      API_COMMENT,
+      "/remove-comment-in-post",
+      {
+        body,
+      }
+    );
+  };
+
+  return useMutation(deleteCommentApi, {
+    onSuccess: (data) => {
+
+      console.log('data',data)
+      onPushCmt({
+        type: "remove",
         content: data.content || "",
         postId: data.post_id,
         rep: data?.rep,

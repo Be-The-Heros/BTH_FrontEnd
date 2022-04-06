@@ -1,21 +1,41 @@
-import React from "react";
-import { Comment } from "antd";
+import React, { useState } from "react";
+import { Button, Comment, Popover } from "antd";
 import { AvatarCustom, AvatarCustomProps } from "components/Avatar";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { useRecoilValue } from "recoil";
+import { userState } from "recoil/users/state";
+import { Link } from "react-router-dom";
+import { useDeleteComment } from "hooks/comment";
 
 interface ChirldCmtProps {
   onShowAddCmt: (value: boolean) => void;
   isShowAddCmt: boolean;
   content: string;
+  comment_id:number,
+  post_id:number,
   avatar: AvatarCustomProps;
 }
 
 export const ChirldCmt = (props: ChirldCmtProps) => {
-  const { onShowAddCmt, isShowAddCmt, content, avatar } = props;
-
+  const { onShowAddCmt, isShowAddCmt, content, avatar, comment_id,post_id  } = props;
   const { srcAvatar, uid, fullName, bio, address } = avatar;
+  const [showOptionMessage, setShowOptionMessage] = useState(false);
+  const user = useRecoilValue(userState);
+
+  const { mutate, isLoading } = useDeleteComment();
+
+  const onDeleteCmt = () => {
+    mutate({
+      comment_id,
+      post_id,
+    });
+  };
 
   return (
-    <>
+    <div
+      onMouseOut={() => setShowOptionMessage(true)}
+      onMouseLeave={() => setShowOptionMessage(false)}
+    >
       <Comment
         actions={[
           <span
@@ -25,10 +45,44 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
             Reply to
           </span>,
         ]}
-        author={<a>{fullName}</a>}
+        author={
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Link
+              to={`/profile/${uid}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              {fullName}
+            </Link>
+
+            {uid === user.uid && (
+              <div
+                style={{ visibility: showOptionMessage ? "unset" : "hidden" }}
+              >
+                <Popover
+                  trigger={"click"}
+                  content={() => {
+                    return (
+                      <div>
+                        <Button danger onClick={onDeleteCmt}>Delete</Button>
+                      </div>
+                    );
+                  }}
+                >
+                  <BiDotsVerticalRounded />
+                </Popover>
+              </div>
+            )}
+          </div>
+        }
         avatar={
           <AvatarCustom
-           showPopover={true}
+            showPopover={true}
             srcAvatar={srcAvatar}
             uid={uid}
             size={32}
@@ -49,6 +103,6 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
           </p>
         }
       ></Comment>
-    </>
+    </div>
   );
 };

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { AddComment } from "./AddComment";
 import { CommentCustoms } from "./Comment";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { cmtPushSubState } from "recoil/comments/state";
 import { useLoadComment } from "hooks/comment";
 
@@ -34,36 +34,70 @@ export interface CommentResponse {
   commentReps?: CommentResponse[];
 }
 
-//... [{key:121}] 
+//... [{key:121}]
 
 export const BoxComment = (props: BoxCommentProps) => {
   const { postId } = props;
-  const [sub] = useRecoilState(cmtPushSubState);
+  const subComment = useRecoilValue(cmtPushSubState);
 
   const [dataListComment, setDataListComment] = useState<CommentResponse[]>([]);
 
   const { isLoading, error, data } = useLoadComment(postId);
   useEffect(() => {
-    if (sub.content && sub.postId && sub.postId === postId) {
-      const newData = [...dataListComment];
-      const newComment = {
-            comment_id: sub.comment_id,
-            content: sub.content,
-            rep: sub.rep,
-            uid: sub.uid,
-            profile: sub.profile,
-            post_id: sub.postId,
-          }
-      if (sub.rep) {
-        const index = newData.findIndex((item) => item.comment_id === sub.rep && item.commentReps);
-        index != -1 && (newData[index].commentReps = [...newData[index].commentReps || [], newComment]);
+    if (
+      subComment.content &&
+      subComment.postId &&
+      subComment.postId === postId
+    ) {
+      if (subComment.type === "add") {
+        const newData = [...dataListComment];
+        const newComment = {
+          comment_id: subComment.comment_id,
+          content: subComment.content,
+          rep: subComment.rep,
+          uid: subComment.uid,
+          profile: subComment.profile,
+          post_id: subComment.postId,
+        };
+        if (subComment.rep) {
+          const index = newData.findIndex(
+            (item) => item.comment_id === subComment.rep && item.commentReps
+          );
+          index != -1 &&
+            (newData[index].commentReps = [
+              ...(newData[index].commentReps || []),
+              newComment,
+            ]);
+        } else {
+          newData.push(newComment);
+        }
+        setDataListComment(newData);
       } else {
-        newData.push(newComment);
-      }
-      setDataListComment(newData);
+        console.log("remove ne");
 
+        const newData = [...dataListComment];
+
+        if (subComment.rep) {
+          const index = newData.findIndex(
+            (item) => item.comment_id === subComment.rep && item.commentReps
+          );
+
+          index != -1 &&
+            (newData[index].commentReps = [
+              ...(newData[index].commentReps || []).filter(
+                (item) => item.comment_id !== subComment.comment_id
+              ),
+            ]);
+            setDataListComment(newData);
+        } else {
+          const tmp = newData.filter(
+            (item) => item.comment_id !== subComment.comment_id
+          );
+          setDataListComment(tmp);
+        }
+      }
     }
-  }, [sub.content, sub.postId]);
+  }, [subComment.comment_id, subComment.content, subComment.postId]);
 
   useEffect(() => {
     if (!error && data) {

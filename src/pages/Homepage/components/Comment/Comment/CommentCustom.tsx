@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { Comment } from "antd";
+import { Button, Comment, Popover, Row } from "antd";
 import { AvatarCustom } from "components/Avatar";
 import { AddComment } from "../AddComment";
 import { ChirldCmt } from "./ChildrenCmt";
 import { CommentResponse } from "..";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { useRecoilValue } from "recoil";
+import { userState } from "recoil/users/state";
+import { Link } from "react-router-dom";
+import { useDeleteComment } from "hooks/comment";
 
 interface CommentCustomProps {
   data: CommentResponse;
@@ -11,18 +16,30 @@ interface CommentCustomProps {
 
 export const CommentCustom = (props: CommentCustomProps) => {
   const { data } = props;
-  const { profile, content, commentReps, post_id , comment_id } = data;
+  const { profile, content, commentReps, post_id, comment_id, uid } = data;
   const [showAddCmt, setShowAddCmt] = useState(false);
+  const [showOptionMessage, setShowOptionMessage] = useState(false);
+  const user = useRecoilValue(userState);
 
-  
+  const { mutate, isLoading } = useDeleteComment();
+
+  const onDeleteCmt = () => {
+    mutate({
+      comment_id,
+      post_id,
+    });
+  };
+
   const listChildren = () => {
     return (
       <>
         {(commentReps || []).map((item, key) => {
-          const { profile, content } = item;
+          const { profile, content,comment_id } = item;
           return (
             <ChirldCmt
               key={key}
+              post_id={post_id}
+              comment_id={comment_id}
               avatar={{
                 showPopover: true,
                 srcAvatar: profile.avatar,
@@ -43,7 +60,11 @@ export const CommentCustom = (props: CommentCustomProps) => {
     );
   };
   return (
-    <div className="comment-custom">
+    <div
+      className="comment-custom"
+      onMouseOut={() => setShowOptionMessage(true)}
+      onMouseLeave={() => setShowOptionMessage(false)}
+    >
       <Comment
         actions={[
           <span
@@ -53,7 +74,41 @@ export const CommentCustom = (props: CommentCustomProps) => {
             Reply to
           </span>,
         ]}
-        author={<a>{profile?.first_name || "" + profile?.last_name || ""}</a>}
+        author={
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Link
+              to={`/profile/${uid}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              {profile?.first_name || "" + profile?.last_name || ""}
+            </Link>
+
+            {uid === user.uid && (
+              <div
+                style={{ visibility: showOptionMessage ? "unset" : "hidden" }}
+              >
+                <Popover
+                  trigger={"click"}
+                  content={() => {
+                    return (
+                      <div>
+                        <Button danger onClick={onDeleteCmt}>Delete</Button>
+                      </div>
+                    );
+                  }}
+                >
+                  <BiDotsVerticalRounded />
+                </Popover>
+              </div>
+            )}
+          </div>
+        }
         avatar={
           <AvatarCustom
             showPopover={true}
