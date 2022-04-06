@@ -38,12 +38,12 @@ export const CommentCustom = (props: CommentCustomProps) => {
           );
         })}
 
-        {showAddCmt && <AddComment postId={+post_id} rep={comment_id} />}
+        {showAddCmt && <AddComment post_id={+post_id} rep={comment_id} />}
       </>
     );
   };
   return (
-    <>
+    <div className="comment-custom">
       <Comment
         actions={[
           <span
@@ -78,6 +78,6 @@ export const CommentCustom = (props: CommentCustomProps) => {
         }
         children={listChildren()}
       />
-    </>
+    </div>
   );
 };

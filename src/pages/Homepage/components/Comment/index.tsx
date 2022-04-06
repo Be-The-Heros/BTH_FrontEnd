@@ -5,7 +5,7 @@ import { AddComment } from "./AddComment";
 import { CommentCustoms } from "./Comment";
 import { useRecoilState } from "recoil";
 import { cmtPushSubState } from "recoil/comments/state";
-import { useLoadingComment } from "hooks/comment";
+import { useLoadComment } from "hooks/comment";
 
 interface BoxCommentProps {
   postId: number;
@@ -34,60 +34,34 @@ export interface CommentResponse {
   commentReps?: CommentResponse[];
 }
 
+//... [{key:121}] 
+
 export const BoxComment = (props: BoxCommentProps) => {
   const { postId } = props;
   const [sub] = useRecoilState(cmtPushSubState);
 
   const [dataListComment, setDataListComment] = useState<CommentResponse[]>([]);
 
-  const { isLoading, error, data } = useLoadingComment(postId);
+  const { isLoading, error, data } = useLoadComment(postId);
   useEffect(() => {
     if (sub.content && sub.postId && sub.postId === postId) {
-      if (sub.rep) {
-        const newData = [...dataListComment];
-        for (let i = 0; i < newData.length; i++) {
-          if (newData[i].comment_id === sub.rep) {
-            if (newData[i].commentReps) {
-              if (newData[i].commentReps?.length) {
-                newData[i].commentReps?.push({
-                  comment_id: sub.comment_id,
-                  content: sub.content,
-                  rep: sub.rep,
-                  uid: sub.uid,
-                  profile: sub.profile,
-                  post_id: sub.postId,
-                });
-
-                setDataListComment(newData);
-                break;
-              }
-            }
-            newData[i].commentReps = [
-              {
-                comment_id: sub.comment_id,
-                content: sub.content,
-                rep: sub.rep,
-                uid: sub.uid,
-                profile: sub.profile,
-                post_id: sub.postId,
-              },
-            ];
-            setDataListComment(newData);
-            break;
+      const newData = [...dataListComment];
+      const newComment = {
+            comment_id: sub.comment_id,
+            content: sub.content,
+            rep: sub.rep,
+            uid: sub.uid,
+            profile: sub.profile,
+            post_id: sub.postId,
           }
-        }
+      if (sub.rep) {
+        const index = newData.findIndex((item) => item.comment_id === sub.rep && item.commentReps);
+        index != -1 && (newData[index].commentReps = [...newData[index].commentReps || [], newComment]);
       } else {
-        const newData = [...dataListComment];
-        newData.push({
-          comment_id: sub.comment_id,
-          content: sub.content,
-          rep: sub.rep,
-          uid: sub.uid,
-          profile: sub.profile,
-          post_id: sub.postId,
-        });
-        setDataListComment(newData);
+        newData.push(newComment);
       }
+      setDataListComment(newData);
+
     }
   }, [sub.content, sub.postId]);
 
@@ -109,7 +83,7 @@ export const BoxComment = (props: BoxCommentProps) => {
         </div>
       ) : (
         <>
-          <AddComment postId={postId} />
+          <AddComment post_id={postId} />
           <CommentCustoms data={dataListComment} />
         </>
       )}

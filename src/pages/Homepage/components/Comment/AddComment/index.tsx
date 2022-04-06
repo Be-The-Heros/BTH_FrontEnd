@@ -1,21 +1,15 @@
 import { Button, Comment, Form, Input } from "antd";
 import { AvatarCustom } from "components/Avatar";
 import { useCreateComment } from "hooks/comment";
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { cmtPushSubState } from "recoil/comments/state";
 import { userState } from "recoil/users/state";
 
 const { TextArea } = Input;
 
-interface AddCommentProps {
-  postId: number;
-  rep?: number;
-}
-
-export const AddComment = (props: AddCommentProps) => {
-  const { postId, rep } = props;
+export const AddComment = (props: Omit<createCmtProps,'content'>) => {
+  const { post_id: postId, rep } = props;
   const infoUser = useRecoilValue(userState);
   const [content, setContent] = useState("");
   const subState = useRecoilValue(cmtPushSubState);
@@ -38,9 +32,8 @@ export const AddComment = (props: AddCommentProps) => {
     if (content.length > 0) {
       mutate({
         content,
-        postId,
+        post_id: postId,
         rep,
-        token: infoUser.token,
       });
     }
   };

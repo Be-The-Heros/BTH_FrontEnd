@@ -1,14 +1,14 @@
-import { API_COMMENT } from "./config/index";
 import apis from "apis";
-import axios from "axios";
 import { CommentResponse } from "pages/Homepage/components/Comment";
 import { useMutation, useQuery } from "react-query";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { cmtPushSubState } from "recoil/comments/state";
 import { userState } from "recoil/users/state";
+import { API_COMMENT } from "./config/index";
+import { QUERY_COMMENT } from "./constants";
 
-export const useLoadingComment = (postId: number) => {
-  return useQuery(["loadingComment"], () =>
+export const useLoadComment = (postId: number) => {
+  return useQuery([QUERY_COMMENT], () =>
     apis.get<CommentResponse[]>(
       API_COMMENT,
       `/get-list-comments-of-post?idPost=${postId}`
@@ -16,36 +16,26 @@ export const useLoadingComment = (postId: number) => {
   );
 };
 
-interface createCmtProps {
-  postId: number;
-  rep?: number;
-  content: string;
-  token: string;
-}
 
-const createCommentApi = async (data: createCmtProps) => {
-  const response = await apis.post<CommentResponse>(
+
+const createCommentApi =  (body: createCmtProps) => {
+  return  apis.post<CommentResponse>(
     API_COMMENT,
     "/create-comment-in-post",
     {
-      body: {
-        post_id: data.postId,
-        content: data.content,
-        rep: data.rep || "",
-      },
+      body
     }
   );
 
-  return response;
 };
 
 export const useCreateComment = () => {
-  const [_, onPush] = useRecoilState(cmtPushSubState);
-  const [infoUser] = useRecoilState(userState);
+  const setComments = useSetRecoilState(cmtPushSubState);
+  const infoUser = useRecoilValue(userState);
 
   return useMutation(createCommentApi, {
     onSuccess: (data) => {
-      onPush({
+      setComments({
         content: data.content || "",
         postId: data.post_id,
         rep: data?.rep,
