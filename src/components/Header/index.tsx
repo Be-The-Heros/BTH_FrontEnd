@@ -1,12 +1,12 @@
 import { Button, Dropdown, Menu, Space } from 'antd';
 import Search from 'antd/lib/transfer/search';
-import logo from 'assets/images/logo_white.svg';
+import logo from 'assets/images/logo_text.svg';
 import React from 'react';
 import { BiLogOutCircle } from 'react-icons/bi';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { MdOutlineArrowDropDown } from 'react-icons/md';
 import { useLocation, useNavigate } from 'react-router';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
 import Style from './style';
 interface StateLocation {
@@ -124,14 +124,14 @@ export const Header = () => {
             <img src={logo} alt='logo' />
           </div>
           <div className='header__search'>
-            {/* <Space
-              direction="vertical"
+            <Space
+              direction='vertical'
               style={{
-                width: "100%",
+                width: '100%',
               }}
             >
-              <Search placeholder="Search in be the heroes" />
-            </Space> */}
+              <Search placeholder='Search in be the heroes' />
+            </Space>
           </div>
         </div>
         <div></div>
