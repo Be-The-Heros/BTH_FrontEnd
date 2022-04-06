@@ -9,11 +9,8 @@ export default styled.div`
   z-index: 999;
   .header {
     &__logo {
-      width: 4em;
-      img {
-        border-radius: 15px;
-        border: 2px solid #ffff;
-      }
+      width: 8em;
+      height: 3.25em;
     }
     &__search {
       margin-left: 2em;
