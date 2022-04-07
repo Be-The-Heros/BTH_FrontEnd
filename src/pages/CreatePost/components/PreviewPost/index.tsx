@@ -1,4 +1,4 @@
-import { Button, Dropdown, Modal } from 'antd';
+import { Button, Modal } from 'antd';
 import clsx from 'clsx';
 import { PHOTO_DISPLAY } from 'constants/devices';
 import Style from 'pages/Homepage/components/NewFeed/style';
@@ -33,7 +33,7 @@ export const PreviewPost = React.memo((props: PreviewPostProps) => {
           }}
         >
           <img src={photo} alt='post' />
-          {PHOTO_DISPLAY != photos.length && isFinalImage && (
+          {PHOTO_DISPLAY !== photos.length && isFinalImage && (
             <div
               className='position-absolute d-flex justify-content-center align-items-center'
               style={{

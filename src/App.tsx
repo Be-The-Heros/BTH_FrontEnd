@@ -15,7 +15,7 @@ function App() {
   React.useEffect(() => {
     if (sessions.isSuccess) {
       setUser({
-        ...sessions.data.data,
+        ...sessions.data,
         isLoggedIn: true,
       });
       return;

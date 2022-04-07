@@ -18,16 +18,16 @@ export default function PostDetailPage() {
       {postData.isLoading ? (
         <Loading />
       ) : (
-        postData.data?.data && (
+        postData.data && (
           <React.Fragment>
             <Helmet>
               <meta charSet='utf-8' />
               <meta
                 property='og:title'
-                content={postData.data?.data.content}
+                content={postData.data?.content}
                 data-react-helmet='true'
               />
-              {postData.data?.data.photos?.map((photo_url) => (
+              {postData.data?.photos?.map((photo_url) => (
                 <meta
                   property='og:image'
                   content={photo_url}
@@ -35,7 +35,7 @@ export default function PostDetailPage() {
                 />
               ))}
             </Helmet>
-            <NewFeed {...postData.data?.data} post_id={post_id || ''} />
+            <NewFeed {...postData.data} post_id={post_id || ''} />
           </React.Fragment>
         )
       )}

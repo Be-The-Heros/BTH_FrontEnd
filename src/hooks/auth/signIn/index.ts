@@ -4,7 +4,7 @@ import { API_AUTH } from '../config';
 
 export const useSignIn = () => {
   return useMutation((requestPayload: Partial<RequestRegisterAuthGoogle>) =>
-    apis.post<ResponseCustom<UserInfo>>(API_AUTH, '/login', {
+    apis.post<UserInfo>(API_AUTH, '/login', {
       body: {
         ...requestPayload,
       },

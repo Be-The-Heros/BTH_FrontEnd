@@ -5,7 +5,7 @@ import { QUERY_SESSIONS } from './constants';
 export const useQuerySessions = () => {
   return useQuery(
     QUERY_SESSIONS,
-    () => apis.get<ResponseCustom<UserInfo>>(API_AUTH, '/sessions'),
+    () => apis.get<UserInfo>(API_AUTH, '/sessions'),
     {
       retry: 0,
       keepPreviousData: true,

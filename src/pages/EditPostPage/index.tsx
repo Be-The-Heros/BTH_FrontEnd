@@ -80,9 +80,9 @@ export const EditPostPage = () => {
 
   const createUrlMutation = useGenerateURLImage();
   React.useEffect(() => {
-    if (postData.data?.data.photos) {
+    if (postData.data?.photos) {
       setFiles(
-        postData.data.data.photos.map((item) => ({
+        postData.data?.photos.map((item) => ({
           preview: item,
         }))
       );
@@ -124,16 +124,14 @@ export const EditPostPage = () => {
   React.useEffect(() => {
     if (postData.isSuccess) {
       setResidence({
-        province: getIDProvinceByName(postData.data.data.province),
-        district: getIDDistrictByName(postData.data.data.district),
-        ward: getIDWardByName(postData.data.data.ward),
+        province: getIDProvinceByName(postData.data.province),
+        district: getIDDistrictByName(postData.data.district),
+        ward: getIDWardByName(postData.data.ward),
       });
-      setFiles(
-        postData.data.data.photos?.map((item) => ({ preview: item })) || []
-      );
+      setFiles(postData.data.photos?.map((item) => ({ preview: item })) || []);
       return;
     }
-  }, [postData.data?.data]);
+  }, [postData.data]);
 
   // TODO: change slogan
   React.useEffect(() => {
@@ -250,7 +248,7 @@ export const EditPostPage = () => {
                   name='title'
                   control={control}
                   rules={{ required: true }}
-                  defaultValue={postData.data?.data.title}
+                  defaultValue={postData.data?.title}
                   render={({ field }) => (
                     <Input
                       {...field}
@@ -368,7 +366,7 @@ export const EditPostPage = () => {
                 <Controller
                   name='residential_address'
                   control={control}
-                  defaultValue={postData.data?.data.residential_address}
+                  defaultValue={postData.data?.residential_address}
                   rules={{ required: true }}
                   render={({ field }) => (
                     <Input
@@ -397,7 +395,7 @@ export const EditPostPage = () => {
                   name='content'
                   rules={{ required: true }}
                   control={control}
-                  defaultValue={postData.data?.data.content}
+                  defaultValue={postData.data?.content}
                   render={({ field }) => (
                     <TextArea
                       {...field}
@@ -417,7 +415,7 @@ export const EditPostPage = () => {
                 <label>URL chat room</label>
                 <Controller
                   name='join_url'
-                  defaultValue={postData.data?.data.join_url || ''}
+                  defaultValue={postData.data?.join_url || ''}
                   rules={{
                     required: false,
                     validate: (value) => {

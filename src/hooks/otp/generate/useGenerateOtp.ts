@@ -1,11 +1,10 @@
 import apis from 'apis';
-import { useMutation, useQuery } from 'react-query';
-import { API_POST } from '../config';
-import { GENERATE_OTP } from './contants';
+import { useMutation } from 'react-query';
+import { API_OTP } from '../config';
 
 export const useGenerateOtp = () => {
   return useMutation((email: string) =>
-    apis.post<ResponseCustom<any>>(API_POST, '/generate', {
+    apis.post(API_OTP, '/generate', {
       body: { email },
     })
   );

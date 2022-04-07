@@ -24,7 +24,7 @@ export const PopupUpdateEmail = (props: UpdateEmailProps) => {
     if (mutation.isSuccess && mutation.data) {
       setUser({
         ...user,
-        email: mutation.data.data.email,
+        email: mutation.data.email,
       });
       toast.success('Please check your email to verify your new email');
       onClose && onClose();

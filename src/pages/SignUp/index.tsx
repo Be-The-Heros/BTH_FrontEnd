@@ -1,15 +1,13 @@
-import icon_fb from 'assets/images/icon_fb.svg';
 import icon_gg from 'assets/images/icon_gg.svg';
 import Loading from 'components/Loading';
 import { User } from 'firebase/auth';
-import { isEmptyValue } from 'helpers';
 import { setLocalStorage } from 'helpers/setTitleDocument';
 import { useSignUp } from 'hooks/auth/signUp/useSignUp';
 import { lowerCase } from 'lodash';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
 import { signInWithGoogleAuth } from 'services/firebase';
 import Style from './style';
@@ -26,16 +24,16 @@ type InputsSignUp = {
 };
 
 export default function SignUpPage() {
-  const [user, setUserState] = useRecoilState(userState);
+  const setUserState = useSetRecoilState(userState);
   const { register, handleSubmit } = useForm<InputsSignUp>();
   const navigate = useNavigate();
   const mutationSignUp = useSignUp();
 
   React.useEffect(() => {
     if (mutationSignUp.isSuccess) {
-      setLocalStorage('user', JSON.stringify(mutationSignUp.data.data));
+      setLocalStorage('user', JSON.stringify(mutationSignUp.data));
       setUserState({
-        ...mutationSignUp.data.data,
+        ...mutationSignUp.data,
         isLoggedIn: true,
       });
     }

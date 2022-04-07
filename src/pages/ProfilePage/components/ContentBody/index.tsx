@@ -51,17 +51,17 @@ const ContentBody = (props: ContentBodyProps) => {
   };
   React.useEffect(() => {
     if (postQuery.data && isHasMore) {
-      setDataRender([...dataRender, ...(postQuery.data?.data.list || [])]);
+      setDataRender([...dataRender, ...(postQuery.data?.list || [])]);
     }
     if (
       postQuery.data &&
-      postQuery.data?.data.total <= pagination.page * pagination.size
+      postQuery.data?.total <= pagination.page * pagination.size
     ) {
       setIsHasMore(false);
       return;
     }
     setIsHasMore(true);
-  }, [pagination.page, postQuery.data?.data.list]);
+  }, [pagination.page, postQuery.data?.list]);
 
   const renderReviewList = () => {
     return Array(8)

@@ -1,7 +1,7 @@
-import apis from "apis";
-import { useQuery } from "react-query";
-import { API_POST } from "../config";
-import { QUERY_LIST_POST_WITH_UID } from "./constants";
+import apis from 'apis';
+import { useQuery } from 'react-query';
+import { API_POST } from '../config';
+import { QUERY_LIST_POST_WITH_UID } from './constants';
 
 interface QueryPostParams {
   uid?: string;
@@ -13,7 +13,7 @@ export const useGetUsersPosts = (params: QueryPostParams) => {
   return useQuery(
     [QUERY_LIST_POST_WITH_UID, uid, page, size],
     () =>
-      apis.get<ResponseCustom<ResponsePost>>(API_POST, "/user/list", {
+      apis.get<ResponsePost>(API_POST, '/user/list', {
         params,
       }),
     {
