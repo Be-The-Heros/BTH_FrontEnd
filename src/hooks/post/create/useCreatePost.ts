@@ -17,7 +17,7 @@ export const useCreatePost = () => {
       }
     });
 
-    return apis.post<ResponseCustom<{ email: string }>>(API_POST, '/create', {
+    return apis.post<{ email: string }>(API_POST, '/create', {
       body: formData,
     });
   });

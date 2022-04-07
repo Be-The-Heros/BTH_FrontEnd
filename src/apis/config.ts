@@ -15,7 +15,7 @@ axiosClient.interceptors.response.use(
       if (response.data.data?.token) {
         localStorage.setItem('token', response.data.data.token);
       }
-      return response.data;
+      return response.data.data;
     }
     return response;
   },

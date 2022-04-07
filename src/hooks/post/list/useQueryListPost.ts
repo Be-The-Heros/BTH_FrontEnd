@@ -11,7 +11,7 @@ export const useQueryListPost = (params: QueryPostParams) => {
   const { page, size } = params;
   return useQuery(
     [QUERY_LIST_POST, page, size],
-    () => apis.get<ResponseCustom<ResponsePost>>(API_POST, '/list', { params }),
+    () => apis.get<ResponsePost>(API_POST, '/list', { params }),
     {
       retry: 1,
       // keepPreviousData: true,

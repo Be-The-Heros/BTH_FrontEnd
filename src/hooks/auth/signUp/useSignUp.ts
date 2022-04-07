@@ -4,13 +4,13 @@ import { API_AUTH } from '../config';
 
 export const useSignUp = () => {
   return useMutation(
-    async (requestPayload: Partial<RequestRegisterAuthGoogle>) => {
-      return await apis.post<ResponseCustom<UserInfo>>(API_AUTH, '/register', {
+    async (body: Partial<RequestRegisterAuthGoogle>) => {
+      return await apis.post<UserInfo>(API_AUTH, '/register', {
         body: {
-          ...requestPayload,
+          ...body,
         },
         params: {
-          type: requestPayload.type,
+          type: body.type,
         },
       });
     },

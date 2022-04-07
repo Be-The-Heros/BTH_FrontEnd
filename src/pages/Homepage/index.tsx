@@ -1,16 +1,14 @@
 import Loading from 'components/Loading';
 import { useQueryListPost } from 'hooks/post/list';
+import { toString } from 'lodash';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { toast } from 'react-toastify';
 import { LayoutApp } from 'templates/LayoutApp';
 import { NewFeed } from './components/NewFeed';
 import { SidebarLeft } from './components/SidebarLeft';
 import { SidebarRight } from './components/SidebarRight';
-import _toNumber from 'lodash/toNumber';
 import Style from './style';
-import { toString } from 'lodash';
-import { toast } from 'react-toastify';
-import { AvatarCustom } from 'components/Avatar';
 
 const TIME_OUT_FETCH = 2000;
 
@@ -34,17 +32,17 @@ const Homepage = () => {
   React.useEffect(() => {
     toast.dismiss();
     if (postQuery.data && isHasMore) {
-      setDataRender([...dataRender, ...(postQuery.data?.data.list || [])]);
+      setDataRender([...dataRender, ...(postQuery.data?.list || [])]);
     }
     if (
       postQuery.data &&
-      postQuery.data?.data.total <= pagination.page * pagination.size
+      postQuery.data?.total <= pagination.page * pagination.size
     ) {
       setIsHasMore(false);
       return;
     }
     setIsHasMore(true);
-  }, [pagination.page, postQuery.data?.data.list]);
+  }, [pagination.page, postQuery.data?.list]);
 
   return (
     <LayoutApp sidebarLeft={<SidebarLeft />} sidebarRight={<SidebarRight />}>
@@ -73,7 +71,6 @@ const Homepage = () => {
               />
             );
           })}
-         
         </InfiniteScroll>
       </Style>
     </LayoutApp>

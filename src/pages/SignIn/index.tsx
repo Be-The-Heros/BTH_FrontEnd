@@ -52,10 +52,10 @@ const SignInPage = () => {
   React.useEffect(() => {
     if (mutation.isSuccess) {
       setUser({
-        ...mutation.data.data,
+        ...mutation.data,
         isLoggedIn: true,
       });
-      setLocalStorage('token', mutation.data.data.token);
+      setLocalStorage('token', mutation.data.token);
       navigate('/home');
     }
   }, [mutation.isSuccess]);
