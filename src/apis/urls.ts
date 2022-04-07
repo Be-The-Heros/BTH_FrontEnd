@@ -14,7 +14,7 @@ export const productionUrl = {
   auth: '/api/auth',
   otp: '/api/otp',
   post: '/api/post',
-  profile: '/api/profile',
-  image: '/image',
+  profile: 'v2/api/profile',
+  image: '/api/image',
   comment: '/v2/api/comment',
 };

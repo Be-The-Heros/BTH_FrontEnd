@@ -56,7 +56,7 @@ export const AppViews = () => {
                 <EditPostPage />
               </PrivateRoute>
             }
-          ></Route>
+          />
           <Route
             path='/create-post'
             element={<PrivateRoute element={<CreatePostPage />} />}
