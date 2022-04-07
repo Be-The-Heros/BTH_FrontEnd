@@ -20,8 +20,6 @@ export default styled.div`
       color: var(--black);
       img {
         align-content: center;
-        width: 4.75em;
-        height: 4.75em;
         border-radius: 50%;
         border: 1px solid #ffff;
       }
@@ -69,7 +67,7 @@ export default styled.div`
     }
     &_content {
       font-size: 1rem;
-      &_comment{
+      &_comment {
         overflow: hidden;
         text-overflow: ellipsis;
         line-height: 25px;
@@ -77,19 +75,17 @@ export default styled.div`
         display: -webkit-box;
         -webkit-box-orient: vertical;
       }
-      .none{
+      .none {
         display: block;
       }
-      
-      &_button{
+
+      &_button {
         border: none;
         padding-left: 0;
-        background-color: var(--white) ;
-        color: var(--black) ;
-        font-weight: bold ;
-        
+        background-color: var(--white);
+        color: var(--black);
+        font-weight: bold;
       }
-      
     }
     &_photos {
       margin-top: 3rem;
