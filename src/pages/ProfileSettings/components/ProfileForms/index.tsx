@@ -164,7 +164,7 @@ const ProfileForms = (props: ProfileFormsProps) => {
           />
         </UserInformContainer>
 
-        <WorkInformContainer>
+        {/*   <WorkInformContainer>
           <Title variant="h4">Work</Title>
           <NewCustomInput label="Work" placeholder="Ex: Student" disabled />
           <NewCustomInput
@@ -172,7 +172,7 @@ const ProfileForms = (props: ProfileFormsProps) => {
             placeholder="Ex: Student"
             disabled
           />
-        </WorkInformContainer>
+        </WorkInformContainer> */}
 
         <div className="save-profile-information">
           <SaveProfileInformationButton htmlType="submit">
