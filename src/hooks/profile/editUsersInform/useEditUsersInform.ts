@@ -13,7 +13,7 @@ interface EditUserInformBody {
 
 export const useEditUsersInform = () => {
   return useMutation((body: EditUserInformBody) => {
-    return apis.post<ProfileInfo>(API_PROFILE, "/edit", {
+    return apis.put<ProfileInfo>(API_PROFILE, "/edit", {
       body,
     });
   });

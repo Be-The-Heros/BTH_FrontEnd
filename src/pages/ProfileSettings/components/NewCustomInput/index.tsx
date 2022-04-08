@@ -14,7 +14,10 @@ interface NewsCustomInput {
     | ControllerRenderProps<ChangePasswordField, "new_password">
     | ControllerRenderProps<ChangePasswordField, "confirm_new_password">
     | ControllerRenderProps<PersonalInformField, "first_name">
-    | ControllerRenderProps<PersonalInformField, "last_name">;
+    | ControllerRenderProps<PersonalInformField, "last_name">
+    | ControllerRenderProps<PersonalInformField, "city">
+    | ControllerRenderProps<PersonalInformField, "address">
+    | ControllerRenderProps<PersonalInformField, "bio">;
   typeOfPassword?: boolean;
   value?: string;
   disabled?: boolean;
