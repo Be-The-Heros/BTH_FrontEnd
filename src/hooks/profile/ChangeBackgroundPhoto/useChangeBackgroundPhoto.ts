@@ -8,7 +8,7 @@ export const useChangeBackgroundPhoto = () => {
     const formData = new FormData();
     formData.append("cover_image", photo);
 
-    return apis.post<ChangingBackgroundPhotoApiResponse>(
+    return apis.put<ChangingBackgroundPhotoApiResponse>(
       API_PROFILE,
       "/edit-background-cover-file",
       {

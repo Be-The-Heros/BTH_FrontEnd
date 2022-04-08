@@ -3,11 +3,12 @@ import { useMutation } from "react-query";
 import { API_PROFILE } from "../config";
 import { ProfileInfo } from "../model";
 
-interface GetProfileByUIDBody {
+interface GetProfileByUIDParam {
   uid: string;
 }
 export const useGetProfileInformByUID = () => {
-  return useMutation((body: GetProfileByUIDBody) =>
-    apis.post<ProfileInfo>(API_PROFILE, "/get-profile-by-id", { body })
-  );
+  return useMutation((params: GetProfileByUIDParam) => {
+    const { uid } = params;
+    return apis.get<ProfileInfo>(API_PROFILE, `/get-profile-by-id?uid=${uid}`);
+  });
 };

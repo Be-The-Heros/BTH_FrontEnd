@@ -8,6 +8,9 @@ interface ProfileInfo {
   status: ProfileInfoStatus;
   avatar: string;
   cover_image: string;
+  bio: string;
+  city: string;
+  address: string;
 }
 export enum ProfileInfoStatus {
   public = "public",

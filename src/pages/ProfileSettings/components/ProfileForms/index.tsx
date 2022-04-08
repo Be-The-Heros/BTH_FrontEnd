@@ -27,6 +27,9 @@ export interface ProfileFormsProps {
 export interface PersonalInformField {
   first_name: string;
   last_name: string;
+  city: string;
+  address: string;
+  bio: string;
 }
 
 const Error = styled.span`
@@ -114,22 +117,50 @@ const ProfileForms = (props: ProfileFormsProps) => {
             placeholder="Ex: Viet Nam"
             value={"Viet Nam"}
           />
-          <NewCustomInput
-            label="City"
-            placeholder="Ex: Da Nang"
-            value={"Da Nang"}
+          <Controller
+            name="city"
+            control={control}
+            rules={{ required: true }}
+            defaultValue={userInform?.city}
+            render={({ field }) => (
+              <NewCustomInput
+                field={field}
+                label="City"
+                placeholder="Ex: Da Nang"
+                value={userInform?.city}
+              />
+            )}
           />
-          <NewCustomInput
-            label="Address"
-            placeholder="Ex: K02/30 Nguyen The Loc"
-            value={"K02/30 Nguyen The Loc"}
+          {errors.city && <Error>City required</Error>}
+
+          <Controller
+            name="address"
+            control={control}
+            rules={{ required: true }}
+            defaultValue={userInform?.address}
+            render={({ field }) => (
+              <NewCustomInput
+                field={field}
+                label="Address"
+                placeholder="Ex: K02/30 Nguyen The Loc"
+                value={userInform?.address}
+              />
+            )}
           />
-          <NewCustomInput label="Bio" placeholder="Ex: YOLO" />
-          <NewCustomInput
-            label="Email"
-            placeholder="Ex: trungjaminle@gmail.com"
-            disabled={true}
-            value={user.email}
+          {errors.address && <Error>Address required</Error>}
+
+          <Controller
+            name="bio"
+            control={control}
+            defaultValue={userInform?.bio}
+            render={({ field }) => (
+              <NewCustomInput
+                field={field}
+                label="Bio"
+                placeholder="Ex: YOLO"
+                value={userInform?.bio}
+              />
+            )}
           />
         </UserInformContainer>
 
