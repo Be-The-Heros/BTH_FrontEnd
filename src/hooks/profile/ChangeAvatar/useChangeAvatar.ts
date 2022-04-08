@@ -8,7 +8,7 @@ export const useChangeAvatar = () => {
     const formData = new FormData();
     formData.append("avatar", photo);
 
-    return apis.post<ChangingAvatarApiResponse>(
+    return apis.put<ChangingAvatarApiResponse>(
       API_PROFILE,
       "/edit-avatar-file",
       {
