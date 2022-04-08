@@ -6,7 +6,7 @@ export const devUrl = {
   post: ' https://betheheros.tk/api/post',
   profile: 'https://betheheros.tk/v2/api/profile',
   image: 'https://betheheros.tk/api/image',
-  comment: 'http://localhost:5000/api/comment',
+  comment: 'https://betheheros.tk/v2/api/comment',
 };
 export const productionUrl = {
   kyc: '/api/kyc',
@@ -14,7 +14,7 @@ export const productionUrl = {
   auth: '/api/auth',
   otp: '/api/otp',
   post: '/api/post',
-  profile: 'v2/api/profile',
+  profile: '/v2/api/profile',
   image: '/api/image',
   comment: '/v2/api/comment',
 };
