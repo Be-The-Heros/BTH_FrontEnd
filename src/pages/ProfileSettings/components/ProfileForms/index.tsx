@@ -112,11 +112,11 @@ const ProfileForms = (props: ProfileFormsProps) => {
           />
           {errors.last_name && <Error>Last name required</Error>}
 
-          <NewCustomInput
+          {/*   <NewCustomInput
             label="Country"
             placeholder="Ex: Viet Nam"
             value={"Viet Nam"}
-          />
+          /> */}
           <Controller
             name="city"
             control={control}
