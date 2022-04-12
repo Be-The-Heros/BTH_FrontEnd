@@ -8,7 +8,7 @@ import { API_COMMENT } from "./config/index";
 import { QUERY_COMMENT } from "./constants";
 
 export const useLoadComment = (postId: number) => {
-  return useQuery([QUERY_COMMENT], () =>
+  return useQuery([QUERY_COMMENT+postId,postId ], () =>
     apis.get<CommentResponse[]>(
       API_COMMENT,
       `/get-list-comments-of-post?idPost=${postId}`
