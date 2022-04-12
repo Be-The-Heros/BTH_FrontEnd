@@ -10,13 +10,12 @@ import {
   getDistrict,
   getProvince,
 } from 'helpers';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Controller, useForm } from 'react-hook-form';
 import { FcFullTrash } from 'react-icons/fc';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
-import { IntroductionTitle } from './components';
 import { PreviewPost } from './components/PreviewPost';
 import Style from './style';
 import { AiOutlineSafety } from 'react-icons/ai';
@@ -25,6 +24,7 @@ import { useCreatePost } from 'hooks/post/create/useCreatePost';
 import upperFirst from 'lodash/upperFirst';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import IntroductionTitle from './components/IntroductionTitle';
 const { Option } = Select;
 const TIME_CHANGE_TEXT = 3000;
 interface FieldCreatePost {
@@ -170,6 +170,8 @@ const CreatePostPage = () => {
     });
   };
 
+  const [toggle, setToggle] = React.useState({title : '', size:0});
+ 
   return (
     <Style className='create-post-page'>
       <PreviewPost
@@ -204,7 +206,8 @@ const CreatePostPage = () => {
                     {...field}
                     placeholder='Enter Title'
                     onFocus={(e) => {
-                      console.log(e.target.height);
+                      const height = e.target.scrollHeight;
+                        setToggle({title : 'title', size:height});
                     }}
                   />
                 )}
@@ -226,6 +229,9 @@ const CreatePostPage = () => {
                     className='col-4'
                     style={{
                       paddingLeft: '0',
+                    }}
+                    onFocus = {()=>{
+                        setToggle({title : 'address', size:toggle.size})
                     }}
                     onChange={(province) => {
                       setResidence({ ...residence, province });
@@ -257,6 +263,9 @@ const CreatePostPage = () => {
                         paddingRight: '0',
                       }}
                       {...field}
+                      onFocus = {()=>{
+                            setToggle({title : 'address', size:toggle.size})
+                        }}
                       onChange={(district) => {
                         setResidence({ ...residence, district });
                         field.onChange(district);
@@ -287,6 +296,9 @@ const CreatePostPage = () => {
                     defaultValue={''}
                     style={{
                       paddingRight: '0',
+                    }}
+                    onFocus = {()=>{
+                        setToggle({title : 'address', size:toggle.size})
                     }}
                     onChange={(ward) => {
                       setResidence({ ...residence, ward });
@@ -322,6 +334,9 @@ const CreatePostPage = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
+                    onFocus = {()=>{
+                        setToggle({title : 'resident_address', size:toggle.size})
+                    }}
                     placeholder='Enter resident address'
                     onBlur={(e) => {
                       field.onChange(
@@ -347,13 +362,22 @@ const CreatePostPage = () => {
                 render={({ field }) => (
                   <TextArea
                     {...field}
+                    onFocus = {()=>{
+                        setToggle({...toggle,title : 'content'})
+                    }}
                     placeholder='Explain your post'
                     autoSize
+                    onChange={(e)=>{
+                      const height = e.target.scrollHeight ;
+                      
+                      
+                      setToggle({title:'content', size: height})
+                    }}
                   />
                 )}
               />
               {errors.content && (
-                <span className='waring-error'>Resident address required</span>
+                <span className='waring-error'>Content required</span>
               )}
             </div>
 
@@ -374,6 +398,9 @@ const CreatePostPage = () => {
                   <div className='w-50 position-relative'>
                     <Input
                       {...field}
+                      onFocus = {()=>{
+                        setToggle({...toggle, title:"chat"})
+                    }}
                       style={{
                         paddingRight: '3rem',
                       }}
@@ -396,7 +423,10 @@ const CreatePostPage = () => {
               )}
             </div>
 
-            <div className='form-input'>
+            <div className='form-input'
+            onFocus = {()=>{
+                setToggle({title : 'photo', size:toggle.size})
+            }}>
               <label>Upload Image</label>
               <input {...getInputProps()} />
               <div {...getRootProps({ className: 'dropzone' })}>
@@ -431,7 +461,8 @@ const CreatePostPage = () => {
             </div>
           </div>
           <div className='w-30 introduction'>
-            <IntroductionTitle />
+            <IntroductionTitle  {...toggle} />
+           
           </div>
         </div>
       </form>
