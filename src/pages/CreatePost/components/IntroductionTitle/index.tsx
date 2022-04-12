@@ -55,7 +55,8 @@ const IntroductionTitle = (toggle: Introduction) => {
     }
   return (
       <Style>
-          <div className='note'>{renderNote()}</div>
+          <div className='note'>
+              {renderNote()}</div>
       </Style>
   )
 };
