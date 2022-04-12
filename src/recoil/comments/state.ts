@@ -21,7 +21,7 @@ interface ISub {
 export const cmtPushSubState = atom<ISub>({
   key: "CMT_PUSH_SUB",
   default: {
-    type: "add" || "remove",
+    type: "add" || "remove" || "edit",
     postId: 0,
     content: "",
     comment_id: 0,
