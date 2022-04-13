@@ -369,8 +369,6 @@ const CreatePostPage = () => {
                     autoSize
                     onChange={(e)=>{
                       const height = e.target.scrollHeight ;
-                      
-                      
                       setToggle({title:'content', size: height})
                     }}
                   />
