@@ -7,6 +7,7 @@ export default styled.div`
     font-weight: bold;
     --distance: -2rem;
     .slide-right {
+      padding-bottom: 10px;
       width: 100%;
       overflow: hidden;
       /* margin-left: var(--distance); */
