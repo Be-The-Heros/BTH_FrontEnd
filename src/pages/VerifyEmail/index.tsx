@@ -46,7 +46,7 @@ export const VerifyEmailPage = () => {
     } else {
       // Render a countdown
       return (
-        <div className='d-flex align-items-center'>
+        <div className='d-flex align-items-center' onClick={()=>{}}>
           {`Send email in ${seconds} s`}
         </div>
       );
