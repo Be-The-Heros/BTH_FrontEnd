@@ -66,6 +66,7 @@ const CreatePostPage = () => {
     district: '',
     ward: '',
   });
+  const [toggle, setToggle] = React.useState({ title: '', size: 0 });
 
   // TODO: save in link photo image
   const { getRootProps, getInputProps } = useDropzone({
@@ -150,7 +151,7 @@ const CreatePostPage = () => {
   };
   // unmount
   React.useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks
+    //! Make sure to revoke the data uris to avoid memory leaks
     return () => {
       files.forEach((file) => URL.revokeObjectURL(file.preview));
       clearInterval(refInterval.current);
@@ -170,8 +171,7 @@ const CreatePostPage = () => {
     });
   };
 
-  const [toggle, setToggle] = React.useState({title : '', size:0});
- 
+  // TODO: Render component
   return (
     <Style className='create-post-page'>
       <PreviewPost
@@ -207,7 +207,7 @@ const CreatePostPage = () => {
                     placeholder='Enter Title'
                     onFocus={(e) => {
                       const height = e.target.scrollHeight;
-                        setToggle({title : 'title', size:height});
+                      setToggle({ title: 'title', size: height });
                     }}
                   />
                 )}
@@ -230,8 +230,8 @@ const CreatePostPage = () => {
                     style={{
                       paddingLeft: '0',
                     }}
-                    onFocus = {()=>{
-                        setToggle({title : 'address', size:toggle.size})
+                    onFocus={() => {
+                      setToggle({ title: 'address', size: toggle.size });
                     }}
                     onChange={(province) => {
                       setResidence({ ...residence, province });
@@ -263,9 +263,9 @@ const CreatePostPage = () => {
                         paddingRight: '0',
                       }}
                       {...field}
-                      onFocus = {()=>{
-                            setToggle({title : 'address', size:toggle.size})
-                        }}
+                      onFocus={() => {
+                        setToggle({ title: 'address', size: toggle.size });
+                      }}
                       onChange={(district) => {
                         setResidence({ ...residence, district });
                         field.onChange(district);
@@ -297,8 +297,8 @@ const CreatePostPage = () => {
                     style={{
                       paddingRight: '0',
                     }}
-                    onFocus = {()=>{
-                        setToggle({title : 'address', size:toggle.size})
+                    onFocus={() => {
+                      setToggle({ title: 'address', size: toggle.size });
                     }}
                     onChange={(ward) => {
                       setResidence({ ...residence, ward });
@@ -334,8 +334,11 @@ const CreatePostPage = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    onFocus = {()=>{
-                        setToggle({title : 'resident_address', size:toggle.size})
+                    onFocus={() => {
+                      setToggle({
+                        title: 'resident_address',
+                        size: toggle.size,
+                      });
                     }}
                     placeholder='Enter resident address'
                     onBlur={(e) => {
@@ -362,14 +365,15 @@ const CreatePostPage = () => {
                 render={({ field }) => (
                   <TextArea
                     {...field}
-                    onFocus = {()=>{
-                        setToggle({...toggle,title : 'content'})
+                    onFocus={() => {
+                      setToggle({ ...toggle, title: 'content' });
                     }}
                     placeholder='Explain your post'
                     autoSize
-                    onChange={(e)=>{
-                      const height = e.target.scrollHeight ;
-                      setToggle({title:'content', size: height})
+                    onChange={(e) => {
+                      const height = e.target.scrollHeight;
+                      setToggle({ title: 'content', size: height });
+                      field.onChange(e.target.value);
                     }}
                   />
                 )}
@@ -396,9 +400,9 @@ const CreatePostPage = () => {
                   <div className='w-50 position-relative'>
                     <Input
                       {...field}
-                      onFocus = {()=>{
-                        setToggle({...toggle, title:"chat"})
-                    }}
+                      onFocus={() => {
+                        setToggle({ ...toggle, title: 'chat' });
+                      }}
                       style={{
                         paddingRight: '3rem',
                       }}
@@ -421,10 +425,12 @@ const CreatePostPage = () => {
               )}
             </div>
 
-            <div className='form-input'
-            onFocus = {()=>{
-                setToggle({title : 'photo', size:toggle.size})
-            }}>
+            <div
+              className='form-input'
+              onFocus={() => {
+                setToggle({ title: 'photo', size: toggle.size });
+              }}
+            >
               <label>Upload Image</label>
               <input {...getInputProps()} />
               <div {...getRootProps({ className: 'dropzone' })}>
@@ -459,8 +465,7 @@ const CreatePostPage = () => {
             </div>
           </div>
           <div className='w-30 introduction'>
-            <IntroductionTitle  {...toggle} />
-           
+            <IntroductionTitle {...toggle} />
           </div>
         </div>
       </form>

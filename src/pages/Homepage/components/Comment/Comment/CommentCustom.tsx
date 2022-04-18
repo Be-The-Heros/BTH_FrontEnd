@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { Button, Comment, Popover, Row } from "antd";
-import { AvatarCustom } from "components/Avatar";
-import { AddComment } from "../AddComment";
-import { ChirldCmt } from "./ChildrenCmt";
-import { CommentResponse } from "..";
-import { BiDotsVerticalRounded } from "react-icons/bi";
-import { useRecoilValue } from "recoil";
-import { userState } from "recoil/users/state";
-import { Link } from "react-router-dom";
-import { useDeleteComment } from "hooks/comment";
+import React, { useState } from 'react';
+import { Button, Comment, Popover, Row } from 'antd';
+import { AvatarCustom } from 'components/Avatar';
+import { AddComment } from '../AddComment';
+import { ChirldCmt } from './ChildrenCmt';
+import { CommentResponse } from '..';
+import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/users/state';
+import { Link } from 'react-router-dom';
+import { useDeleteComment } from 'hooks/comment';
 
 interface CommentCustomProps {
   data: CommentResponse;
@@ -34,7 +34,7 @@ export const CommentCustom = (props: CommentCustomProps) => {
     return (
       <>
         {(commentReps || []).map((item, key) => {
-          const { profile, content,comment_id } = item;
+          const { profile, content, comment_id } = item;
           return (
             <ChirldCmt
               key={key}
@@ -44,11 +44,11 @@ export const CommentCustom = (props: CommentCustomProps) => {
                 showPopover: true,
                 srcAvatar: profile.avatar,
                 uid: profile.uid,
-                fullName: profile.first_name + " " + profile.last_name,
+                fullName: profile.first_name + ' ' + profile.last_name,
                 bio: profile.bio,
                 address: profile.address,
               }}
-              content={content || ""}
+              content={content || ''}
               isShowAddCmt={showAddCmt}
               onShowAddCmt={setShowAddCmt}
             />
@@ -61,44 +61,50 @@ export const CommentCustom = (props: CommentCustomProps) => {
   };
   return (
     <div
-      className="comment-custom"
+      className='comment-custom'
       onMouseOut={() => setShowOptionMessage(true)}
       onMouseLeave={() => setShowOptionMessage(false)}
     >
       <Comment
         actions={[
           <span
-            key="comment-nested-reply-to"
+            key='comment-nested-reply-to'
             onClick={() => setShowAddCmt(!showAddCmt)}
           >
-            Reply to
+            Reply
           </span>,
         ]}
         author={
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <Link
               to={`/profile/${uid}`}
-              style={{ textDecoration: "none", color: "black" }}
+              style={{
+                textDecoration: 'none',
+                color: '#1a3353',
+                fontWeight: 'bold',
+              }}
             >
-              {profile?.first_name || "" + profile?.last_name || ""}
+              {profile?.first_name || '' + profile?.last_name || ''}
             </Link>
 
             {uid === user.uid && (
               <div
-                style={{ visibility: showOptionMessage ? "unset" : "hidden" }}
+                style={{ visibility: showOptionMessage ? 'unset' : 'hidden' }}
               >
                 <Popover
-                  trigger={"click"}
+                  trigger={'click'}
                   content={() => {
                     return (
                       <div>
-                        <Button danger onClick={onDeleteCmt}>Delete</Button>
+                        <Button danger onClick={onDeleteCmt}>
+                          Delete
+                        </Button>
                       </div>
                     );
                   }}
@@ -114,7 +120,7 @@ export const CommentCustom = (props: CommentCustomProps) => {
             showPopover={true}
             srcAvatar={profile.avatar}
             uid={profile.uid}
-            fullName={profile.first_name + " " + profile.last_name}
+            fullName={profile.first_name + ' ' + profile.last_name}
             bio={profile.bio}
             address={profile.address}
             size={32}
@@ -123,9 +129,10 @@ export const CommentCustom = (props: CommentCustomProps) => {
         content={
           <p
             style={{
-              background: "#F0F2F5",
-              borderRadius: "10px",
-              padding: "3px",
+              background: '#F0F2F5',
+              borderRadius: '10px',
+              padding: '0.5rem',
+              color: '#000',
             }}
           >
             {content}
