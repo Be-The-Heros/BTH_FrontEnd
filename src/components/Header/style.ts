@@ -9,7 +9,6 @@ export default styled.div`
   z-index: 999;
   .header {
     &__logo {
-      width: 8em;
       height: 3.25em;
     }
     &__search {
