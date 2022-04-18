@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
-import { setLocalStorage } from 'helpers/setTitleDocument';
+import ErrorBoundary from 'antd/lib/alert/ErrorBoundary';
 const queryClient = new QueryClient();
 
 // const json = require('./data/user.json');
@@ -17,7 +17,9 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </RecoilRoot>
     </QueryClientProvider>
   </React.StrictMode>,

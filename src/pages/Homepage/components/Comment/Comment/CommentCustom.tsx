@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { CommentResponse } from "..";
-import { AddComment } from "../AddComment";
-import { ChirldCmt } from "./ChildrenCmt";
+import { useState } from 'react';
+import { CommentResponse } from '..';
+import { AddComment } from '../AddComment';
+import { ChirldCmt } from './ChildrenCmt';
 
 interface CommentCustomProps {
   data: CommentResponse;
@@ -26,18 +26,25 @@ export const CommentCustom = (props: CommentCustomProps) => {
                 showPopover: true,
                 srcAvatar: profile.avatar,
                 uid: profile.uid,
-                fullName: profile.first_name + " " + profile.last_name,
+                fullName: profile.first_name + ' ' + profile.last_name,
                 bio: profile.bio,
                 address: profile.address,
               }}
-              content={content || ""}
+              content={content || ''}
               isShowAddCmt={showAddCmt}
               onShowAddCmt={setShowAddCmt}
             />
           );
         })}
 
-        {showAddCmt && <AddComment post_id={+post_id} rep={comment_id} isShowAvatar type="create"  />}
+        {showAddCmt && (
+          <AddComment
+            post_id={+post_id}
+            rep={comment_id}
+            isShowAvatar
+            type='create'
+          />
+        )}
       </>
     );
   };
@@ -49,11 +56,11 @@ export const CommentCustom = (props: CommentCustomProps) => {
         showPopover: true,
         srcAvatar: profile.avatar,
         uid: profile.uid,
-        fullName: profile.first_name + " " + profile.last_name,
+        fullName: profile.first_name + ' ' + profile.last_name,
         bio: profile.bio,
         address: profile.address,
       }}
-      content={content || ""}
+      content={content || ''}
       isShowAddCmt={showAddCmt}
       onShowAddCmt={setShowAddCmt}
       chirld={listChildren()}

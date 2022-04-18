@@ -19,7 +19,7 @@ import { useGenerateURLImage } from 'hooks/image/useCreateImageURL';
 import { useQueryPostDetail } from 'hooks/post/detail/useDetailPost';
 import { useEditPost } from 'hooks/post/edit/useEditPost';
 import { upperFirst } from 'lodash';
-import { IntroductionTitle } from 'pages/CreatePost/components';
+import IntroductionTitle from 'pages/CreatePost/components/IntroductionTitle';
 import { PreviewPost } from 'pages/CreatePost/components/PreviewPost';
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -219,6 +219,8 @@ export const EditPostPage = () => {
     });
   };
 
+  const [toggle, setToggle]= React.useState({title:'', size:0});
+  
   return (
     <Style className='create-post-page'>
       <PreviewPost
@@ -252,9 +254,11 @@ export const EditPostPage = () => {
                   render={({ field }) => (
                     <Input
                       {...field}
+                      
                       placeholder='Enter Title'
                       onFocus={(e) => {
-                        console.log(e.target.height);
+                        console.log(e.target.height); 
+                        setToggle({title : 'title', size:0})
                       }}
                     />
                   )}
@@ -277,6 +281,9 @@ export const EditPostPage = () => {
                         paddingLeft: '0',
                       }}
                       value={residence.province}
+                      onFocus = {()=>{
+                        setToggle({title : 'address', size:0})
+                    }}
                       onChange={(province) => {
                         setResidence({ ...residence, province });
                         field.onChange(province);
@@ -302,6 +309,9 @@ export const EditPostPage = () => {
                     <React.Fragment>
                       <Select
                         {...field}
+                        onFocus = {()=>{
+                            setToggle({title : 'address', size:0})
+                        }}
                         className='col-4'
                         style={{
                           paddingRight: '0',
@@ -328,9 +338,13 @@ export const EditPostPage = () => {
                   name='id_ward'
                   control={control}
                   defaultValue={residence.ward}
+                  
                   render={({ field }) => (
                     <Select
                       {...field}
+                      onFocus = {()=>{
+                          setToggle({title : 'address', size:0})
+                      }}
                       className='col-4'
                       style={{
                         paddingRight: '0',
@@ -371,6 +385,9 @@ export const EditPostPage = () => {
                   render={({ field }) => (
                     <Input
                       {...field}
+                      onFocus = {()=>{
+                          setToggle({title : 'resident_address', size:0})
+                      }}
                       placeholder='Enter resident address'
                       onBlur={(e) => {
                         field.onChange(
@@ -399,6 +416,13 @@ export const EditPostPage = () => {
                   render={({ field }) => (
                     <TextArea
                       {...field}
+                      onFocus = {(e)=>{
+                          setToggle({title : 'content', size:toggle.size})
+                      }}
+                      onChange = {(e)=>{
+                        const height = e.target.scrollHeight;
+                        setToggle({title : 'content', size:height})
+                      }}
                       placeholder='Explain your post'
                       autoSize
                     />
@@ -429,6 +453,9 @@ export const EditPostPage = () => {
                     <div className='w-50 position-relative'>
                       <Input
                         {...field}
+                        onFocus = {()=>{
+                            setToggle({title : 'chat',size: toggle.size})
+                        }}
                         style={{
                           paddingRight: '3rem',
                         }}
@@ -451,7 +478,10 @@ export const EditPostPage = () => {
                 )}
               </div>
 
-              <div className='form-input'>
+              <div className='form-input'
+                  onFocus = {()=>{
+                    setToggle({title : 'photo', size: toggle.size})
+                }}>
                 <label>Upload Image</label>
                 <input {...getInputProps()} />
                 <div {...getRootProps({ className: 'dropzone' })}>
@@ -488,7 +518,7 @@ export const EditPostPage = () => {
               </div>
             </div>
             <div className='w-30 introduction'>
-              <IntroductionTitle />
+              <IntroductionTitle {...toggle}/>
             </div>
           </div>
         </form>

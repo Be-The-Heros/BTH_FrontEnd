@@ -6,6 +6,7 @@ export default styled.div`
     font-size: 1rem;
     font-weight: bold;
     --distance: -2rem;
+    padding-bottom: 0.25rem;
     .slide-right {
       width: 100%;
       overflow: hidden;
