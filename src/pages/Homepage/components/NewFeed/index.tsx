@@ -32,7 +32,9 @@ export const NewFeed = (props: NewFeedProps) => {
   const { handleDeletePost } = props;
   const [isBtnJoinClick, setIsBtnJoinClick] = React.useState(false);
   const deletePost = useDeletePost();
-  const url_detail = `https://betheheros.tk/post/detail/${props.post_id}`;
+  const url_detail = `/post/detail/${props.post_id}`;
+
+  const SIZE_CONTENT = 300;
   const handleClickDelete = () => {
     deletePost.mutate({
       post_id: props.post_id,
@@ -166,25 +168,28 @@ export const NewFeed = (props: NewFeedProps) => {
     </Menu>
   );
 
-  const { photos } = props;
   const renderPhotos = () => {
+    const { photos } = props;
+
     if (!photos || photos.length === 0) return null;
     return photos.map((photo, index) => {
       const isFinalImage = index + 1 === PHOTO_DISPLAY;
       const hiddenClassName = clsx([
         { 'd-none': index + 1 > PHOTO_DISPLAY },
         'w-50 position-relative d-flex justify-content-center',
-        { 'w-100': (photos.length === 3 && index == 2) || photos.length === 1 },
+        {
+          'w-100': (photos.length === 3 && index === 2) || photos.length === 1,
+        },
       ]);
       return (
-        <div
-          className={hiddenClassName}
-          key={index}
-          // style={{
-          //   border: photos.length > 1 ? '1px solid var(--border)' : 'none',
-          // }}
-        >
-          <Image src={photo} alt='post' />
+        <div className={hiddenClassName} key={index}>
+          <Image
+            src={photo}
+            alt='post'
+            style={{
+              border: photos.length > 1 ? '2.25px solid var(--border)' : 'none',
+            }}
+          />
           {PHOTO_DISPLAY != photos.length && isFinalImage && (
             <div
               className='position-absolute d-flex justify-content-center align-items-center'
@@ -269,8 +274,6 @@ export const NewFeed = (props: NewFeedProps) => {
                 Join
               </Button>
             )}
-
-            {/* <p>{props.joined} people</p> */}
           </div>
         </div>
         <div className='Newfeed_body'>
@@ -294,7 +297,7 @@ export const NewFeed = (props: NewFeedProps) => {
             <span className={`Newfeed_body_content_comment ${tagName}`}>
               {props.content}
             </span>
-            {props.content.length < 203 ? (
+            {props.content.length < SIZE_CONTENT ? (
               ''
             ) : (
               <button
