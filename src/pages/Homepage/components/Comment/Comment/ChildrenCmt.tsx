@@ -76,7 +76,7 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
               style={{
                 textDecoration: 'none',
                 color: '#1a3353',
-                fontWeight: 'bold',
+                fontWeight: '500',
               }}
             >
               {fullName}
@@ -142,7 +142,8 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
               style={{
                 background: '#F0F2F5',
                 borderRadius: '10px',
-                padding: '3px',
+                padding: '0.25rem 1rem',
+                color: '#000',
               }}
             >
               {content}
