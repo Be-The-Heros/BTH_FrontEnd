@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactChild, useState } from 'react';
 import { Button, Comment, Popover } from 'antd';
 import { AvatarCustom, AvatarCustomProps } from 'components/Avatar';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
 import { Link } from 'react-router-dom';
 import { useDeleteComment } from 'hooks/comment';
+import { AddComment } from '../AddComment';
 
 interface ChirldCmtProps {
   onShowAddCmt: (value: boolean) => void;
@@ -14,13 +15,24 @@ interface ChirldCmtProps {
   comment_id: number;
   post_id: number;
   avatar: AvatarCustomProps;
+  repId?: number;
+  chirld?: ReactChild;
 }
 
 export const ChirldCmt = (props: ChirldCmtProps) => {
-  const { onShowAddCmt, isShowAddCmt, content, avatar, comment_id, post_id } =
-    props;
+  const {
+    onShowAddCmt,
+    isShowAddCmt,
+    content,
+    avatar,
+    comment_id,
+    post_id,
+    chirld,
+    repId,
+  } = props;
   const { srcAvatar, uid, fullName, bio, address } = avatar;
   const [showOptionMessage, setShowOptionMessage] = useState(false);
+  const [isEditCmt, setIsEditCmt] = useState(false);
   const user = useRecoilValue(userState);
 
   const { mutate, isLoading } = useDeleteComment();
@@ -32,8 +44,13 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
     });
   };
 
+  const onEditCmt = () => {
+    setIsEditCmt(!isEditCmt);
+  };
+
   return (
     <div
+      className='comment-custom'
       onMouseOut={() => setShowOptionMessage(true)}
       onMouseLeave={() => setShowOptionMessage(false)}
     >
@@ -77,6 +94,17 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
                         <Button danger onClick={onDeleteCmt}>
                           Delete
                         </Button>
+                        <Button
+                          size='small'
+                          style={{
+                            marginLeft: '5px',
+                            borderColor: 'var(--bs-warning)',
+                            color: 'var(--bs-warning)',
+                          }}
+                          onClick={onEditCmt}
+                        >
+                          Edit
+                        </Button>
                       </div>
                     );
                   }}
@@ -99,18 +127,30 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
           />
         }
         content={
-          <p
-            style={{
-              background: '#F0F2F5',
-              borderRadius: '10px',
-              padding: '0.5rem',
-              color: '#000',
-            }}
-          >
-            {content}
-          </p>
+          isEditCmt ? (
+            <AddComment
+              post_id={post_id}
+              contentValue={content}
+              isShowAvatar={false}
+              type='edit'
+              commentId={comment_id}
+              rep={repId}
+              setIsEditCmt={setIsEditCmt}
+            />
+          ) : (
+            <p
+              style={{
+                background: '#F0F2F5',
+                borderRadius: '10px',
+                padding: '3px',
+              }}
+            >
+              {content}
+            </p>
+          )
         }
-      ></Comment>
+        children={chirld && chirld}
+      />
     </div>
   );
 };

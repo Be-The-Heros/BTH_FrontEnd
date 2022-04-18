@@ -1,14 +1,7 @@
-import React, { useState } from 'react';
-import { Button, Comment, Popover, Row } from 'antd';
-import { AvatarCustom } from 'components/Avatar';
+import { useState } from 'react';
+import { CommentResponse } from '..';
 import { AddComment } from '../AddComment';
 import { ChirldCmt } from './ChildrenCmt';
-import { CommentResponse } from '..';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
-import { useRecoilValue } from 'recoil';
-import { userState } from 'recoil/users/state';
-import { Link } from 'react-router-dom';
-import { useDeleteComment } from 'hooks/comment';
 
 interface CommentCustomProps {
   data: CommentResponse;
@@ -16,19 +9,8 @@ interface CommentCustomProps {
 
 export const CommentCustom = (props: CommentCustomProps) => {
   const { data } = props;
-  const { profile, content, commentReps, post_id, comment_id, uid } = data;
+  const { profile, content, commentReps, post_id, comment_id } = data;
   const [showAddCmt, setShowAddCmt] = useState(false);
-  const [showOptionMessage, setShowOptionMessage] = useState(false);
-  const user = useRecoilValue(userState);
-
-  const { mutate, isLoading } = useDeleteComment();
-
-  const onDeleteCmt = () => {
-    mutate({
-      comment_id,
-      post_id,
-    });
-  };
 
   const listChildren = () => {
     return (
@@ -55,91 +37,33 @@ export const CommentCustom = (props: CommentCustomProps) => {
           );
         })}
 
-        {showAddCmt && <AddComment post_id={+post_id} rep={comment_id} />}
+        {showAddCmt && (
+          <AddComment
+            post_id={+post_id}
+            rep={comment_id}
+            isShowAvatar
+            type='create'
+          />
+        )}
       </>
     );
   };
   return (
-    <div
-      className='comment-custom'
-      onMouseOut={() => setShowOptionMessage(true)}
-      onMouseLeave={() => setShowOptionMessage(false)}
-    >
-      <Comment
-        actions={[
-          <span
-            key='comment-nested-reply-to'
-            onClick={() => setShowAddCmt(!showAddCmt)}
-          >
-            Reply
-          </span>,
-        ]}
-        author={
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Link
-              to={`/profile/${uid}`}
-              style={{
-                textDecoration: 'none',
-                color: '#1a3353',
-                fontWeight: 'bold',
-              }}
-            >
-              {profile?.first_name || '' + profile?.last_name || ''}
-            </Link>
-
-            {uid === user.uid && (
-              <div
-                style={{ visibility: showOptionMessage ? 'unset' : 'hidden' }}
-              >
-                <Popover
-                  trigger={'click'}
-                  content={() => {
-                    return (
-                      <div>
-                        <Button danger onClick={onDeleteCmt}>
-                          Delete
-                        </Button>
-                      </div>
-                    );
-                  }}
-                >
-                  <BiDotsVerticalRounded />
-                </Popover>
-              </div>
-            )}
-          </div>
-        }
-        avatar={
-          <AvatarCustom
-            showPopover={true}
-            srcAvatar={profile.avatar}
-            uid={profile.uid}
-            fullName={profile.first_name + ' ' + profile.last_name}
-            bio={profile.bio}
-            address={profile.address}
-            size={32}
-          />
-        }
-        content={
-          <p
-            style={{
-              background: '#F0F2F5',
-              borderRadius: '10px',
-              padding: '0.5rem',
-              color: '#000',
-            }}
-          >
-            {content}
-          </p>
-        }
-        children={listChildren()}
-      />
-    </div>
+    <ChirldCmt
+      post_id={post_id}
+      comment_id={comment_id}
+      avatar={{
+        showPopover: true,
+        srcAvatar: profile.avatar,
+        uid: profile.uid,
+        fullName: profile.first_name + ' ' + profile.last_name,
+        bio: profile.bio,
+        address: profile.address,
+      }}
+      content={content || ''}
+      isShowAddCmt={showAddCmt}
+      onShowAddCmt={setShowAddCmt}
+      chirld={listChildren()}
+    />
   );
 };
