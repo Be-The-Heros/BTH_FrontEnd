@@ -184,7 +184,7 @@ export const EditPostPage = () => {
     });
   };
 
-  // unmount
+  // ?unmount
   React.useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks
     return () => {
@@ -193,6 +193,7 @@ export const EditPostPage = () => {
     };
   }, []);
 
+  // TODO: Handle form when submit
   const onSubmit = async (data: FieldCreatePost) => {
     const province = getProvince(data.id_province);
     const ward = getCommune(data.id_ward);
@@ -200,6 +201,8 @@ export const EditPostPage = () => {
 
     const newPhotos = files.filter((file) => file.size);
     let convertUrl: string[] = [];
+
+    // TODO: convert file to url (new photos)
     if (newPhotos.length) {
       convertUrl = await (await createUrlMutation.mutateAsync(newPhotos)).urls;
     }

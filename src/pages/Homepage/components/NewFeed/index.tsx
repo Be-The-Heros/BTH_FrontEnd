@@ -16,6 +16,7 @@ import {
   FacebookShareButton,
   LinkedinShareButton,
   TwitterShareButton,
+  FacebookMessengerShareButton,
 } from 'react-share';
 import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
@@ -138,11 +139,7 @@ export const NewFeed = (props: NewFeedProps) => {
           />
         }
         className='d-flex  align-items-center'
-      >
-        <LinkedinShareButton url={url_detail}>
-          Share with Linkedin
-        </LinkedinShareButton>
-      </Menu.Item>
+      ></Menu.Item>
       <Menu.Item
         key='2'
         icon={
