@@ -63,13 +63,14 @@ export const BoxComment = (props: BoxCommentProps) => {
             };
             if (subComment.rep) {
               const index = newData.findIndex(
-                (item) => item.comment_id === subComment.rep && item.commentReps
+                (item) => item.comment_id === subComment.rep
               );
-              index !== -1 &&
-                (newData[index].commentReps = [
+
+              if (index !== -1)
+                newData[index].commentReps = [
                   ...(newData[index].commentReps || []),
                   newComment,
-                ]);
+                ];
             } else {
               newData.push(newComment);
             }
@@ -79,8 +80,6 @@ export const BoxComment = (props: BoxCommentProps) => {
           break;
         case 'remove':
           {
-            console.log('ahihi remove ', subComment);
-
             const newData = [...dataListComment];
 
             if (subComment.rep) {
@@ -158,8 +157,6 @@ export const BoxComment = (props: BoxCommentProps) => {
       setDataListComment(data);
     }
   }, [isLoading, error, data]);
-  console.log(dataListComment);
-
   return (
     <div>
       {isLoading ? (
