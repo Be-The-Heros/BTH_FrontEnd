@@ -11,5 +11,11 @@ export default styled.div`
       text-decoration: none;
       color: var(--black);
     }
+    .div_left_side_bar:hover{
+      box-shadow: 3px 3px 4px 2px #e0e0e0;
+      border-radius: 8px;
+    		-moz-border-radius: 8px;
+    		-webkit-border-radius: 8px;
+    }
   }
 `;
