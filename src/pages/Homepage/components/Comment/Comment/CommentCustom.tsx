@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { LIMIT_COMMENT } from 'constants/show';
+import React, { useState } from 'react';
 import { CommentResponse } from '..';
 import { AddComment } from '../AddComment';
-import { ChirldCmt } from './ChildrenCmt';
-
+import { ChildrenCmt as ChildCmt } from './ChildrenCmt';
+import { BsReply } from 'react-icons/bs';
+import { toNumber } from 'lodash';
 interface CommentCustomProps {
   data: CommentResponse;
 }
@@ -11,31 +13,64 @@ export const CommentCustom = (props: CommentCustomProps) => {
   const { data } = props;
   const { profile, content, commentReps, post_id, comment_id } = data;
   const [showAddCmt, setShowAddCmt] = useState(false);
+  const [isShowMoreBtn, setIsShowMore] = useState(true);
+
+  React.useEffect(() => {
+    if (commentReps && commentReps.length < LIMIT_COMMENT) {
+      setIsShowMore(false);
+    }
+  }, []);
+
+  const startIndex =
+    isShowMoreBtn && toNumber(commentReps?.length) > LIMIT_COMMENT
+      ? toNumber(commentReps?.length) - LIMIT_COMMENT
+      : 0;
 
   const listChildren = () => {
     return (
-      <>
-        {(commentReps || []).map((item, key) => {
-          const { profile, content, comment_id } = item;
-          return (
-            <ChirldCmt
-              key={key}
-              post_id={post_id}
-              comment_id={comment_id}
-              avatar={{
-                showPopover: true,
-                srcAvatar: profile.avatar,
-                uid: profile.uid,
-                fullName: profile.first_name + ' ' + profile.last_name,
-                bio: profile.bio,
-                address: profile.address,
-              }}
-              content={content || ''}
-              isShowAddCmt={showAddCmt}
-              onShowAddCmt={setShowAddCmt}
-            />
-          );
-        })}
+      <React.Fragment>
+        {isShowMoreBtn && commentReps && commentReps.length > LIMIT_COMMENT && (
+          <div
+            className='comment-more'
+            onClick={() => setIsShowMore(false)}
+            style={{
+              cursor: 'pointer',
+            }}
+          >
+            See all replies comments
+          </div>
+        )}
+        {(commentReps || [])
+          .sort(
+            (prev, next) =>
+              new Date(prev.created_at || '').getTime() -
+              new Date(next.created_at || '').getTime()
+          )
+          .slice(startIndex, commentReps?.length)
+
+          .map((item, key) => {
+            const { profile, content, comment_id } = item;
+            return (
+              <ChildCmt
+                key={key}
+                post_id={post_id}
+                comment_id={comment_id}
+                total={commentReps?.length || 0}
+                isChild={true}
+                avatar={{
+                  showPopover: true,
+                  srcAvatar: profile.avatar,
+                  uid: profile.uid,
+                  fullName: profile.first_name + ' ' + profile.last_name,
+                  bio: profile.bio,
+                  address: profile.address,
+                }}
+                content={content || ''}
+                isShowAddCmt={showAddCmt}
+                onShowAddCmt={setShowAddCmt}
+              />
+            );
+          })}
 
         {showAddCmt && (
           <AddComment
@@ -43,15 +78,17 @@ export const CommentCustom = (props: CommentCustomProps) => {
             rep={comment_id}
             isShowAvatar
             type='create'
+            defaultValue={profile.first_name + ' ' + profile.last_name}
           />
         )}
-      </>
+      </React.Fragment>
     );
   };
   return (
-    <ChirldCmt
+    <ChildCmt
       post_id={post_id}
       comment_id={comment_id}
+      total={commentReps?.length || 0}
       avatar={{
         showPopover: true,
         srcAvatar: profile.avatar,
@@ -63,7 +100,7 @@ export const CommentCustom = (props: CommentCustomProps) => {
       content={content || ''}
       isShowAddCmt={showAddCmt}
       onShowAddCmt={setShowAddCmt}
-      chirld={listChildren()}
+      child={listChildren()}
     />
   );
 };
