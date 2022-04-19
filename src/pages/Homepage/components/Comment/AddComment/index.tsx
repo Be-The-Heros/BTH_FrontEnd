@@ -1,20 +1,41 @@
-import { Button, Comment, Form, Input } from 'antd';
+import { Button, Comment, Form, Input, Tooltip } from 'antd';
 import { AvatarCustom } from 'components/Avatar';
-import { useCreateComment } from 'hooks/comment';
+import { useCreateComment, useEditComment } from 'hooks/comment';
 import React, { useEffect, useState } from 'react';
+import { AiOutlineCamera } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
 import { cmtPushSubState } from 'recoil/comments/state';
 import { userState } from 'recoil/users/state';
 
 const { TextArea } = Input;
 
-export const AddComment = (props: Omit<createCmtProps, 'content'>) => {
-  const { post_id: postId, rep } = props;
+interface IAddComment {
+  post_id: number;
+  rep?: number;
+  commentId?: number;
+  contentValue?: string;
+  type: 'edit' | 'create';
+  isShowAvatar: boolean;
+  setIsEditCmt?: (value: boolean) => void;
+}
+
+export const AddComment = (props: IAddComment) => {
+  const {
+    post_id: postId,
+    rep,
+    contentValue,
+    isShowAvatar,
+    type,
+    commentId,
+    setIsEditCmt,
+  } = props;
   const infoUser = useRecoilValue(userState);
   const [content, setContent] = useState('');
   const subComment = useRecoilValue(cmtPushSubState);
 
   const { mutate, isLoading } = useCreateComment();
+
+  const { mutate: mutateEdit, isLoading: isLoadingEdit } = useEditComment();
 
   useEffect(() => {
     if (subComment.uid) {
@@ -22,17 +43,35 @@ export const AddComment = (props: Omit<createCmtProps, 'content'>) => {
     }
   }, [subComment]);
 
+  useEffect(() => {
+    if (contentValue) {
+      setContent(contentValue);
+    }
+  }, [contentValue, commentId]);
+
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
   const onCreateComment = () => {
-    if (content.length > 0) {
-      mutate({
-        content,
-        post_id: postId,
-        rep,
-      });
+    if (type === 'create') {
+      if (content.length > 0) {
+        mutate({
+          content,
+          post_id: postId,
+          rep,
+        });
+      }
+    } else {
+      if (commentId) {
+        mutateEdit({
+          comment_id: commentId,
+          content,
+          post_id: postId,
+        });
+      }
+      setIsEditCmt && setIsEditCmt(false);
+      console.log(contentValue, commentId, postId);
     }
   };
 
@@ -40,23 +79,51 @@ export const AddComment = (props: Omit<createCmtProps, 'content'>) => {
     <div>
       {infoUser.uid && (
         <Comment
-          style={{ padding: '10px 0' }}
+          style={{ padding: '10px 0', paddingBottom: 0 }}
           avatar={
-            <AvatarCustom
-              showPopover={false}
-              srcAvatar={infoUser.avatar || ''}
-              uid={infoUser.uid}
-              size={32}
-              fullName={infoUser.first_name + ' ' + infoUser.last_name}
-            />
+            isShowAvatar && (
+              <AvatarCustom
+                showPopover={false}
+                srcAvatar={infoUser.avatar || ''}
+                uid={infoUser.uid}
+                size={32}
+                fullName={infoUser.first_name + ' ' + infoUser.last_name}
+              />
+            )
           }
           content={
             <React.Fragment>
               <Form.Item style={{ marginBottom: '5px' }}>
                 <TextArea
+                  style={{ position: 'relative' }}
                   onChange={(e) => onChangeContent(e)}
                   value={content}
+                  autoSize
                 />
+
+                {type === 'create' && (
+                  <Tooltip title='Choose imge'>
+                    <>
+                      <label
+                        htmlFor='file-upload'
+                        style={{
+                          position: 'absolute',
+                          bottom: '10px',
+                          right: '10px',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <AiOutlineCamera size={20} />
+                      </label>
+                      <input
+                        accept='image/png, image/jpeg'
+                        id='file-upload'
+                        style={{ display: 'none' }}
+                        type='file'
+                      />
+                    </>
+                  </Tooltip>
+                )}
               </Form.Item>
               <Form.Item style={{ marginBottom: '5px' }}>
                 <Button
@@ -66,7 +133,7 @@ export const AddComment = (props: Omit<createCmtProps, 'content'>) => {
                   htmlType='submit'
                   type='primary'
                 >
-                  Comment
+                  {type === 'create' ? 'Comment' : 'Edit'}
                 </Button>
               </Form.Item>
             </React.Fragment>

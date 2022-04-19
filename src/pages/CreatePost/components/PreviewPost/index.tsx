@@ -1,5 +1,6 @@
 import { Button, Modal } from 'antd';
 import clsx from 'clsx';
+import { AvatarCustom } from 'components/Avatar';
 import { PHOTO_DISPLAY } from 'constants/devices';
 import Style from 'pages/Homepage/components/NewFeed/style';
 import React from 'react';
@@ -70,7 +71,15 @@ export const PreviewPost = React.memo((props: PreviewPostProps) => {
       >
         <div className='Newfeed_head'>
           <div className='Newfeed_head_info'>
-            <img src={props.avatar} alt='avatar'></img>
+            <AvatarCustom
+              showPopover={true}
+              size={64}
+              bio='bio nè  fake chưa loading from db'
+              uid='1'
+              fullName='Nguyễn Văn A'
+              address='Ha Noi address nè  fake chưa loading from db'
+              srcAvatar={props.avatar || ''}
+            />
             <div className='Newfeed_head_info_detail'>
               <h6>{props.fullname}</h6>
               <p
@@ -83,17 +92,17 @@ export const PreviewPost = React.memo((props: PreviewPostProps) => {
             </div>
           </div>
           <div className='Newfeed_head_join'>
-            <Button className='Newfeed_head_join_button' type='ghost'>
-              Join
-            </Button>
-            <p>{props.joined} people</p>
+            {props.join_url && (
+              <Button className='Newfeed_head_join_button' type='ghost'>
+                Join
+              </Button>
+            )}
           </div>
         </div>
         <div className='Newfeed_body'>
           <h3>{props.title}</h3>
 
           <div className='Newfeed_body_title'>
-            <FcBookmark style={{ fontSize: '2.25rem' }} />
             <p>
               Address:{' '}
               {[
