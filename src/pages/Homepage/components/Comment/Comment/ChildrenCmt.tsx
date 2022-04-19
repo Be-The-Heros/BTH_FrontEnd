@@ -1,12 +1,13 @@
-import React, { ReactChild, useState } from 'react';
 import { Button, Comment, Popover } from 'antd';
 import { AvatarCustom, AvatarCustomProps } from 'components/Avatar';
+import { useDeleteComment } from 'hooks/comment';
+import React, { ReactChild, useState } from 'react';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
-import { Link } from 'react-router-dom';
-import { useDeleteComment } from 'hooks/comment';
 import { AddComment } from '../AddComment';
+import { ImReply } from 'react-icons/im';
 
 interface ChirldCmtProps {
   onShowAddCmt: (value: boolean) => void;
@@ -16,10 +17,12 @@ interface ChirldCmtProps {
   post_id: number;
   avatar: AvatarCustomProps;
   repId?: number;
-  chirld?: ReactChild;
+  child?: ReactChild;
+  total: number;
+  isChild?: boolean;
 }
 
-export const ChirldCmt = (props: ChirldCmtProps) => {
+export const ChildrenCmt = (props: ChirldCmtProps) => {
   const {
     onShowAddCmt,
     isShowAddCmt,
@@ -27,8 +30,10 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
     avatar,
     comment_id,
     post_id,
-    chirld,
+    child,
     repId,
+    total,
+    isChild,
   } = props;
   const { srcAvatar, uid, fullName, bio, address } = avatar;
   const [showOptionMessage, setShowOptionMessage] = useState(false);
@@ -36,7 +41,6 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
   const user = useRecoilValue(userState);
 
   const { mutate, isLoading } = useDeleteComment();
-
   const onDeleteCmt = () => {
     mutate({
       comment_id,
@@ -56,12 +60,21 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
     >
       <Comment
         actions={[
-          <span
-            key='comment-nested-reply-to'
+          <div
+            key='comment-nested-reply-to d-flex align-items-center justify-content-center'
             onClick={() => onShowAddCmt(!isShowAddCmt)}
+            style={{
+              cursor: 'pointer',
+            }}
           >
-            Reply
-          </span>,
+            <ImReply
+              style={{
+                transform: 'scale(-1,1)',
+                marginRight: '5px',
+              }}
+            />
+            {`${isChild || !total ? `Reply` : total + ' replies'} `}
+          </div>,
         ]}
         author={
           <div
@@ -138,19 +151,19 @@ export const ChirldCmt = (props: ChirldCmtProps) => {
               setIsEditCmt={setIsEditCmt}
             />
           ) : (
-            <p
+            <div
               style={{
                 background: '#F0F2F5',
                 borderRadius: '10px',
-                padding: '0.25rem 1rem',
+                padding: '0.35rem',
                 color: '#000',
               }}
             >
               {content}
-            </p>
+            </div>
           )
         }
-        children={chirld && chirld}
+        children={child}
       />
     </div>
   );

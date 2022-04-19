@@ -1,10 +1,10 @@
-import { Skeleton } from "antd";
-import { useLoadComment } from "hooks/comment";
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { cmtPushSubState } from "recoil/comments/state";
-import { AddComment } from "./AddComment";
-import { CommentCustoms } from "./Comment";
+import { Skeleton } from 'antd';
+import { useLoadComment } from 'hooks/comment';
+import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { cmtPushSubState } from 'recoil/comments/state';
+import { AddComment } from './AddComment';
+import CommentCustoms from './Comment';
 
 interface BoxCommentProps {
   postId: number;
@@ -27,13 +27,11 @@ export interface CommentResponse {
   img?: string;
   comment_id: number;
   uid: string;
-  created_at?: Date;
-  updated_at?: Date;
+  created_at?: string;
+  updated_at?: string;
   profile: ProfileCustom;
   commentReps?: CommentResponse[];
 }
-
-//... [{key:121}]
 
 export const BoxComment = (props: BoxCommentProps) => {
   const { postId } = props;
@@ -49,11 +47,9 @@ export const BoxComment = (props: BoxCommentProps) => {
       subComment.postId &&
       subComment.postId === postId
     ) {
-
-      console.log('subComment.type',subComment.type);
-      
+      // console.log('subComment.type', subComment.type);
       switch (subComment.type) {
-        case "add":
+        case 'add':
           {
             const newData = [...dataListComment];
             const newComment = {
@@ -63,6 +59,7 @@ export const BoxComment = (props: BoxCommentProps) => {
               uid: subComment.uid,
               profile: subComment.profile,
               post_id: subComment.postId,
+              created_at: subComment.created_at,
             };
             if (subComment.rep) {
               const index = newData.findIndex(
@@ -80,11 +77,10 @@ export const BoxComment = (props: BoxCommentProps) => {
           }
 
           break;
-        case "remove":
+        case 'remove':
           {
+            console.log('ahihi remove ', subComment);
 
-            console.log('ahihi remove ',subComment);
-            
             const newData = [...dataListComment];
 
             if (subComment.rep) {
@@ -109,7 +105,7 @@ export const BoxComment = (props: BoxCommentProps) => {
 
           break;
 
-        case "edit":
+        case 'edit':
           {
             const newData = [...dataListComment];
 
@@ -141,7 +137,6 @@ export const BoxComment = (props: BoxCommentProps) => {
               );
 
               newData[indexCmt].content = subComment.content;
-
               setDataListComment(newData);
             }
           }
@@ -151,29 +146,35 @@ export const BoxComment = (props: BoxCommentProps) => {
           break;
       }
     }
-  }, [subComment.comment_id, subComment.content, subComment.postId]);
+  }, [
+    subComment.comment_id,
+    subComment.content,
+    subComment.postId,
+    subComment.type,
+  ]);
 
   useEffect(() => {
     if (!error && data) {
       setDataListComment(data);
     }
   }, [isLoading, error, data]);
+  console.log(dataListComment);
 
   return (
     <div>
       {isLoading ? (
         <div
           style={{
-            paddingTop: "10px",
+            paddingTop: '10px',
           }}
         >
           <Skeleton avatar paragraph={{ rows: 1 }} />
         </div>
       ) : (
-        <>
-          <AddComment post_id={postId} isShowAvatar type="create" />
+        <React.Fragment>
+          <AddComment post_id={postId} isShowAvatar type='create' />
           <CommentCustoms data={dataListComment} />
-        </>
+        </React.Fragment>
       )}
     </div>
   );

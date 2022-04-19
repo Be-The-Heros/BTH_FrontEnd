@@ -15,6 +15,7 @@ interface IAddComment {
   commentId?: number;
   contentValue?: string;
   type: 'edit' | 'create';
+  defaultValue?: string;
   isShowAvatar: boolean;
   setIsEditCmt?: (value: boolean) => void;
 }
@@ -28,9 +29,10 @@ export const AddComment = (props: IAddComment) => {
     type,
     commentId,
     setIsEditCmt,
+    defaultValue,
   } = props;
   const infoUser = useRecoilValue(userState);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(defaultValue || '');
   const subComment = useRecoilValue(cmtPushSubState);
 
   const { mutate, isLoading } = useCreateComment();
@@ -95,7 +97,6 @@ export const AddComment = (props: IAddComment) => {
             <React.Fragment>
               <Form.Item style={{ marginBottom: '5px' }}>
                 <TextArea
-                  style={{ position: 'relative' }}
                   onChange={(e) => onChangeContent(e)}
                   value={content}
                   autoSize
