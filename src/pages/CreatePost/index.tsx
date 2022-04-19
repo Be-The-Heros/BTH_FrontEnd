@@ -26,6 +26,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import IntroductionTitle from './components/IntroductionTitle';
 import { toLower } from 'lodash';
+import { REGEX_DIGIT } from 'constants/regex';
 const { Option } = Select;
 const TIME_CHANGE_TEXT = 3000;
 interface FieldCreatePost {
@@ -354,7 +355,7 @@ const CreatePostPage = () => {
               <Controller
                 name='residential_address'
                 control={control}
-                rules={{ required: true }}
+                rules={{ required: true, pattern: /^[a-zA-Z0-9\s]*$/ }}
                 render={({ field }) => (
                   <Input
                     {...field}
@@ -377,7 +378,7 @@ const CreatePostPage = () => {
                 )}
               />
               {errors.residential_address && (
-                <span className='waring-error'>Resident address required</span>
+                <span className='waring-error'>Resident address invalid</span>
               )}
             </div>
             <div className='form-input'>

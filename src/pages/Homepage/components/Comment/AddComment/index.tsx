@@ -73,7 +73,7 @@ export const AddComment = (props: IAddComment) => {
         });
       }
       setIsEditCmt && setIsEditCmt(false);
-      console.log(contentValue, commentId, postId);
+      // console.log(contentValue, commentId, postId);
     }
   };
 
@@ -130,9 +130,14 @@ export const AddComment = (props: IAddComment) => {
                 <Button
                   loading={isLoading}
                   onClick={onCreateComment}
-                  style={{ background: '#7cdfff', border: 'none' }}
+                  style={{
+                    background: '#7cdfff',
+                    border: 'none',
+                    color: 'var(--bs-gray-dark)',
+                  }}
                   htmlType='submit'
                   type='primary'
+                  disabled={isLoading || content.trim().length === 0}
                 >
                   {type === 'create' ? 'Comment' : 'Edit'}
                 </Button>

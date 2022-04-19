@@ -7,7 +7,7 @@ import React from 'react';
 import Countdown from 'react-countdown';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
 
 const TIME_COUNT = 30;
@@ -46,7 +46,7 @@ export const VerifyEmailPage = () => {
     } else {
       // Render a countdown
       return (
-        <div className='d-flex align-items-center' onClick={()=>{}}>
+        <div className='d-flex align-items-center' onClick={() => {}}>
           {`Send email in ${seconds} s`}
         </div>
       );

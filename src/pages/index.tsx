@@ -14,9 +14,6 @@ import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
 import { VerifyEmailPage } from './VerifyEmail';
 
-// import CreatePostPage from './CreatePost';
-// import Homepage from './Home';
-
 const Homepage = React.lazy(() => import('./Homepage'));
 const CreatePostPage = React.lazy(() => import('./CreatePost'));
 const ProfileSettingsPage = React.lazy(() => import('./ProfileSettings'));
@@ -24,13 +21,6 @@ const ProfilePage = React.lazy(() => import('./ProfilePage'));
 const PostDetailPage = React.lazy(() => import('./PostDetailPage'));
 
 export const AppViews = () => {
-  // React.useEffect(() => {
-  //   if (user.isLoggedIn && user.level > 1) {
-  //     window.location.href = '/';
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   return (
     <Router>
       <Routes>

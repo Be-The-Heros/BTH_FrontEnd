@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
 import { AddComment } from '../AddComment';
 import { ImReply } from 'react-icons/im';
+import PopupLogin from 'components/PopupSuggestLogin';
 
 interface ChirldCmtProps {
   onShowAddCmt: (value: boolean) => void;
@@ -39,7 +40,7 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
   const [showOptionMessage, setShowOptionMessage] = useState(false);
   const [isEditCmt, setIsEditCmt] = useState(false);
   const user = useRecoilValue(userState);
-
+  const [isClickReply, setIsClickReply] = useState(false);
   const { mutate, isLoading } = useDeleteComment();
   const onDeleteCmt = () => {
     mutate({
@@ -58,11 +59,18 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
       onMouseOut={() => setShowOptionMessage(true)}
       onMouseLeave={() => setShowOptionMessage(false)}
     >
+      <PopupLogin
+        isOpen={isClickReply && !user.isLoggedIn}
+        onClose={() => setIsClickReply(!isClickReply)}
+      />
       <Comment
         actions={[
           <div
             key='comment-nested-reply-to d-flex align-items-center justify-content-center'
-            onClick={() => onShowAddCmt(!isShowAddCmt)}
+            onClick={() => {
+              onShowAddCmt(!isShowAddCmt);
+              setIsClickReply(!isClickReply);
+            }}
             style={{
               cursor: 'pointer',
             }}

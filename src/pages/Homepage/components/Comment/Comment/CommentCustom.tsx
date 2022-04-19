@@ -1,10 +1,9 @@
 import { LIMIT_COMMENT } from 'constants/show';
+import { toNumber } from 'lodash';
 import React, { useState } from 'react';
 import { CommentResponse } from '..';
 import { AddComment } from '../AddComment';
 import { ChildrenCmt as ChildCmt } from './ChildrenCmt';
-import { BsReply } from 'react-icons/bs';
-import { toNumber } from 'lodash';
 interface CommentCustomProps {
   data: CommentResponse;
 }
