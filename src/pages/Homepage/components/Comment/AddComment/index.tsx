@@ -32,7 +32,7 @@ export const AddComment = (props: IAddComment) => {
     defaultValue,
   } = props;
   const infoUser = useRecoilValue(userState);
-  const [content, setContent] = useState(defaultValue || '');
+  const [content, setContent] = useState('');
   const subComment = useRecoilValue(cmtPushSubState);
 
   const { mutate, isLoading } = useCreateComment();
@@ -139,7 +139,7 @@ export const AddComment = (props: IAddComment) => {
                   type='primary'
                   disabled={isLoading || content.trim().length === 0}
                 >
-                  {type === 'create' ? 'Comment' : 'Edit'}
+                  {type === 'create' ? 'Comment' : 'Save'}
                 </Button>
               </Form.Item>
             </React.Fragment>
