@@ -14,7 +14,7 @@ export const Users = () => {
   const full_name = infoUser.first_name + " " + infoUser.last_name;
   const [dataRender, setDataRender] = React.useState<UserInfo[]>([]);
 
-  const renderOrganizationsList = () => {
+  const renderUsersList = () => {
     return Array(3)
       .fill(null)
       .map((item) => (
@@ -58,7 +58,7 @@ export const Users = () => {
 
   return (
     <UsersContainer>
-      {renderOrganizationsList()}
+      {renderUsersList()}
       <div className="user-container__footer">
       <Button> See all</Button>
       </div>
