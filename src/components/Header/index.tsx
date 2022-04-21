@@ -162,7 +162,9 @@ export const Header = () => {
                 width: "100%",
               }}
             >
-              <Search placeholder="Search in be the heroes" />
+              <div onClick={() => navigate("/search-result")}>
+              <Search placeholder="Search in be the heroes"/>
+              </div>
             </Space>
           </div>
         </div>

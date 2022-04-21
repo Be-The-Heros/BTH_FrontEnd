@@ -53,7 +53,7 @@ export const AvatarCustom = (props: AvatarCustomProps) => {
       <Row justify="start" wrap={false} style={{ paddingTop: "10px" }}>
         <Col flex={4} style={{ padding: "0 5px" }}>
           <Button type="default" size={"small"} block>
-            flow
+            follow
           </Button>
         </Col>
 

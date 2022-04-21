@@ -43,7 +43,7 @@ export const SidebarLeft = () => {
         </div>
       </div>
       <div>
-        <h4>Orther</h4>
+        <h4>Other</h4>
         <div className="div_left_side_bar">
           <Link to="">
             <FcViewDetails style={{ fontSize: "2rem", marginRight: "10px" }} />{" "}

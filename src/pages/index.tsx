@@ -13,6 +13,7 @@ import ForgotPasswordPage from './ForgotPasswordPage';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
 import { VerifyEmailPage } from './VerifyEmail';
+import SearchResultPage from './SearchResultPage';
 
 // import CreatePostPage from './CreatePost';
 // import Homepage from './Home';
@@ -61,7 +62,10 @@ export const AppViews = () => {
             path='/create-post'
             element={<PrivateRoute element={<CreatePostPage />} />}
           />
-
+           <Route
+            path='/search-result'
+            element={<PrivateRoute element={<SearchResultPage />} />}
+          />
           <Route
             path='/verify/email'
             element={<PrivateRoute element={<VerifyEmailPage />} />}
