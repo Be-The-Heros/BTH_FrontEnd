@@ -230,10 +230,10 @@ export const NewFeed = (props: NewFeedProps) => {
             <AvatarCustom
               showPopover={true}
               size={64}
-              bio='bio nè  fake chưa loading from db'
+              bio={props.bio}
               fullName={props.fullname}
               uid={props.uid}
-              address='Ha Noi address nè  fake chưa loading from db'
+              address={props.user_address}
               srcAvatar={props.avatar}
             />
 

@@ -10,22 +10,23 @@ import {
   getDistrict,
   getProvince,
 } from 'helpers';
-import React, { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { Controller, useForm } from 'react-hook-form';
-import { FcFullTrash } from 'react-icons/fc';
-import { useRecoilValue } from 'recoil';
-import { userState } from 'recoil/users/state';
-import { PreviewPost } from './components/PreviewPost';
-import Style from './style';
-import { AiOutlineSafety } from 'react-icons/ai';
+import { cleanAccents } from 'helpers/cleanAccents';
 import { validURL } from 'helpers/validate';
 import { useCreatePost } from 'hooks/post/create/useCreatePost';
-import upperFirst from 'lodash/upperFirst';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router';
-import IntroductionTitle from './components/IntroductionTitle';
 import { toLower } from 'lodash';
+import upperFirst from 'lodash/upperFirst';
+import React from 'react';
+import { useDropzone } from 'react-dropzone';
+import { Controller, useForm } from 'react-hook-form';
+import { AiOutlineSafety } from 'react-icons/ai';
+import { FcFullTrash } from 'react-icons/fc';
+import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/users/state';
+import IntroductionTitle from './components/IntroductionTitle';
+import { PreviewPost } from './components/PreviewPost';
+import Style from './style';
 const { Option } = Select;
 const TIME_CHANGE_TEXT = 3000;
 interface FieldCreatePost {
@@ -38,9 +39,9 @@ interface FieldCreatePost {
   join_url: string;
 }
 const CreatePostPage = () => {
+  const navigate = useNavigate();
   // init State
   const user = useRecoilValue(userState);
-  const navigate = useNavigate();
   const {
     handleSubmit,
     control,
@@ -51,6 +52,7 @@ const CreatePostPage = () => {
   let refInterval = React.useRef<any>();
 
   const [isOpenPreview, setIsOpenPreview] = React.useState(false);
+  const [isCreateChat, setIsCreateChat] = React.useState(false);
   const [randomSlogan, setRandomSlogan] = React.useState(
     Math.floor(Math.random() * SLOGANS.length)
   );
@@ -61,14 +63,15 @@ const CreatePostPage = () => {
       }
     >
   >([]);
-
-  const createPostMutation = useCreatePost();
   const [residence, setResidence] = React.useState({
     province: '',
     district: '',
     ward: '',
   });
   const [toggle, setToggle] = React.useState({ title: '', size: 0 });
+
+  // * API Create Post
+  const createPostMutation = useCreatePost();
 
   // TODO: save in link photo image
   const { getRootProps, getInputProps } = useDropzone({
@@ -97,10 +100,16 @@ const CreatePostPage = () => {
     if (createPostMutation.isSuccess) {
       files.forEach((file) => URL.revokeObjectURL(file.preview));
       toast.success('Creating post success');
-      navigate('/');
+
+      navigate(`/post/detail/${createPostMutation.data.post_id}`);
       return;
     }
-  }, [createPostMutation.isLoading, createPostMutation.isSuccess]);
+  }, [
+    createPostMutation.isLoading,
+    createPostMutation.isSuccess,
+    createPostMutation.data?.post_id,
+  ]);
+
   // TODO: change slogan
   React.useEffect(() => {
     refInterval.current = setInterval(() => {
@@ -170,6 +179,7 @@ const CreatePostPage = () => {
       district,
       ward,
       photos: files,
+      isCreateChat,
     });
   };
 
@@ -239,7 +249,9 @@ const CreatePostPage = () => {
                     }}
                     optionFilterProp='children'
                     filterOption={(input, option: any) => {
-                      return toLower(option?.children).includes(toLower(input));
+                      return cleanAccents(toLower(option?.children)).includes(
+                        cleanAccents(toLower(input))
+                      );
                     }}
                     onChange={(province) => {
                       setResidence({
@@ -282,8 +294,8 @@ const CreatePostPage = () => {
                       }}
                       showSearch
                       filterOption={(input, option: any) => {
-                        return toLower(option?.children).includes(
-                          toLower(input)
+                        return cleanAccents(toLower(option?.children)).includes(
+                          cleanAccents(toLower(input))
                         );
                       }}
                       onChange={(district) => {
@@ -322,7 +334,9 @@ const CreatePostPage = () => {
                     }}
                     showSearch
                     filterOption={(input, option: any) => {
-                      return toLower(option?.children).includes(toLower(input));
+                      return cleanAccents(toLower(option?.children)).includes(
+                        cleanAccents(toLower(input))
+                      );
                     }}
                     onChange={(ward) => {
                       setResidence({ ...residence, ward });
@@ -393,6 +407,9 @@ const CreatePostPage = () => {
                       setToggle({ ...toggle, title: 'content' });
                     }}
                     placeholder='Explain your post'
+                    style={{
+                      height: '200px',
+                    }}
                     autoSize
                     onChange={(e) => {
                       const height = e.target.scrollHeight;
@@ -409,40 +426,77 @@ const CreatePostPage = () => {
 
             <div className='form-input'>
               <label>URL chat room</label>
-              <Controller
-                name='join_url'
-                rules={{
-                  required: false,
-                  validate: (value) => {
-                    return (
-                      !value || validURL(value || '') || value?.trim() === ''
-                    );
-                  },
-                }}
-                control={control}
-                render={({ field }) => (
-                  <div className='w-50 position-relative'>
-                    <Input
-                      {...field}
-                      onFocus={() => {
-                        setToggle({ ...toggle, title: 'chat' });
-                      }}
-                      style={{
-                        paddingRight: '3rem',
-                      }}
-                      placeholder='Example: https://t.me/+de5i4MvIBAMzYmY1'
-                    />
-                    <AiOutlineSafety
-                      className='icon-safe'
-                      color={
-                        validURL(watch('join_url'))
-                          ? 'var(--bs-success)'
-                          : 'var(--bs-danger)'
-                      }
-                    />
-                  </div>
+              {!isCreateChat && (
+                <Controller
+                  name='join_url'
+                  rules={{
+                    required: false,
+                    validate: (value) => {
+                      return (
+                        !value || validURL(value || '') || value?.trim() === ''
+                      );
+                    },
+                  }}
+                  control={control}
+                  render={({ field }) => (
+                    <div className='w-50 position-relative'>
+                      <Input
+                        {...field}
+                        onFocus={() => {
+                          setToggle({ ...toggle, title: 'chat' });
+                        }}
+                        style={{
+                          paddingRight: '3rem',
+                        }}
+                        placeholder='Example: https://t.me/+de5i4MvIBAMzYmY1'
+                      />
+                      <AiOutlineSafety
+                        className='icon-safe'
+                        color={
+                          validURL(watch('join_url'))
+                            ? 'var(--bs-success)'
+                            : 'var(--bs-danger)'
+                        }
+                      />
+                    </div>
+                  )}
+                />
+              )}
+              {isCreateChat && (
+                <div>
+                  <strong>
+                    {' '}
+                    we will create a chat room, once you create the post
+                    successfully. Join the chat room by clicking the join button
+                  </strong>
+                </div>
+              )}
+
+              <div
+                className='create-url-post'
+                onClick={() => setIsCreateChat(!isCreateChat)}
+              >
+                {!isCreateChat ? (
+                  <span
+                    style={{
+                      cursor: 'pointer',
+                      marginTop: '0.5rem',
+                    }}
+                  >
+                    Create chat room from site
+                  </span>
+                ) : (
+                  <span
+                    style={{
+                      cursor: 'pointer',
+                      marginTop: '0.5rem',
+                      color: 'var(--bs-cyan)',
+                    }}
+                  >
+                    I have a chat room ?
+                  </span>
                 )}
-              />
+              </div>
 
               {errors.join_url && (
                 <span className='waring-error'>Url is not valid</span>
