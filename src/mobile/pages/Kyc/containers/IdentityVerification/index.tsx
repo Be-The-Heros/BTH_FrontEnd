@@ -19,6 +19,11 @@ import SelfieExampleImage from "assets/images/selfie-example.jpg";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { useRecoilState } from "recoil";
+import { kycState } from "recoil/kycState/state";
+import { useSubmitKyc } from "hooks/kyc/submitKyc/useSubmitKyc";
+import { useGenerateURLImage } from "hooks/image/useCreateImageURL";
+import { base64ToFile } from "helpers/base64ToFile";
 
 const Container = styled.div<IdentityVerificationProps>`
   display: ${(props) => !props.active && "none"};
@@ -97,6 +102,33 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
   const [progressState, setProgressState] = React.useState<number>(1);
   const [isIDCardDocumentSelected, setIsIDCardDocumentSelected] =
     useState<boolean>(false);
+
+  const [kyc, setRecoilKyc] = useRecoilState(kycState);
+
+  const submitKyc = useSubmitKyc();
+  const fileToUrl = useGenerateURLImage();
+
+  async function handleSubmittingKyc() {
+    const userPhoto: File = await base64ToFile(kyc.user_photo as string);
+    const documentPhoto: File = await base64ToFile(
+      kyc.document_photo as string
+    );
+
+    const photos = await fileToUrl.mutateAsync([userPhoto, documentPhoto]);
+
+    submitKyc.mutate({
+      ...kyc,
+      user_photo: photos.urls[0],
+      document_photo: photos.urls[1],
+    });
+  }
+
+  React.useEffect(() => {
+    if (progressState === 7) {
+      handleSubmittingKyc();
+    }
+  }, [progressState]);
+
   console.log("progressState: ", progressState);
 
   const capture = React.useCallback(() => {
@@ -105,12 +137,13 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
       setUrl(imageSrc);
       console.log("progressState - before: ", progressState);
 
-      if (progressState !== 6 && progressState !== 7 && progressState != 1) {
+      if (progressState !== 6) {
         setProgressState((state) => state + 1);
       }
+
       console.log("progressState - after: ", progressState);
     }
-  }, [webcamRef]);
+  }, [webcamRef, progressState]);
 
   const renderBody = () => {
     switch (progressState) {
@@ -146,7 +179,11 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary="ID Card" style={{ fontWeight: 700 }} />
+                <ListItemText
+                  primary="ID Card"
+                  style={{ fontWeight: 700 }}
+                  onClick={() => setIsIDCardDocumentSelected((state) => !state)}
+                />
                 <CheckCircleRoundedIcon
                   style={{ color: isIDCardDocumentSelected ? "green" : "" }}
                   onClick={() => setIsIDCardDocumentSelected((state) => !state)}
@@ -166,7 +203,7 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
             />
 
             <SubTitle variant="h6">
-              You are about to upload your driving license. Please ensure that:
+              You are about to upload your identity card. Please ensure that:
             </SubTitle>
 
             <Label style={{ fontWeight: 500, marginBottom: "0.5em" }}>
@@ -300,7 +337,9 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
               "Do not hide or alter parts of your face (No hats/beauty images/filters/headgear"
             )}
 
-            <Typography style={{ color: "#000", fontWeight: 500 }}>
+            <Typography
+              style={{ color: "#000", fontWeight: 500, marginBottom: "0.5em" }}
+            >
               File size must be between 10KB and 5120KB in ..jpg/.peg/.png
               format
             </Typography>
@@ -351,8 +390,27 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
             )}
           </div>
         );
+      case 7:
+        return (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "10em",
+            }}
+          >
+            <CheckCircleRoundedIcon
+              style={{ width: "5em", height: "5em", color: "green" }}
+            />
+            <Typography variant="h3">Thank you!</Typography>
+            <Typography variant="h6">Your submission has been sent</Typography>
+          </div>
+        );
     }
   };
+  console.log("kyc: ", kyc);
 
   return (
     <Container active={active}>
@@ -365,10 +423,14 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
         }}
       >
         <div>
-          {progressState !== 1 && (
+          {progressState !== 1 && progressState !== 7 && (
             <ArrowBackIcon
               onClick={() => {
-                setProgressState((state) => state - 1);
+                if (progressState === 5) {
+                  setProgressState((state) => state - 2);
+                } else {
+                  setProgressState((state) => state - 1);
+                }
                 setCaptureEnable(false);
                 if (progressState === 6) {
                   setUrl(null);
@@ -377,7 +439,9 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
               style={{ marginBottom: "1em" }}
             />
           )}
-          <Title variant="h5">Identity Verification</Title>
+          {progressState !== 7 && (
+            <Title variant="h5">Identity Verification</Title>
+          )}
           {renderBody()}
         </div>
         <div style={{ display: "flex", flexDirection: "row" }}>
@@ -413,25 +477,42 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
             </Button>
           )}
 
-          <ContinueButton
-            disabled={
-              !isIDCardDocumentSelected ||
-              (progressState === 3 && !url) ||
-              (progressState === 6 && !url)
-            }
-            onClick={() => {
-              setProgressState((state) => state + 1);
-              if (progressState === 4) {
-                setUrl(null);
-                return;
+          {progressState !== 7 && (
+            <ContinueButton
+              disabled={
+                !isIDCardDocumentSelected ||
+                (progressState === 3 && !url) ||
+                (progressState === 6 && !url)
               }
-              if (progressState === 5) {
-                setCaptureEnable(false);
-              }
-            }}
-          >
-            Continue
-          </ContinueButton>
+              onClick={() => {
+                setProgressState((state) => state + 1);
+
+                if (progressState === 4) {
+                  setUrl(null);
+                  setRecoilKyc((state) => ({
+                    ...state,
+                    document_photo: url as String,
+                  }));
+                  return;
+                }
+
+                if (progressState === 6) {
+                  setRecoilKyc((state) => ({
+                    ...state,
+                    user_photo: url as String,
+                  }));
+                  setUrl(null);
+
+                  return;
+                }
+                if (progressState === 5) {
+                  setCaptureEnable(false);
+                }
+              }}
+            >
+              Continue
+            </ContinueButton>
+          )}
         </div>
       </div>
     </Container>

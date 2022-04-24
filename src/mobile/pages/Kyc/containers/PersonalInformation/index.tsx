@@ -6,6 +6,8 @@ import VietNamIcon from "assets/icons/vietnam-icon.png";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ContinueButton } from "../../components";
 import { Controller, useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
+import { kycState } from "recoil/kycState/state";
 
 const Container = styled.div<PersonalInformationProps>`
   display: ${(props) => !props.active && "none"};
@@ -76,6 +78,10 @@ const PersonalInformation = (props: PersonalInformationProps) => {
   const { active, handleSetTabState } = props;
 
   const [dateOfBirthState, setDateOfBirthState] = React.useState<String>("");
+  const [isSubmittedInSecondScreenState, setIsSubmittedInSecondScreenState] =
+    React.useState<boolean>(false);
+
+  const [kyc, setRecoilKyc] = useRecoilState(kycState);
 
   const {
     handleSubmit,
@@ -100,7 +106,7 @@ const PersonalInformation = (props: PersonalInformationProps) => {
               value={"VietNam (Việt Nam)"}
               disabled={true}
               prefix={<img src={VietNamIcon} style={{ width: "50%" }} />}
-              style={{ marginBottom: "0.5em" }}
+              style={{ marginBottom: "0.5em", color: "#000" }}
             />
             <Label>National ID</Label>
             <Controller
@@ -115,9 +121,11 @@ const PersonalInformation = (props: PersonalInformationProps) => {
             <Controller
               name="full_name"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: true, pattern: /^[A-Za-z]+$/ }}
               defaultValue=""
-              render={({ field }) => <CustomInput {...field} size="large" />}
+              render={({ field }) => (
+                <CustomInput {...field} size="large" type={"text"} />
+              )}
             />
             {errors.full_name && <Error>Full name is required</Error>}
             <Label>Date of Birth</Label>
@@ -145,7 +153,7 @@ const PersonalInformation = (props: PersonalInformationProps) => {
               defaultValue=""
               render={({ field }) => <CustomInput {...field} size="large" />}
             />
-            {progressState === 2 && errors.residential_address && (
+            {isSubmittedInSecondScreenState && errors.residential_address && (
               <Error>Residential Address is required</Error>
             )}
             <Label>City</Label>
@@ -156,7 +164,7 @@ const PersonalInformation = (props: PersonalInformationProps) => {
               defaultValue=""
               render={({ field }) => <CustomInput {...field} size="large" />}
             />
-            {progressState === 2 && errors.city && (
+            {isSubmittedInSecondScreenState && errors.city && (
               <Error>City is required</Error>
             )}
           </React.Fragment>
@@ -174,12 +182,20 @@ const PersonalInformation = (props: PersonalInformationProps) => {
     );
   };
 
+  const onSubmit = (data: PersonalInformationField) => {
+    setRecoilKyc((state) => ({
+      ...state,
+      document_id: data.national_id,
+      fullname: data.full_name,
+      date_of_birth: dateOfBirthState,
+      residential_address: data.residential_address,
+      province: data.city,
+    }));
+  };
+
   return (
     <Container active={active}>
-      <form
-        onSubmit={handleSubmit(() => console.log("click"))}
-        style={{ height: "100%" }}
-      >
+      <form onSubmit={handleSubmit(onSubmit)} style={{ height: "100%" }}>
         <div
           style={{
             display: "flex",
@@ -204,6 +220,7 @@ const PersonalInformation = (props: PersonalInformationProps) => {
             htmlType="submit"
             onClick={() => {
               setProgressState((state) => state + 1);
+
               if (progressState === 2) {
                 handleSetTabState!();
               }

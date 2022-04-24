@@ -30,12 +30,10 @@ export const AppViews = () => {
     return (
       <Router>
         <Routes>
-          <Route path="/profile/kyc">
-            <Route
-              path="/profile/kyc"
-              element={<PrivateRoute element={<KycScreen />} />}
-            />
-          </Route>
+          <Route
+            path="/profile/kyc"
+            element={<PrivateRoute element={<KycScreen />} />}
+          />
         </Routes>
       </Router>
     );

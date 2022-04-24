@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 import styled from "styled-components";
 
@@ -13,8 +14,23 @@ const Container = styled.div<OrganizationFormsProps>`
 
 const OrganizationForms = (props: OrganizationFormsProps) => {
   const { active } = props;
+  const navigate = useNavigate();
 
-  return <Container active={active}>OrganizationForms</Container>;
+  const userToken = localStorage.getItem("token");
+  return (
+    <Container active={active}>
+      <div
+        onClick={() =>
+          window.open(
+            `http://localhost:3000/profile/kyc?token=${userToken}`,
+            "_blank"
+          )
+        }
+      >
+        KYC Link
+      </div>
+    </Container>
+  );
 };
 
 export default OrganizationForms;
