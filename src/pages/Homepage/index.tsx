@@ -17,7 +17,6 @@ const Homepage = () => {
     page: 1,
     size: 8,
   });
-
   const [dataRender, setDataRender] = React.useState<PostInfo[]>([]);
   const postQuery = useQueryListPost({ ...pagination });
   const [isHasMore, setIsHasMore] = React.useState(true);

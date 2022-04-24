@@ -12,17 +12,12 @@ import { FaFacebook } from 'react-icons/fa';
 import { FcComments, FcShare } from 'react-icons/fc';
 import { VscLocation } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
-import {
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-  FacebookMessengerShareButton,
-} from 'react-share';
+import { FacebookShareButton, TwitterShareButton } from 'react-share';
 import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
-import Style from './style';
 import { BoxComment } from '../Comment';
+import Style from './style';
 
 interface NewFeedProps extends PostInfo {
   handleDeletePost?: (id: string) => void;
@@ -325,6 +320,9 @@ export const NewFeed = (props: NewFeedProps) => {
             type='link'
             style={{
               color: '#673AB7',
+            }}
+            onClick={() => {
+              setIsBtnJoinClick(true);
             }}
           >
             <FcComments

@@ -15,6 +15,7 @@ interface IAddComment {
   commentId?: number;
   contentValue?: string;
   type: 'edit' | 'create';
+  defaultValue?: string;
   isShowAvatar: boolean;
   setIsEditCmt?: (value: boolean) => void;
 }
@@ -28,6 +29,7 @@ export const AddComment = (props: IAddComment) => {
     type,
     commentId,
     setIsEditCmt,
+    defaultValue,
   } = props;
   const infoUser = useRecoilValue(userState);
   const [content, setContent] = useState('');
@@ -71,7 +73,7 @@ export const AddComment = (props: IAddComment) => {
         });
       }
       setIsEditCmt && setIsEditCmt(false);
-      console.log(contentValue, commentId, postId);
+      // console.log(contentValue, commentId, postId);
     }
   };
 
@@ -95,7 +97,6 @@ export const AddComment = (props: IAddComment) => {
             <React.Fragment>
               <Form.Item style={{ marginBottom: '5px' }}>
                 <TextArea
-                  style={{ position: 'relative' }}
                   onChange={(e) => onChangeContent(e)}
                   value={content}
                   autoSize
@@ -129,11 +130,16 @@ export const AddComment = (props: IAddComment) => {
                 <Button
                   loading={isLoading}
                   onClick={onCreateComment}
-                  style={{ background: '#7cdfff', border: 'none' }}
+                  style={{
+                    background: '#7cdfff',
+                    border: 'none',
+                    color: 'var(--bs-gray-dark)',
+                  }}
                   htmlType='submit'
                   type='primary'
+                  disabled={isLoading || content.trim().length === 0}
                 >
-                  {type === 'create' ? 'Comment' : 'Edit'}
+                  {type === 'create' ? 'Comment' : 'Save'}
                 </Button>
               </Form.Item>
             </React.Fragment>
