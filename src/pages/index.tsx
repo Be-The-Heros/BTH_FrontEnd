@@ -10,6 +10,7 @@ import LayoutMain from 'templates/Layout';
 import LayoutAuth from 'templates/LayoutAuth';
 import { EditPostPage } from './EditPostPage';
 import ForgotPasswordPage from './ForgotPasswordPage';
+import { InviteChatPage } from './InviteChat';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
 import { VerifyEmailPage } from './VerifyEmail';
@@ -56,6 +57,7 @@ export const AppViews = () => {
             path='/verify/email'
             element={<PrivateRoute element={<VerifyEmailPage />} />}
           />
+          <Route path='/invite/:invite_id' element={<InviteChatPage />} />
         </Route>
 
         <Route path='/auth' element={<LayoutAuth />}>

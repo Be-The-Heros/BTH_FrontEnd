@@ -7,6 +7,7 @@ export const devUrl = {
   profile: 'https://betheheros.tk/v2/api/profile',
   image: 'http://localhost:5000/api/image',
   comment: 'https://betheheros.tk/v2/api/comment',
+  invite: 'http://localhost:5000/api/invite',
 };
 export const productionUrl = {
   kyc: '/api/kyc',
@@ -17,4 +18,5 @@ export const productionUrl = {
   profile: '/v2/api/profile',
   image: '/api/image',
   comment: '/v2/api/comment',
+  invite: '/api/invite',
 };
