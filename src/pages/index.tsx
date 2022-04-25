@@ -14,6 +14,7 @@ import LayoutAuth from 'templates/LayoutAuth';
 import { EditPostPage } from './EditPostPage';
 import ForgotPasswordPage from './ForgotPasswordPage';
 import { InviteChatPage } from './InviteChat';
+import { KycPage } from './kycPage';
 import SignInPage from './SignIn';
 import SignUpPage from './SignUp';
 import { VerifyEmailPage } from './VerifyEmail';
@@ -45,18 +46,7 @@ export const AppViews = () => {
       <Routes>
         <Route path='/' element={<LayoutMain />}>
           <Route path='/' element={<PublicRoute element={<Homepage />} />} />
-          <Route
-            path='/post/detail/:post_id'
-            element={<PublicRoute element={<PostDetailPage />} />}
-          />
-          <Route
-            path='/profile/:uid'
-            element={<PublicRoute element={<ProfilePage />} />}
-          />
-          <Route
-            path='/profile/settings'
-            element={<PrivateRoute element={<ProfileSettingsPage />} />}
-          />
+          {/* POST  ROUTE */}
 
           <Route
             path='/edit-post/:post_id'
@@ -70,13 +60,36 @@ export const AppViews = () => {
             path='/create-post'
             element={<PrivateRoute element={<CreatePostPage />} />}
           />
+          <Route
+            path='/post/detail/:post_id'
+            element={<PublicRoute element={<PostDetailPage />} />}
+          />
 
+          {/* PROFILE ROUTE */}
+          <Route path='/profile'>
+            <Route
+              path=':uid'
+              element={<PublicRoute element={<ProfilePage />} />}
+            />
+            <Route
+              path='settings'
+              element={<PrivateRoute element={<ProfileSettingsPage />} />}
+            />
+
+            <Route
+              path='kyc'
+              element={<PrivateRoute element={<KycPage />} />}
+            />
+          </Route>
+
+          {/* CHECKING ROUTE */}
           <Route
             path='/verify/email'
             element={<PrivateRoute element={<VerifyEmailPage />} />}
           />
           <Route path='/invite/:invite_id' element={<InviteChatPage />} />
         </Route>
+        {/* AUTHENTICATION ROUTE */}
 
         <Route path='/auth' element={<LayoutAuth />}>
           <Route path='sign-in' element={<SignInPage />} />

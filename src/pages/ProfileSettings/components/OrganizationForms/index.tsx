@@ -68,7 +68,7 @@ const Verifications = (props: OrganizationFormsProps) => {
 
             <VerifyButton
               onClick={() => {
-                navigate(`profile/kyc?token=${token}`);
+                navigate(`/profile/kyc?token=${token}`);
               }}
             >
               Verify Again
@@ -81,7 +81,7 @@ const Verifications = (props: OrganizationFormsProps) => {
             <Typography variant='h3'>Let's verify your account!</Typography>
             <VerifyButton
               onClick={() => {
-                navigate(`profile/kyc?token=${token}`);
+                navigate(`/profile/kyc?token=${token}`);
               }}
             >
               Verify
