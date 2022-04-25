@@ -44,9 +44,8 @@ const KycScreen = () => {
 
   const getKycStatus = useGetKycStatus();
 
-  setLocalStorage('token', userToken || '');
   React.useEffect(() => {
-    getKycStatus.mutate();
+    getKycStatus.mutate(userToken || '');
   }, []);
 
   const renderStatus = (
@@ -108,6 +107,7 @@ const KycScreen = () => {
                 />
                 <IdentityVerification
                   active={tabState === 'identityVerification'}
+                  token={userToken || ''}
                 />
               </>
             )}
@@ -122,6 +122,7 @@ const KycScreen = () => {
             />
             <IdentityVerification
               active={tabState === 'identityVerification'}
+              token={userToken || ''}
             />
           </>
         );
