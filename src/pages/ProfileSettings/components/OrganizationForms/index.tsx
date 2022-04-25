@@ -38,7 +38,7 @@ const OrganizationForms = (props: OrganizationFormsProps) => {
 
   React.useEffect(() => {
     getKycStatus.mutate();
-  }, []);
+  }, [active]);
 
   const renderStatus = (
     status: "pending" | "failed" | "unsent" | "verified"

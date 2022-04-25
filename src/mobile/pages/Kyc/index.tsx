@@ -42,7 +42,6 @@ const KycScreen = () => {
   const userToken = searchParams.get("token");
 
   const getKycStatus = useGetKycStatus();
-  console.log("getKycStatus: ", getKycStatus);
 
   React.useEffect(() => {
     getKycStatus.mutate();
@@ -151,7 +150,7 @@ const KycScreen = () => {
   return (
     <Container>
       {userToken ? (
-        <>{renderStatus("failed")}</>
+        <>{renderStatus(getKycStatus.data.status)}</>
       ) : (
         <h3
           style={{
