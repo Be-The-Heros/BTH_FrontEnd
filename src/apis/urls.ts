@@ -5,7 +5,7 @@ export const devUrl = {
   otp: 'https://betheheros.tk/api/otp',
   post: ' https://betheheros.tk/api/post',
   profile: 'https://betheheros.tk/v2/api/profile',
-  image: 'https://betheheros.tk/api/image',
+  image: 'http://localhost:5000/api/image',
   comment: 'https://betheheros.tk/v2/api/comment',
   invite: 'https://betheheros.tk/api/invite',
 };
