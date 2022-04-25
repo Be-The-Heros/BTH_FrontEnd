@@ -260,7 +260,11 @@ export const NewFeed = (props: NewFeedProps) => {
                 type='ghost'
                 onClick={() => {
                   setIsBtnJoinClick(true);
-                  if (props.join_url) window.open(props.join_url, '_blank');
+                  if (props.join_url?.includes('/chat')) {
+                    navigate(`/invite/${props.post_id}`);
+                    return;
+                  }
+                  window.open(props.join_url, '_blank');
                 }}
               >
                 Join

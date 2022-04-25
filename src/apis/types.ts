@@ -9,6 +9,7 @@ export interface Config {
     postUrl: string;
     profileUrl: string;
     imageUrl: string;
+    inviteUrl: string;
   };
 }
 
@@ -20,7 +21,8 @@ export enum ApiVersion {
   post = 'post',
   profile = 'profile',
   image = 'image',
-  comment='comment'
+  comment = 'comment',
+  invite = 'invite',
 }
 
 export interface RequestOptions {
