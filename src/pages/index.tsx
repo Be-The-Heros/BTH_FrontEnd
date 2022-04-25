@@ -34,7 +34,7 @@ export const AppViews = () => {
         <Routes>
           <Route
             path='/profile/kyc'
-            element={<PrivateRoute element={<KycScreen />} />}
+            element={<PublicRoute element={<KycScreen />} />}
           />
         </Routes>
       </Router>
