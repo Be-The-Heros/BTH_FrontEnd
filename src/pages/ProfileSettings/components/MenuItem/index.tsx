@@ -1,12 +1,15 @@
 import React from "react";
 
 import styled from "styled-components";
+import _toLowerCase from "lodash/lowerCase";
 
 interface MenuItemProps {
-  title?: string;
+  title?: "Profile" | "Notifications" | "Accounts" | "Verification";
   active?: boolean;
   icon?: React.ReactNode;
-  onClick?: (state: string) => void;
+  onClick?: (
+    state: "Profile" | "Notifications" | "Accounts" | "Verification"
+  ) => void;
 }
 
 const Container = styled.div<MenuItemProps>`
@@ -50,7 +53,9 @@ const MenuLink = (props: MenuItemProps) => {
       active={active}
       onClick={() => {
         if (onClick) {
-          onClick(title?.toLocaleLowerCase()!);
+          console.log("TITLE: ", title, active);
+
+          onClick(title!);
         }
       }}
     >

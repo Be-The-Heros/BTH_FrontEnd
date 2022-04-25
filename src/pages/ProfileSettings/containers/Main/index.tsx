@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 interface MainProps {
-  currentTab: string;
+  currentTab: "Profile" | "Notifications" | "Accounts" | "Verification";
   userInform: ProfileInfo;
 }
 
@@ -22,10 +22,10 @@ const Main = (props: MainProps) => {
 
   return (
     <Container>
-      <ProfileForms userInform={userInform} active={currentTab === "profile"} />
-      <NotificationForms active={currentTab === "notifications"} />
-      <AccountForms active={currentTab === "accounts"} />
-      <OrganizationForms active={currentTab === "organizations"} />
+      <ProfileForms userInform={userInform} active={currentTab === "Profile"} />
+      <NotificationForms active={currentTab === "Notifications"} />
+      <AccountForms active={currentTab === "Accounts"} />
+      <OrganizationForms active={currentTab === "Verification"} />
     </Container>
   );
 };

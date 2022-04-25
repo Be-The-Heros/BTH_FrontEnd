@@ -1,5 +1,5 @@
 interface KycState {
-  document_id: String;
+  document_id: string;
   user_photo: String;
   residential_address: String;
   document_photo: String;

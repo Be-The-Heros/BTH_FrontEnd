@@ -129,19 +129,14 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
     }
   }, [progressState]);
 
-  console.log("progressState: ", progressState);
-
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
       setUrl(imageSrc);
-      console.log("progressState - before: ", progressState);
 
       if (progressState !== 6) {
         setProgressState((state) => state + 1);
       }
-
-      console.log("progressState - after: ", progressState);
     }
   }, [webcamRef, progressState]);
 
@@ -410,7 +405,6 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
         );
     }
   };
-  console.log("kyc: ", kyc);
 
   return (
     <Container active={active}>
@@ -488,11 +482,11 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
                 setProgressState((state) => state + 1);
 
                 if (progressState === 4) {
-                  setUrl(null);
                   setRecoilKyc((state) => ({
                     ...state,
                     document_photo: url as String,
                   }));
+                  setUrl(null);
                   return;
                 }
 
