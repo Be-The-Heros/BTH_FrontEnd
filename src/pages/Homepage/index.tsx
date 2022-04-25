@@ -26,9 +26,6 @@ const Homepage = () => {
   };
 
   React.useEffect(() => {
-    postQuery.refetch();
-  }, []);
-  React.useEffect(() => {
     toast.dismiss();
     if (postQuery.data && isHasMore) {
       setDataRender([...dataRender, ...(postQuery.data?.list || [])]);

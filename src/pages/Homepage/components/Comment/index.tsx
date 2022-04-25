@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { cmtPushSubState } from 'recoil/comments/state';
 import { AddComment } from './AddComment';
 import CommentCustoms from './Comment';
-
+import _toNumber from 'lodash/toNumber';
 interface BoxCommentProps {
   postId: number;
 }
@@ -45,9 +45,9 @@ export const BoxComment = (props: BoxCommentProps) => {
     if (
       subComment.content &&
       subComment.postId &&
-      subComment.postId === postId
+      _toNumber(subComment.postId) === _toNumber(postId)
     ) {
-      // console.log('subComment.type', subComment.type);
+      console.log('subComment.type', subComment.type);
       switch (subComment.type) {
         case 'add':
           {
@@ -107,6 +107,7 @@ export const BoxComment = (props: BoxCommentProps) => {
         case 'edit':
           {
             const newData = [...dataListComment];
+            console.log('run switch edit');
 
             if (subComment.rep) {
               const index = newData.findIndex(

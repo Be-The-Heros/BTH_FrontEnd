@@ -24,6 +24,8 @@ interface PostInfo {
   joined: number;
   content: string;
   join_url?: string;
+  bio?: string;
+  user_address?: string;
 }
 interface RequestPost {
   residential_address: string;
@@ -34,6 +36,7 @@ interface RequestPost {
   title: string;
   photos?: File[];
   province: string;
+  isCreateChat: boolean;
 }
 
 interface ResponsePost {

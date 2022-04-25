@@ -87,4 +87,12 @@ export default styled.div`
   .ant-image {
     height: 100%;
   }
+  .create-url-post {
+    span {
+      &:hover {
+        text-decoration: underline;
+        color: var(--bs-primary);
+      }
+    }
+  }
 `;
