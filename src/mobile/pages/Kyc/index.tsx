@@ -21,6 +21,9 @@ const Container = styled.div`
     cursor: not-allowed;
     opacity: 1;
   }
+  img {
+    object-fit: contain;
+  }
 `;
 
 export const VerifyAgainButton = styled(Button)`

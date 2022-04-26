@@ -24,6 +24,7 @@ import { kycState } from "recoil/kycState/state";
 import { useSubmitKyc } from "hooks/kyc/submitKyc/useSubmitKyc";
 import { useGenerateURLImage } from "hooks/image/useCreateImageURL";
 import { base64ToFile } from "helpers/base64ToFile";
+import FlipCameraIosIcon from "@mui/icons-material/FlipCameraIos";
 
 const Container = styled.div<IdentityVerificationProps>`
   display: ${(props) => !props.active && "none"};
@@ -87,10 +88,13 @@ interface IdentityVerificationProps {
   active: boolean;
 }
 
+const FACING_MODE_USER = "user";
+const FACING_MODE_ENVIRONMENT = "environment";
+
 const videoConstraints = {
   width: 720,
   height: 360,
-  facingMode: "user",
+  facingMode: FACING_MODE_USER,
 };
 
 const IdentityVerification = (props: IdentityVerificationProps) => {
@@ -102,14 +106,26 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
   const [progressState, setProgressState] = React.useState<number>(1);
   const [isIDCardDocumentSelected, setIsIDCardDocumentSelected] =
     useState<boolean>(false);
+  const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
 
   const [kyc, setRecoilKyc] = useRecoilState(kycState);
 
   const submitKyc = useSubmitKyc();
   const fileToUrl = useGenerateURLImage();
 
+  const handleChangeFacingMode = React.useCallback(() => {
+    setFacingMode((prevState) =>
+      prevState === FACING_MODE_USER
+        ? FACING_MODE_ENVIRONMENT
+        : FACING_MODE_USER
+    );
+  }, []);
+
   async function handleSubmittingKyc() {
     const userPhoto: File = await base64ToFile(kyc.user_photo as string);
+    console.log(userPhoto);
+    console.log(userPhoto.type);
+
     const documentPhoto: File = await base64ToFile(
       kyc.document_photo as string
     );
@@ -253,10 +269,18 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
                 height="100%"
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
-                videoConstraints={videoConstraints}
+                videoConstraints={{
+                  ...videoConstraints,
+                  facingMode,
+                }}
               />
             </div>
             <CaptureButton onClick={capture}>Capture</CaptureButton>
+
+            <FlipCameraIosIcon
+              onClick={() => handleChangeFacingMode()}
+              style={{ marginLeft: "0.5em" }}
+            />
           </>
         );
 
@@ -377,10 +401,17 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
                     height="100%"
                     ref={webcamRef}
                     screenshotFormat="image/jpeg"
-                    videoConstraints={videoConstraints}
+                    videoConstraints={{
+                      ...videoConstraints,
+                      facingMode,
+                    }}
                   />
                 </div>
                 <CaptureButton onClick={capture}>Capture</CaptureButton>
+                <FlipCameraIosIcon
+                  onClick={() => handleChangeFacingMode()}
+                  style={{ marginLeft: "0.5em" }}
+                />
               </>
             )}
           </div>
