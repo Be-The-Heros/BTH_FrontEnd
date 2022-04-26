@@ -11,6 +11,7 @@ import { appState } from "recoil/appState/state";
 import { PrivateRoute, PublicRoute } from "routes";
 import LayoutMain from "templates/Layout";
 import LayoutAuth from "templates/LayoutAuth";
+import { ChatsPage } from "./chat";
 import { EditPostPage } from "./EditPostPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
 import SignInPage from "./SignIn";
@@ -65,6 +66,7 @@ export const AppViews = () => {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/create-post"
             element={<PrivateRoute element={<CreatePostPage />} />}
@@ -75,6 +77,24 @@ export const AppViews = () => {
             element={<PrivateRoute element={<VerifyEmailPage />} />}
           />
         </Route>
+
+        <Route
+          path="/chat"
+          element={
+            <PrivateRoute>
+              <ChatsPage />
+            </PrivateRoute>
+          }
+        />
+          <Route
+            path="/chat/:id"
+            element={
+              <PrivateRoute>
+                <ChatsPage />
+              </PrivateRoute>
+            }
+          />
+         
 
         <Route path="/auth" element={<LayoutAuth />}>
           <Route path="sign-in" element={<SignInPage />} />

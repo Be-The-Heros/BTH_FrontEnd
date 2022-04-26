@@ -1,4 +1,4 @@
-import { AxiosRequestHeaders } from 'axios';
+import { AxiosRequestHeaders } from "axios";
 
 export interface Config {
   api: {
@@ -13,14 +13,15 @@ export interface Config {
 }
 
 export enum ApiVersion {
-  kyc = 'kyc',
-  user = 'user',
-  auth = 'auth',
-  otp = 'otp',
-  post = 'post',
-  profile = 'profile',
-  image = 'image',
-  comment='comment'
+  kyc = "kyc",
+  user = "user",
+  auth = "auth",
+  otp = "otp",
+  post = "post",
+  profile = "profile",
+  image = "image",
+  comment = "comment",
+  chat = "chat",
 }
 
 export interface RequestOptions {
@@ -36,5 +37,5 @@ export interface JsonBody {
 export interface RequestPayload {
   body?: JsonBody | FormData;
   params?: Object;
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 }
