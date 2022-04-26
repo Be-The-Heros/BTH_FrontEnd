@@ -1,13 +1,17 @@
-import apis from "apis";
-import { useMutation } from "react-query";
-import { API_KYC } from "../config";
+import apis from 'apis';
+import { useMutation } from 'react-query';
+import { API_KYC } from '../config';
 
-interface KycStatusResponse {
-  status: "pending" | "failed" | "unsent" | "verified";
+export interface KycStatusResponse {
+  status: 'pending' | 'failed' | 'unsent' | 'verified';
   reason?: string;
 }
 export const useGetKycStatus = () => {
-  return useMutation(() => {
-    return apis.get<KycStatusResponse>(API_KYC, "/status");
+  return useMutation((token?: string) => {
+    return apis.get<KycStatusResponse>(API_KYC, '/status', {
+      params: {
+        token,
+      },
+    });
   });
 };

@@ -9,18 +9,20 @@ export interface Config {
     postUrl: string;
     profileUrl: string;
     imageUrl: string;
+    inviteUrl: string;
   };
 }
 
 export enum ApiVersion {
-  kyc = "kyc",
-  user = "user",
-  auth = "auth",
-  otp = "otp",
-  post = "post",
-  profile = "profile",
-  image = "image",
-  comment = "comment",
+  kyc = 'kyc',
+  user = 'user',
+  auth = 'auth',
+  otp = 'otp',
+  post = 'post',
+  profile = 'profile',
+  image = 'image',
+  comment = 'comment',
+  invite = 'invite',
   chat = "chat",
 }
 

@@ -5,8 +5,9 @@ export const devUrl = {
   otp: "https://betheheros.tk/api/otp",
   post: " https://betheheros.tk/api/post",
   profile: "https://betheheros.tk/v2/api/profile",
-  image: "https://betheheros.tk/api/image",
+  image: "http://localhost:5000/api/image",
   comment: "https://betheheros.tk/v2/api/comment",
+  invite: "https://betheheros.tk/api/invite",
   chat: "https://betheheros.tk/v2/api/chat",
 };
 export const productionUrl = {
@@ -18,5 +19,6 @@ export const productionUrl = {
   profile: "/v2/api/profile",
   image: "/api/image",
   comment: "/v2/api/comment",
+  invite: "/api/invite",
   chat: "/v2/api/chat",
 };

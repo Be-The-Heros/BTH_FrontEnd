@@ -1,12 +1,18 @@
-import React from "react";
-import styled from "styled-components";
-import { useGetKycStatus } from "hooks/kyc/kycStatus/useGetKycStatus";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import { Typography } from "@mui/material";
-import Loading from "components/Loading";
-import ErrorIcon from "@mui/icons-material/Error";
-import PendingIcon from "@mui/icons-material/Pending";
-import { Button } from "antd";
+import React from 'react';
+import styled from 'styled-components';
+import {
+  KycStatusResponse,
+  useGetKycStatus,
+} from 'hooks/kyc/kycStatus/useGetKycStatus';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import { Typography } from '@mui/material';
+import Loading from 'components/Loading';
+import ErrorIcon from '@mui/icons-material/Error';
+import PendingIcon from '@mui/icons-material/Pending';
+import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/users/state';
 
 interface OrganizationFormsProps {
   active: boolean;
@@ -14,7 +20,7 @@ interface OrganizationFormsProps {
 
 const Container = styled.div<OrganizationFormsProps>`
   width: 100%;
-  display: ${(props) => !props.active && "none"};
+  display: ${(props) => !props.active && 'none'};
   background-color: #fff;
   border-radius: 10px;
   padding: 2em 3em;
@@ -29,76 +35,67 @@ export const VerifyButton = styled(Button)`
   color: #000;
 `;
 
-const OrganizationForms = (props: OrganizationFormsProps) => {
+const Verifications = (props: OrganizationFormsProps) => {
+  const navigate = useNavigate();
   const { active } = props;
 
-  const userToken = localStorage.getItem("token");
-
   const getKycStatus = useGetKycStatus();
-
+  const { token } = useRecoilValue(userState);
   React.useEffect(() => {
-    getKycStatus.mutate();
+    getKycStatus.mutate(token);
   }, [active]);
 
-  const renderStatus = (
-    status: "pending" | "failed" | "unsent" | "verified"
-  ) => {
+  const renderStatus = (status: KycStatusResponse['status']) => {
     switch (status) {
-      case "pending":
+      case 'pending':
         return (
           <>
             <PendingIcon
-              style={{ width: "5em", height: "5em", color: "green" }}
+              style={{ width: '5em', height: '5em', color: 'green' }}
             />
-            <Typography variant="h3">Pending</Typography>
-            <Typography variant="h6">
+            <Typography variant='h3'>Pending</Typography>
+            <Typography variant='h6'>
               Your verification is in the waiting list
             </Typography>
           </>
         );
-      case "failed":
+      case 'failed':
         return (
-          <>
-            <ErrorIcon style={{ width: "5em", height: "5em", color: "red" }} />
-            <Typography variant="h4">Verification failed</Typography>
-            <Typography variant="h6">{getKycStatus.data?.reason}</Typography>
+          <React.Fragment>
+            <ErrorIcon style={{ width: '5em', height: '5em', color: 'red' }} />
+            <Typography variant='h4'>Verification failed</Typography>
+            <Typography variant='h6'>{getKycStatus.data?.reason}</Typography>
 
             <VerifyButton
               onClick={() => {
-                window.open(
-                  `http://localhost:3000/profile/kyc?token=${userToken}`,
-                  "_blank"
-                );
+                navigate(`/profile/kyc?token=${token}`);
               }}
             >
               Verify Again
             </VerifyButton>
-          </>
+          </React.Fragment>
         );
-      case "unsent":
+      case 'unsent':
         return (
           <>
-            <Typography variant="h3">Let's verify your account!</Typography>
+            <Typography variant='h3'>Let's verify your account!</Typography>
             <VerifyButton
               onClick={() => {
-                window.open(
-                  `http://localhost:3000/profile/kyc?token=${userToken}`,
-                  "_blank"
-                );
+                navigate(`/profile/kyc?token=${token}`);
               }}
             >
               Verify
             </VerifyButton>
           </>
         );
-      case "verified":
+      case 'verified':
         return (
           <>
             <CheckCircleRoundedIcon
-              style={{ width: "5em", height: "5em", color: "green" }}
+              style={{ width: '5em', height: '5em', color: 'green' }}
             />
-            <Typography variant="h3">You are verified!</Typography>
-            <Typography variant="h6">Your account is verified</Typography>
+            <Typography variant='h3'>You are verified!</Typography>
+            <Typography variant='h6'>Your account is verified</Typography>
           </>
         );
     }
@@ -111,10 +108,10 @@ const OrganizationForms = (props: OrganizationFormsProps) => {
     <Container active={active}>
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         {renderStatus(getKycStatus.data.status)}
@@ -123,4 +120,4 @@ const OrganizationForms = (props: OrganizationFormsProps) => {
   );
 };
 
-export default OrganizationForms;
+export default Verifications;
