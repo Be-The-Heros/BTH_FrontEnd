@@ -114,20 +114,22 @@ const PersonalInformation = (props: PersonalInformationProps) => {
               control={control}
               rules={{ required: true }}
               defaultValue=""
-              render={({ field }) => <CustomInput {...field} size="large" />}
+              render={({ field }) => (
+                <CustomInput {...field} size="large" type={"number"} />
+              )}
             />
             {errors.national_id && <Error>National ID is required</Error>}
             <Label>Full Name</Label>
             <Controller
               name="full_name"
               control={control}
-              rules={{ required: true, pattern: /^[A-Za-z]+$/ }}
+              rules={{ required: true, pattern: /^[a-zA-Z ]*$/ }}
               defaultValue=""
               render={({ field }) => (
                 <CustomInput {...field} size="large" type={"text"} />
               )}
             />
-            {errors.full_name && <Error>Full name is required</Error>}
+            {errors.full_name && <Error>Full name is invalid</Error>}
             <Label>Date of Birth</Label>
             <DatePicker
               placeholder="YYYY-MM-DD"
@@ -160,7 +162,7 @@ const PersonalInformation = (props: PersonalInformationProps) => {
             <Controller
               name="city"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: true, pattern: /^[a-zA-Z ]*$/ }}
               defaultValue=""
               render={({ field }) => <CustomInput {...field} size="large" />}
             />
