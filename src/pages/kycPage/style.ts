@@ -32,6 +32,9 @@ export default styled.div`
       }
 
       &-verification {
+        background-color: rgb(234, 236, 239);
+        padding: 2% 3%;
+        border-radius: 5px;
         &__details {
           font-size: 1rem;
           svg {

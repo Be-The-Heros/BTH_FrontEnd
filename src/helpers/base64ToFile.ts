@@ -1,8 +1,8 @@
-export const base64ToFile = (base64: string) => {
+export const base64ToFile = (filename: string, base64: string) => {
   return fetch(base64)
     .then((res) => res.blob())
     .then((blob) => {
-      const file = new File([blob], "user_photo.jpg", { type: "image/jpeg" });
+      const file = new File([blob], filename, { type: 'image/png' });
       return file;
     });
 };
