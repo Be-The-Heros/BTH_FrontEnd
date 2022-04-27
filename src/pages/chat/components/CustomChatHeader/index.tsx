@@ -14,14 +14,14 @@ interface ICustomChatHeader {
 }
 
 export const CustomChatHeader = (props: ICustomChatHeader) => {
-  const { infoGroupChat } = props;
+  const { infoGroupChat  } = props;
   const [avatar, setAvatar] = useState('');
  
   const [visibleEditName, setVisibleEditName] = useState(false);
 
   useEffect(() => {
     if (infoGroupChat) {
-      setAvatar(infoGroupChat.avatar);
+      setAvatar(infoGroupChat.avatar || infoGroupChat.firstMember?.avatar ||'');
     }
   }, [infoGroupChat])
   
@@ -90,7 +90,7 @@ export const CustomChatHeader = (props: ICustomChatHeader) => {
               margin: "auto 0",
             }}
           >
-            {infoGroupChat?.name_group || ""}
+            {infoGroupChat?.name_group || infoGroupChat?.firstMember?.first_name+" "+infoGroupChat?.firstMember?.last_name}
           </h3>
         </div>
         <div

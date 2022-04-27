@@ -20,6 +20,9 @@ import { ProfileInfo } from "hooks/profile/model";
 import { useChangeAvatar } from "hooks/profile/ChangeAvatar/useChangeAvatar";
 import { useChangeBackgroundPhoto } from "hooks/profile/ChangeBackgroundPhoto/useChangeBackgroundPhoto";
 import Loading from "components/Loading";
+import { BsMessenger } from "react-icons/bs";
+import apis from "apis";
+import { API_CHAT } from "hooks/chat/configs";
 
 interface ProfileProps {
   profileInfo: ProfileInfo;
@@ -136,6 +139,19 @@ const Profile = (props: ProfileProps) => {
     setChangingState((state) => false);
   };
 
+  const goToMessage = async () => {
+    try {
+      const data = await apis.post<{ group_chat_id: string }>(
+        API_CHAT,
+        `/create-group-chat-private?uid=${profileInfo.uid}`
+      );
+
+      data && navigate(`/chat/${data.group_chat_id}`);
+    } catch (error) {
+      navigate("/");
+    }
+  };
+
   return (
     <>
       <Overlay
@@ -242,9 +258,13 @@ const Profile = (props: ProfileProps) => {
             Save Changes
           </SaveChangesButton>
         )}
-        {isCurrentUser && (
+        {isCurrentUser ? (
           <EditProfileButton onClick={() => navigate("/profile/settings")}>
             Edit Profile
+          </EditProfileButton>
+        ) : (
+          <EditProfileButton onClick={goToMessage}>
+            <BsMessenger style={{ marginRight: "10px" }} /> Message
           </EditProfileButton>
         )}
       </Container>

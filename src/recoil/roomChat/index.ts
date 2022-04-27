@@ -34,6 +34,11 @@ export interface IGroupChat {
     created_at?: Date;
     updated_at?: Date;
   };
+  firstMember? :{
+    avatar: string;
+    first_name: string;
+    last_name: string;
+  }
 }
 
 export interface IGroupChatState {
