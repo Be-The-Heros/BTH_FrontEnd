@@ -102,16 +102,17 @@ const videoConstraints = {
 const IdentityVerification = (props: IdentityVerificationProps) => {
   const { active, token } = props;
 
-  const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false);
+  const [isCaptureEnable, setCaptureEnable] = useState(false);
   const webcamRef = useRef<Webcam>(null);
   const [url, setUrl] = useState<string | null>(null);
-  const [progressState, setProgressState] = React.useState<number>(1);
+  const [progressState, setProgressState] = React.useState(1);
   const [isIDCardDocumentSelected, setIsIDCardDocumentSelected] =
-    useState<boolean>(false);
+    useState(false);
   const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
 
   const [kyc, setRecoilKyc] = useRecoilState(kycState);
 
+  const [files, setFiles] = React.useState<string[]>([]);
   const submitKyc = useSubmitKyc();
   const fileToUrl = useGenerateURLImage();
 
@@ -124,16 +125,13 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
   }, []);
 
   async function handleSubmittingKyc() {
-    const userPhoto: File = await base64ToFile(
-      'userPhoto.png',
-      kyc.user_photo as string
-    );
-    const documentPhoto: File = await base64ToFile(
+    const userPhoto = await base64ToFile('userPhoto.png', url!);
+    const documentPhoto = await base64ToFile(
       'documentPhoto.png',
-      kyc.document_photo as string
+      kyc.document_photo
     );
 
-    const photos = await fileToUrl.mutateAsync([documentPhoto, userPhoto]);
+    const photos = await fileToUrl.mutateAsync([userPhoto, documentPhoto]);
 
     submitKyc.mutate({
       ...kyc,
@@ -153,12 +151,11 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
       setUrl(imageSrc);
-
       if (progressState !== 6) {
         setProgressState((state) => state + 1);
       }
     }
-  }, [webcamRef, progressState]);
+  }, [webcamRef, progressState, kyc]);
 
   const renderBody = () => {
     switch (progressState) {
@@ -519,19 +516,16 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
                 if (progressState === 4) {
                   setRecoilKyc((state) => ({
                     ...state,
-                    document_photo: url as String,
+                    document_photo: url || '',
                   }));
                   setUrl(null);
                   return;
                 }
 
                 if (progressState === 6) {
-                  setRecoilKyc((state) => ({
-                    ...state,
-                    user_photo: url as String,
-                  }));
-                  setUrl(null);
-
+                  console.log('url', url, 'is step 6');
+                  setRecoilKyc({ ...kyc, user_photo: url || '' });
+                  console.log('finish', url, 'is step 6');
                   return;
                 }
                 if (progressState === 5) {

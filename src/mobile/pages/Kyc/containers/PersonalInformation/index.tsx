@@ -1,16 +1,16 @@
-import { Typography } from "@mui/material";
-import { Button, DatePicker, Input } from "antd";
-import React from "react";
-import styled from "styled-components";
-import VietNamIcon from "assets/icons/vietnam-icon.png";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { ContinueButton } from "../../components";
-import { Controller, useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
-import { kycState } from "recoil/kycState/state";
+import { Typography } from '@mui/material';
+import { Button, DatePicker, Input } from 'antd';
+import React from 'react';
+import styled from 'styled-components';
+import VietNamIcon from 'assets/icons/vietnam-icon.png';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { ContinueButton } from '../../components';
+import { Controller, useForm } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
+import { kycState } from 'recoil/kycState/state';
 
 const Container = styled.div<PersonalInformationProps>`
-  display: ${(props) => !props.active && "none"};
+  display: ${(props) => !props.active && 'none'};
   width: 100%;
   height: 100%;
 
@@ -77,7 +77,7 @@ interface PersonalInformationField {
 const PersonalInformation = (props: PersonalInformationProps) => {
   const { active, handleSetTabState } = props;
 
-  const [dateOfBirthState, setDateOfBirthState] = React.useState<String>("");
+  const [dateOfBirthState, setDateOfBirthState] = React.useState<string>('');
   const [isSubmittedInSecondScreenState, setIsSubmittedInSecondScreenState] =
     React.useState<boolean>(false);
 
@@ -98,43 +98,43 @@ const PersonalInformation = (props: PersonalInformationProps) => {
       case 1:
         return (
           <React.Fragment>
-            <SubTitle variant="h6">Identity Information</SubTitle>
-            <SubTitle variant="h6">Nationality</SubTitle>
+            <SubTitle variant='h6'>Identity Information</SubTitle>
+            <SubTitle variant='h6'>Nationality</SubTitle>
             <Input
-              size="large"
-              placeholder="large size"
-              value={"VietNam (Việt Nam)"}
+              size='large'
+              placeholder='large size'
+              value={'VietNam (Việt Nam)'}
               disabled={true}
-              prefix={<img src={VietNamIcon} style={{ width: "50%" }} />}
-              style={{ marginBottom: "0.5em", color: "#000" }}
+              prefix={<img src={VietNamIcon} style={{ width: '50%' }} />}
+              style={{ marginBottom: '0.5em', color: '#000' }}
             />
             <Label>National ID</Label>
             <Controller
-              name="national_id"
+              name='national_id'
               control={control}
               rules={{ required: true }}
-              defaultValue=""
+              defaultValue=''
               render={({ field }) => (
-                <CustomInput {...field} size="large" type={"number"} />
+                <CustomInput {...field} size='large' type={'number'} />
               )}
             />
             {errors.national_id && <Error>National ID is required</Error>}
             <Label>Full Name</Label>
             <Controller
-              name="full_name"
+              name='full_name'
               control={control}
               rules={{ required: true, pattern: /^[a-zA-Z ]*$/ }}
-              defaultValue=""
+              defaultValue=''
               render={({ field }) => (
-                <CustomInput {...field} size="large" type={"text"} />
+                <CustomInput {...field} size='large' type={'text'} />
               )}
             />
             {errors.full_name && <Error>Full name is invalid</Error>}
             <Label>Date of Birth</Label>
             <DatePicker
-              placeholder="YYYY-MM-DD"
-              size="large"
-              style={{ width: "100%" }}
+              placeholder='YYYY-MM-DD'
+              size='large'
+              style={{ width: '100%' }}
               onChange={(value, dateString) => {
                 setDateOfBirthState(dateString);
               }}
@@ -146,25 +146,25 @@ const PersonalInformation = (props: PersonalInformationProps) => {
       case 2:
         return (
           <React.Fragment>
-            <SubTitle variant="h6">Additional Information</SubTitle>
+            <SubTitle variant='h6'>Additional Information</SubTitle>
             <Label>Residential Address</Label>
             <Controller
-              name="residential_address"
+              name='residential_address'
               control={control}
               rules={{ required: true }}
-              defaultValue=""
-              render={({ field }) => <CustomInput {...field} size="large" />}
+              defaultValue=''
+              render={({ field }) => <CustomInput {...field} size='large' />}
             />
             {isSubmittedInSecondScreenState && errors.residential_address && (
               <Error>Residential Address is required</Error>
             )}
             <Label>City</Label>
             <Controller
-              name="city"
+              name='city'
               control={control}
               rules={{ required: true, pattern: /^[a-zA-Z ]*$/ }}
-              defaultValue=""
-              render={({ field }) => <CustomInput {...field} size="large" />}
+              defaultValue=''
+              render={({ field }) => <CustomInput {...field} size='large' />}
             />
             {isSubmittedInSecondScreenState && errors.city && (
               <Error>City is required</Error>
@@ -197,29 +197,29 @@ const PersonalInformation = (props: PersonalInformationProps) => {
 
   return (
     <Container active={active}>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ height: "100%" }}>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ height: '100%' }}>
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            height: "100%",
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '100%',
           }}
         >
           <div>
             {progressState !== 1 && (
               <ArrowBackIcon
                 onClick={() => setProgressState((state) => state - 1)}
-                style={{ marginBottom: "1em" }}
+                style={{ marginBottom: '1em' }}
               />
             )}
-            <Title variant="h5">Personal Information</Title>
+            <Title variant='h5'>Personal Information</Title>
             {renderBody()}
           </div>
 
           <ContinueButton
             disabled={isFormNotValid()}
-            htmlType="submit"
+            htmlType='submit'
             onClick={() => {
               setProgressState((state) => state + 1);
 
