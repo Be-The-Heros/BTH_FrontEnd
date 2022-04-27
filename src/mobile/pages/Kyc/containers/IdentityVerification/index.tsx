@@ -128,13 +128,12 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
       'userPhoto.png',
       kyc.user_photo as string
     );
-
     const documentPhoto: File = await base64ToFile(
       'documentPhoto.png',
       kyc.document_photo as string
     );
 
-    const photos = await fileToUrl.mutateAsync([userPhoto, documentPhoto]);
+    const photos = await fileToUrl.mutateAsync([documentPhoto, userPhoto]);
 
     submitKyc.mutate({
       ...kyc,
