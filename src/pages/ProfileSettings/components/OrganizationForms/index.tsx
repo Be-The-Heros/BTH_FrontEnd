@@ -42,7 +42,7 @@ const Verifications = (props: OrganizationFormsProps) => {
   const getKycStatus = useGetKycStatus();
   const { token } = useRecoilValue(userState);
   React.useEffect(() => {
-    getKycStatus.mutate();
+    getKycStatus.mutate(token);
   }, [active]);
 
   const renderStatus = (status: KycStatusResponse['status']) => {

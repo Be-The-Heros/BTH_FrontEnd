@@ -88,3 +88,15 @@ img {
     margin-right: 10px;
   }
 }
+
+.ant-comment-inner {
+  padding: 0px 0;
+}
+
+.custom-right-message > .ant-comment-inner {
+  flex-direction: row-reverse;
+  padding: 0px 0 !important;
+}
+.ant-comment > .ant-comment-inner {
+  padding: 0px 0 !important;
+}

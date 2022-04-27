@@ -10,8 +10,10 @@ import { useLocation, useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { userState } from "recoil/users/state";
 import Style from "./style";
-import {FiSettings} from 'react-icons/fi';
-import {BsPerson} from 'react-icons/bs';
+import { FiSettings } from "react-icons/fi";
+import { BsPerson } from "react-icons/bs";
+import { AiOutlineMessage } from "react-icons/ai";
+import {Link} from "react-router-dom";
 interface StateLocation {
   state?: {
     isPageVerify?: boolean;
@@ -52,10 +54,12 @@ export const Header = () => {
             justifyContent: "space-between",
             alignItems: "center",
           }}
-          onClick={() => {navigate("/profile/settings")}}
+          onClick={() => {
+            navigate("/profile/settings");
+          }}
         >
           <div>Setting</div>
-          <FiSettings/>
+          <FiSettings />
         </div>
       </Menu.Item>
       <Menu.Item key={3}>
@@ -85,6 +89,13 @@ export const Header = () => {
               Create Post
             </Button>
           </div>
+
+          <div className="header__notification">
+            <Link to="chat">
+              <AiOutlineMessage />
+            </Link>
+          </div>
+
           <div className="header__notification">
             <IoIosNotificationsOutline
               onClick={() => setIsOpenNotification(!isOpenNotification)}

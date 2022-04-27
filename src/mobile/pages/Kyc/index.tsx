@@ -9,6 +9,7 @@ import Loading from "components/Loading";
 import ErrorIcon from "@mui/icons-material/Error";
 import PendingIcon from "@mui/icons-material/Pending";
 import { Button } from "antd";
+import { setLocalStorage } from "helpers/setTitleDocument";
 
 const Container = styled.div`
   width: 100%;
@@ -47,7 +48,7 @@ const KycScreen = () => {
   const getKycStatus = useGetKycStatus();
 
   React.useEffect(() => {
-    getKycStatus.mutate();
+    getKycStatus.mutate(userToken || "");
   }, []);
 
   const renderStatus = (
@@ -109,6 +110,7 @@ const KycScreen = () => {
                 />
                 <IdentityVerification
                   active={tabState === "identityVerification"}
+                  token={userToken || ""}
                 />
               </>
             )}
@@ -123,6 +125,7 @@ const KycScreen = () => {
             />
             <IdentityVerification
               active={tabState === "identityVerification"}
+              token={userToken || ""}
             />
           </>
         );

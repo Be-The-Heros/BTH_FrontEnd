@@ -86,6 +86,7 @@ const CaptureButton = styled(Button)`
 
 interface IdentityVerificationProps {
   active: boolean;
+  token?: string;
 }
 
 const FACING_MODE_USER = "user";
@@ -98,7 +99,7 @@ const videoConstraints = {
 };
 
 const IdentityVerification = (props: IdentityVerificationProps) => {
-  const { active } = props;
+  const { active, token } = props;
 
   const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false);
   const webcamRef = useRef<Webcam>(null);
@@ -136,6 +137,7 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
       ...kyc,
       user_photo: photos.urls[0],
       document_photo: photos.urls[1],
+      token,
     });
   }
 
