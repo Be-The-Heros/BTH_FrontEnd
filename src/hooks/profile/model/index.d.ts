@@ -1,4 +1,5 @@
 interface ProfileInfo {
+  uid:string,
   user_id: number;
   first_name: string;
   last_name: string;

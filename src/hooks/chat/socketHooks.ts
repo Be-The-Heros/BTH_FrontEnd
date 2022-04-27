@@ -6,7 +6,6 @@ import { userState } from "recoil/users/state";
 import { io, Socket } from "socket.io-client";
 import { urlSocket } from "./configs";
 
-
 export interface IMessageFromSocket {
   uid: string;
   to_group: string;
@@ -26,11 +25,8 @@ export const useSocketHandle = (socket: Socket | undefined): void => {
   useEffect(() => {
     if (socket) {
       socket.on(uid, (data: IMessageFromSocket) => {
-        console.log("data take from socket io ", data);
 
         const { to_group, avatar_group, name_group } = data;
-
-        console.log("to_group", to_group);
 
         setGroupChatState((state) => {
           const checkGroupChat = state.listGroupHaveMessages.findIndex(
@@ -139,11 +135,11 @@ interface IUseSocket {
   isError: boolean;
 }
 
-const token = getLocalStorage('token');
+const token = getLocalStorage("token");
 
 const socket = io(urlSocket, {
   extraHeaders: {
-    authorization: "Bearer "+token,
+    authorization: "Bearer " + token,
   },
   path: "/v2/api/socket",
 });
@@ -159,10 +155,10 @@ export const useSocket = (): IUseSocket => {
   useEffect(() => {
     if (socketIo) {
       socketIo.on("connect", function () {
-        console.log("connected");
+        // console.log("connected");
       });
       socketIo.on("exception", function (data: any) {
-        console.log("exception", data);
+        // console.log("exception", data);
         setIsError(true);
       });
     }

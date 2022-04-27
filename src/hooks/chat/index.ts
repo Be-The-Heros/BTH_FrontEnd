@@ -21,7 +21,6 @@ export const useGetListGroupsChat = (): IUseGetListGroupsChat => {
     const getData = async () => {
       const data = await apis.get<IGroupChat[]>(API_CHAT, "/get-list-chat");
 
-      console.log("---->", data);
       if (data) {
         setGroupChatState((state) => ({
           ...state,
@@ -86,7 +85,6 @@ export const useGetListMessages = (
         "/get-list-message?group_chat_id=" + group_id
       );
 
-      console.log("data message---->", data);
       if (data && group_id) {
         // setlistGroupChat((data.data as IGroupChat[]) || []);
         // check and push group chat to state recoil
@@ -106,7 +104,6 @@ export const useGetListMessages = (
             },
           ];
 
-          console.log("newListGroupHaveMessages", newListGroupHaveMessages);
 
           setGroupChatState((state) => ({
             ...state,
@@ -119,7 +116,6 @@ export const useGetListMessages = (
     };
 
     try {
-      console.log("group_id", group_id);
 
       if (group_id && infoUser.token) {
         // find in state recoil if exit return

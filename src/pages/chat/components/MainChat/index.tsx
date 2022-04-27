@@ -45,7 +45,6 @@ export const MainChat = () => {
           avatar: e.profiles?.avatar || "",
         });
       }
-      console.log(listMessagesRenderTmp);
       setListMessagesRender(listMessagesRenderTmp);
     }
   }, [listMessages, id, uid]);
