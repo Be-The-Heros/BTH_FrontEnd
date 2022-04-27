@@ -112,7 +112,6 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
 
   const [kyc, setRecoilKyc] = useRecoilState(kycState);
 
-  const [files, setFiles] = React.useState<string[]>([]);
   const submitKyc = useSubmitKyc();
   const fileToUrl = useGenerateURLImage();
 
@@ -125,9 +124,9 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
   }, []);
 
   async function handleSubmittingKyc() {
-    const userPhoto = await base64ToFile('userPhoto.png', url!);
+    const userPhoto = await base64ToFile('userPhoto.jpg', url!);
     const documentPhoto = await base64ToFile(
-      'documentPhoto.png',
+      'documentPhoto.jpg',
       kyc.document_photo
     );
 
