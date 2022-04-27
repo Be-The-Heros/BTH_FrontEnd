@@ -26,6 +26,7 @@ export interface IGroupChat {
   id: string;
   name_group: string;
   avatar: string;
+  type?: "group" | "private";
   lastMessage?: {
     uid?: string;
     to_group?: string;

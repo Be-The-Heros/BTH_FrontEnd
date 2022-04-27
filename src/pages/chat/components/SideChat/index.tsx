@@ -51,8 +51,11 @@ export const SideChat = () => {
             return (
               <ChatItem
                 className={active == e.id ? "chatItem" : ""}
-                avatar={e.avatar ||  e.firstMember?.avatar}
-                title={e.name_group || e.firstMember?.first_name+" "+e.firstMember?.last_name}
+                avatar={e.avatar || e.firstMember?.avatar}
+                title={
+                  e.name_group ||
+                  e.firstMember?.first_name + " " + e.firstMember?.last_name
+                }
                 subtitle={e.lastMessage?.contents || ""}
                 date={
                   e.lastMessage?.created_at
