@@ -125,9 +125,9 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
   }, []);
 
   async function handleSubmittingKyc() {
-    const userPhoto = await base64ToFile('userPhoto.png', url!);
+    const userPhoto = await base64ToFile('userPhoto.jpeg', url!);
     const documentPhoto = await base64ToFile(
-      'documentPhoto.png',
+      'documentPhoto.jpeg',
       kyc.document_photo
     );
 
