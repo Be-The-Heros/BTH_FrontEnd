@@ -38,6 +38,8 @@ export const CustomChatHeader = (props: ICustomChatHeader) => {
     setVisibleEditName(false);
   };
 
+  
+
   const reader = new FileReader();
 
   const dropdownSetting = (
@@ -73,16 +75,43 @@ export const CustomChatHeader = (props: ICustomChatHeader) => {
 
   return (
     <CustomChatHeaderStyle>
-      <div className="header_message" style={{ display: "flex" }}>
+      <div className="header_message" style={{ display: "flex", borderBottom: "1px solid #d9d9d9" }}>
         <div className="header_message_info" style={{ display: "flex" }}>
+          {infoGroupChat?.type == 'group'? 
+          <div className="header_message_info_avatar">
           <Avatar
             style={{
-              margin: "0.5rem",
+             
               background: "rgb(190 190 190 / 20%)",
+              top: '0',
+              right: '-5px',
+              zIndex:'1',
             }}
-            size={46}
-            src={avatar}
+            size={33}
+            src={infoGroupChat.firstMember?.avatar}
           />
+          <Avatar
+            style={{
+              
+              background: "rgb(190 190 190 / 20%)",
+              zIndex:'0',
+              bottom: '5px',
+              left: '0',
+            }}
+            size={33}
+            src={infoGroupChat.avatar}
+          />
+          </div> 
+          : <Avatar
+          style={{
+           
+            background: "rgb(190 190 190 / 20%)",
+            margin: '1rem 0.5rem',
+          }}
+          size={46}
+          src={avatar}
+        />}
+         
           <h3
             style={{
               color: "rgb(0 0 0)",
@@ -99,14 +128,14 @@ export const CustomChatHeader = (props: ICustomChatHeader) => {
             margin: "auto 2rem",
           }}
         >
-          <MdOutlineCall
+          {/* <MdOutlineCall
             size={25}
             style={{ marginRight: "1rem", cursor: "pointer" }}
           />
           <IoVideocam
             size={25}
             style={{ marginRight: "1rem", cursor: "pointer" }}
-          />
+          /> */}
           <Dropdown
             overlay={dropdownSetting}
             placement="bottomRight"

@@ -16,6 +16,13 @@ export const CustomChatHeaderStyle= styled.div`
       justify-content: space-between;
       margin-top: auto;
       margin-left: 1em;
+      &_avatar{
+        position: relative;
+        margin: 1rem 0.5rem;
+        Avatar{
+          position: absolute;
+        }
+      }
     }
   }
 `;

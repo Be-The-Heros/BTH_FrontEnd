@@ -107,12 +107,12 @@ export const HeaderSide = () => {
         <div className="header_chat">
           <h1>Chat</h1>
           <div className="header_chat_icons">
-            <Button>
+            {/* <Button>
               <FaEdit />
             </Button>
             <Button>
               <IoVideocam />
-            </Button>
+            </Button> */}
 
             <Dropdown overlay={dropdownSetting} placement="bottomRight">
               <CgMoreO style={{ fontSize: "1.75rem", marginLeft: "0.5rem" }} />
