@@ -98,6 +98,8 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
                 textDecoration: 'none',
                 color: '#1a3353',
                 fontWeight: '500',
+                fontSize: '1rem',
+                marginTop: '0.25rem',
               }}
             >
               {fullName}

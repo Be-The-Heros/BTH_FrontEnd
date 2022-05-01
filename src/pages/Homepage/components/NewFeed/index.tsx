@@ -18,7 +18,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
 import { BoxComment } from '../Comment';
 import Style from './style';
-
+import { FcOk } from 'react-icons/fc';
 interface NewFeedProps extends PostInfo {
   handleDeletePost?: (id: string) => void;
 }
@@ -213,6 +213,8 @@ export const NewFeed = (props: NewFeedProps) => {
       setView('See more...');
     }
   };
+  console.log('level', props.level);
+
   return (
     <React.Fragment>
       <PopupLogin
@@ -233,20 +235,30 @@ export const NewFeed = (props: NewFeedProps) => {
             />
 
             <div className='Newfeed_head_info_detail'>
-              <h6
+              <div
+                className='d-flex align-items-center'
                 style={{
                   fontWeight: 'bold',
                 }}
               >
                 {props.fullname}
-              </h6>
-              <p
+                {props.level > 2 && (
+                  <FcOk
+                    style={{
+                      marginLeft: '0.5rem',
+                      fontSize: '1rem',
+                    }}
+                  />
+                )}
+              </div>
+              <div
+                className='w-100'
                 style={{
                   marginBottom: '0.25rem',
                 }}
               >
                 {new Date(props.updated_at).toDateString()}
-              </p>
+              </div>
               <div className='Newfeed_head_info_detail_locate'>
                 <VscLocation style={{ fontSize: '1.25rem' }} color='red' />
                 <div>{props.residential_address}</div>
@@ -260,11 +272,11 @@ export const NewFeed = (props: NewFeedProps) => {
                 type='ghost'
                 onClick={() => {
                   setIsBtnJoinClick(true);
-                  if (props.join_url?.includes('/chat')) {
-                    navigate(`/invite/${props.post_id}`);
-                    return;
-                  }
-                  window.open(props.join_url, '_blank');
+                  if (user.isLoggedIn)
+                    if (props.join_url?.includes('/chat')) {
+                      navigate(`/invite/${props.post_id}`);
+                      return;
+                    } else window.open(props.join_url, '_blank');
                 }}
               >
                 Join

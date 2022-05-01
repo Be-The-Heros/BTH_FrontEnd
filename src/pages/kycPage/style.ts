@@ -21,6 +21,7 @@ export default styled.div`
         &__reason {
           &-title {
             font-size: 1.5rem;
+            color: red;
           }
 
           &-suggestion {
@@ -42,6 +43,17 @@ export default styled.div`
           }
         }
       }
+    }
+  }
+  .btn-verify {
+    &--pending {
+      background-color: var(--bs-blue) !important;
+    }
+    &--success {
+      background-color: var(--bs-green);
+    }
+    &--error {
+      background-color: #7cdfff !important;
     }
   }
 `;

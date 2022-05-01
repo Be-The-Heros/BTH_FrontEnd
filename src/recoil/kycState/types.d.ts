@@ -6,5 +6,5 @@ interface KycState {
   passport: 'identity_card' | 'license_card';
   date_of_birth: string;
   fullname: string;
-  province: String;
+  province: string;
 }
