@@ -11,13 +11,15 @@ import { AiOutlineIdcard } from 'react-icons/ai';
 import { MdArrowBack } from 'react-icons/md';
 import { RiGovernmentLine, RiVoiceRecognitionLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { kycState } from 'recoil/kycState/state';
 import { AdditionalInformation } from './containers/AdditionalInformation';
 import { FormConfirmInformation } from './containers/FormConfirmInformation';
 import { FormSelfie } from './containers/FormSelfi';
 import { FormUploadCard } from './containers/FormUploadCard';
 import { IdentityVerification } from './containers/IdentityVerification';
+import { SuggestVerificationMobile } from './containers/SuggestVerificationMobile';
+import { strip } from 'number-precision';
 import Style from './style';
 
 type stepKyc =
@@ -27,14 +29,15 @@ type stepKyc =
   | 'FormUploadCard'
   | 'FormConfirm';
 
-const TOTAL_STEP = 5;
+const TOTAL_STEP = 6;
 
 export const KycPage = () => {
   const [isOpenModal, setIsOpenModal] = React.useState(false);
   const [stepState, setStepState] = React.useState(1);
   const kyc = useRecoilValue(kycState);
+  const resetState = useResetRecoilState(kycState);
 
-  // ** API
+  // * API
   const kycStatus = useGetKycStatus();
   const kycSubmitMutation = useSubmitKyc();
   const fileToUrl = useGenerateURLImage();
@@ -52,12 +55,14 @@ export const KycPage = () => {
       );
 
       const photos = await fileToUrl.mutateAsync([userPhoto, documentPhoto]);
-
-      kycSubmitMutation.mutate({
+      
+      await kycSubmitMutation.mutateAsync({
         ...kyc,
         user_photo: photos.urls[0],
         document_photo: photos.urls[1],
       });
+      kycStatus.mutate('');
+      resetState();
     } catch (error) {
       console.log(error);
       toast.error('Something went wrong');
@@ -71,17 +76,17 @@ export const KycPage = () => {
 
   const isSafeStepForm = () => {
     switch (stepState) {
-      case 1:
+      case 2:
         return isAttributesNotEmpty([
           'document_id',
           'fullname',
           'date_of_birth',
         ]);
-      case 2:
-        return isAttributesNotEmpty(['province', 'residential_address']);
       case 3:
-        return isAttributesNotEmpty(['document_photo']);
+        return isAttributesNotEmpty(['province', 'residential_address']);
       case 4:
+        return isAttributesNotEmpty(['document_photo']);
+      case 5:
         return isAttributesNotEmpty(['user_photo']);
       default:
         return false;
@@ -91,14 +96,17 @@ export const KycPage = () => {
   const renderFormSubmit = () => {
     switch (stepState) {
       case 1:
-        return <IdentityVerification />;
+        return <SuggestVerificationMobile />;
+
       case 2:
-        return <AdditionalInformation />;
+        return <IdentityVerification />;
       case 3:
-        return <FormUploadCard />;
+        return <AdditionalInformation />;
       case 4:
-        return <FormSelfie />;
+        return <FormUploadCard />;
       case 5:
+        return <FormSelfie />;
+      case 6:
         return <FormConfirmInformation />;
     }
   };
@@ -106,7 +114,7 @@ export const KycPage = () => {
     return (
       <div className='d-flex align-items-center justify-content-between'>
         <Progress
-          percent={(stepState * 100) / TOTAL_STEP}
+          percent={strip((stepState * 100) / TOTAL_STEP, 4)}
           status='active'
           className='col-7'
         />
