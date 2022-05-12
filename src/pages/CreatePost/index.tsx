@@ -73,7 +73,7 @@ const CreatePostPage = () => {
   // * API Create Post
   const createPostMutation = useCreatePost();
 
-  // TODO: save in link photo image
+  //  save in link photo image
   const { getRootProps, getInputProps } = useDropzone({
     accept: ['image/*', 'video/*'],
     onDrop: (acceptedFiles: File[]) => {

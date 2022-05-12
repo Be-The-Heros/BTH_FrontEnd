@@ -14,7 +14,7 @@ const Container = styled.div`
 
 interface MainProps {
   currentTab: 'Profile' | 'Notifications' | 'Accounts' | 'Verification';
-  userInform: ProfileInfo;
+  userInform?: ProfileInfo;
 }
 
 const Main = (props: MainProps) => {

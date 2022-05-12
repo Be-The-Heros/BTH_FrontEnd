@@ -1,3 +1,5 @@
+import { setLocalStorage } from 'helpers/setTitleDocument';
+import { useDevice } from 'hooks/setMobileDevice/useSetMobileDevice';
 import { KycScreen } from 'mobile';
 import React from 'react';
 import {
@@ -5,9 +7,10 @@ import {
   Navigate,
   Route,
   Routes,
+  useLocation,
+  useParams,
+  useSearchParams,
 } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { appState } from 'recoil/appState/state';
 import { PrivateRoute, PublicRoute } from 'routes';
 import LayoutMain from 'templates/Layout';
 import LayoutAuth from 'templates/LayoutAuth';
@@ -27,9 +30,14 @@ const ProfilePage = React.lazy(() => import('./ProfilePage'));
 const PostDetailPage = React.lazy(() => import('./PostDetailPage'));
 
 export const AppViews = () => {
-  const [appStateValue, setAppState] = useRecoilState(appState);
-
-  if (appStateValue.isMobileDevice) {
+  const [isMobile] = useDevice();
+  React.useEffect(() => {
+    const token = window.location.search.split('token=')[1];
+    if (token?.trim()) {
+      setLocalStorage('token', token);
+    }
+  }, [window.location.pathname]);
+  if (isMobile) {
     return (
       <Router>
         <Routes>
