@@ -7,7 +7,7 @@ export interface KycStatusResponse {
   reason?: string;
 }
 export const useGetKycStatus = () => {
-  return useMutation((token?: string) => {
+  return useMutation((token: string | undefined) => {
     return apis.get<KycStatusResponse>(API_KYC, '/status', {
       params: {
         token,

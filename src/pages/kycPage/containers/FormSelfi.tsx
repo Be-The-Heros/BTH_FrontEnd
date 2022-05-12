@@ -1,18 +1,13 @@
-import React from 'react';
-import Style from './style';
-import { FcCancel, FcOk } from 'react-icons/fc';
-import Webcam from 'react-webcam';
 import { Button, Select } from 'antd';
-import { kycState } from 'recoil/kycState/state';
+import React from 'react';
+import { FcCancel, FcOk } from 'react-icons/fc';
+import Style from './style';
+import Webcam from 'react-webcam';
 import { useRecoilState } from 'recoil';
-
+import { kycState } from 'recoil/kycState/state';
 const { Option } = Select;
-const videoConstraints = {
-  width: 500,
-  height: 300,
-  facingMode: 'user',
-};
-export const FormUploadCard = () => {
+
+export const FormSelfie = () => {
   const webcamRef = React.useRef<any>(null);
 
   // TODO: INIT STATE
@@ -22,9 +17,28 @@ export const FormUploadCard = () => {
   const [devices, setDevices] = React.useState<MediaDeviceInfo[]>([]);
   const [isTakePhoto, setTakePhoto] = React.useState(false);
 
-  // TODO: RECOIL STATE
   const [kyc, setKycState] = useRecoilState(kycState);
 
+  const notes = [
+    {
+      icon: <FcOk />,
+      description: 'Take a selfie of yourself with a neutral expression',
+    },
+    {
+      icon: <FcOk />,
+      description:
+        'Make sure your face is visible, cented and your eyes are open',
+    },
+    {
+      icon: <FcCancel />,
+      description: 'Do not crop your ID use scree of your ID ',
+    },
+    {
+      icon: <FcCancel />,
+      description:
+        'Do not hide or after parts of your face (No hats/ beauty image/ filter)',
+    },
+  ];
   // TODO: GET ALL DEVICES CAMERA
   const handleDevices = React.useCallback(
     (mediaDevices: MediaDeviceInfo[]) =>
@@ -35,58 +49,43 @@ export const FormUploadCard = () => {
   React.useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then(handleDevices);
   }, [handleDevices]);
-  const notes = [
-    {
-      icon: <FcOk />,
-      description: ' Government - issued',
-    },
-    {
-      icon: <FcOk />,
-      description: 'Original full - size, unedited documents',
-    },
-    {
-      icon: <FcOk />,
-      description: 'Place document against a single - coloured background',
-    },
-    {
-      icon: <FcOk />,
-      description: 'Readable, well - lit, coloured images',
-    },
-    {
-      icon: <FcCancel />,
-      description: 'No black and white images',
-    },
-    {
-      icon: <FcCancel />,
-      description: 'No edited or expired documents',
-    },
-  ];
-
   const captureImage = React.useCallback(() => {
     if (webcamRef.current) {
       const imageSrc = webcamRef.current.getScreenshot();
-      imageSrc && setKycState({ ...kyc, document_photo: imageSrc });
+      imageSrc && setKycState({ ...kyc, user_photo: imageSrc });
       setTakePhoto(true);
     }
   }, [webcamRef]);
 
-  React.useEffect(() => {
-    if (!isTakePhoto) {
-      setKycState({ ...kyc, document_photo: '' });
-    }
-  }, [isTakePhoto]);
   return (
     <Style>
-      <div className='form-upload'>
-        <div className='form-upload-header'>
-          {notes.map((note, index) => (
-            <div key={index} className='form-upload-header-note'>
-              {note.icon} {note.description}
-            </div>
-          ))}
+      <div className='form-selfie'>
+        <h6>Take Selfie Photo</h6>
+        <div className='d-flex'>
+          <div className='col-md-4'>
+            <img
+              style={{
+                height: '10rem',
+                borderRadius: '10px',
+                objectFit: 'contain',
+                width: 'auto',
+              }}
+              src={
+                'https://cdn.eva.vn//upload/4-2013/images/2013-12-17/1387249093-1.1.jpg'
+              }
+              alt='img-example'
+            />
+          </div>
+          <div className='col-md-8'>
+            {notes.map((note, index) => (
+              <div key={index} className='form-upload-header-note'>
+                {note.icon} {note.description}
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className='form-upload-webcam d-flex justify-content-between'>
+        <div className='form-upload-webcam d-flex justify-content-between mt-3'>
           <div className='w-70'>
             {isTakePhoto ? (
               <img
@@ -95,7 +94,7 @@ export const FormUploadCard = () => {
                   objectFit: 'contain',
                   width: 'auto',
                 }}
-                src={kyc.document_photo}
+                src={kyc.user_photo}
                 alt='image-take'
               />
             ) : (

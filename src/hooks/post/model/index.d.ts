@@ -26,6 +26,7 @@ interface PostInfo {
   join_url?: string;
   bio?: string;
   user_address?: string;
+  level: number;
 }
 interface RequestPost {
   residential_address: string;

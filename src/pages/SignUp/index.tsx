@@ -11,8 +11,8 @@ import { useSetRecoilState } from 'recoil';
 import { userState } from 'recoil/users/state';
 import { signInWithGoogleAuth } from 'services/firebase';
 import Style from './style';
-const MIN_SAFE_DATE = '1900-01-01';
-const MAX_SAFE_DATE = '2010-01-01';
+export const MIN_SAFE_DATE = '1900-01-01';
+export const MAX_SAFE_DATE = '2010-01-01';
 type InputsSignUp = {
   email: string;
   password: string;
@@ -111,7 +111,7 @@ export default function SignUpPage() {
             >
               <label className='w-100'>Enter Last Name</label>
               <input
-                placeholder='Please enter First Name'
+                placeholder='Please enter Last Name'
                 {...register('last_name', {
                   required: true,
                   pattern: /^([^0-9]*)$/,
