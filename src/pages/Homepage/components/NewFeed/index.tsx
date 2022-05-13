@@ -213,7 +213,6 @@ export const NewFeed = (props: NewFeedProps) => {
       setView('See more...');
     }
   };
-  console.log('level', props.level);
 
   return (
     <React.Fragment>
