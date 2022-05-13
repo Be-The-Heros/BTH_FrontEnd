@@ -39,37 +39,38 @@ export const CommentCustom = (props: CommentCustomProps) => {
             See all replies comments
           </div>
         )}
-        {(commentReps || [])
-          .sort(
-            (prev, next) =>
-              new Date(prev.created_at || '').getTime() -
-              new Date(next.created_at || '').getTime()
-          )
-          .slice(startIndex, commentReps?.length)
+        {commentReps?.length &&
+          commentReps
+            .sort(
+              (prev, next) =>
+                new Date(prev.created_at || '').getTime() -
+                new Date(next.created_at || '').getTime()
+            )
+            .slice(startIndex, commentReps?.length)
 
-          .map((item, key) => {
-            const { profile, content, comment_id } = item;
-            return (
-              <ChildCmt
-                key={key}
-                post_id={post_id}
-                comment_id={comment_id}
-                total={commentReps?.length || 0}
-                isChild={true}
-                avatar={{
-                  showPopover: true,
-                  srcAvatar: profile.avatar,
-                  uid: profile.uid,
-                  fullName: profile.first_name + ' ' + profile.last_name,
-                  bio: profile.bio,
-                  address: profile.address,
-                }}
-                content={content || ''}
-                isShowAddCmt={showAddCmt}
-                onShowAddCmt={setShowAddCmt}
-              />
-            );
-          })}
+            .map((item, key) => {
+              const { profile, content, comment_id } = item;
+              return (
+                <ChildCmt
+                  key={key}
+                  post_id={post_id}
+                  comment_id={comment_id}
+                  total={commentReps?.length || 0}
+                  isChild={true}
+                  avatar={{
+                    showPopover: true,
+                    srcAvatar: profile.avatar,
+                    uid: profile.uid,
+                    fullName: profile.first_name + ' ' + profile.last_name,
+                    bio: profile.bio,
+                    address: profile.address,
+                  }}
+                  content={content || ''}
+                  isShowAddCmt={showAddCmt}
+                  onShowAddCmt={setShowAddCmt}
+                />
+              );
+            })}
 
         {showAddCmt && (
           <AddComment
