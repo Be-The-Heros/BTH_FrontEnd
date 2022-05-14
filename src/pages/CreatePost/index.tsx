@@ -368,7 +368,7 @@ const CreatePostPage = () => {
               <Controller
                 name='residential_address'
                 control={control}
-                rules={{ required: true, pattern: /^[a-zA-Z0-9\s]*$/ }}
+                rules={{ required: true }}
                 render={({ field }) => (
                   <Input
                     {...field}

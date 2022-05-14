@@ -88,7 +88,8 @@ export const EditPostPage = () => {
       );
     }
   }, []);
-  // TODO: save in link photo image
+
+  // ** save in link photo image
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
 
@@ -106,7 +107,7 @@ export const EditPostPage = () => {
     },
   });
 
-  //  TODO: Checking api
+  //  ** Checking api
   React.useEffect(() => {
     toast.dismiss();
     if (editPostMutation.isLoading) {
@@ -133,7 +134,7 @@ export const EditPostPage = () => {
     }
   }, [postData.data]);
 
-  // TODO: change slogan
+  // ** change slogan
   React.useEffect(() => {
     refInterval.current = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * SLOGANS.length);
@@ -141,7 +142,7 @@ export const EditPostPage = () => {
     }, TIME_CHANGE_TEXT);
   }, []);
 
-  // TODO: render images
+  // ** render images
   const renderThumbsFile = () => {
     return files.map((file, index) => {
       const imageClassName = clsx(
@@ -230,6 +231,9 @@ export const EditPostPage = () => {
         content={watch('content')}
         joined={1000}
         title={watch('title')}
+        avatar={postData.data?.avatar}
+        fullname={postData.data?.fullname}
+        join_url={postData.data?.join_url}
         visible={isOpenPreview}
         ward={getCommune(residence.ward)}
         district={getDistrict(residence.district)}
@@ -437,7 +441,7 @@ export const EditPostPage = () => {
                 )}
               </div>
 
-              <div className='form-input'>
+              {/* <div className='form-input'>
                 <label>URL chat room</label>
                 <Controller
                   name='join_url'
@@ -478,7 +482,7 @@ export const EditPostPage = () => {
                 {errors.join_url && (
                   <span className='waring-error'>Url is not valid</span>
                 )}
-              </div>
+              </div> */}
 
               <div
                 className='form-input'
