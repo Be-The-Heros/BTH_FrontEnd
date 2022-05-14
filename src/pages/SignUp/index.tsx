@@ -3,7 +3,7 @@ import Loading from 'components/Loading';
 import { User } from 'firebase/auth';
 import { setLocalStorage } from 'helpers/setTitleDocument';
 import { useSignUp } from 'hooks/auth/signUp/useSignUp';
-import { lowerCase } from 'lodash';
+import lowerCase from 'lodash/lowerCase';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';

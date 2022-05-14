@@ -1,5 +1,5 @@
 import { LIMIT_COMMENT } from 'constants/show';
-import { toNumber } from 'lodash';
+import toNumber from 'lodash/toNumber';
 import React, { useState } from 'react';
 import { CommentResponse } from '..';
 import { AddComment } from '../AddComment';

@@ -22,7 +22,7 @@ import { useGetUsersPosts } from 'hooks/post/getUsersPosts/getUsersPosts';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from 'components/Loading';
 import { NewFeed } from 'pages/Homepage/components/NewFeed';
-import { toString } from 'lodash';
+import toString from 'lodash/toString';
 
 const Container = styled.div`
   display: flex;

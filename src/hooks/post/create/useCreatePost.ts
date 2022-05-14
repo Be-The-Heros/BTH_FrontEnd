@@ -1,5 +1,5 @@
 import apis from 'apis';
-import { toString } from 'lodash';
+import toString from 'lodash/toString';
 import { useMutation } from 'react-query';
 import { API_POST } from '../config';
 

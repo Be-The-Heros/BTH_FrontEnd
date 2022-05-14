@@ -18,7 +18,7 @@ import { validURL } from 'helpers/validate';
 import { useGenerateURLImage } from 'hooks/image/useCreateImageURL';
 import { useQueryPostDetail } from 'hooks/post/detail/useDetailPost';
 import { useEditPost } from 'hooks/post/edit/useEditPost';
-import { upperFirst } from 'lodash';
+import upperFirst from 'lodash/upperFirst';
 import IntroductionTitle from 'pages/CreatePost/components/IntroductionTitle';
 import { PreviewPost } from 'pages/CreatePost/components/PreviewPost';
 import React from 'react';

@@ -1,24 +1,26 @@
-FROM node:12-alpine AS development
+FROM node:14.18.2-alpine3.14 as development
 
 # Set working directory
 WORKDIR /app
 
 # 
-COPY package.json /app/package.json
+COPY package.json /app/package.json 
+COPY yarn.lock  /app/yarn.lock
+
 
 # Same as npm install
-RUN npm i
+RUN yarn 
 
 COPY . /app
 
 ENV CI=true
 ENV PORT=3000
 
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]
 
 FROM development AS build
 
-RUN npm run build
+RUN yarn build
 
 # 2. For Nginx setup
 FROM nginx:latest

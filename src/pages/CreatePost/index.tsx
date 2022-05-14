@@ -13,7 +13,7 @@ import {
 import { cleanAccents } from 'helpers/cleanAccents';
 import { validURL } from 'helpers/validate';
 import { useCreatePost } from 'hooks/post/create/useCreatePost';
-import { toLower } from 'lodash';
+import toLower from 'lodash/toLower';
 import upperFirst from 'lodash/upperFirst';
 import React from 'react';
 import { useDropzone } from 'react-dropzone';

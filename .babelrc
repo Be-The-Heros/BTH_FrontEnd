@@ -2,6 +2,23 @@
   "env": {
     "development": {
       "compact": false
+    },
+    "production": {
+      "compact": false
     }
-  }
+  },
+  "compact": true,
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          "test": "./test",
+          "underscore": "lodash"
+        }
+      }
+    ]
+  ]
+  // "loaders": [{ "loader": "babel", "query": { "compact": false } }]
 }
