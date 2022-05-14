@@ -7,9 +7,10 @@ WORKDIR /app
 COPY package.json /app/package.json 
 COPY yarn.lock  /app/yarn.lock
 
+COPY build /app/build
 
 # Same as npm install
-RUN yarn 
+# RUN yarn 
 
 COPY . /app
 
@@ -20,7 +21,9 @@ CMD [ "yarn", "start" ]
 
 FROM development AS build
 
-RUN yarn build
+COPY build /app/build
+
+# RUN yarn build
 
 # 2. For Nginx setup
 FROM nginx:latest
