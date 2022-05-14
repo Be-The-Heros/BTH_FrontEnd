@@ -28,10 +28,9 @@ export const CustomMessage = (props: IMessageRender) => {
           }}
           src={avatar}
         />
-        
         </>
       }
-      
+
       content={
         <Row justify={justify}>
           <p
