@@ -32,7 +32,7 @@ export const useGetListGroupsChat = (): IUseGetListGroupsChat => {
 
     try {
       if (groupChat.listGroup.length === 0) {
-        setIsLoading(true);
+        setIsLoading(false);
         infoUser.token && getData();
       } else {
         setIsLoading(false);

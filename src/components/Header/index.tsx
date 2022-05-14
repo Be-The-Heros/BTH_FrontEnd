@@ -2,18 +2,16 @@ import { Button, Dropdown, Menu, Space } from "antd";
 import Search from "antd/lib/transfer/search";
 import logo from "assets/images/logo_text.svg";
 import React from "react";
-import { useRecoilValue } from "recoil";
 import { BiLogOutCircle } from "react-icons/bi";
+import { BsMessenger, BsPerson } from "react-icons/bs";
+import { FiSettings } from "react-icons/fi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router";
-import { useRecoilState } from "recoil";
+import { Link } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { userState } from "recoil/users/state";
 import Style from "./style";
-import { FiSettings } from "react-icons/fi";
-import { BsPerson } from "react-icons/bs";
-import { AiOutlineMessage } from "react-icons/ai";
-import {Link} from "react-router-dom";
 interface StateLocation {
   state?: {
     isPageVerify?: boolean;
@@ -92,7 +90,7 @@ export const Header = () => {
 
           <div className="header__notification">
             <Link to="chat">
-              <AiOutlineMessage />
+              <BsMessenger style={{ marginLeft: "10px" }} />
             </Link>
           </div>
 

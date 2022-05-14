@@ -1,11 +1,13 @@
-import { Layout, Skeleton } from "antd";
+import { Avatar, Layout, Skeleton } from "antd";
 import { useGetListGroupsChat } from "hooks/chat";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { groupChatState, IGroupChat } from "recoil/roomChat";
+import { CustomeAvatar } from "./CustomAvatar";
 
 import { HeaderSide } from "./HeaderSide";
+import Style from "./style";
 
 const { Sider } = Layout;
 const { ChatItem } = require("react-chat-elements");
@@ -16,7 +18,7 @@ export const SideChat = () => {
   const { isLoading } = useGetListGroupsChat();
   const groupChat = useRecoilValue(groupChatState);
   const [listGroupChat, setListGroupChat] = useState<IGroupChat[]>([]);
-  const [active, setActive] = useState<String>("");
+  const [active, setActive] = useState<string>("");
   useEffect(() => {
     groupChat.listGroup && setListGroupChat(groupChat.listGroup);
   }, [groupChat.listGroup]);
@@ -25,6 +27,7 @@ export const SideChat = () => {
     const getFirstGroupChatId = listGroupChat[0];
     if (getFirstGroupChatId) {
       navigate("/chat/" + getFirstGroupChatId.id);
+      setActive(getFirstGroupChatId.id);
     }
   }, [listGroupChat]);
 
@@ -35,7 +38,12 @@ export const SideChat = () => {
 
   return (
     <Sider
-      style={{ overflow: "auto", height: "100vh", background: "white" }}
+      style={{
+        overflow: "auto",
+        height: "100vh",
+        background: "white",
+        borderRight: "#02081017 solid 1px",
+      }}
       width={350}
     >
       {isLoading ? (
@@ -46,24 +54,40 @@ export const SideChat = () => {
         </>
       ) : (
         <>
-          <HeaderSide />
-          {listGroupChat.map((e) => {
-            return (
-              <ChatItem
-                className={active == e.id ? "chatItem" : ""}
-                avatar={e.avatar ||  e.firstMember?.avatar}
-                title={e.name_group || e.firstMember?.first_name+" "+e.firstMember?.last_name}
-                subtitle={e.lastMessage?.contents || ""}
-                date={
-                  e.lastMessage?.created_at
-                    ? new Date(e.lastMessage?.created_at)
-                    : ""
-                }
-                key={Math.random()}
-                onClick={() => onChoose(e.id)}
-              />
-            );
-          })}
+          <Style>
+            <HeaderSide />
+
+            {listGroupChat.map((e) => {
+              const nameGroup =
+                e.type === "group"
+                  ? e.name_group
+                  : e.firstMember?.first_name + " " + e.firstMember?.last_name;
+
+              return (
+                <>
+                  <div
+                    style={{
+                      position: "relative",
+                    }}
+                  >
+                    {e.type === "group" && !e.avatar && (
+                      <CustomeAvatar active={active} infoGroup={e} />
+                    )}
+
+                    <ChatItem
+                      className={active === e.id ? "chatItem" : ""}
+                      avatar={e.avatar || e.firstMember?.avatar}
+                      title={nameGroup}
+                      subtitle={e.lastMessage?.contents || ""}
+                      date={new Date(e.lastMessage?.created_at || "")}
+                      key={e.id}
+                      onClick={() => onChoose(e.id)}
+                    />
+                  </div>
+                </>
+              );
+            })}
+          </Style>
         </>
       )}
     </Sider>
