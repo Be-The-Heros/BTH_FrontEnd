@@ -47,13 +47,16 @@ export default styled.div`
   }
   .btn-verify {
     &--pending {
-      background-color: var(--bs-blue) !important;
+      background-color: var(--bs-warning) !important;
+      color: #fff !important;
     }
     &--success {
       background-color: var(--bs-green);
+      color: #fff !important;
     }
     &--error {
       background-color: #7cdfff !important;
+      color: #fff !important;
     }
   }
 `;

@@ -12,7 +12,11 @@ import { FaFacebook } from 'react-icons/fa';
 import { FcComments, FcShare } from 'react-icons/fc';
 import { VscLocation } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
-import { FacebookShareButton, TwitterShareButton } from 'react-share';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+} from 'react-share';
 import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/users/state';
@@ -26,7 +30,11 @@ export const NewFeed = (props: NewFeedProps) => {
   const user = useRecoilValue(userState);
   const navigate = useNavigate();
   const { handleDeletePost } = props;
+
+  // init state
   const [isBtnJoinClick, setIsBtnJoinClick] = React.useState(false);
+  const [tagName, setTagName] = React.useState('');
+  const [view, setView] = React.useState('See more...');
   const deletePost = useDeletePost();
   const url_detail = `https://betheheros.tk/post/detail/${props.post_id}`;
 
@@ -136,7 +144,11 @@ export const NewFeed = (props: NewFeedProps) => {
           />
         }
         className='d-flex  align-items-center'
-      />
+      >
+        <LinkedinShareButton url={url_detail} title={props.title}>
+          Share with linkedin
+        </LinkedinShareButton>
+      </Menu.Item>
       <Menu.Item
         key='2'
         icon={
@@ -202,8 +214,6 @@ export const NewFeed = (props: NewFeedProps) => {
     });
   };
 
-  const [tagName, setTagName] = React.useState('');
-  const [view, setView] = React.useState('See more...');
   const setViewPost = () => {
     if (tagName === '') {
       setTagName('none');

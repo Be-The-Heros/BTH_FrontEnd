@@ -12,7 +12,7 @@ export default memo(function (props: CommentsProps) {
   const [isShowMore, setIsShowMore] = React.useState(true);
   return (
     <React.Fragment>
-      {data.length &&
+      {data &&
         data
           .sort(
             (prev, next) =>
