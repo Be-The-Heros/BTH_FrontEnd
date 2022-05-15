@@ -1,7 +1,10 @@
 import { Popover, Avatar, Row, Col, Typography, Button } from 'antd';
 import React from 'react';
 import { BiHomeCircle } from 'react-icons/bi';
+import { FcApproval } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/users/state';
 
 const { Title } = Typography;
 
@@ -19,9 +22,19 @@ export interface AvatarCustomProps {
   address?: string;
   size?: 64 | 32 | 46;
   showPopover: boolean;
+  isVerified?: boolean;
 }
 export const AvatarCustom = (props: AvatarCustomProps) => {
-  const { srcAvatar, uid, size, fullName, bio, address, showPopover } = props;
+  const {
+    srcAvatar,
+    uid,
+    size,
+    fullName,
+    bio,
+    address,
+    showPopover,
+    isVerified,
+  } = props;
   const navigate = useNavigate();
   const content = (
     <div style={{ minWidth: '300px', maxWidth: '300px' }}>
@@ -37,6 +50,7 @@ export const AvatarCustom = (props: AvatarCustomProps) => {
             }}
           >
             {fullName}
+            {isVerified && <FcApproval />}
           </Title>
 
           {bio && <div style={{ padding: '5px 0' }}>{bio}</div>}

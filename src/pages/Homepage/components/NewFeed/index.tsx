@@ -1,4 +1,4 @@
-import { Button, Dropdown, Image, Menu } from 'antd';
+import { Button, Dropdown, Image, Menu, Modal } from 'antd';
 import clsx from 'clsx';
 import { AvatarCustom } from 'components/Avatar';
 import PopupLogin from 'components/PopupSuggestLogin';
@@ -29,7 +29,7 @@ interface NewFeedProps extends PostInfo {
 export const NewFeed = (props: NewFeedProps) => {
   const user = useRecoilValue(userState);
   const navigate = useNavigate();
-  const { handleDeletePost } = props;
+  const { handleDeletePost, level } = props;
 
   // init state
   const [isBtnJoinClick, setIsBtnJoinClick] = React.useState(false);
@@ -40,8 +40,13 @@ export const NewFeed = (props: NewFeedProps) => {
 
   const SIZE_CONTENT = 300;
   const handleClickDelete = () => {
-    deletePost.mutate({
-      post_id: props.post_id,
+    Modal.warning({
+      title: 'Are you sure? Delete this post',
+      content: `This post can't restore`,
+      onOk: () =>
+        deletePost.mutate({
+          post_id: props.post_id,
+        }),
     });
   };
   React.useEffect(() => {
@@ -241,6 +246,7 @@ export const NewFeed = (props: NewFeedProps) => {
               uid={props.uid}
               address={props.user_address}
               srcAvatar={props.avatar}
+              isVerified={props.level > 2}
             />
 
             <div className='Newfeed_head_info_detail'>
@@ -367,7 +373,7 @@ export const NewFeed = (props: NewFeedProps) => {
           </Dropdown>
         </div>
 
-        <BoxComment postId={+props.post_id} />
+        <BoxComment postId={+props.post_id} isVerified={level > 2} />
       </Style>
     </React.Fragment>
   );

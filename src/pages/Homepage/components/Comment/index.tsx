@@ -8,6 +8,7 @@ import CommentCustoms from './Comment';
 import _toNumber from 'lodash/toNumber';
 interface BoxCommentProps {
   postId: number;
+  isVerified: boolean;
 }
 
 export interface ProfileCustom {
@@ -34,7 +35,7 @@ export interface CommentResponse {
 }
 
 export const BoxComment = (props: BoxCommentProps) => {
-  const { postId } = props;
+  const { postId, isVerified } = props;
   const subComment = useRecoilValue(cmtPushSubState);
 
   const [dataListComment, setDataListComment] = useState<CommentResponse[]>([]);
@@ -170,7 +171,12 @@ export const BoxComment = (props: BoxCommentProps) => {
         </div>
       ) : (
         <React.Fragment>
-          <AddComment post_id={postId} isShowAvatar type='create' />
+          <AddComment
+            post_id={postId}
+            isShowAvatar
+            type='create'
+            isVerified={isVerified}
+          />
           <CommentCustoms data={dataListComment} />
         </React.Fragment>
       )}

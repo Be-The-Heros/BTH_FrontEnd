@@ -4,6 +4,8 @@ import { kycState } from 'recoil/kycState/state';
 import Style from './style';
 export const FormConfirmInformation = () => {
   const kyc = useRecoilValue(kycState);
+  console.log(kyc.document_photo);
+
   return (
     <Style>
       <h6>

@@ -18,6 +18,7 @@ interface IAddComment {
   defaultValue?: string;
   isShowAvatar: boolean;
   setIsEditCmt?: (value: boolean) => void;
+  isVerified?: boolean;
 }
 
 export const AddComment = (props: IAddComment) => {
@@ -30,6 +31,7 @@ export const AddComment = (props: IAddComment) => {
     commentId,
     setIsEditCmt,
     defaultValue,
+    isVerified,
   } = props;
   const infoUser = useRecoilValue(userState);
   const [content, setContent] = useState('');
@@ -90,6 +92,7 @@ export const AddComment = (props: IAddComment) => {
                 uid={infoUser.uid}
                 size={32}
                 fullName={infoUser.first_name + ' ' + infoUser.last_name}
+                isVerified={isVerified}
               />
             )
           }

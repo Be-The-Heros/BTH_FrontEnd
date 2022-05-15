@@ -78,15 +78,20 @@ export const FormUploadCard = () => {
   return (
     <Style>
       <div className='form-upload'>
-        <div className='form-upload-header'>
-          {notes.map((note, index) => (
-            <div key={index} className='form-upload-header-note'>
-              {note.icon} {note.description}
-            </div>
-          ))}
+        <div className='form-upload-header d-flex justify-content-between'>
+          <div className='col-5'>
+            <img src='https://cms.luatvietnam.vn/uploaded/Images/Original/2019/01/18/anh_cmnd_1801141244.jpg'></img>
+          </div>
+          <div className='col-7'>
+            {notes.map((note, index) => (
+              <div key={index} className='form-upload-header-note'>
+                {note.icon} {note.description}
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className='form-upload-webcam d-flex justify-content-between'>
+        <div className='form-upload-webcam d-flex justify-content-between mt-2'>
           <div className='w-70'>
             {isTakePhoto ? (
               <img

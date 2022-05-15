@@ -1,5 +1,5 @@
 interface ProfileInfo {
-  uid:string,
+  uid: string;
   user_id: number;
   first_name: string;
   last_name: string;
@@ -12,10 +12,11 @@ interface ProfileInfo {
   bio: string;
   city: string;
   address: string;
+  level?: number;
 }
 export enum ProfileInfoStatus {
-  public = "public",
-  private = "private",
+  public = 'public',
+  private = 'private',
 }
 
 interface ChangingAvatarApiResponse {

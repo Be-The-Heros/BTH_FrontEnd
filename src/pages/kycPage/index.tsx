@@ -46,6 +46,9 @@ export const KycPage = () => {
     kycStatus.mutate('');
   }, []);
 
+  React.useEffect(() => {
+    kycSubmitMutation.isSuccess && setIsOpenModal(false);
+  }, [kycSubmitMutation.isSuccess]);
   const onSubmitForm = async () => {
     try {
       const userPhoto = await base64ToFile('userPhoto.jpg', kyc.user_photo);
@@ -55,14 +58,13 @@ export const KycPage = () => {
       );
 
       const photos = await fileToUrl.mutateAsync([userPhoto, documentPhoto]);
-      
+
       await kycSubmitMutation.mutateAsync({
         ...kyc,
         user_photo: photos.urls[0],
         document_photo: photos.urls[1],
       });
-      kycStatus.mutate('');
-      resetState();
+      await kycStatus.mutateAsync('');
     } catch (error) {
       console.log(error);
       toast.error('Something went wrong');
@@ -135,7 +137,7 @@ export const KycPage = () => {
 
   const btnVerifyClassName = clsx('btn-verify w-100', {
     ['btn-verify--success']: kycStatus.data?.status === 'verified',
-    ['btn-verify--pending']: kycStatus.data?.status === 'pending',
+    // ['btn-verify--pending']: kycStatus.data?.status === 'pending',
     ['btn-verify--error']: kycStatus.data?.status === 'failed',
     ['btn-verify--wrong']: !kycStatus.data?.status,
   });
@@ -196,14 +198,21 @@ export const KycPage = () => {
                 kycStatus.data?.status === 'pending'
               }
             >
-              {kycStatus.data?.status === 'verified' ? 'Verified' : 'Verify'}
+              {kycStatus.data?.status != 'pending' &&
+              kycStatus.data?.status === 'verified'
+                ? 'Verified'
+                : 'Verify'}
+              {kycStatus.data?.status === 'pending' && 'System is checking'}
             </Button>
           </div>
         </div>
       </div>
       <Modal
         visible={isOpenModal}
-        onCancel={() => setIsOpenModal(false)}
+        onCancel={() => {
+          setIsOpenModal(false);
+          resetState();
+        }}
         footer={[<FooterModal />]}
         title='Personal Verification'
       >
