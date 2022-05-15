@@ -46,6 +46,7 @@ export interface IGroupChatState {
   roomId: string;
   listGroup: IGroupChat[];
   listGroupHaveMessages: IMessageGroupChat[];
+  reload:boolean
 }
 
 export const groupChatState = atom({
@@ -54,5 +55,6 @@ export const groupChatState = atom({
     roomId: "",
     listGroup: [],
     listGroupHaveMessages: [],
+    reload: false,
   } as IGroupChatState, // default value (aka initial value)
 });

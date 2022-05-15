@@ -1,5 +1,6 @@
 import apis from "apis";
 import axios from "axios";
+import { generateURLImage } from "hooks/image/useCreateImageURL";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { groupChatState, IGroupChat } from "recoil/roomChat";
@@ -17,19 +18,19 @@ export const useGetListGroupsChat = (): IUseGetListGroupsChat => {
   const [groupChat, setGroupChatState] = useRecoilState(groupChatState);
   const [isLoading, setIsLoading] = useState(false);
 
+  const getData = async () => {
+    const data = await apis.get<IGroupChat[]>(API_CHAT, "/get-list-chat");
+
+    if (data) {
+      setGroupChatState((state) => ({
+        ...state,
+        listGroup: data || [],
+      }));
+    }
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      const data = await apis.get<IGroupChat[]>(API_CHAT, "/get-list-chat");
-
-      if (data) {
-        setGroupChatState((state) => ({
-          ...state,
-          listGroup: data || [],
-        }));
-      }
-      setIsLoading(false);
-    };
-
     try {
       if (groupChat.listGroup.length === 0) {
         setIsLoading(false);
@@ -42,6 +43,15 @@ export const useGetListGroupsChat = (): IUseGetListGroupsChat => {
       setIsLoading(false);
     }
   }, [infoUser, groupChat.listGroup]);
+
+  useEffect(() => {
+    try {
+      infoUser.token && getData();
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }, [groupChat.reload]);
 
   return {
     isLoading,
@@ -104,7 +114,6 @@ export const useGetListMessages = (
             },
           ];
 
-
           setGroupChatState((state) => ({
             ...state,
             listGroupHaveMessages: newListGroupHaveMessages,
@@ -116,7 +125,6 @@ export const useGetListMessages = (
     };
 
     try {
-
       if (group_id && infoUser.token) {
         // find in state recoil if exit return
         const checkGroupChat = groupChat.listGroupHaveMessages.findIndex(
@@ -139,4 +147,36 @@ export const useGetListMessages = (
   }, [group_id, groupChat]);
 
   return { listMessages, isLoading };
+};
+
+export const editNameGroup = async (groupId: string, nameGroup: string) => {
+  try {
+    const data = await apis.put(API_CHAT, "/edit-name-group", {
+      body: {
+        groupId,
+        nameGroup,
+      },
+    });
+    return data;
+  } catch (error) {
+    return undefined;
+    console.log(error);
+  }
+};
+
+export const editImgGroup = async (groupId: string, file: any) => {
+  try {
+    const avatarGroup = await generateURLImage(file);
+
+    const data = await apis.put(API_CHAT, "/edit-avatar-group", {
+      body: {
+        groupId,
+        avatarGroup: avatarGroup.urls[0],
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
 };

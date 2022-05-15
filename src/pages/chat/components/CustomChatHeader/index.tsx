@@ -6,9 +6,12 @@ import { AiFillPicture } from "react-icons/ai";
 import { IoVideocam } from "react-icons/io5";
 import { MdOutlineCall } from "react-icons/md";
 import { CustomChatHeaderStyle } from "./style";
-import { IGroupChat } from "recoil/roomChat";
-import { useRecoilValue } from "recoil";
+import { groupChatState, IGroupChat } from "recoil/roomChat";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { userState } from "recoil/users/state";
+import apis from "apis";
+import { editImgGroup, editNameGroup } from "hooks/chat";
+import { toast } from "react-toastify";
 
 interface ICustomChatHeader {
   infoGroupChat: IGroupChat | undefined;
@@ -18,12 +21,15 @@ interface ICustomChatHeader {
 export const CustomChatHeader = (props: ICustomChatHeader) => {
   const { infoGroupChat } = props;
   const [avatar, setAvatar] = useState("");
+  const [inputEditNameGroup, setInputEditNameGroup] = useState("");
   const { avatar: avatarUser } = useRecoilValue(userState);
   const [visibleEditName, setVisibleEditName] = useState(false);
+  const [groupChat, setGroupChatState] = useRecoilState(groupChatState);
 
   useEffect(() => {
     if (infoGroupChat) {
       setAvatar(infoGroupChat.avatar);
+      setInputEditNameGroup(infoGroupChat.name_group);
     }
   }, [infoGroupChat]);
 
@@ -31,14 +37,37 @@ export const CustomChatHeader = (props: ICustomChatHeader) => {
     setVisibleEditName(true);
   };
 
-  const handleOkEditName = () => {
-    setVisibleEditName(false);
+  const handleOkEditName = async () => {
+    console.log(infoGroupChat?.id, inputEditNameGroup);
+    if (infoGroupChat?.id && inputEditNameGroup) {
+      const data = await editNameGroup(infoGroupChat?.id, inputEditNameGroup);
+      setVisibleEditName(false);
+      setGroupChatState((state) => {
+        return {
+          ...state,
+          reload: !state.reload,
+        };
+      });
+      toast.success("Edit name group success");
+    } else {
+    }
   };
 
   const handleCancelEditName = () => {
     setVisibleEditName(false);
   };
 
+  const upLoadImg = async (files: any) => {
+    console.log("files", files[0]);
+    await editImgGroup(infoGroupChat?.id as string, files[0]);
+    setGroupChatState((state) => {
+      return {
+        ...state,
+        reload: !state.reload,
+      };
+    });
+    toast.success("Edit name group success");
+  };
   const reader = new FileReader();
 
   const dropdownSetting = (
@@ -46,29 +75,33 @@ export const CustomChatHeader = (props: ICustomChatHeader) => {
       <Menu.Item onClick={showModalEditName}>
         <FiEdit3 /> Edit Name
       </Menu.Item>
-      <Menu.Item>
-        <label style={{ cursor: "pointer" }}>
-          <input
-            accept="image/*"
-            id="file-upload"
-            style={{ display: "none" }}
-            type="file"
-            onChange={(e) => {
-              var file = e?.target?.files?.item(0);
 
-              reader.readAsDataURL(file as Blob);
+      {infoGroupChat?.type === "group" && (
+        <Menu.Item>
+          <label style={{ cursor: "pointer" }}>
+            <input
+              accept="image/*"
+              id="file-upload"
+              style={{ display: "none" }}
+              type="file"
+              onChange={(e) => {
+                upLoadImg(e.target.files);
+                var file = e?.target?.files?.item(0);
 
-              // Once loaded, do something with the string
-              reader.addEventListener("load", () => {
-                console.log(reader.result);
-                var av = reader.result as string;
-                setAvatar(av);
-              });
-            }}
-          />
-          <AiFillPicture /> Edit Img
-        </label>
-      </Menu.Item>
+                reader.readAsDataURL(file as Blob);
+
+                // Once loaded, do something with the string
+                reader.addEventListener("load", () => {
+                  
+                  var av = reader.result as string;
+                  setAvatar(av);
+                });
+              }}
+            />
+            <AiFillPicture /> Edit Img
+          </label>
+        </Menu.Item>
+      )}
     </Menu>
   );
 
@@ -175,7 +208,11 @@ export const CustomChatHeader = (props: ICustomChatHeader) => {
         onOk={handleOkEditName}
         onCancel={handleCancelEditName}
       >
-        <Input placeholder={infoGroupChat?.name_group || ""} />
+        <Input
+          placeholder={infoGroupChat?.name_group || ""}
+          defaultValue={infoGroupChat?.name_group || ""}
+          onChange={(e) => setInputEditNameGroup(e.target.value)}
+        />
       </Modal>
     </CustomChatHeaderStyle>
   );
