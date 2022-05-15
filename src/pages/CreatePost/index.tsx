@@ -212,7 +212,7 @@ const CreatePostPage = () => {
               <Controller
                 name='title'
                 control={control}
-                rules={{ required: true }}
+                rules={{ required: true, maxLength: 1000 }}
                 defaultValue=''
                 render={({ field }) => (
                   <Input

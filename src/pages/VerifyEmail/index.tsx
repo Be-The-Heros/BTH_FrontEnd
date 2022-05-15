@@ -20,6 +20,7 @@ export const VerifyEmailPage = () => {
   const [otpValue, setOtpValue] = React.useState('');
   const [openPopup, setOpenPopup] = React.useState(false);
   const [keyReset, setResetCountdown] = React.useState(0);
+  const [timeCount, setTimeCountdown] = React.useState(Date.now());
   const toastId = React.useRef<any>(null);
 
   const renderer = ({
@@ -38,6 +39,7 @@ export const VerifyEmailPage = () => {
           onClick={() => {
             generateOtp.mutate(user.email);
             setResetCountdown(new Date().getTime());
+            setTimeCountdown(Date.now());
           }}
         >
           Resend Email
@@ -46,7 +48,7 @@ export const VerifyEmailPage = () => {
     } else {
       // Render a countdown
       return (
-        <div className='d-flex align-items-center' onClick={() => {}}>
+        <div className='d-flex align-items-center'>
           {`Send email in ${seconds} s`}
         </div>
       );
@@ -99,7 +101,7 @@ export const VerifyEmailPage = () => {
         style={{
           boxShadow: '0 1px 2px rgb(0 0 0 / 10%), 0 2px 4px rgb(0 0 0 / 10%)',
           borderRadius: '8px',
-          width: '500px',
+          minWidth: '500px',
           backgroundColor: '#fff',
           //   padding: '2% 1.5%',
         }}
@@ -173,7 +175,7 @@ export const VerifyEmailPage = () => {
               <Countdown
                 renderer={renderer}
                 key={keyReset}
-                date={Date.now() + 1000 * TIME_COUNT}
+                date={timeCount + 1000 * TIME_COUNT}
               />
               <div className='w-60 d-flex justify-content-around'>
                 <Button

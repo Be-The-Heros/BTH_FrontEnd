@@ -8,7 +8,6 @@ import { useNavigate, useParams } from 'react-router';
 import Style from './style';
 export const InviteChatPage = () => {
   const { invite_id } = useParams();
-  const navigate = useNavigate();
   const { data, isLoading, isSuccess } = useGetStatusChat(invite_id || '');
   const info = useQueryInfoGroupChat(
     invite_id || '',

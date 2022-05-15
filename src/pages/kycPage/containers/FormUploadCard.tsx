@@ -108,6 +108,7 @@ export const FormUploadCard = () => {
                 audio={false}
                 height={250}
                 ref={webcamRef}
+                screenshotFormat='image/jpeg'
                 videoConstraints={{ deviceId: deviceId }}
               />
             )}

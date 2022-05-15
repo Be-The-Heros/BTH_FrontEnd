@@ -1,11 +1,11 @@
 export const devUrl = {
-  kyc: 'http://localhost:4000/api/kyc',
+  kyc: 'https://betheheros.tk/api/kyc',
   user: 'https://betheheros.tk/api/user',
   auth: 'https://betheheros.tk/api/auth',
   otp: 'https://betheheros.tk/api/otp',
   post: 'https://betheheros.tk/api/post',
   profile: 'https://betheheros.tk/v2/api/profile',
-  image: 'http://localhost:4000/api/image',
+  image: 'https://betheheros.tk/api/image',
   comment: 'https://betheheros.tk/v2/api/comment',
   invite: 'https://betheheros.tk/api/invite',
   chat: 'https://betheheros.tk/v2/api/chat',
