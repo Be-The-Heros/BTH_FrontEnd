@@ -7,6 +7,8 @@ import React from 'react';
 import { BiGroup } from 'react-icons/bi';
 import { FcBookmark, FcComments } from 'react-icons/fc';
 import { IoMdShareAlt } from 'react-icons/io';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/users/state';
 
 interface PreviewPostProps extends Partial<PostInfo> {
   visible: boolean;
@@ -15,7 +17,7 @@ interface PreviewPostProps extends Partial<PostInfo> {
 
 export const PreviewPost = React.memo((props: PreviewPostProps) => {
   const { visible, onCancel, photos, ...post } = props;
-
+  const { level } = useRecoilValue(userState);
   const renderPhotos = () => {
     if (!photos || photos.length === 0) return null;
     return photos.map((photo, index) => {
@@ -79,6 +81,7 @@ export const PreviewPost = React.memo((props: PreviewPostProps) => {
               fullName='Nguyễn Văn A'
               address='Ha Noi address nè  fake chưa loading from db'
               srcAvatar={props.avatar || ''}
+              isVerified
             />
             <div className='Newfeed_head_info_detail'>
               <h6>{props.fullname}</h6>

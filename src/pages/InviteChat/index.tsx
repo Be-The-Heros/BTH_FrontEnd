@@ -18,7 +18,7 @@ export const InviteChatPage = () => {
   const joinMutation = useJoinGroupChat();
   React.useEffect(() => {
     if (joinMutation.isSuccess || (isSuccess && data?.isMember)) {
-      window.open(`${document.domain}/chat/${invite_id}`, '_blank');
+      window.open(`/chat/${invite_id}`, '_blank');
     }
   }, [invite_id, data?.isMember, joinMutation.isSuccess]);
 

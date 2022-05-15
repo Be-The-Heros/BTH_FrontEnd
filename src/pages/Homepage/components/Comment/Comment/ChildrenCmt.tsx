@@ -9,6 +9,7 @@ import { userState } from 'recoil/users/state';
 import { AddComment } from '../AddComment';
 import { ImReply } from 'react-icons/im';
 import PopupLogin from 'components/PopupSuggestLogin';
+import { FcOk } from 'react-icons/fc';
 
 interface ChirldCmtProps {
   onShowAddCmt: (value: boolean) => void;
@@ -36,7 +37,8 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
     total,
     isChild,
   } = props;
-  const { srcAvatar, uid, fullName, bio, address } = avatar;
+  const { srcAvatar, uid, fullName, bio, address, isVerified } = avatar;
+
   const [showOptionMessage, setShowOptionMessage] = useState(false);
   const [isEditCmt, setIsEditCmt] = useState(false);
   const user = useRecoilValue(userState);
@@ -103,6 +105,13 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
               }}
             >
               {fullName}
+              {isVerified && (
+                <FcOk
+                  style={{
+                    marginLeft: '0.25rem',
+                  }}
+                />
+              )}
             </Link>
 
             {uid === user.uid && (
@@ -147,6 +156,7 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
             fullName={fullName}
             bio={bio}
             address={address}
+            isVerified={isVerified}
           />
         }
         content={

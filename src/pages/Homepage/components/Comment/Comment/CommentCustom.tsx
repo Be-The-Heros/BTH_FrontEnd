@@ -63,6 +63,7 @@ export const CommentCustom = (props: CommentCustomProps) => {
                   fullName: profile.first_name + ' ' + profile.last_name,
                   bio: profile.bio,
                   address: profile.address,
+                  isVerified: Number(profile.level) > 2,
                 }}
                 content={content || ''}
                 isShowAddCmt={showAddCmt}
@@ -83,6 +84,7 @@ export const CommentCustom = (props: CommentCustomProps) => {
       </React.Fragment>
     );
   };
+  console.log(Number(profile.level));
   return (
     <ChildCmt
       post_id={post_id}
@@ -95,6 +97,7 @@ export const CommentCustom = (props: CommentCustomProps) => {
         fullName: profile.first_name + ' ' + profile.last_name,
         bio: profile.bio,
         address: profile.address,
+        isVerified: Number(profile.level) > 2,
       }}
       content={content || ''}
       isShowAddCmt={showAddCmt}

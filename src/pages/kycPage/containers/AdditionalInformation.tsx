@@ -19,7 +19,7 @@ export const AdditionalInformation = () => {
         />
       </div>
       <div className='form-input'>
-        <label>City</label>
+        <label>Province</label>
         <Input
           placeholder='Example: Da Nang'
           value={kyc.province}

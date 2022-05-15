@@ -22,7 +22,7 @@ export interface AvatarCustomProps {
   address?: string;
   size?: 64 | 32 | 46;
   showPopover: boolean;
-  isVerified?: boolean;
+  isVerified: boolean;
 }
 export const AvatarCustom = (props: AvatarCustomProps) => {
   const {
@@ -36,6 +36,7 @@ export const AvatarCustom = (props: AvatarCustomProps) => {
     isVerified,
   } = props;
   const navigate = useNavigate();
+  console.log('uid', uid, isVerified);
   const content = (
     <div style={{ minWidth: '300px', maxWidth: '300px' }}>
       <Row justify='start' wrap={false}>

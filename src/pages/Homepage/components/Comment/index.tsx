@@ -19,6 +19,7 @@ export interface ProfileCustom {
   avatar: string;
   address?: string;
   bio?: string;
+  level?: number;
 }
 
 export interface CommentResponse {

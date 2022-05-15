@@ -92,7 +92,7 @@ export const AddComment = (props: IAddComment) => {
                 uid={infoUser.uid}
                 size={32}
                 fullName={infoUser.first_name + ' ' + infoUser.last_name}
-                isVerified={isVerified}
+                isVerified={Boolean(isVerified)}
               />
             )
           }
