@@ -102,6 +102,7 @@ export const FormSelfie = () => {
                 audio={false}
                 height={250}
                 ref={webcamRef}
+                screenshotFormat='image/jpeg'
                 videoConstraints={{ deviceId: deviceId }}
               />
             )}

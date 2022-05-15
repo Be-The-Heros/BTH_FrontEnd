@@ -1,1 +1,0 @@
-//! Make sure to revoke the data uris to avoid memory leaks

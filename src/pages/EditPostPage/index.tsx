@@ -117,7 +117,7 @@ export const EditPostPage = () => {
     if (editPostMutation.isSuccess) {
       files.forEach((file) => URL.revokeObjectURL(file.preview));
       toast.success('Edit post success');
-      navigate('/');
+      navigate(`/post/detail/${post_id}`);
       return;
     }
   }, [editPostMutation.isLoading, editPostMutation.isSuccess]);

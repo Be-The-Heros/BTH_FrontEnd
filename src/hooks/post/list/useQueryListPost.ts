@@ -15,7 +15,7 @@ export const useQueryListPost = (params: QueryPostParams) => {
     {
       retry: 1,
       // keepPreviousData: true,
-      retryOnMount: false,
+      retryOnMount: true,
       refetchOnWindowFocus: false,
     }
   );

@@ -51,9 +51,9 @@ export const KycPage = () => {
   }, [kycSubmitMutation.isSuccess]);
   const onSubmitForm = async () => {
     try {
-      const userPhoto = await base64ToFile('userPhoto.jpg', kyc.user_photo);
+      const userPhoto = await base64ToFile('userPhoto.png', kyc.user_photo);
       const documentPhoto = await base64ToFile(
-        'documentPhoto.jpg',
+        'documentPhoto.png',
         kyc.document_photo
       );
 

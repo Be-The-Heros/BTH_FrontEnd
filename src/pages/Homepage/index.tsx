@@ -18,12 +18,12 @@ const Homepage = () => {
     size: 8,
   });
   const [dataRender, setDataRender] = React.useState<PostInfo[]>([]);
-  const postQuery = useQueryListPost({ ...pagination });
   const [isHasMore, setIsHasMore] = React.useState(true);
-
   const handleDeletePost = (id: string) => {
     setDataRender(dataRender.filter((item) => toString(item.post_id) !== id));
   };
+
+  const postQuery = useQueryListPost({ ...pagination });
 
   React.useEffect(() => {
     toast.dismiss();

@@ -84,7 +84,6 @@ export const CommentCustom = (props: CommentCustomProps) => {
       </React.Fragment>
     );
   };
-  console.log(Number(profile.level));
   return (
     <ChildCmt
       post_id={post_id}
