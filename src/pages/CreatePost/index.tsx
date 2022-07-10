@@ -23,7 +23,7 @@ import { FcFullTrash } from "react-icons/fc";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 import IntroductionTitle from "./components/IntroductionTitle";
 import { PreviewPost } from "./components/PreviewPost";
 import Style from "./style";

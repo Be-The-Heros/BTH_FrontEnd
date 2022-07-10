@@ -2,8 +2,8 @@ import apis from "apis";
 import { CommentResponse } from "pages/Homepage/components/Comment";
 import { useMutation, useQuery } from "react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { cmtPushSubState } from "recoil/comments/state";
-import { userState } from "recoil/users/state";
+import { cmtPushSubState } from "@/states/comments/state";
+import { userState } from "@/states/users/state";
 import { API_COMMENT } from "./config/index";
 import { QUERY_COMMENT } from "./constants";
 

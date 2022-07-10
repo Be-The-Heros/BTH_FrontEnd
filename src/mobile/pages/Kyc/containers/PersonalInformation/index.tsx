@@ -7,7 +7,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ContinueButton } from "../../components";
 import { Controller, useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
-import { kycState } from "recoil/kycState/state";
+import { kycState } from "@/states/kycState/state";
 
 const Container = styled.div<PersonalInformationProps>`
   display: ${(props) => !props.active && "none"};

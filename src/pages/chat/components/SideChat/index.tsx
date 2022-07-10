@@ -1,11 +1,10 @@
-import { Avatar, Layout, Skeleton } from "antd";
+import { Layout, Skeleton } from "antd";
 import { useGetListGroupsChat } from "hooks/chat";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { groupChatState, IGroupChat } from "recoil/roomChat";
+import { groupChatState, IGroupChat } from "@/states/roomChat";
 import { CustomeAvatar } from "./CustomAvatar";
-
 import { HeaderSide } from "./HeaderSide";
 import Style from "./style";
 

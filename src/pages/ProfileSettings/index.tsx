@@ -1,12 +1,11 @@
+import { userState } from "@/states";
+import Loading from "components/Loading";
+import { useGetProfileInformByUID } from "hooks/profile/getProfileInform/useGetProfileInform";
 import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { Typography } from "@mui/material";
 import { Menu } from "./components";
 import { Main } from "./containers";
-import { useGetProfileInformByUID } from "hooks/profile/getProfileInform/useGetProfileInform";
-import { userState } from "recoil/users/state";
-import { useRecoilValue } from "recoil";
-import Loading from "components/Loading";
 
 const Container = styled.div`
   display: flex;

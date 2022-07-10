@@ -1,7 +1,6 @@
 import { Input } from "antd";
-import React from "react";
 import { useRecoilState } from "recoil";
-import { kycState } from "recoil/kycState/state";
+import { kycState } from "@/states/kycState/state";
 import Style from "./style";
 export const AdditionalInformation = () => {
   const [kyc, setKycState] = useRecoilState(kycState);

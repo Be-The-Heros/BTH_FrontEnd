@@ -1,17 +1,14 @@
 import { Avatar, Dropdown, Input, Menu, Modal } from "antd";
-import React, { useEffect, useState } from "react";
+import { editImgGroup, editNameGroup } from "hooks/chat";
+import { useEffect, useState } from "react";
+import { AiFillPicture } from "react-icons/ai";
 import { FcInfo } from "react-icons/fc";
 import { FiEdit3 } from "react-icons/fi";
-import { AiFillPicture } from "react-icons/ai";
-import { IoVideocam } from "react-icons/io5";
-import { MdOutlineCall } from "react-icons/md";
-import { CustomChatHeaderStyle } from "./style";
-import { groupChatState, IGroupChat } from "recoil/roomChat";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { userState } from "recoil/users/state";
-import apis from "apis";
-import { editImgGroup, editNameGroup } from "hooks/chat";
 import { toast } from "react-toastify";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { groupChatState, IGroupChat } from "@/states/roomChat";
+import { userState } from "@/states/users/state";
+import { CustomChatHeaderStyle } from "./style";
 
 interface ICustomChatHeader {
   infoGroupChat: IGroupChat | undefined;

@@ -1,5 +1,4 @@
 import { Avatar, Comment, Row } from "antd";
-
 export interface IMessageRender {
   id?: string;
   uid: string;

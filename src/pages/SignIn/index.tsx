@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router";
 import { useSetRecoilState } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states";
 import { signInWithGoogleAuth } from "services/firebase";
 import StyleSignIn from "./style";
 

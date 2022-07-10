@@ -3,7 +3,7 @@ import Style from "./style";
 import { FcCancel, FcOk } from "react-icons/fc";
 import Webcam from "react-webcam";
 import { Button, Select } from "antd";
-import { kycState } from "recoil/kycState/state";
+import { kycState } from "@/states/kycState/state";
 import { useRecoilState } from "recoil";
 
 const { Option } = Select;

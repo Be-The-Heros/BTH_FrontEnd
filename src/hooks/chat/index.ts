@@ -2,8 +2,8 @@ import apis from "apis";
 import { generateURLImage } from "hooks/image/useCreateImageURL";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { groupChatState, IGroupChat } from "recoil/roomChat";
-import { userState } from "recoil/users/state";
+import { groupChatState, IGroupChat } from "@/states/roomChat";
+import { userState } from "@/states/users/state";
 import { API_CHAT } from "./configs";
 
 export * from "./socketHooks";

@@ -9,9 +9,7 @@ interface BoxEmailInterface {
 
 export const FormCheckEmail = (props: BoxEmailInterface) => {
   const navigate = useNavigate();
-
   const { setEmail, sendOtp, btnDisabled } = props;
-
   return (
     <React.Fragment>
       <div className="form-forgot-password__content col-12">

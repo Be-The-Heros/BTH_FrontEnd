@@ -1,13 +1,13 @@
 import icon_fb from "assets/images/icon_fb.svg";
 import icon_gg from "assets/images/icon_gg.svg";
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-import { FormResetPassword } from "./components/FormResetPassword";
-import Style from "./style";
-import { toast } from "react-toastify";
-import { FormCheckEmail } from "./components/FormCheckEmail";
 import { REGEX_EMAIL } from "constants/regex";
 import { useGenerateOtp } from "hooks/otp/generate/useGenerateOtp";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import { FormCheckEmail } from "./components/FormCheckEmail";
+import { FormResetPassword } from "./components/FormResetPassword";
+import Style from "./style";
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();

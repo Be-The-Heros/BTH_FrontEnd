@@ -7,9 +7,6 @@ import {
   Navigate,
   Route,
   Routes,
-  useLocation,
-  useParams,
-  useSearchParams,
 } from "react-router-dom";
 import { PrivateRoute, PublicRoute } from "routes";
 import LayoutMain from "templates/Layout";

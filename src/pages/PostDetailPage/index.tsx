@@ -6,7 +6,6 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router";
 import { LayoutApp } from "templates/LayoutApp";
-import logo_text from "assets/images/logo_text.svg";
 // ts-ignore
 
 export default function PostDetailPage() {

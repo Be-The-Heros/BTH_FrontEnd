@@ -3,20 +3,18 @@ import React from "react";
 import { FcCancel, FcOk } from "react-icons/fc";
 import Webcam from "react-webcam";
 import { useRecoilState } from "recoil";
-import { kycState } from "recoil/kycState/state";
+import { kycState } from "@/states/kycState/state";
 import Style from "./style";
 const { Option } = Select;
 
 export const FormSelfie = () => {
   const webcamRef = React.useRef<any>(null);
 
-  // TODO: INIT STATE
   const [deviceId, setDeviceId] = React.useState<
     ConstrainDOMString | undefined
   >();
   const [devices, setDevices] = React.useState<MediaDeviceInfo[]>([]);
   const [isTakePhoto, setTakePhoto] = React.useState(false);
-
   const [kyc, setKycState] = useRecoilState(kycState);
 
   const notes = [

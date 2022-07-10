@@ -5,10 +5,10 @@ import { PHOTO_DISPLAY } from "constants/devices";
 import Style from "pages/Homepage/components/NewFeed/style";
 import React from "react";
 import { BiGroup } from "react-icons/bi";
-import { FcBookmark, FcComments } from "react-icons/fc";
+import { FcComments } from "react-icons/fc";
 import { IoMdShareAlt } from "react-icons/io";
 import { useRecoilValue } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 
 interface PreviewPostProps extends Partial<PostInfo> {
   visible: boolean;

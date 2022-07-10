@@ -1,8 +1,7 @@
 import { Avatar } from "antd";
-import React from "react";
 import { useRecoilValue } from "recoil";
-import { IGroupChat } from "recoil/roomChat";
-import { userState } from "recoil/users/state";
+import { IGroupChat } from "@/states/roomChat";
+import { userState } from "@/states/users/state";
 
 interface ICustomeAvatar {
   infoGroup: IGroupChat;

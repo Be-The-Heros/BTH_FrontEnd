@@ -1,9 +1,12 @@
 import React from "react";
-
-import styled from "styled-components";
+import { userState } from "@/states";
 import { Typography } from "@mui/material";
+import { useChangePassword } from "hooks/auth/changePassword/useChangePassword";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 import { NewCustomInput } from "../";
-import { Button } from "antd";
 import {
   AccountEmailContainer,
   ChangePasswordButton,
@@ -13,11 +16,6 @@ import {
   SetNewPasswordContainer,
   Title,
 } from "./style";
-import { Controller, useForm } from "react-hook-form";
-import { useChangePassword } from "hooks/auth/changePassword/useChangePassword";
-import { toast } from "react-toastify";
-import { useRecoilValue } from "recoil";
-import { userState } from "recoil/users/state";
 
 export interface AccountFormsProps {
   active: boolean;

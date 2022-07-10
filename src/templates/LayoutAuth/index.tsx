@@ -4,7 +4,7 @@ import saly2 from "assets/images/saly2.svg";
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 import Style from "./style";
 const LayoutAuth: React.FC = () => {
   const [user] = useRecoilState(userState);

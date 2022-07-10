@@ -8,7 +8,7 @@ import Countdown from "react-countdown";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useRecoilState } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states";
 
 const TIME_COUNT = 30;
 

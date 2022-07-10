@@ -4,8 +4,8 @@ import { useCreateComment, useEditComment } from "hooks/comment";
 import React, { useEffect, useState } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import { useRecoilValue } from "recoil";
-import { cmtPushSubState } from "recoil/comments/state";
-import { userState } from "recoil/users/state";
+import { cmtPushSubState } from "@/states/comments/state";
+import { userState } from "@/states/users/state";
 
 const { TextArea } = Input;
 

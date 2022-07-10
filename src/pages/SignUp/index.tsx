@@ -8,7 +8,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useSetRecoilState } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states";
 import { signInWithGoogleAuth } from "services/firebase";
 import Style from "./style";
 export const MIN_SAFE_DATE = "1900-01-01";

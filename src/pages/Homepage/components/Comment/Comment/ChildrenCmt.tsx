@@ -5,7 +5,7 @@ import React, { ReactChild, useState } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 import { AddComment } from "../AddComment";
 import { ImReply } from "react-icons/im";
 import PopupLogin from "components/PopupSuggestLogin";

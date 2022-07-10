@@ -10,7 +10,7 @@ import { MdOutlineArrowDropDown } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 import Style from "./style";
 interface StateLocation {
   state?: {

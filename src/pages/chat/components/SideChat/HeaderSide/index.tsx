@@ -1,11 +1,9 @@
-import { Button, Dropdown, Input, Menu, Space } from "antd";
+import { Dropdown, Menu, Space } from "antd";
 import Search from "antd/lib/input/Search";
 import React from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { CgMoreO } from "react-icons/cg";
-import { FaEdit } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
-import { IoVideocam } from "react-icons/io5";
 import { HeaderSideStyle } from "./style";
 
 const { ChatItem } = require("react-chat-elements");

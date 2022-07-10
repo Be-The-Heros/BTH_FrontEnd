@@ -4,7 +4,7 @@ import { BiHomeCircle } from "react-icons/bi";
 import { FcApproval } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 
 const { Title } = Typography;
 

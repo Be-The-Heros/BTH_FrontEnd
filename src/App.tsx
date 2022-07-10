@@ -3,7 +3,7 @@ import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useResetRecoilState, useSetRecoilState } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 import "./App.css";
 import { AppViews } from "./pages";
 import "./styles/index.css";

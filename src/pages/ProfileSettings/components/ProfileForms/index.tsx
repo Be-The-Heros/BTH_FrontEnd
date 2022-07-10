@@ -5,7 +5,7 @@ import { Button } from "antd";
 
 import { NewCustomInput } from "../";
 import { useRecoilValue } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 import {
   Container,
   SaveProfileInformationButton,

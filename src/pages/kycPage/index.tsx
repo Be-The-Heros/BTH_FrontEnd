@@ -12,7 +12,7 @@ import { MdArrowBack } from "react-icons/md";
 import { RiGovernmentLine, RiVoiceRecognitionLine } from "react-icons/ri";
 import { toast } from "react-toastify";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import { kycState } from "recoil/kycState/state";
+import { kycState } from "@/states/kycState/state";
 import { AdditionalInformation } from "./containers/AdditionalInformation";
 import { FormConfirmInformation } from "./containers/FormConfirmInformation";
 import { FormSelfie } from "./containers/FormSelfi";

@@ -14,7 +14,6 @@ import {
   getIDWardByName,
   getProvince,
 } from "helpers";
-import { validURL } from "helpers/validate";
 import { useGenerateURLImage } from "hooks/image/useCreateImageURL";
 import { useQueryPostDetail } from "hooks/post/detail/useDetailPost";
 import { useEditPost } from "hooks/post/edit/useEditPost";
@@ -24,7 +23,6 @@ import { PreviewPost } from "pages/CreatePost/components/PreviewPost";
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import { Controller, useForm } from "react-hook-form";
-import { AiOutlineSafety } from "react-icons/ai";
 import { FcFullTrash } from "react-icons/fc";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";

@@ -4,7 +4,7 @@ import { useChangeEmail } from "hooks/user/change-email/useChangeEmail";
 import React from "react";
 import { toast } from "react-toastify";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 import Style from "./style";
 interface UpdateEmailProps {
   isOpen?: boolean;

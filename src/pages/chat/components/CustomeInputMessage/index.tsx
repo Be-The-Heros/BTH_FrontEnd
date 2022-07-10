@@ -1,10 +1,10 @@
-import { Form, Input, Tooltip } from "antd";
+import { Form, Input } from "antd";
+import { Picker } from "emoji-mart";
+import "emoji-mart/css/emoji-mart.css";
 import React, { useState } from "react";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { MdOutlineAttachFile } from "react-icons/md";
 import { CustomeFormInputMessStyle } from "./style";
-import { Picker } from "emoji-mart";
-import "emoji-mart/css/emoji-mart.css";
 
 interface ICustomeInputMessage {
   onSendMessage: (value: string) => void;

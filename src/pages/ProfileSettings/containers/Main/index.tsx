@@ -1,10 +1,9 @@
 import { ProfileInfo } from "hooks/profile/model";
-import React from "react";
 import styled from "styled-components";
 import {
-  ProfileForms,
-  NotificationForms,
   AccountForms,
+  NotificationForms,
+  ProfileForms,
   Verifications,
 } from "../../components";
 

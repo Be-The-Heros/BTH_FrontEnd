@@ -19,7 +19,7 @@ import {
 } from "react-share";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 import { BoxComment } from "../Comment";
 import Style from "./style";
 import { FcOk } from "react-icons/fc";

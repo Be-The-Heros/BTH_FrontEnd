@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { ContentBody, Profile } from "./components";
 import Loading from "components/Loading";
 import { useGetProfileInformByUID } from "hooks/profile/getProfileInform/useGetProfileInform";
+import React from "react";
 import { useParams } from "react-router";
-import { userState } from "recoil/users/state";
 import { useRecoilValue } from "recoil";
+import { userState } from "@/states/users/state";
+import styled from "styled-components";
+import { ContentBody, Profile } from "./components";
 
 const Container = styled.div`
   width: 100%;

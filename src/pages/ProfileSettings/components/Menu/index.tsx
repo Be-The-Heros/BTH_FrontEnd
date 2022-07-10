@@ -1,13 +1,11 @@
-import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import PersonIcon from "@mui/icons-material/Person";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import { Typography } from "@mui/material";
 import { ProfileInfo } from "hooks/profile/model";
-import React from "react";
 import styled from "styled-components";
 import { MenuItem } from "..";
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const Container = styled.div`
   width: 40%;

@@ -3,7 +3,7 @@ import { MAX_SAFE_DATE, MIN_SAFE_DATE } from "pages/SignUp";
 import React from "react";
 import { Control } from "react-hook-form";
 import { useRecoilState } from "recoil";
-import { kycState } from "recoil/kycState/state";
+import { kycState } from "@/states/kycState/state";
 import Style from "./style";
 
 type FormInputs = {

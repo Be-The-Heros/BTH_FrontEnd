@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { RecoilRoot } from "recoil";
-import { ErrorBoundary } from "components/ErrorBoundary";
+import { ErrorBoundary } from "@/components";
 const queryClient = new QueryClient();
 
 ReactDOM.render(

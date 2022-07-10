@@ -2,7 +2,7 @@ import Loading from "components/Loading";
 import { Suspense } from "react";
 import { Navigate } from "react-router";
 import { useRecoilState } from "recoil";
-import { userState } from "recoil/users/state";
+import { userState } from "@/states/users/state";
 
 interface CustomRouteProps {
   element?: React.LazyExoticComponent<() => JSX.Element> | JSX.Element;

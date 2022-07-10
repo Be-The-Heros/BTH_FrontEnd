@@ -2,7 +2,7 @@ import { Skeleton } from "antd";
 import { useLoadComment } from "hooks/comment";
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { cmtPushSubState } from "recoil/comments/state";
+import { cmtPushSubState } from "@/states/comments/state";
 import { AddComment } from "./AddComment";
 import CommentCustoms from "./Comment";
 import _toNumber from "lodash/toNumber";

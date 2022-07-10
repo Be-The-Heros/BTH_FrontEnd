@@ -4,7 +4,7 @@ import { useQueryInfoGroupChat } from "hooks/invite/info/useQueryInfoGroupChat";
 import { useJoinGroupChat } from "hooks/invite/join/useJoinGroupChat";
 import { useGetStatusChat } from "hooks/invite/status/useGetStatusChat";
 import React from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import Style from "./style";
 export const InviteChatPage = () => {
   const { invite_id } = useParams();

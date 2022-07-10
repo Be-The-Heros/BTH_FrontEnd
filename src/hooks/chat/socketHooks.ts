@@ -1,8 +1,8 @@
 import { getLocalStorage } from "helpers/setTitleDocument";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { groupChatState, IMessage } from "recoil/roomChat";
-import { userState } from "recoil/users/state";
+import { groupChatState, IMessage } from "@/states/roomChat";
+import { userState } from "@/states/users/state";
 import { io, Socket } from "socket.io-client";
 import { urlSocket } from "./configs";
 
