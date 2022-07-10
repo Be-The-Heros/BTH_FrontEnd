@@ -3,7 +3,7 @@ interface RequestRegisterAuthGoogle {
   username: string;
   photo_url: string | null;
   email: string | null;
-  type: 'google' | 'facebook' | 'manual';
+  type: "google" | "facebook" | "manual";
   password: string;
   emailVerified: boolean;
   first_name: string;

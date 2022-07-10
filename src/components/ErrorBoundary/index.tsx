@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export class ErrorBoundary extends React.Component {
   state: {
@@ -16,7 +16,7 @@ export class ErrorBoundary extends React.Component {
 
   componentDidCatch(error: any, errorInfo: any) {
     // You can also log the error to an error reporting service
-    console.log('run error: ' + error);
+    console.log("run error: " + error);
 
     console.error(error, errorInfo);
   }

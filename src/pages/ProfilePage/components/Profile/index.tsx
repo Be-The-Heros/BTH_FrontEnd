@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Typography, IconButton } from '@mui/material';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import { Typography, IconButton } from "@mui/material";
+import styled from "styled-components";
 
 import {
   Container,
@@ -10,20 +10,20 @@ import {
   UserName,
   EditProfileButton,
   SaveChangesButton,
-} from './style';
-import AddressIcon from 'assets/icons/address.svg';
-import CalendarIcon from 'assets/icons/calendar.svg';
-import CameraIcon from 'assets/icons/camera.svg';
-import { useNavigate } from 'react-router-dom';
+} from "./style";
+import AddressIcon from "assets/icons/address.svg";
+import CalendarIcon from "assets/icons/calendar.svg";
+import CameraIcon from "assets/icons/camera.svg";
+import { useNavigate } from "react-router-dom";
 
-import { ProfileInfo } from 'hooks/profile/model';
-import { useChangeAvatar } from 'hooks/profile/ChangeAvatar/useChangeAvatar';
-import { useChangeBackgroundPhoto } from 'hooks/profile/ChangeBackgroundPhoto/useChangeBackgroundPhoto';
-import Loading from 'components/Loading';
-import { BsMessenger } from 'react-icons/bs';
-import apis from 'apis';
-import { API_CHAT } from 'hooks/chat/configs';
-import { FcOk } from 'react-icons/fc';
+import { ProfileInfo } from "hooks/profile/model";
+import { useChangeAvatar } from "hooks/profile/ChangeAvatar/useChangeAvatar";
+import { useChangeBackgroundPhoto } from "hooks/profile/ChangeBackgroundPhoto/useChangeBackgroundPhoto";
+import Loading from "components/Loading";
+import { BsMessenger } from "react-icons/bs";
+import apis from "apis";
+import { API_CHAT } from "hooks/chat/configs";
+import { FcOk } from "react-icons/fc";
 
 interface ProfileProps {
   profileInfo: ProfileInfo;
@@ -36,7 +36,7 @@ interface OverlayProps {
 
 const Overlay = styled.div<OverlayProps>`
   position: fixed;
-  display: ${(props) => (props.active ? 'block' : 'none')};
+  display: ${(props) => (props.active ? "block" : "none")};
   width: 100%;
   height: 100%;
   top: 0;
@@ -64,7 +64,7 @@ const Profile = (props: ProfileProps) => {
   const changeBackgroundPhotoMutation = useChangeBackgroundPhoto();
 
   const { profileInfo, isCurrentUser } = props;
-  const full_name = profileInfo.first_name + ' ' + profileInfo.last_name;
+  const full_name = profileInfo.first_name + " " + profileInfo.last_name;
 
   // Get the instance of the FileReader
   const reader = new FileReader();
@@ -105,7 +105,7 @@ const Profile = (props: ProfileProps) => {
     setSelectedAvatarImageFile(file!);
 
     // Once loaded, do something with the string
-    reader.addEventListener('load', (event) => {
+    reader.addEventListener("load", (event) => {
       setChangingState((state) => true);
       setSelectedAvatarImage(event.target?.result);
     });
@@ -122,7 +122,7 @@ const Profile = (props: ProfileProps) => {
     setSelectedBackgroundImageFile(file!);
 
     // Once loaded, do something with the string
-    reader.addEventListener('load', (event) => {
+    reader.addEventListener("load", (event) => {
       setChangingState((state) => true);
       console.log(event.target?.result);
 
@@ -149,7 +149,7 @@ const Profile = (props: ProfileProps) => {
 
       data && navigate(`/chat/${data.group_chat_id}`);
     } catch (error) {
-      navigate('/');
+      navigate("/");
     }
   };
 
@@ -167,34 +167,34 @@ const Profile = (props: ProfileProps) => {
       </Overlay>
       <Container>
         <img
-          className='background-img'
+          className="background-img"
           src={
             selectedBackgroundImage
               ? (selectedBackgroundImage as string)
               : profileInfo.cover_image
               ? profileInfo.cover_image
-              : 'https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true'
+              : "https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true"
           }
-          alt='background-image'
+          alt="background-image"
         />
         {isCurrentUser && (
           <EditCoverPhotoButton onClick={onEditBackgroundButtonClick}>
             <input
-              type='file'
-              id='file-1'
+              type="file"
+              id="file-1"
               ref={backgroundInputFile}
-              style={{ display: 'none' }}
-              accept='image/*'
+              style={{ display: "none" }}
+              accept="image/*"
               onChange={onChangeBackgroundFile}
             />
             Edit Cover Photo
           </EditCoverPhotoButton>
         )}
         <AvatarContainer>
-          <div className='user-avatar'>
+          <div className="user-avatar">
             <UserAvatar
-              shape='circle'
-              size='large'
+              shape="circle"
+              size="large"
               src={
                 <img
                   src={
@@ -202,57 +202,57 @@ const Profile = (props: ProfileProps) => {
                       ? (selectedAvatarImage as string)
                       : profileInfo.avatar
                       ? profileInfo.avatar
-                      : 'https://thelifetank.com/wp-content/uploads/2018/08/avatar-default-icon.png'
+                      : "https://thelifetank.com/wp-content/uploads/2018/08/avatar-default-icon.png"
                   }
                 />
               }
             />
             {isCurrentUser && (
               <IconButton
-                className='user-avatar__camera'
+                className="user-avatar__camera"
                 onClick={onAvatarButtonClick}
               >
                 <input
-                  type='file'
-                  id='file'
+                  type="file"
+                  id="file"
                   ref={avatarInputFile}
-                  style={{ display: 'none' }}
-                  accept='image/*'
+                  style={{ display: "none" }}
+                  accept="image/*"
                   onChange={onChangeAvatarFile}
                 />
                 <img
                   src={CameraIcon}
-                  alt='camera-icon'
+                  alt="camera-icon"
                   style={{
                     width: 25,
                     height: 25,
-                    color: '#fff',
+                    color: "#fff",
                   }}
                 />
               </IconButton>
             )}
           </div>
-          <div className='user-inform'>
-            <UserName variant='h5'>
+          <div className="user-inform">
+            <UserName variant="h5">
               {full_name}
               {Number(profileInfo?.level) > 2 && <FcOk />}
             </UserName>
-            <div className='user-inform__address'>
-              <div className='user-inform__address__detail'>
+            <div className="user-inform__address">
+              <div className="user-inform__address__detail">
                 <img
                   src={AddressIcon}
-                  alt='address-icon'
+                  alt="address-icon"
                   style={{ width: 20, height: 20, marginRight: 10 }}
                 />
-                <Typography variant='body1'>Da Nang, Viet Nam, </Typography>
+                <Typography variant="body1">Da Nang, Viet Nam, </Typography>
               </div>
-              <div className='user-inform__address__detail'>
+              <div className="user-inform__address__detail">
                 <img
                   src={CalendarIcon}
-                  alt='address-icon'
+                  alt="address-icon"
                   style={{ width: 25, height: 25, marginRight: 10 }}
                 />
-                <Typography variant='body1'>Joined January 2020</Typography>
+                <Typography variant="body1">Joined January 2020</Typography>
               </div>
             </div>
           </div>
@@ -263,12 +263,12 @@ const Profile = (props: ProfileProps) => {
           </SaveChangesButton>
         )}
         {isCurrentUser ? (
-          <EditProfileButton onClick={() => navigate('/profile/settings')}>
+          <EditProfileButton onClick={() => navigate("/profile/settings")}>
             Edit Profile
           </EditProfileButton>
         ) : (
           <EditProfileButton onClick={goToMessage}>
-            <BsMessenger style={{ marginRight: '10px' }} /> Message
+            <BsMessenger style={{ marginRight: "10px" }} /> Message
           </EditProfileButton>
         )}
       </Container>

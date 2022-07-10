@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export default styled.div`
   --transition-func: cubic-bezier(0.17, 0.67, 0.5, 0.71);

@@ -1,10 +1,10 @@
-import apis from 'apis';
-import { useMutation } from 'react-query';
-import { API_AUTH } from '../config';
+import apis from "apis";
+import { useMutation } from "react-query";
+import { API_AUTH } from "../config";
 
 export const useSignIn = () => {
   return useMutation((requestPayload: Partial<RequestRegisterAuthGoogle>) =>
-    apis.post<UserInfo>(API_AUTH, '/login', {
+    apis.post<UserInfo>(API_AUTH, "/login", {
       body: {
         ...requestPayload,
       },

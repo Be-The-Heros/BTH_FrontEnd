@@ -1,14 +1,14 @@
-import Loading from 'components/Loading';
-import { useQueryListPost } from 'hooks/post/list';
-import toString from 'lodash/toString';
-import React from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { toast } from 'react-toastify';
-import { LayoutApp } from 'templates/LayoutApp';
-import { NewFeed } from './components/NewFeed';
-import { SidebarLeft } from './components/SidebarLeft';
-import { SidebarRight } from './components/SidebarRight';
-import Style from './style';
+import Loading from "components/Loading";
+import { useQueryListPost } from "hooks/post/list";
+import toString from "lodash/toString";
+import React from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { toast } from "react-toastify";
+import { LayoutApp } from "templates/LayoutApp";
+import { NewFeed } from "./components/NewFeed";
+import { SidebarLeft } from "./components/SidebarLeft";
+import { SidebarRight } from "./components/SidebarRight";
+import Style from "./style";
 
 const TIME_OUT_FETCH = 2000;
 

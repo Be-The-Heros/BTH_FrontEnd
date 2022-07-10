@@ -1,19 +1,19 @@
-import { ProfileInfo } from 'hooks/profile/model';
-import React from 'react';
-import styled from 'styled-components';
+import { ProfileInfo } from "hooks/profile/model";
+import React from "react";
+import styled from "styled-components";
 import {
   ProfileForms,
   NotificationForms,
   AccountForms,
   Verifications,
-} from '../../components';
+} from "../../components";
 
 const Container = styled.div`
   width: 60%;
 `;
 
 interface MainProps {
-  currentTab: 'Profile' | 'Notifications' | 'Accounts' | 'Verification';
+  currentTab: "Profile" | "Notifications" | "Accounts" | "Verification";
   userInform?: ProfileInfo;
 }
 
@@ -22,10 +22,10 @@ const Main = (props: MainProps) => {
 
   return (
     <Container>
-      <ProfileForms userInform={userInform} active={currentTab === 'Profile'} />
-      <NotificationForms active={currentTab === 'Notifications'} />
-      <AccountForms active={currentTab === 'Accounts'} />
-      <Verifications active={currentTab === 'Verification'} />
+      <ProfileForms userInform={userInform} active={currentTab === "Profile"} />
+      <NotificationForms active={currentTab === "Notifications"} />
+      <AccountForms active={currentTab === "Accounts"} />
+      <Verifications active={currentTab === "Verification"} />
     </Container>
   );
 };

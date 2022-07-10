@@ -1,5 +1,4 @@
 import { Avatar, Comment, Row } from "antd";
-import { black } from "colors";
 
 export interface IMessageRender {
   id?: string;
@@ -22,26 +21,25 @@ export const CustomMessage = (props: IMessageRender) => {
       // style={{ paddingBottom: paddingBottom }}
       avatar={
         <>
-        <Avatar
-          style={{
-            visibility: showAvatarValue,
-          }}
-          src={avatar}
-        />
+          <Avatar
+            style={{
+              visibility: showAvatarValue,
+            }}
+            src={avatar}
+          />
         </>
       }
-
       content={
         <Row justify={justify}>
           <p
             style={{
               background: "#e4e6eb",
-              color: 'black',
+              color: "black",
               padding: "3px 10px",
               borderRadius: "15px",
               textAlign: side,
               marginRight: "5px",
-              maxWidth:'70%',
+              maxWidth: "70%",
             }}
           >
             {content}

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CustomChatHeaderStyle= styled.div`
+export const CustomChatHeaderStyle = styled.div`
   .header_message {
     display: "flex";
     flex-direction: row;
@@ -16,10 +16,10 @@ export const CustomChatHeaderStyle= styled.div`
       justify-content: space-between;
       margin-top: auto;
       margin-left: 1em;
-      &_avatar{
+      &_avatar {
         position: relative;
         margin: 1rem 0.5rem;
-        Avatar{
+        Avatar {
           position: absolute;
         }
       }

@@ -1,5 +1,4 @@
 import apis from "apis";
-import axios from "axios";
 import { generateURLImage } from "hooks/image/useCreateImageURL";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";

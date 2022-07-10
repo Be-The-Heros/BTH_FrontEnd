@@ -1,9 +1,9 @@
-import { LIMIT_COMMENT } from 'constants/show';
-import toNumber from 'lodash/toNumber';
-import React, { useState } from 'react';
-import { CommentResponse } from '..';
-import { AddComment } from '../AddComment';
-import { ChildrenCmt as ChildCmt } from './ChildrenCmt';
+import { LIMIT_COMMENT } from "constants/show";
+import toNumber from "lodash/toNumber";
+import React, { useState } from "react";
+import { CommentResponse } from "..";
+import { AddComment } from "../AddComment";
+import { ChildrenCmt as ChildCmt } from "./ChildrenCmt";
 interface CommentCustomProps {
   data: CommentResponse;
 }
@@ -30,10 +30,10 @@ export const CommentCustom = (props: CommentCustomProps) => {
       <React.Fragment>
         {isShowMoreBtn && commentReps && commentReps.length > LIMIT_COMMENT && (
           <div
-            className='comment-more'
+            className="comment-more"
             onClick={() => setIsShowMore(false)}
             style={{
-              cursor: 'pointer',
+              cursor: "pointer",
             }}
           >
             See all replies comments
@@ -42,8 +42,8 @@ export const CommentCustom = (props: CommentCustomProps) => {
         {commentReps
           ?.sort(
             (prev, next) =>
-              new Date(prev.created_at || '').getTime() -
-              new Date(next.created_at || '').getTime()
+              new Date(prev.created_at || "").getTime() -
+              new Date(next.created_at || "").getTime()
           )
           .slice(startIndex, commentReps?.length)
 
@@ -60,12 +60,12 @@ export const CommentCustom = (props: CommentCustomProps) => {
                   showPopover: true,
                   srcAvatar: profile.avatar,
                   uid: profile.uid,
-                  fullName: profile.first_name + ' ' + profile.last_name,
+                  fullName: profile.first_name + " " + profile.last_name,
                   bio: profile.bio,
                   address: profile.address,
                   isVerified: Number(profile.level) > 2,
                 }}
-                content={content || ''}
+                content={content || ""}
                 isShowAddCmt={showAddCmt}
                 onShowAddCmt={setShowAddCmt}
               />
@@ -77,8 +77,8 @@ export const CommentCustom = (props: CommentCustomProps) => {
             post_id={+post_id}
             rep={comment_id}
             isShowAvatar
-            type='create'
-            defaultValue={profile.first_name + ' ' + profile.last_name}
+            type="create"
+            defaultValue={profile.first_name + " " + profile.last_name}
           />
         )}
       </React.Fragment>
@@ -93,12 +93,12 @@ export const CommentCustom = (props: CommentCustomProps) => {
         showPopover: true,
         srcAvatar: profile.avatar,
         uid: profile.uid,
-        fullName: profile.first_name + ' ' + profile.last_name,
+        fullName: profile.first_name + " " + profile.last_name,
         bio: profile.bio,
         address: profile.address,
         isVerified: Number(profile.level) > 2,
       }}
-      content={content || ''}
+      content={content || ""}
       isShowAddCmt={showAddCmt}
       onShowAddCmt={setShowAddCmt}
       child={listChildren()}

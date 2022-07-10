@@ -1,1 +1,1 @@
-export * from './useQueryListPost';
+export * from "./useQueryListPost";

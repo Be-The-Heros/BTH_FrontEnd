@@ -7,7 +7,7 @@ interface IProfile {
 }
 
 export interface IMessage {
-  id?:string;
+  id?: string;
   uid: string;
   to_group: string;
   type: "text" | "img" | "file";
@@ -35,18 +35,18 @@ export interface IGroupChat {
     created_at?: Date;
     updated_at?: Date;
   };
-  firstMember? :{
+  firstMember?: {
     avatar: string;
     first_name: string;
     last_name: string;
-  }
+  };
 }
 
 export interface IGroupChatState {
   roomId: string;
   listGroup: IGroupChat[];
   listGroupHaveMessages: IMessageGroupChat[];
-  reload:boolean
+  reload: boolean;
 }
 
 export const groupChatState = atom({

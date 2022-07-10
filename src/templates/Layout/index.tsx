@@ -1,14 +1,13 @@
-import { Header } from 'components/Header';
-import { Footer } from 'components/Footer';
-import React from 'react';
-import { Outlet } from 'react-router';
-import Style from './style';
+import { Header, Footer } from "@/components";
+import React from "react";
+import { Outlet } from "react-router";
+import Style from "./style";
 
 const LayoutMain = () => {
   return (
-    <Style className='main'>
+    <Style className="main">
       <Header />
-      <div className='td-layout'>
+      <div className="td-layout">
         <Outlet />
       </div>
       <Footer />

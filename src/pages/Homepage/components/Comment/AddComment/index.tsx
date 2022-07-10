@@ -1,11 +1,11 @@
-import { Button, Comment, Form, Input, Tooltip } from 'antd';
-import { AvatarCustom } from 'components/Avatar';
-import { useCreateComment, useEditComment } from 'hooks/comment';
-import React, { useEffect, useState } from 'react';
-import { AiOutlineCamera } from 'react-icons/ai';
-import { useRecoilValue } from 'recoil';
-import { cmtPushSubState } from 'recoil/comments/state';
-import { userState } from 'recoil/users/state';
+import { Button, Comment, Form, Input, Tooltip } from "antd";
+import { AvatarCustom } from "components/Avatar";
+import { useCreateComment, useEditComment } from "hooks/comment";
+import React, { useEffect, useState } from "react";
+import { AiOutlineCamera } from "react-icons/ai";
+import { useRecoilValue } from "recoil";
+import { cmtPushSubState } from "recoil/comments/state";
+import { userState } from "recoil/users/state";
 
 const { TextArea } = Input;
 
@@ -14,7 +14,7 @@ interface IAddComment {
   rep?: number;
   commentId?: number;
   contentValue?: string;
-  type: 'edit' | 'create';
+  type: "edit" | "create";
   defaultValue?: string;
   isShowAvatar: boolean;
   setIsEditCmt?: (value: boolean) => void;
@@ -34,7 +34,7 @@ export const AddComment = (props: IAddComment) => {
     isVerified,
   } = props;
   const infoUser = useRecoilValue(userState);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
   const subComment = useRecoilValue(cmtPushSubState);
 
   const { mutate, isLoading } = useCreateComment();
@@ -43,7 +43,7 @@ export const AddComment = (props: IAddComment) => {
 
   useEffect(() => {
     if (subComment.uid) {
-      setContent('');
+      setContent("");
     }
   }, [subComment]);
 
@@ -58,7 +58,7 @@ export const AddComment = (props: IAddComment) => {
   };
 
   const onCreateComment = () => {
-    if (type === 'create') {
+    if (type === "create") {
       if (content.length > 0) {
         mutate({
           content,
@@ -83,66 +83,66 @@ export const AddComment = (props: IAddComment) => {
     <div>
       {infoUser.uid && (
         <Comment
-          style={{ padding: '10px 0', paddingBottom: 0 }}
+          style={{ padding: "10px 0", paddingBottom: 0 }}
           avatar={
             isShowAvatar && (
               <AvatarCustom
                 showPopover={false}
-                srcAvatar={infoUser.avatar || ''}
+                srcAvatar={infoUser.avatar || ""}
                 uid={infoUser.uid}
                 size={32}
-                fullName={infoUser.first_name + ' ' + infoUser.last_name}
+                fullName={infoUser.first_name + " " + infoUser.last_name}
                 isVerified={Boolean(isVerified)}
               />
             )
           }
           content={
             <React.Fragment>
-              <Form.Item style={{ marginBottom: '5px' }}>
+              <Form.Item style={{ marginBottom: "5px" }}>
                 <TextArea
                   onChange={(e) => onChangeContent(e)}
                   value={content}
                   autoSize
                 />
 
-                {type === 'create' && (
-                  <Tooltip title='Choose imge'>
+                {type === "create" && (
+                  <Tooltip title="Choose imge">
                     <>
                       <label
-                        htmlFor='file-upload'
+                        htmlFor="file-upload"
                         style={{
-                          position: 'absolute',
-                          bottom: '10px',
-                          right: '10px',
-                          cursor: 'pointer',
+                          position: "absolute",
+                          bottom: "10px",
+                          right: "10px",
+                          cursor: "pointer",
                         }}
                       >
                         <AiOutlineCamera size={20} />
                       </label>
                       <input
-                        accept='image/png, image/jpeg'
-                        id='file-upload'
-                        style={{ display: 'none' }}
-                        type='file'
+                        accept="image/png, image/jpeg"
+                        id="file-upload"
+                        style={{ display: "none" }}
+                        type="file"
                       />
                     </>
                   </Tooltip>
                 )}
               </Form.Item>
-              <Form.Item style={{ marginBottom: '5px' }}>
+              <Form.Item style={{ marginBottom: "5px" }}>
                 <Button
                   loading={isLoading}
                   onClick={onCreateComment}
                   style={{
-                    background: '#7cdfff',
-                    border: 'none',
-                    color: 'var(--bs-gray-dark)',
+                    background: "#7cdfff",
+                    border: "none",
+                    color: "var(--bs-gray-dark)",
                   }}
-                  htmlType='submit'
-                  type='primary'
+                  htmlType="submit"
+                  type="primary"
                   disabled={isLoading || content.trim().length === 0}
                 >
-                  {type === 'create' ? 'Comment' : 'Save'}
+                  {type === "create" ? "Comment" : "Save"}
                 </Button>
               </Form.Item>
             </React.Fragment>

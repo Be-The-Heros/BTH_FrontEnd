@@ -1,14 +1,14 @@
-import { Button, Input } from 'antd';
-import Loading from 'components/Loading';
-import { PopupUpdateEmail } from 'components/UpdateEmail';
-import { useGenerateOtp } from 'hooks/otp/generate/useGenerateOtp';
-import { useVerifyEmail } from 'hooks/user/verify-email/useVerifyEmail';
-import React from 'react';
-import Countdown from 'react-countdown';
-import { useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
-import { useRecoilState } from 'recoil';
-import { userState } from 'recoil/users/state';
+import { Button, Input } from "antd";
+import Loading from "components/Loading";
+import { PopupUpdateEmail } from "components/UpdateEmail";
+import { useGenerateOtp } from "hooks/otp/generate/useGenerateOtp";
+import { useVerifyEmail } from "hooks/user/verify-email/useVerifyEmail";
+import React from "react";
+import Countdown from "react-countdown";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import { useRecoilState } from "recoil";
+import { userState } from "recoil/users/state";
 
 const TIME_COUNT = 30;
 
@@ -17,7 +17,7 @@ export const VerifyEmailPage = () => {
   const generateOtp = useGenerateOtp();
   const verifyMutation = useVerifyEmail();
   const navigate = useNavigate();
-  const [otpValue, setOtpValue] = React.useState('');
+  const [otpValue, setOtpValue] = React.useState("");
   const [openPopup, setOpenPopup] = React.useState(false);
   const [keyReset, setResetCountdown] = React.useState(0);
   const [timeCount, setTimeCountdown] = React.useState(Date.now());
@@ -34,8 +34,8 @@ export const VerifyEmailPage = () => {
 
       return (
         <div
-          className='d-flex align-items-center'
-          style={{ cursor: 'pointer' }}
+          className="d-flex align-items-center"
+          style={{ cursor: "pointer" }}
           onClick={() => {
             generateOtp.mutate(user.email);
             setResetCountdown(new Date().getTime());
@@ -48,7 +48,7 @@ export const VerifyEmailPage = () => {
     } else {
       // Render a countdown
       return (
-        <div className='d-flex align-items-center'>
+        <div className="d-flex align-items-center">
           {`Send email in ${seconds} s`}
         </div>
       );
@@ -69,27 +69,27 @@ export const VerifyEmailPage = () => {
   }, [generateOtp.data]);
   React.useEffect(() => {
     if (verifyMutation.isLoading) {
-      toastId.current = toast.loading('Checking OTP...');
+      toastId.current = toast.loading("Checking OTP...");
     } else {
-      toast.dismiss(toastId.current || '');
+      toast.dismiss(toastId.current || "");
     }
   }, [verifyMutation.isLoading]);
 
   React.useEffect(() => {
     if (verifyMutation.isSuccess) {
-      toast.success('Email verified');
+      toast.success("Email verified");
       setUser({ ...user, level: 2 });
-      navigate('/');
+      navigate("/");
       return;
     }
-    verifyMutation.isError && setOtpValue('');
+    verifyMutation.isError && setOtpValue("");
   }, [verifyMutation.isSuccess]);
 
   return (
     <div
-      className='d-flex justify-content-center align-items-center'
+      className="d-flex justify-content-center align-items-center"
       style={{
-        padding: '5rem 0',
+        padding: "5rem 0",
       }}
     >
       <PopupUpdateEmail
@@ -97,27 +97,27 @@ export const VerifyEmailPage = () => {
         onClose={() => setOpenPopup(false)}
       />
       <div
-        className='form-verify-email'
+        className="form-verify-email"
         style={{
-          boxShadow: '0 1px 2px rgb(0 0 0 / 10%), 0 2px 4px rgb(0 0 0 / 10%)',
-          borderRadius: '8px',
-          minWidth: '500px',
-          backgroundColor: '#fff',
+          boxShadow: "0 1px 2px rgb(0 0 0 / 10%), 0 2px 4px rgb(0 0 0 / 10%)",
+          borderRadius: "8px",
+          minWidth: "500px",
+          backgroundColor: "#fff",
           //   padding: '2% 1.5%',
         }}
       >
         <div
-          className='form-header'
+          className="form-header"
           style={{
-            borderBottom: '1px solid rgba(0, 0, 0, .1)',
-            fontSize: '1.75rem',
-            fontWeight: 'bold',
+            borderBottom: "1px solid rgba(0, 0, 0, .1)",
+            fontSize: "1.75rem",
+            fontWeight: "bold",
           }}
         >
           <h2
             style={{
-              margin: '0',
-              padding: '1rem 0.75rem',
+              margin: "0",
+              padding: "1rem 0.75rem",
             }}
           >
             Enter Code OTP
@@ -126,37 +126,37 @@ export const VerifyEmailPage = () => {
 
         {!generateOtp.isLoading ? (
           <React.Fragment>
-            {' '}
+            {" "}
             <div
-              className='form-content'
+              className="form-content"
               style={{
-                padding: '1rem 0.75rem',
-                borderBottom: '1px solid rgba(0, 0, 0, .1)',
+                padding: "1rem 0.75rem",
+                borderBottom: "1px solid rgba(0, 0, 0, .1)",
               }}
             >
               Please check code in your email address. OTP have 6 number.
               <div
-                className='form-input d-flex'
+                className="form-input d-flex"
                 style={{
-                  marginTop: '1rem',
+                  marginTop: "1rem",
                 }}
               >
-                <div className='w-50'>
+                <div className="w-50">
                   <Input
-                    placeholder='Enter OTP Code'
+                    placeholder="Enter OTP Code"
                     value={otpValue}
-                    typeof='number'
-                    type='number'
+                    typeof="number"
+                    type="number"
                     maxLength={6}
                     onChange={(e) => setOtpValue(e.target.value)}
                   />
                 </div>
-                <div className='col-6 d-flex align-items-center'>
+                <div className="col-6 d-flex align-items-center">
                   <p>
-                    We sent you email address:{' '}
+                    We sent you email address:{" "}
                     <span
                       style={{
-                        color: 'var(--dark)',
+                        color: "var(--dark)",
                       }}
                     >
                       {user.email}
@@ -166,10 +166,10 @@ export const VerifyEmailPage = () => {
               </div>
             </div>
             <div
-              className='form-footer d-flex justify-content-between'
+              className="form-footer d-flex justify-content-between"
               style={{
-                padding: '0.5rem  0.75rem',
-                borderBottom: '1px solid rgba(0, 0, 0, .1)',
+                padding: "0.5rem  0.75rem",
+                borderBottom: "1px solid rgba(0, 0, 0, .1)",
               }}
             >
               <Countdown
@@ -177,18 +177,18 @@ export const VerifyEmailPage = () => {
                 key={keyReset}
                 date={timeCount + 1000 * TIME_COUNT}
               />
-              <div className='w-60 d-flex justify-content-around'>
+              <div className="w-60 d-flex justify-content-around">
                 <Button
-                  className='btn-continue'
+                  className="btn-continue"
                   onClick={() => setOpenPopup(true)}
                 >
                   Change email
                 </Button>
 
                 <Button
-                  type='primary'
+                  type="primary"
                   disabled={otpValue.trim().length !== 6}
-                  className='btn-continue'
+                  className="btn-continue"
                   onClick={() => handleCheckOTP()}
                 >
                   Continue
@@ -198,12 +198,12 @@ export const VerifyEmailPage = () => {
           </React.Fragment>
         ) : (
           <div
-            className='d-flex'
+            className="d-flex"
             style={{
-              height: '300px',
+              height: "300px",
             }}
           >
-            <Loading cover='content' />
+            <Loading cover="content" />
           </div>
         )}
       </div>

@@ -1,1 +1,1 @@
-export const QUERY_COMMENT = 'QUERY_COMMENT'
+export const QUERY_COMMENT = "QUERY_COMMENT";

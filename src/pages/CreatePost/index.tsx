@@ -1,7 +1,7 @@
-import { Button, Image, Input, Select } from 'antd';
-import TextArea from 'antd/lib/input/TextArea';
-import clsx from 'clsx';
-import { LIMIT_FILE, SLOGANS } from 'constants/slogan';
+import { Button, Image, Input, Select } from "antd";
+import TextArea from "antd/lib/input/TextArea";
+import clsx from "clsx";
+import { LIMIT_FILE, SLOGANS } from "constants/slogan";
 import {
   getAllCommunes,
   getAllDistricts,
@@ -9,24 +9,24 @@ import {
   getCommune,
   getDistrict,
   getProvince,
-} from 'helpers';
-import { cleanAccents } from 'helpers/cleanAccents';
-import { validURL } from 'helpers/validate';
-import { useCreatePost } from 'hooks/post/create/useCreatePost';
-import toLower from 'lodash/toLower';
-import upperFirst from 'lodash/upperFirst';
-import React from 'react';
-import { useDropzone } from 'react-dropzone';
-import { Controller, useForm } from 'react-hook-form';
-import { AiOutlineSafety } from 'react-icons/ai';
-import { FcFullTrash } from 'react-icons/fc';
-import { useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
-import { useRecoilValue } from 'recoil';
-import { userState } from 'recoil/users/state';
-import IntroductionTitle from './components/IntroductionTitle';
-import { PreviewPost } from './components/PreviewPost';
-import Style from './style';
+} from "helpers";
+import { cleanAccents } from "helpers/cleanAccents";
+import { validURL } from "helpers/validate";
+import { useCreatePost } from "hooks/post/create/useCreatePost";
+import toLower from "lodash/toLower";
+import upperFirst from "lodash/upperFirst";
+import React from "react";
+import { useDropzone } from "react-dropzone";
+import { Controller, useForm } from "react-hook-form";
+import { AiOutlineSafety } from "react-icons/ai";
+import { FcFullTrash } from "react-icons/fc";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import { useRecoilValue } from "recoil";
+import { userState } from "recoil/users/state";
+import IntroductionTitle from "./components/IntroductionTitle";
+import { PreviewPost } from "./components/PreviewPost";
+import Style from "./style";
 const { Option } = Select;
 const TIME_CHANGE_TEXT = 3000;
 interface FieldCreatePost {
@@ -64,18 +64,18 @@ const CreatePostPage = () => {
     >
   >([]);
   const [residence, setResidence] = React.useState({
-    province: '',
-    district: '',
-    ward: '',
+    province: "",
+    district: "",
+    ward: "",
   });
-  const [toggle, setToggle] = React.useState({ title: '', size: 0 });
+  const [toggle, setToggle] = React.useState({ title: "", size: 0 });
 
   // * API Create Post
   const createPostMutation = useCreatePost();
 
   //  save in link photo image
   const { getRootProps, getInputProps } = useDropzone({
-    accept: ['image/*', 'video/*'],
+    accept: ["image/*", "video/*"],
     onDrop: (acceptedFiles: File[]) => {
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
@@ -83,7 +83,7 @@ const CreatePostPage = () => {
         })
       );
       if (newFiles.length + files.length > LIMIT_FILE) {
-        toast.warning('You can only upload 10 images');
+        toast.warning("You can only upload 10 images");
         return;
       }
       setFiles([...files, ...newFiles]);
@@ -94,12 +94,12 @@ const CreatePostPage = () => {
   React.useEffect(() => {
     toast.dismiss();
     if (createPostMutation.isLoading) {
-      toast.loading('Creating post...');
+      toast.loading("Creating post...");
       return;
     }
     if (createPostMutation.isSuccess) {
       files.forEach((file) => URL.revokeObjectURL(file.preview));
-      toast.success('Creating post success');
+      toast.success("Creating post success");
 
       navigate(`/post/detail/${createPostMutation.data.post_id}`);
       return;
@@ -123,35 +123,35 @@ const CreatePostPage = () => {
     return files.map((file, index) => {
       const imageClassName = clsx(
         {
-          ['pl-0']: (index + 1) % 3 === 1,
+          ["pl-0"]: (index + 1) % 3 === 1,
           // ['pr-0']: (index + 1) % 3 === 0,
         },
-        'col-4 item-image'
+        "col-4 item-image"
       );
 
       return (
         <div className={imageClassName} key={index}>
           <div
-            className='w-100 h-100'
+            className="w-100 h-100"
             style={{
-              marginTop: '0.25rem',
-              position: 'relative',
+              marginTop: "0.25rem",
+              position: "relative",
             }}
           >
             <Image
               src={file.preview}
               style={{
-                objectFit: 'cover',
+                objectFit: "cover",
               }}
-              alt='preview'
+              alt="preview"
             />
             <FcFullTrash
               style={{
-                position: 'absolute',
-                top: '0.25rem',
-                right: '0.25rem',
-                fontSize: '1.25rem',
-                cursor: 'pointer',
+                position: "absolute",
+                top: "0.25rem",
+                right: "0.25rem",
+                fontSize: "1.25rem",
+                cursor: "pointer",
               }}
               onClick={() => setFiles([...files.filter((f, i) => i !== index)])}
             />
@@ -185,69 +185,69 @@ const CreatePostPage = () => {
 
   // TODO: Render component
   return (
-    <Style className='create-post-page'>
+    <Style className="create-post-page">
       <PreviewPost
-        content={watch('content')}
+        content={watch("content")}
         avatar={user.avatar}
-        fullname={user.first_name + ' ' + user.last_name}
+        fullname={user.first_name + " " + user.last_name}
         joined={1000}
-        join_url={watch('join_url')}
-        title={watch('title')}
+        join_url={watch("join_url")}
+        title={watch("title")}
         visible={isOpenPreview}
         ward={getCommune(residence.ward)}
         district={getDistrict(residence.district)}
         province={getProvince(residence.province)}
         onCancel={() => setIsOpenPreview(false)}
-        residential_address={watch('residential_address')}
+        residential_address={watch("residential_address")}
         photos={files.map((file) => file.preview)}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='header'>
-          <div className='slide-right'>{SLOGANS[randomSlogan]}</div>
+        <div className="header">
+          <div className="slide-right">{SLOGANS[randomSlogan]}</div>
         </div>
-        <div className='d-flex'>
-          <div className='content w-70'>
-            <div className='form-input'>
+        <div className="d-flex">
+          <div className="content w-70">
+            <div className="form-input">
               <label>Title</label>
               <Controller
-                name='title'
+                name="title"
                 control={control}
                 rules={{ required: true, maxLength: 1000 }}
-                defaultValue=''
+                defaultValue=""
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder='Enter Title'
+                    placeholder="Enter Title"
                     onFocus={(e) => {
                       const height = e.target.scrollHeight;
-                      setToggle({ title: 'title', size: height });
+                      setToggle({ title: "title", size: height });
                     }}
                   />
                 )}
               />
               {errors.title && (
-                <span className='waring-error'>Title is required</span>
+                <span className="waring-error">Title is required</span>
               )}
             </div>
-            <div className='form-input'>
-              <label className='w-100'>Residence</label>
+            <div className="form-input">
+              <label className="w-100">Residence</label>
               <Controller
-                name='id_province'
+                name="id_province"
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
                   <Select
-                    defaultValue=''
+                    defaultValue=""
                     showSearch
                     {...field}
-                    className='col-4'
+                    className="col-4"
                     style={{
-                      paddingLeft: '0',
+                      paddingLeft: "0",
                     }}
                     onFocus={() => {
-                      setToggle({ title: 'address', size: toggle.size });
+                      setToggle({ title: "address", size: toggle.size });
                     }}
-                    optionFilterProp='children'
+                    optionFilterProp="children"
                     filterOption={(input, option: any) => {
                       return cleanAccents(toLower(option?.children)).includes(
                         cleanAccents(toLower(input))
@@ -260,11 +260,11 @@ const CreatePostPage = () => {
                       });
 
                       field.onChange(province);
-                      setValue('id_district', '');
-                      setValue('id_ward', '');
+                      setValue("id_district", "");
+                      setValue("id_ward", "");
                     }}
                   >
-                    <Option value={''}>Please Choose Province</Option>
+                    <Option value={""}>Please Choose Province</Option>
                     {getAllProvinces().map((province) => (
                       <Option
                         value={province.idProvince}
@@ -277,20 +277,20 @@ const CreatePostPage = () => {
                 )}
               />
               <Controller
-                name='id_district'
+                name="id_district"
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
                   <React.Fragment>
                     <Select
-                      defaultValue=''
-                      className='col-4'
+                      defaultValue=""
+                      className="col-4"
                       style={{
-                        paddingRight: '0',
+                        paddingRight: "0",
                       }}
                       {...field}
                       onFocus={() => {
-                        setToggle({ title: 'address', size: toggle.size });
+                        setToggle({ title: "address", size: toggle.size });
                       }}
                       showSearch
                       filterOption={(input, option: any) => {
@@ -303,7 +303,7 @@ const CreatePostPage = () => {
                         field.onChange(district);
                       }}
                     >
-                      <Option value={''}>Please Choose District</Option>
+                      <Option value={""}>Please Choose District</Option>
 
                       {getAllDistricts(residence.province).map((district) => (
                         <Option
@@ -318,19 +318,19 @@ const CreatePostPage = () => {
                 )}
               />
               <Controller
-                name='id_ward'
+                name="id_ward"
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
                   <Select
                     {...field}
-                    className='col-4'
-                    defaultValue={''}
+                    className="col-4"
+                    defaultValue={""}
                     style={{
-                      paddingRight: '0',
+                      paddingRight: "0",
                     }}
                     onFocus={() => {
-                      setToggle({ title: 'address', size: toggle.size });
+                      setToggle({ title: "address", size: toggle.size });
                     }}
                     showSearch
                     filterOption={(input, option: any) => {
@@ -343,7 +343,7 @@ const CreatePostPage = () => {
                       field.onChange(ward);
                     }}
                   >
-                    <Option value={''}>Please Choose Ward</Option>
+                    <Option value={""}>Please Choose Ward</Option>
 
                     {getAllCommunes(residence.district).map((ward) => (
                       <Option value={ward.idCommune} key={ward.idCommune}>
@@ -354,19 +354,19 @@ const CreatePostPage = () => {
                 )}
               />
               {errors.id_province && (
-                <span className='waring-error'>Province is required</span>
+                <span className="waring-error">Province is required</span>
               )}
               {!errors.id_province && errors.id_district && (
-                <span className='waring-error'>District is required</span>
+                <span className="waring-error">District is required</span>
               )}
               {!errors.id_province && !errors.id_district && errors.id_ward && (
-                <span className='waring-error'>Ward is required</span>
+                <span className="waring-error">Ward is required</span>
               )}
             </div>
-            <div className='form-input'>
+            <div className="form-input">
               <label>Resident address</label>
               <Controller
-                name='residential_address'
+                name="residential_address"
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
@@ -374,88 +374,88 @@ const CreatePostPage = () => {
                     {...field}
                     onFocus={() => {
                       setToggle({
-                        title: 'resident_address',
+                        title: "resident_address",
                         size: toggle.size,
                       });
                     }}
-                    placeholder='Enter resident address'
+                    placeholder="Enter resident address"
                     onBlur={(e) => {
                       field.onChange(
                         e.target.value
-                          .split(' ')
+                          .split(" ")
                           .map((word) => upperFirst(word))
-                          .join(' ')
+                          .join(" ")
                       );
                     }}
                   />
                 )}
               />
               {errors.residential_address && (
-                <span className='waring-error'>Resident address invalid</span>
+                <span className="waring-error">Resident address invalid</span>
               )}
             </div>
-            <div className='form-input'>
+            <div className="form-input">
               <label> Content</label>
               <Controller
-                name='content'
+                name="content"
                 rules={{ required: true }}
                 control={control}
                 render={({ field }) => (
                   <TextArea
                     {...field}
                     onFocus={() => {
-                      setToggle({ ...toggle, title: 'content' });
+                      setToggle({ ...toggle, title: "content" });
                     }}
-                    placeholder='Explain your post'
+                    placeholder="Explain your post"
                     style={{
-                      height: '200px',
+                      height: "200px",
                     }}
                     autoSize
                     onChange={(e) => {
                       const height = e.target.scrollHeight;
-                      setToggle({ title: 'content', size: height });
+                      setToggle({ title: "content", size: height });
                       field.onChange(e.target.value);
                     }}
                   />
                 )}
               />
               {errors.content && (
-                <span className='waring-error'>Content required</span>
+                <span className="waring-error">Content required</span>
               )}
             </div>
 
-            <div className='form-input'>
+            <div className="form-input">
               <label>URL chat room</label>
               {!isCreateChat && (
                 <Controller
-                  name='join_url'
+                  name="join_url"
                   rules={{
                     required: false,
                     validate: (value) => {
                       return (
-                        !value || validURL(value || '') || value?.trim() === ''
+                        !value || validURL(value || "") || value?.trim() === ""
                       );
                     },
                   }}
                   control={control}
                   render={({ field }) => (
-                    <div className='w-50 position-relative'>
+                    <div className="w-50 position-relative">
                       <Input
                         {...field}
                         onFocus={() => {
-                          setToggle({ ...toggle, title: 'chat' });
+                          setToggle({ ...toggle, title: "chat" });
                         }}
                         style={{
-                          paddingRight: '3rem',
+                          paddingRight: "3rem",
                         }}
-                        placeholder='Example: https://t.me/+de5i4MvIBAMzYmY1'
+                        placeholder="Example: https://t.me/+de5i4MvIBAMzYmY1"
                       />
                       <AiOutlineSafety
-                        className='icon-safe'
+                        className="icon-safe"
                         color={
-                          validURL(watch('join_url'))
-                            ? 'var(--bs-success)'
-                            : 'var(--bs-danger)'
+                          validURL(watch("join_url"))
+                            ? "var(--bs-success)"
+                            : "var(--bs-danger)"
                         }
                       />
                     </div>
@@ -465,7 +465,7 @@ const CreatePostPage = () => {
               {isCreateChat && (
                 <div>
                   <strong>
-                    {' '}
+                    {" "}
                     we will create a chat room, once you create the post
                     successfully. Join the chat room by clicking the join button
                   </strong>
@@ -473,14 +473,14 @@ const CreatePostPage = () => {
               )}
 
               <div
-                className='create-url-post'
+                className="create-url-post"
                 onClick={() => setIsCreateChat(!isCreateChat)}
               >
                 {!isCreateChat ? (
                   <span
                     style={{
-                      cursor: 'pointer',
-                      marginTop: '0.5rem',
+                      cursor: "pointer",
+                      marginTop: "0.5rem",
                     }}
                   >
                     Create chat room from site
@@ -488,9 +488,9 @@ const CreatePostPage = () => {
                 ) : (
                   <span
                     style={{
-                      cursor: 'pointer',
-                      marginTop: '0.5rem',
-                      color: 'var(--bs-cyan)',
+                      cursor: "pointer",
+                      marginTop: "0.5rem",
+                      color: "var(--bs-cyan)",
                     }}
                   >
                     I have a chat room ?
@@ -499,50 +499,50 @@ const CreatePostPage = () => {
               </div>
 
               {errors.join_url && (
-                <span className='waring-error'>Url is not valid</span>
+                <span className="waring-error">Url is not valid</span>
               )}
             </div>
 
             <div
-              className='form-input'
+              className="form-input"
               onFocus={() => {
-                setToggle({ title: 'photo', size: toggle.size });
+                setToggle({ title: "photo", size: toggle.size });
               }}
             >
               <label>Upload Image</label>
               <input {...getInputProps()} />
-              <div {...getRootProps({ className: 'dropzone' })}>
+              <div {...getRootProps({ className: "dropzone" })}>
                 <input {...getInputProps()} />
                 <p>Drag 'n' drop some files here, or click to select files</p>
               </div>
               <aside>
                 <div
-                  className='d-flex w-100 flex-wrap preview'
-                  style={{ margin: '1rem 0' }}
+                  className="d-flex w-100 flex-wrap preview"
+                  style={{ margin: "1rem 0" }}
                 >
                   <Image.PreviewGroup>{renderThumbsFile()}</Image.PreviewGroup>
                 </div>
               </aside>
             </div>
             <div
-              className='form-input d-flex justify-content-around'
+              className="form-input d-flex justify-content-around"
               style={{
-                marginTop: '1rem',
+                marginTop: "1rem",
               }}
             >
               <Button
-                type='primary'
-                htmlType='submit'
+                type="primary"
+                htmlType="submit"
                 disabled={createPostMutation.isLoading}
               >
                 Publish
               </Button>
-              <Button type='default' onClick={() => setIsOpenPreview(true)}>
+              <Button type="default" onClick={() => setIsOpenPreview(true)}>
                 Preview
               </Button>
             </div>
           </div>
-          <div className='w-30 introduction'>
+          <div className="w-30 introduction">
             <IntroductionTitle {...toggle} />
           </div>
         </div>

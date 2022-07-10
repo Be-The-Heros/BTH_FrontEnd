@@ -1,11 +1,11 @@
-import { Skeleton } from 'antd';
-import { useLoadComment } from 'hooks/comment';
-import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { cmtPushSubState } from 'recoil/comments/state';
-import { AddComment } from './AddComment';
-import CommentCustoms from './Comment';
-import _toNumber from 'lodash/toNumber';
+import { Skeleton } from "antd";
+import { useLoadComment } from "hooks/comment";
+import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { cmtPushSubState } from "recoil/comments/state";
+import { AddComment } from "./AddComment";
+import CommentCustoms from "./Comment";
+import _toNumber from "lodash/toNumber";
 interface BoxCommentProps {
   postId: number;
   isVerified: boolean;
@@ -49,9 +49,9 @@ export const BoxComment = (props: BoxCommentProps) => {
       subComment.postId &&
       _toNumber(subComment.postId) === _toNumber(postId)
     ) {
-      console.log('subComment.type', subComment.type);
+      console.log("subComment.type", subComment.type);
       switch (subComment.type) {
-        case 'add':
+        case "add":
           {
             const newData = [...dataListComment];
             const newComment = {
@@ -80,7 +80,7 @@ export const BoxComment = (props: BoxCommentProps) => {
           }
 
           break;
-        case 'remove':
+        case "remove":
           {
             const newData = [...dataListComment];
 
@@ -106,10 +106,10 @@ export const BoxComment = (props: BoxCommentProps) => {
 
           break;
 
-        case 'edit':
+        case "edit":
           {
             const newData = [...dataListComment];
-            console.log('run switch edit');
+            console.log("run switch edit");
 
             if (subComment.rep) {
               const index = newData.findIndex(
@@ -165,7 +165,7 @@ export const BoxComment = (props: BoxCommentProps) => {
       {isLoading ? (
         <div
           style={{
-            paddingTop: '10px',
+            paddingTop: "10px",
           }}
         >
           <Skeleton avatar paragraph={{ rows: 1 }} />
@@ -175,7 +175,7 @@ export const BoxComment = (props: BoxCommentProps) => {
           <AddComment
             post_id={postId}
             isShowAvatar
-            type='create'
+            type="create"
             isVerified={isVerified}
           />
           <CommentCustoms data={dataListComment} />

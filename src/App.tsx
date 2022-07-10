@@ -1,12 +1,12 @@
-import { useQuerySessions } from 'hooks/auth/sessions';
-import React from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { userState } from 'recoil/users/state';
-import './App.css';
-import { AppViews } from './pages';
-import './styles/index.css';
+import { useQuerySessions } from "hooks/auth/sessions";
+import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useResetRecoilState, useSetRecoilState } from "recoil";
+import { userState } from "recoil/users/state";
+import "./App.css";
+import { AppViews } from "./pages";
+import "./styles/index.css";
 function App() {
   const setUser = useSetRecoilState(userState);
   const resetUserState = useResetRecoilState(userState);
@@ -32,7 +32,7 @@ function App() {
   }, [sessions.isSuccess, sessions.isError]);
 
   return (
-    <div className='app'>
+    <div className="app">
       <ToastContainer />
       <AppViews />
     </div>

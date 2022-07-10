@@ -12,7 +12,7 @@ interface PostInfo {
   lat: number;
   is_edited: number;
   user_id?: number;
-  type?: 'share' | 'post';
+  type?: "share" | "post";
   end_date?: Date;
   start_date?: Date;
   updated_at: Date;

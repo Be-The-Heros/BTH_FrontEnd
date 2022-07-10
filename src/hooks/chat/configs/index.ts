@@ -1,4 +1,4 @@
-import { ApiVersion } from 'apis';
+import { ApiVersion } from "apis";
 
 export const API_CHAT = {
   apiVersion: ApiVersion.chat,

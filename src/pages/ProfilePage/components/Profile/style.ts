@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material';
-import { Button, Avatar } from 'antd';
-import styled from 'styled-components';
+import { Typography } from "@mui/material";
+import { Button, Avatar } from "antd";
+import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;

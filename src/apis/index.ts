@@ -1,44 +1,44 @@
-import { makeRequest } from './api';
-import { RequestOptions, RequestPayload } from './types';
-export * from './types';
-export * from './urls';
-export * from './config';
-export * from './api';
+import { makeRequest } from "./api";
+import { RequestOptions, RequestPayload } from "./types";
+export * from "./types";
+export * from "./urls";
+export * from "./config";
+export * from "./api";
 class API {
   async get<T>(
     config: RequestOptions,
     url: string,
     payload?: RequestPayload
   ): Promise<T> {
-    return makeRequest(config, url, { ...payload, method: 'GET' });
+    return makeRequest(config, url, { ...payload, method: "GET" });
   }
   async post<T>(
     config: RequestOptions,
     url: string,
     payload?: RequestPayload
   ): Promise<T> {
-    return makeRequest(config, url, { ...payload, method: 'POST' });
+    return makeRequest(config, url, { ...payload, method: "POST" });
   }
   async put<T>(
     config: RequestOptions,
     url: string,
     payload?: RequestPayload
   ): Promise<T> {
-    return makeRequest(config, url, { ...payload, method: 'PUT' });
+    return makeRequest(config, url, { ...payload, method: "PUT" });
   }
   async delete<T>(
     config: RequestOptions,
     url: string,
     payload?: RequestPayload
   ): Promise<T> {
-    return makeRequest(config, url, { ...payload, method: 'DELETE' });
+    return makeRequest(config, url, { ...payload, method: "DELETE" });
   }
   async patch<T>(
     config: RequestOptions,
     url: string,
     payload?: RequestPayload
   ): Promise<T> {
-    return makeRequest(config, url, { ...payload, method: 'PATCH' });
+    return makeRequest(config, url, { ...payload, method: "PATCH" });
   }
 }
 

@@ -3,32 +3,32 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-} from '@mui/material';
-import { Button, Input } from 'antd';
-import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
-import VietNamIcon from 'assets/icons/vietnam-icon.png';
-import InboxIcon from '@mui/icons-material/Inbox';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import { ContinueButton } from '../../components';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import IDCardImageSrc from 'assets/images/id-card.png';
-import Webcam from 'react-webcam';
-import DocumentUploadedImage from 'assets/images/document_uploaded.jpg';
-import SelfieExampleImage from 'assets/images/selfie-example.jpg';
-import DoneIcon from '@mui/icons-material/Done';
-import CloseIcon from '@mui/icons-material/Close';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import { useRecoilState } from 'recoil';
-import { kycState } from 'recoil/kycState/state';
-import { useSubmitKyc } from 'hooks/kyc/submitKyc/useSubmitKyc';
-import { useGenerateURLImage } from 'hooks/image/useCreateImageURL';
-import { base64ToFile } from 'helpers/base64ToFile';
-import FlipCameraIosIcon from '@mui/icons-material/FlipCameraIos';
+} from "@mui/material";
+import { Button, Input } from "antd";
+import React, { useRef, useState } from "react";
+import styled from "styled-components";
+import VietNamIcon from "assets/icons/vietnam-icon.png";
+import InboxIcon from "@mui/icons-material/Inbox";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import { ContinueButton } from "../../components";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import IDCardImageSrc from "assets/images/id-card.png";
+import Webcam from "react-webcam";
+import DocumentUploadedImage from "assets/images/document_uploaded.jpg";
+import SelfieExampleImage from "assets/images/selfie-example.jpg";
+import DoneIcon from "@mui/icons-material/Done";
+import CloseIcon from "@mui/icons-material/Close";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { useRecoilState } from "recoil";
+import { kycState } from "recoil/kycState/state";
+import { useSubmitKyc } from "hooks/kyc/submitKyc/useSubmitKyc";
+import { useGenerateURLImage } from "hooks/image/useCreateImageURL";
+import { base64ToFile } from "helpers/base64ToFile";
+import FlipCameraIosIcon from "@mui/icons-material/FlipCameraIos";
 
-const TYPE_FILE = 'image/png';
+const TYPE_FILE = "image/png";
 const Container = styled.div<IdentityVerificationProps>`
-  display: ${(props) => !props.active && 'none'};
+  display: ${(props) => !props.active && "none"};
   width: 100%;
   height: 100%;
 
@@ -90,8 +90,8 @@ interface IdentityVerificationProps {
   token?: string;
 }
 
-const FACING_MODE_USER = 'user';
-const FACING_MODE_ENVIRONMENT = 'environment';
+const FACING_MODE_USER = "user";
+const FACING_MODE_ENVIRONMENT = "environment";
 
 const videoConstraints = {
   width: 720,
@@ -124,10 +124,9 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
   }, []);
 
   async function handleSubmittingKyc() {
-
-    const userPhoto = await base64ToFile('userPhoto.jpeg', url!);
+    const userPhoto = await base64ToFile("userPhoto.jpeg", url!);
     const documentPhoto = await base64ToFile(
-      'documentPhoto.jpeg',
+      "documentPhoto.jpeg",
       kyc.document_photo
     );
 
@@ -164,12 +163,12 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
           <React.Fragment>
             <Label> Select your document issuing country/region</Label>
             <Input
-              size='large'
-              placeholder='large size'
-              value={'VietNam (Việt Nam)'}
+              size="large"
+              placeholder="large size"
+              value={"VietNam (Việt Nam)"}
               disabled={true}
-              prefix={<img src={VietNamIcon} style={{ width: '50%' }} />}
-              style={{ marginBottom: '2em' }}
+              prefix={<img src={VietNamIcon} style={{ width: "50%" }} />}
+              style={{ marginBottom: "2em" }}
             />
             <SubTitle>Use a valid government-issued document</SubTitle>
             <Label>
@@ -179,25 +178,25 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
 
             <div
               style={{
-                backgroundColor: '#f7f7f8',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginTop: '2em',
+                backgroundColor: "#f7f7f8",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: "2em",
               }}
             >
-              <ListItemButton style={{ padding: '1em 0.5em' }}>
+              <ListItemButton style={{ padding: "1em 0.5em" }}>
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary='ID Card'
+                  primary="ID Card"
                   style={{ fontWeight: 700 }}
                   onClick={() => setIsIDCardDocumentSelected((state) => !state)}
                 />
                 <CheckCircleRoundedIcon
-                  style={{ color: isIDCardDocumentSelected ? 'green' : '' }}
+                  style={{ color: isIDCardDocumentSelected ? "green" : "" }}
                   onClick={() => setIsIDCardDocumentSelected((state) => !state)}
                 />
               </ListItemButton>
@@ -209,22 +208,22 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
         return (
           <React.Fragment>
             <img
-              src='https://swaper.com/blog/wp-content/uploads/verify-identity-768x402.jpg'
-              alt='image'
-              style={{ height: '45%' }}
+              src="https://swaper.com/blog/wp-content/uploads/verify-identity-768x402.jpg"
+              alt="image"
+              style={{ height: "45%" }}
             />
 
-            <SubTitle variant='h6'>
+            <SubTitle variant="h6">
               You are about to upload your identity card. Please ensure that:
             </SubTitle>
 
-            <Label style={{ fontWeight: 500, marginBottom: '0.5em' }}>
+            <Label style={{ fontWeight: 500, marginBottom: "0.5em" }}>
               * This is your own government-issued document that is not expired
             </Label>
-            <Label style={{ fontWeight: 500, marginBottom: '0.5em' }}>
+            <Label style={{ fontWeight: 500, marginBottom: "0.5em" }}>
               * This is an original document, not a scan or copy
             </Label>
-            <Label style={{ fontWeight: 500, marginBottom: '0.5em' }}>
+            <Label style={{ fontWeight: 500, marginBottom: "0.5em" }}>
               * Remove any card holders or covers to avoid reflections or blur
             </Label>
           </React.Fragment>
@@ -233,19 +232,19 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
       case 3:
         return !isCaptureEnable ? (
           <React.Fragment>
-            <SubTitle variant='h6' style={{ fontSize: '1rem' }}>
+            <SubTitle variant="h6" style={{ fontSize: "1rem" }}>
               Upload your ID Card
             </SubTitle>
 
             <div
               style={{
-                position: 'relative',
+                position: "relative",
               }}
             >
               <div
                 style={{
-                  borderStyle: 'dashed',
-                  borderColor: 'gray',
+                  borderStyle: "dashed",
+                  borderColor: "gray",
                   opacity: 0.2,
                 }}
               >
@@ -266,8 +265,8 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
             <div>
               <Webcam
                 audio={false}
-                width='100%'
-                height='100%'
+                width="100%"
+                height="100%"
                 ref={webcamRef}
                 screenshotFormat={TYPE_FILE}
                 videoConstraints={{
@@ -280,30 +279,30 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
 
             <FlipCameraIosIcon
               onClick={() => handleChangeFacingMode()}
-              style={{ marginLeft: '0.5em' }}
+              style={{ marginLeft: "0.5em" }}
             />
           </>
         );
 
       case 4:
         return (
-          url && <img style={{ height: '12rem' }} src={url} alt='Screenshot' />
+          url && <img style={{ height: "12rem" }} src={url} alt="Screenshot" />
         );
 
       case 5:
         return (
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
             }}
           >
             <img
               src={DocumentUploadedImage}
-              style={{ height: '7rem', width: '37%' }}
+              style={{ height: "7rem", width: "37%" }}
             />
             <SubTitle>Document uploaded</SubTitle>
             <Typography>
@@ -317,12 +316,12 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
           return (
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                margin: '0.5em 0',
+                display: "flex",
+                flexDirection: "row",
+                margin: "0.5em 0",
               }}
             >
-              <DoneIcon style={{ color: 'green', marginRight: '0.5em' }} />
+              <DoneIcon style={{ color: "green", marginRight: "0.5em" }} />
               <Typography>{content}</Typography>
             </div>
           );
@@ -331,34 +330,34 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
           return (
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                margin: '0.5em 0',
+                display: "flex",
+                flexDirection: "row",
+                margin: "0.5em 0",
               }}
             >
-              <CloseIcon style={{ color: 'red', marginRight: '0.5em' }} />
+              <CloseIcon style={{ color: "red", marginRight: "0.5em" }} />
               <Typography>{content}</Typography>
             </div>
           );
         };
         return (
           <div>
-            <SubTitle variant='h6'>Take a selfie</SubTitle>
-            <SubTitle variant='h6'>Example </SubTitle>
+            <SubTitle variant="h6">Take a selfie</SubTitle>
+            <SubTitle variant="h6">Example </SubTitle>
             <img
-              style={{ width: '50%', marginBottom: '0.5em' }}
+              style={{ width: "50%", marginBottom: "0.5em" }}
               src={SelfieExampleImage}
             />
-            {noticeYES('Take a selfie of yourself with a neutral expression')}
-            {noticeYES('Take a selfie of yourself with a neutral expression')}
-            {noticeYES('Take a selfie of yourself with a neutral expression')}
-            {noticeNO('Do not crop your ID or use screenshots of your ID')}
+            {noticeYES("Take a selfie of yourself with a neutral expression")}
+            {noticeYES("Take a selfie of yourself with a neutral expression")}
+            {noticeYES("Take a selfie of yourself with a neutral expression")}
+            {noticeNO("Do not crop your ID or use screenshots of your ID")}
             {noticeNO(
-              'Do not hide or alter parts of your face (No hats/beauty images/filters/headgear'
+              "Do not hide or alter parts of your face (No hats/beauty images/filters/headgear"
             )}
 
             <Typography
-              style={{ color: '#000', fontWeight: 500, marginBottom: '0.5em' }}
+              style={{ color: "#000", fontWeight: 500, marginBottom: "0.5em" }}
             >
               File size must be between 10KB and 5120KB in ..jpg/.peg/.png
               format
@@ -366,14 +365,14 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
             {!isCaptureEnable ? (
               <div
                 style={{
-                  width: '100%',
-                  height: '12rem',
-                  backgroundColor: '#eeeeee',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  margin: '1em 0 2em 0',
+                  width: "100%",
+                  height: "12rem",
+                  backgroundColor: "#eeeeee",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: "1em 0 2em 0",
                 }}
                 onClick={() => {
                   setCaptureEnable(true);
@@ -381,10 +380,10 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
               >
                 <div
                   style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
                   <CameraAltIcon />
@@ -392,16 +391,16 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
                 </div>
               </div>
             ) : url ? (
-              <img style={{ height: '12rem' }} src={url} alt='Screenshot' />
+              <img style={{ height: "12rem" }} src={url} alt="Screenshot" />
             ) : (
               <>
                 <div>
                   <Webcam
                     audio={false}
-                    width='100%'
-                    height='100%'
+                    width="100%"
+                    height="100%"
                     ref={webcamRef}
-                    screenshotFormat='image/jpeg'
+                    screenshotFormat="image/jpeg"
                     videoConstraints={{
                       ...videoConstraints,
                       facingMode,
@@ -411,7 +410,7 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
                 <CaptureButton onClick={capture}>Capture</CaptureButton>
                 <FlipCameraIosIcon
                   onClick={() => handleChangeFacingMode()}
-                  style={{ marginLeft: '0.5em' }}
+                  style={{ marginLeft: "0.5em" }}
                 />
               </>
             )}
@@ -421,18 +420,18 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
         return (
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: '10em',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "10em",
             }}
           >
             <CheckCircleRoundedIcon
-              style={{ width: '5em', height: '5em', color: 'green' }}
+              style={{ width: "5em", height: "5em", color: "green" }}
             />
-            <Typography variant='h3'>Thank you!</Typography>
-            <Typography variant='h6'>Your submission has been sent</Typography>
+            <Typography variant="h3">Thank you!</Typography>
+            <Typography variant="h6">Your submission has been sent</Typography>
           </div>
         );
     }
@@ -442,10 +441,10 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
     <Container active={active}>
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          height: '100%',
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: "100%",
         }}
       >
         <div>
@@ -462,21 +461,21 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
                   setUrl(null);
                 }
               }}
-              style={{ marginBottom: '1em' }}
+              style={{ marginBottom: "1em" }}
             />
           )}
           {progressState !== 7 && (
-            <Title variant='h5'>Identity Verification</Title>
+            <Title variant="h5">Identity Verification</Title>
           )}
           {renderBody()}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div style={{ display: "flex", flexDirection: "row" }}>
           {progressState === 4 || (progressState === 6 && url) ? (
             <Button
               style={{
-                margin: '3em 0',
-                marginRight: '0.6em',
-                backgroundColor: '#d2dad7',
+                margin: "3em 0",
+                marginRight: "0.6em",
+                backgroundColor: "#d2dad7",
               }}
               onClick={() => {
                 if (progressState === 6) {
@@ -492,10 +491,10 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
           ) : (
             <Button
               style={{
-                margin: '3em 0',
-                marginRight: '0.6em',
-                display: progressState !== 3 ? 'none' : 'block',
-                backgroundColor: '#d2dad7',
+                margin: "3em 0",
+                marginRight: "0.6em",
+                display: progressState !== 3 ? "none" : "block",
+                backgroundColor: "#d2dad7",
               }}
               onClick={() => setProgressState((state) => state - 1)}
             >
@@ -516,16 +515,16 @@ const IdentityVerification = (props: IdentityVerificationProps) => {
                 if (progressState === 4) {
                   setRecoilKyc((state) => ({
                     ...state,
-                    document_photo: url || '',
+                    document_photo: url || "",
                   }));
                   setUrl(null);
                   return;
                 }
 
                 if (progressState === 6) {
-                  console.log('url', url, 'is step 6');
-                  setRecoilKyc({ ...kyc, user_photo: url || '' });
-                  console.log('finish', url, 'is step 6');
+                  console.log("url", url, "is step 6");
+                  setRecoilKyc({ ...kyc, user_photo: url || "" });
+                  console.log("finish", url, "is step 6");
                   return;
                 }
                 if (progressState === 5) {

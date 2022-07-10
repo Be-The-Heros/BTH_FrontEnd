@@ -23,19 +23,20 @@ export const HeaderSideStyle = styled.div`
       }
     }
     &_search {
-      margin: 1em; 
-      .ant-input-group-addon{
+      margin: 1em;
+      .ant-input-group-addon {
         display: none;
-      } 
-      .ant-input-affix-wrapper{
+      }
+      .ant-input-affix-wrapper {
         /* border: 0.1px solid; */
         border-radius: 15px;
       }
-      .ant-input-search .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+      .ant-input-search
+        .ant-input-group
+        .ant-input-affix-wrapper:not(:last-child) {
         border-top-left-radius: 15px;
         border-bottom-left-radius: 15px;
       }
     }
-    
   }
 `;

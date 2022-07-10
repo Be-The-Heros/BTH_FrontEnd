@@ -1,7 +1,7 @@
-import { CommentCustom } from './CommentCustom';
-import { CommentResponse } from '..';
-import React, { memo } from 'react';
-import { LIMIT_COMMENT } from 'constants/show';
+import { CommentCustom } from "./CommentCustom";
+import { CommentResponse } from "..";
+import React, { memo } from "react";
+import { LIMIT_COMMENT } from "constants/show";
 
 interface CommentsProps {
   data: CommentResponse[];
@@ -16,8 +16,8 @@ export default memo(function (props: CommentsProps) {
         data
           .sort(
             (prev, next) =>
-              new Date(next.created_at || '').getTime() -
-              new Date(prev.created_at || '').getTime()
+              new Date(next.created_at || "").getTime() -
+              new Date(prev.created_at || "").getTime()
           )
           .slice(0, isShowMore ? LIMIT_COMMENT : data.length)
           .map((item, key) => {
@@ -25,10 +25,10 @@ export default memo(function (props: CommentsProps) {
           })}
       {isShowMore && data.length > LIMIT_COMMENT && (
         <div
-          className='comment-more'
+          className="comment-more"
           onClick={() => setIsShowMore(false)}
           style={{
-            cursor: 'pointer',
+            cursor: "pointer",
           }}
         >
           See all comments

@@ -25,7 +25,6 @@ export const useSocketHandle = (socket: Socket | undefined): void => {
   useEffect(() => {
     if (socket) {
       socket.on(uid, (data: IMessageFromSocket) => {
-
         const { to_group, avatar_group, name_group } = data;
 
         setGroupChatState((state) => {

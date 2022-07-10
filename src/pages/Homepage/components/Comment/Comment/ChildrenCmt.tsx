@@ -1,15 +1,15 @@
-import { Button, Comment, Popover } from 'antd';
-import { AvatarCustom, AvatarCustomProps } from 'components/Avatar';
-import { useDeleteComment } from 'hooks/comment';
-import React, { ReactChild, useState } from 'react';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { userState } from 'recoil/users/state';
-import { AddComment } from '../AddComment';
-import { ImReply } from 'react-icons/im';
-import PopupLogin from 'components/PopupSuggestLogin';
-import { FcOk } from 'react-icons/fc';
+import { Button, Comment, Popover } from "antd";
+import { AvatarCustom, AvatarCustomProps } from "components/Avatar";
+import { useDeleteComment } from "hooks/comment";
+import React, { ReactChild, useState } from "react";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "recoil/users/state";
+import { AddComment } from "../AddComment";
+import { ImReply } from "react-icons/im";
+import PopupLogin from "components/PopupSuggestLogin";
+import { FcOk } from "react-icons/fc";
 
 interface ChirldCmtProps {
   onShowAddCmt: (value: boolean) => void;
@@ -57,7 +57,7 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
 
   return (
     <div
-      className='comment-custom'
+      className="comment-custom"
       onMouseOut={() => setShowOptionMessage(true)}
       onMouseLeave={() => setShowOptionMessage(false)}
     >
@@ -68,47 +68,47 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
       <Comment
         actions={[
           <div
-            key='comment-nested-reply-to d-flex align-items-center justify-content-center'
+            key="comment-nested-reply-to d-flex align-items-center justify-content-center"
             onClick={() => {
               onShowAddCmt(!isShowAddCmt);
               setIsClickReply(!isClickReply);
             }}
             style={{
-              cursor: 'pointer',
+              cursor: "pointer",
             }}
           >
             <ImReply
               style={{
-                transform: 'scale(-1,1)',
-                marginRight: '5px',
+                transform: "scale(-1,1)",
+                marginRight: "5px",
               }}
             />
-            {`${isChild || !total ? `Reply` : total + ' replies'} `}
+            {`${isChild || !total ? `Reply` : total + " replies"} `}
           </div>,
         ]}
         author={
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <Link
               to={`/profile/${uid}`}
               style={{
-                textDecoration: 'none',
-                color: '#1a3353',
-                fontWeight: '500',
-                fontSize: '1rem',
-                marginTop: '0.25rem',
+                textDecoration: "none",
+                color: "#1a3353",
+                fontWeight: "500",
+                fontSize: "1rem",
+                marginTop: "0.25rem",
               }}
             >
               {fullName}
               {isVerified && (
                 <FcOk
                   style={{
-                    marginLeft: '0.25rem',
+                    marginLeft: "0.25rem",
                   }}
                 />
               )}
@@ -116,10 +116,10 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
 
             {uid === user.uid && (
               <div
-                style={{ visibility: showOptionMessage ? 'unset' : 'hidden' }}
+                style={{ visibility: showOptionMessage ? "unset" : "hidden" }}
               >
                 <Popover
-                  trigger={'click'}
+                  trigger={"click"}
                   content={() => {
                     return (
                       <div>
@@ -127,11 +127,11 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
                           Delete
                         </Button>
                         <Button
-                          size='small'
+                          size="small"
                           style={{
-                            marginLeft: '5px',
-                            borderColor: 'var(--bs-warning)',
-                            color: 'var(--bs-warning)',
+                            marginLeft: "5px",
+                            borderColor: "var(--bs-warning)",
+                            color: "var(--bs-warning)",
                           }}
                           onClick={onEditCmt}
                         >
@@ -165,7 +165,7 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
               post_id={post_id}
               contentValue={content}
               isShowAvatar={false}
-              type='edit'
+              type="edit"
               commentId={comment_id}
               rep={repId}
               setIsEditCmt={setIsEditCmt}
@@ -173,10 +173,10 @@ export const ChildrenCmt = (props: ChirldCmtProps) => {
           ) : (
             <div
               style={{
-                background: '#F0F2F5',
-                borderRadius: '10px',
-                padding: '0.35rem',
-                color: '#000',
+                background: "#F0F2F5",
+                borderRadius: "10px",
+                padding: "0.35rem",
+                color: "#000",
               }}
             >
               {content}

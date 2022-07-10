@@ -1,7 +1,7 @@
-import { atom } from 'recoil';
+import { atom } from "recoil";
 
 interface ISub {
-  type: 'add' | 'remove' | 'edit';
+  type: "add" | "remove" | "edit";
   content: string;
   postId: number;
   rep?: number;
@@ -20,21 +20,21 @@ interface ISub {
 }
 
 export const cmtPushSubState = atom<ISub>({
-  key: 'CMT_PUSH_SUB',
+  key: "CMT_PUSH_SUB",
   default: {
-    type: 'add',
+    type: "add",
     postId: 0,
-    content: '',
+    content: "",
     comment_id: 0,
-    uid: '',
+    uid: "",
     profile: {
-      uid: '',
-      first_name: '',
-      last_name: '',
-      avatar: '',
-      address: '',
-      bio: '',
+      uid: "",
+      first_name: "",
+      last_name: "",
+      avatar: "",
+      address: "",
+      bio: "",
     },
-    created_at: '',
+    created_at: "",
   },
 });

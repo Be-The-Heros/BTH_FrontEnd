@@ -15,8 +15,8 @@ interface ProfileInfo {
   level?: number;
 }
 export enum ProfileInfoStatus {
-  public = 'public',
-  private = 'private',
+  public = "public",
+  private = "private",
 }
 
 interface ChangingAvatarApiResponse {

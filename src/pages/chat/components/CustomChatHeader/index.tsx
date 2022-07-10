@@ -92,7 +92,6 @@ export const CustomChatHeader = (props: ICustomChatHeader) => {
 
                 // Once loaded, do something with the string
                 reader.addEventListener("load", () => {
-                  
                   var av = reader.result as string;
                   setAvatar(av);
                 });
