@@ -1,5 +1,5 @@
 import Loading from "components/Loading";
-import { useQueryPostDetail } from "hooks/post/detail/useDetailPost";
+import { useQueryPostDetail } from "@/hooks/post/useDetailPost";
 import { SidebarLeft, SidebarRight } from "pages/Homepage/components";
 import { NewFeed } from "pages/Homepage/components/NewFeed";
 import React from "react";

@@ -1,5 +1,5 @@
 import Loading from "components/Loading";
-import { useQueryListPost } from "hooks/post/list";
+import { useQueryListPost } from "hooks/post";
 import toString from "lodash/toString";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";

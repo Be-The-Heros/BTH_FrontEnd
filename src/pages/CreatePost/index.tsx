@@ -1,3 +1,5 @@
+import { useCreatePost } from "@/hooks/post";
+import { userState } from "@/states";
 import { Button, Image, Input, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import clsx from "clsx";
@@ -12,7 +14,6 @@ import {
 } from "helpers";
 import { cleanAccents } from "helpers/cleanAccents";
 import { validURL } from "helpers/validate";
-import { useCreatePost } from "hooks/post/create/useCreatePost";
 import toLower from "lodash/toLower";
 import upperFirst from "lodash/upperFirst";
 import React from "react";
@@ -23,7 +24,6 @@ import { FcFullTrash } from "react-icons/fc";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
-import { userState } from "@/states/users/state";
 import IntroductionTitle from "./components/IntroductionTitle";
 import { PreviewPost } from "./components/PreviewPost";
 import Style from "./style";

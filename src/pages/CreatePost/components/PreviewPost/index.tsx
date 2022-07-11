@@ -8,7 +8,7 @@ import { BiGroup } from "react-icons/bi";
 import { FcComments } from "react-icons/fc";
 import { IoMdShareAlt } from "react-icons/io";
 import { useRecoilValue } from "recoil";
-import { userState } from "@/states/users/state";
+import { userState } from "@/states";
 
 interface PreviewPostProps extends Partial<PostInfo> {
   visible: boolean;

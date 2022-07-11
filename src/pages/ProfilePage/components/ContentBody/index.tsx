@@ -5,7 +5,7 @@ import PostcardIcon from "assets/icons/postcard.svg";
 import ProjectsIcon from "assets/icons/projects.svg";
 import StarIcon from "assets/icons/star.svg";
 import Loading from "components/Loading";
-import { useGetUsersPosts } from "hooks/post/getUsersPosts/getUsersPosts";
+import { useGetUsersPosts } from "@/hooks/post/getUsersPosts";
 import toString from "lodash/toString";
 import { NewFeed } from "pages/Homepage/components/NewFeed";
 import React from "react";

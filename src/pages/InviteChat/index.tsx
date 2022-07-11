@@ -1,8 +1,8 @@
 import { Button } from "antd";
 import Loading from "components/Loading";
-import { useQueryInfoGroupChat } from "hooks/invite/info/useQueryInfoGroupChat";
-import { useJoinGroupChat } from "hooks/invite/join/useJoinGroupChat";
-import { useGetStatusChat } from "hooks/invite/status/useGetStatusChat";
+import { useQueryInfoGroupChat } from "@/hooks/invite/useQueryInfoGroupChat";
+import { useJoinGroupChat } from "@/hooks/invite/useJoinGroupChat";
+import { useGetStatusChat } from "@/hooks/invite/useGetStatusChat";
 import React from "react";
 import { useParams } from "react-router";
 import Style from "./style";

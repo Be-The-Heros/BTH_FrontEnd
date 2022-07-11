@@ -1,7 +1,7 @@
 import React from "react";
 import { userState } from "@/states";
 import { Typography } from "@mui/material";
-import { useChangePassword } from "hooks/auth/changePassword/useChangePassword";
+import { useChangePassword } from "@/hooks/auth/useChangePassword";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";

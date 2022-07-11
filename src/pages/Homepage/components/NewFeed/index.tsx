@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { AvatarCustom } from "components/Avatar";
 import PopupLogin from "components/PopupSuggestLogin";
 import { PHOTO_DISPLAY } from "constants/devices";
-import { useDeletePost } from "hooks/post/delete/useDeletePost";
+import { useDeletePost } from "@/hooks/post/useDeletePost";
 import _toString from "lodash/toString";
 import React from "react";
 import { BiGroup } from "react-icons/bi";

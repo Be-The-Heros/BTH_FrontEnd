@@ -1,5 +1,5 @@
 import { useResetPassword } from "hooks/auth/resetPassword/useRestPassword";
-import { useGenerateOtp } from "hooks/otp/generate/useGenerateOtp";
+import { useGenerateOtp } from "@/hooks/otp/useGenerateOtp";
 import React, { useState } from "react";
 import Countdown from "react-countdown";
 import { SubmitHandler, useForm } from "react-hook-form";

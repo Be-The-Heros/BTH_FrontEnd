@@ -1,7 +1,7 @@
 import { Button, Input } from "antd";
 import Loading from "components/Loading";
 import { PopupUpdateEmail } from "components/UpdateEmail";
-import { useGenerateOtp } from "hooks/otp/generate/useGenerateOtp";
+import { useGenerateOtp } from "@/hooks/otp/useGenerateOtp";
 import { useVerifyEmail } from "hooks/user/verify-email/useVerifyEmail";
 import React from "react";
 import Countdown from "react-countdown";

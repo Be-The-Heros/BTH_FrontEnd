@@ -2,7 +2,7 @@ import icon_gg from "assets/images/icon_gg.svg";
 import Loading from "components/Loading";
 import { User } from "firebase/auth";
 import { setLocalStorage } from "helpers/setTitleDocument";
-import { useSignUp } from "hooks/auth/signUp/useSignUp";
+import { useSignUp } from "@/hooks/auth/useSignUp";
 import lowerCase from "lodash/lowerCase";
 import React from "react";
 import { useForm } from "react-hook-form";

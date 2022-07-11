@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {
   KycStatusResponse,
   useGetKycStatus,
-} from "hooks/kyc/kycStatus/useGetKycStatus";
+} from "@/hooks/kyc/useGetKycStatus";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import { Typography } from "@mui/material";
 import Loading from "components/Loading";

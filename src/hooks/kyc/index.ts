@@ -1,3 +1,3 @@
 export * from "./config";
-export * from "./kycStatus";
-export * from "./submitKyc";
+export * from "./useGetKycStatus";
+export * from "./useSubmitKyc";

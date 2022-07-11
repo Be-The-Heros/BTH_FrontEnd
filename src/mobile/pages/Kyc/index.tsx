@@ -2,7 +2,7 @@ import React from "react";
 import { IdentityVerification, PersonalInformation } from "./containers";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
-import { useGetKycStatus } from "hooks/kyc/kycStatus/useGetKycStatus";
+import { useGetKycStatus } from "@/hooks/kyc/useGetKycStatus";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import { Typography } from "@mui/material";
 import Loading from "components/Loading";

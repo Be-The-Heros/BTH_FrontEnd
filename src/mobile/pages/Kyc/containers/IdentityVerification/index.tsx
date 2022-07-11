@@ -21,7 +21,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useRecoilState } from "recoil";
 import { kycState } from "@/states/kycState/state";
-import { useSubmitKyc } from "hooks/kyc/submitKyc/useSubmitKyc";
+import { useSubmitKyc } from "@/hooks/kyc/useSubmitKyc";
 import { useGenerateURLImage } from "hooks/image/useCreateImageURL";
 import { base64ToFile } from "helpers/base64ToFile";
 import FlipCameraIosIcon from "@mui/icons-material/FlipCameraIos";

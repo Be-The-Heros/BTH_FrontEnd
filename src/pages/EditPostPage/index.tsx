@@ -14,9 +14,8 @@ import {
   getIDWardByName,
   getProvince,
 } from "helpers";
-import { useGenerateURLImage } from "hooks/image/useCreateImageURL";
-import { useQueryPostDetail } from "hooks/post/detail/useDetailPost";
-import { useEditPost } from "hooks/post/edit/useEditPost";
+import { useGenerateURLImage } from "hooks/image";
+import { useQueryPostDetail, useEditPost } from "@/hooks/post";
 import upperFirst from "lodash/upperFirst";
 import IntroductionTitle from "pages/CreatePost/components/IntroductionTitle";
 import { PreviewPost } from "pages/CreatePost/components/PreviewPost";

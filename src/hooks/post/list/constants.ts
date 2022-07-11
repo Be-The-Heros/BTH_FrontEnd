@@ -1,1 +1,0 @@
-export const QUERY_LIST_POST = "QUERY_LIST_POST";

@@ -1,7 +1,7 @@
 import icon_fb from "assets/images/icon_fb.svg";
 import icon_gg from "assets/images/icon_gg.svg";
 import { REGEX_EMAIL } from "constants/regex";
-import { useGenerateOtp } from "hooks/otp/generate/useGenerateOtp";
+import { useGenerateOtp } from "@/hooks/otp/useGenerateOtp";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
